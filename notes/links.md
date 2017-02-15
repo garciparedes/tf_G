@@ -7,3 +7,5 @@
 - [Big Data Reading Materials](https://github.com/t-ivanov/BigDataReading)
 - [Grigory Yaroslavtsev personal website](http://grigory.us)
 - [Resources on Sublinear Algorithms](https://sublinear.info/index.php?title=Resources)
+- [Data Stream Algorithms: Amit Chakrabarti](https://ssl.cs.dartmouth.edu/~ac/Teach/CS35-Fall15/)
+- [Mining of Massive Datasets: Ullman](http://infolab.stanford.edu/~ullman/mmds/book.pdf)
