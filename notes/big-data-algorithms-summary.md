@@ -9,7 +9,15 @@ Se ha trabajado en técnicas de:
   - número de sucesos distintos[Flajolet, Martin],
   - obtención de momentos de frecuencias[Alon, Matias, Szegedy]
 
-La combinación de estas técnicas junto con otras propiedades estadísticas permiten mantener los Sketches, en especial, destaca el Count-Min Sketch por la gran cantidad de información que se puede obtener de él, así como su reducido coste tanto espacial como computacional.
+La combinación de estas técnicas junto con otras propiedades estadísticas permiten mantener Sketches (estructuras de datos que almacenan resúmenes del conjunto de datos global). Los Sketches se caracterizan por ser actualizados a través de un mismo tipo de operación que se aplica a todos los datos que llegan al Streaming.
+
+Existe un gran número de alternativas según la información que se desee mantener. Entre ellas destacan:
+  - Count-Min Sketch
+  - Count Sketch
+  - AMS Sketch
+  - HyperLogLog
+  - MinHash
+  - etc.
 
 En cuanto a búsquedas dentro del conjunto de datos, se utilizan métodos relacionados con encontrar el subconjunto de vecinos más cercanos a un determinado dato. Para ello, se utilizan funciones de reducción de dimensionalidad, donde tiene especial importancia la transformada de Johnson-Lindenstrauss.
 
