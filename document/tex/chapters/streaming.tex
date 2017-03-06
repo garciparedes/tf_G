@@ -9,17 +9,17 @@
 
 
     \section{Introducción}
-    \label{sec:streaming-intro}
+    \label{sec:streaming_intro}
 
       \paragraph{}
-      En este capítulo se trata de realizar una descripción en profundidad acerca de los \emph{Algoritmos en Streaming} desde una perspectiva tanto a teórica como práctica. Para ello se describirá el modelo de cómputo en que se enmarcan dichos algoritmos (Modelo en Streaming) en la sección \ref{sec:streaming-model} además de su estructura básica en la sección \ref{sec:streaming-structure}. El motivo de dicha descripción se debe a que los \emph{Algoritmos para Streaming} presentan un conjunto de peculiaridades respecto de la gran mayoría de algoritmos utilizados comunmente. [TODO introducir el resto de secciones]
+      En este capítulo se trata de realizar una descripción en profundidad acerca de los \emph{Algoritmos en Streaming} desde una perspectiva tanto a teórica como práctica. Para ello se describirá el modelo de cómputo en que se enmarcan dichos algoritmos (Modelo en Streaming) en la sección \ref{sec:streaming_model} además de su estructura básica en la sección \ref{sec:streaming_structure}. El motivo de dicha descripción se debe a que los \emph{Algoritmos para Streaming} presentan un conjunto de peculiaridades respecto de la gran mayoría de algoritmos utilizados comunmente. [TODO introducir el resto de secciones]
 
       \paragraph{}
-      Para tener una primera aproximación acerca de en qué consiste esta categoría algorítmica es necesario realizar una diferenciación entre distintos conceptos relacionados con ella, que pueden producir confusiones debido a su similitud o abusos previos del lenguaje. Por lo tanto, a continuación se describen conceptos relacionados con los \emph{Algoritmos en Streaming} que permitirán introducir al lector en el contexto del problema. Además, se realiza una diferenciación acerca de los factores que se pretenden optimizar a partir de esta estrategia de diseño de algoritmos.
+      Para realizar una primera aproximación acerca de en qué consiste esta categoría algorítmica es necesario realizar una diferenciación entre distintos conceptos relacionados con ella, que pueden producir confusiones debido a su similitud o abusos previos del lenguaje. Por lo tanto, a continuación se describen conceptos relacionados con los \emph{Algoritmos en Streaming} que permitirán introducir al lector en el contexto del problema. Además, se realiza una diferenciación acerca de los factores que se pretenden optimizar a partir de esta estrategia de diseño de algoritmos.
 
 
       \subsection{Computación en Tiempo Real}
-
+      \label{sec:realtime_computing}
         \paragraph{}
         El primer concepto que se describe es \textbf{Computación en Tiempo Real}, que tal y cómo describen Shin y Ramanathan \cite{259423} se carácteriza por tres términos que se describen a continuación:
 
@@ -37,31 +37,61 @@
 
         \end{itemize}
 
+
       \subsection{Problemas Dinámicos}
+      \label{sec:dynamic_problems}
 
         \paragraph{}
-        Una vez completada la descripción acerca de lo que se puede definir como \emph{Computación en Tiempo Real}, conviene realizar una descripción desde el punto de vista de la \emph{teoría de complejidad computacional}. Para definir este tipo de problemas, se utiliza el término \emph{problemas dinámicos}, los cuales consisten en aquellos en los cuales es necesario recalcular su solución conforme el tiempo avanza debido a variaciones en los parámetros de entrada del problema (Nótese que dicho término no debe confundirse con la estrategia de \emph{programación dinámica} para el diseño de algoritmos). Existen distintas vertientes dependiendo del punto de vista desde el que se estudien, tanto de la naturaleza del problema (soluciones dependientes temporalmente unas de otras o soluciones aisladas) como de los parámetros de entrada (entrada completa en cada nueva ejecución o variación respecto de la anterior). Los \emph{Algoritmos para Streaming} están diseñados para resolver \emph{problemas dinámicos}, por lo que en la sección \ref{sec:streaming-model}, se describe en profundidad el modelo en que se enmarcan.
+        Una vez completada la descripción acerca de lo que se puede definir como \emph{Computación en Tiempo Real}, conviene realizar una descripción desde el punto de vista de la \emph{teoría de complejidad computacional}. Para definir este tipo de problemas, se utiliza el término \emph{problemas dinámicos}, los cuales consisten en aquellos en los cuales es necesario recalcular su solución conforme el tiempo avanza debido a variaciones en los parámetros de entrada del problema (Nótese que dicho término no debe confundirse con la estrategia de \emph{programación dinámica} para el diseño de algoritmos). Existen distintas vertientes dependiendo del punto de vista desde el que se estudien, tanto de la naturaleza del problema (soluciones dependientes temporalmente unas de otras o soluciones aisladas) como de los parámetros de entrada (entrada completa en cada nueva ejecución o variación respecto de la anterior). Los \emph{Algoritmos para Streaming} están diseñados para resolver \emph{problemas dinámicos}, por lo que en la sección \ref{sec:streaming_model}, se describe en profundidad el modelo en que se enmarcan.
 
         \paragraph{}
         A continuación se indican los principales indicadores utilizados para describir la complejidad de una determinada solución algorítmica destinada a resolver un problema de dicha naturaleza:
 
         \begin{itemize}
-          \item Espacio:
-          \item Inicialización:
-          \item Inserción:
-          \item Eliminación:
-          \item Pregunta[TODO Buscar mejor palabra]:
+          \item Espacio: Cantidad de espacio utilizado en memoria durante la ejecución del algoritmo.
+          \item Inicialización: Tiempo necesario para la inicialización del algoritmo.
+          \item Procesado: Tiempo necesario para procesar una determinada entrada.
+          \item Pregunta[TODO Buscar mejor palabra]: Tiempo necesario para procesar la solución a partir de los datos de entrada procesados hasta el momento.
         \end{itemize}
 
+
+      \subsection{Algoritmos Online vs Algoritmos Offline}
+
+        \paragraph{}
+        Una vez descrita la problemática de \emph{Computación en Tiempo Real} en la sección \ref{sec:realtime_computing} y la categoría de \emph{Problemas Dinámicos} en la sección \ref{sec:dynamic_problems}, en esta sección se pretende ilustrar la diferencia entre los \emph{Algoritmos Online} y los \emph{Algoritmos Offline}. A continuación se muestran las carácterísticas de cada subgrupo:
+
+        \begin{itemize}
+          \item \textbf{Algoritmos Online}: [TODO]
+
+          \item \textbf{Algoritmos Offline}: [TODO]
+        \end{itemize}
+
+        \paragraph{}
+        [TODO hablar acerca del "análisis competitivo"]
+
+
     \section{Modelo en Streaming}
-    \label{sec:streaming-model}
+    \label{sec:streaming_model}
 
       \paragraph{}
+      [TODO]
+
+      \subsection{Modelo de Serie Temporal}
+        \paragraph{}
+        [TODO]
+
+      \subsection{Modelo de Caja Registradora}
+        \paragraph{}
+        [TODO]
+
+      \subsection{Modelo de Molinete}
+        \paragraph{}
+        [TODO]
 
     \section{Estructura básica}
-    \label{sec:streaming-structure}
+    \label{sec:streaming_structure}
 
       \paragraph{}
-
+      [TODO]
 
 \end{document}
