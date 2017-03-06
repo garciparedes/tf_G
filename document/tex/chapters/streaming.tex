@@ -5,11 +5,63 @@
 \begin{document}
 
   \chapter{Algoritmos para Streaming}
+  \label{chapter:streaming}
+
 
     \section{Introducción}
+    \label{sec:streaming-intro}
+
       \paragraph{}
+      En este capítulo se trata de realizar una descripción en profundidad acerca de los \emph{Algoritmos en Streaming} desde una perspectiva tanto a teórica como práctica. Para ello se describirá el modelo de cómputo en que se enmarcan dichos algoritmos (Modelo en Streaming) en la sección \ref{sec:streaming-model} además de su estructura básica en la sección \ref{sec:streaming-structure}. El motivo de dicha descripción se debe a que los \emph{Algoritmos para Streaming} presentan un conjunto de peculiaridades respecto de la gran mayoría de algoritmos utilizados comunmente. [TODO introducir el resto de secciones]
+
+      \paragraph{}
+      Para tener una primera aproximación acerca de en qué consiste esta categoría algorítmica es necesario realizar una diferenciación entre distintos conceptos relacionados con ella, que pueden producir confusiones debido a su similitud o abusos previos del lenguaje. Por lo tanto, a continuación se describen conceptos relacionados con los \emph{Algoritmos en Streaming} que permitirán introducir al lector en el contexto del problema. Además, se realiza una diferenciación acerca de los factores que se pretenden optimizar a partir de esta estrategia de diseño de algoritmos.
+
+
+      \subsection{Computación en Tiempo Real}
+
+        \paragraph{}
+        El primer concepto que se describe es \textbf{Computación en Tiempo Real}, que tal y cómo describen Shin y Ramanathan \cite{259423} se carácteriza por tres términos que se describen a continuación:
+
+        \begin{itemize}
+
+          \item \textbf{Tiempo}\emph{(time)}: En la disciplina de \emph{Computación en Tiempo Real} el tiempo de ejecucción de una determinada tarea es especialmente crucial para garantizar el correcto desarrollo del cómputo, debido a que se asume un plazo de ejecucción permitido, a partir del cual la solución del problema deja de tener un valor óptimo. Shin y Ramanathan\cite{259423} diferencian entre tres categorías dentro de dicha restricción, a las cuales denominan \emph{hard}, \emph{firm} y \emph{soft}, dependiendo del grado de relajación de la misma.
+
+          \item \textbf{Confiabilidad}\emph{(correctness)}: Otro de los puntos cruciales en un sistema de \emph{Cómputación en Tiempo Real} es la determinación de una unidad de medida o indicador acerca de las garantias de una determinada solución algorítmica para cumplir lo que promete de manera correcta en el tiempo esperado.
+
+          \item \textbf{Entorno}\emph{(environment)}: El último factor que indican Shin y Ramanathan\cite{259423} para describir un sistema de \emph{Computación en Tiempo Real} es el entorno del mismo, debido a que este condiciona el conjunto de tareas y la periodicidad en que se deben llevar a cabo. Debido a esta razón, realizan una diferenciación entre
+          \begin{enumerate*}[label=\itshape\alph*\upshape)]
+  					\item tareas periódicas \emph{periodic tasks} las cuales se realizan secuencialmente a partir de la finalización de una ventana de tiempo, y
+  					\item tareas no periódicas \emph{periodic tasks} que se llevan a cabo debido al suceso de un determinado evento externo.
+  				\end{enumerate*}
+
+        \end{itemize}
+
+      \subsection{Problemas Dinámicos}
+
+        \paragraph{}
+        Una vez completada la descripción acerca de lo que se puede definir como \emph{Computación en Tiempo Real}, conviene realizar una descripción desde el punto de vista de la \emph{teoría de complejidad computacional}. Para definir este tipo de problemas, se utiliza el término \emph{problemas dinámicos}, los cuales consisten en aquellos en los cuales es necesario recalcular su solución conforme el tiempo avanza debido a variaciones en los parámetros de entrada del problema (Nótese que dicho término no debe confundirse con la estrategia de \emph{programación dinámica} para el diseño de algoritmos). Existen distintas vertientes dependiendo del punto de vista desde el que se estudien, tanto de la naturaleza del problema (soluciones dependientes temporalmente unas de otras o soluciones aisladas) como de los parámetros de entrada (entrada completa en cada nueva ejecución o variación respecto de la anterior). Los \emph{Algoritmos para Streaming} están diseñados para resolver \emph{problemas dinámicos}, por lo que en la sección \ref{sec:streaming-model}, se describe en profundidad el modelo en que se enmarcan.
+
+        \paragraph{}
+        A continuación se indican los principales indicadores utilizados para describir la complejidad de una determinada solución algorítmica destinada a resolver un problema de dicha naturaleza:
+
+        \begin{itemize}
+          \item Espacio:
+          \item Inicialización:
+          \item Inserción:
+          \item Eliminación:
+          \item Pregunta[TODO Buscar mejor palabra]:
+        \end{itemize}
 
     \section{Modelo en Streaming}
+    \label{sec:streaming-model}
+
       \paragraph{}
+
+    \section{Estructura básica}
+    \label{sec:streaming-structure}
+
+      \paragraph{}
+
 
 \end{document}
