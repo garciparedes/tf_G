@@ -63,7 +63,7 @@
         \begin{itemize}
           \item \textbf{Algoritmos Offline}: Esta categoría contiene todos los algoritmos que realizan el cómputo suponiendo el acceso a cualquier elemento del conjunto de datos $A$ durante cualquier momento de su ejecución. Además, en esta categoría se impore la restricción de que el $A$ debe ser invariante respecto del tiempo, lo que impone que para la adaptación del resultado a cambios, este tenga que realizar una nueva ejecución desde su estado inicial. Nótese que por tanto, dentro de este grupo se engloba la mayoría de algoritmos utilizados comunmente.
 
-          \item \textbf{Algoritmos Online}: Son aquellos que calculan el resultado a partir de una secuencia de sucesos $A[i]$, los cuales generan un resultado dependiente del valor, y posiblemente de los sucedidos posteriormente. A partir de dicha estrategia, se añade una componente dinámica, la cual permite que tamaño del conjunto de datos de entrada $A$ no tenga impuesta una restricción acerca de su longitud. Por contra, en este modelo no se permite conocer el cuceso $A[i+1]$ en el momento $i$.  Esto encaja perfectamente en el modelo que se describirá en la sección \ref{sec:streaming_model}.
+          \item \textbf{Algoritmos Online}: Son aquellos que calculan el resultado a partir de una secuencia de sucesos $A[i]$, los cuales generan un resultado dependiente del valor, y posiblemente de los sucedidos anteriormente. A partir de dicha estrategia, se añade una componente dinámica, la cual permite que tamaño del conjunto de datos de entrada $A$ no tenga impuesta una restricción acerca de su longitud. Por contra, en este modelo no se permite conocer el cuceso $A[i+1]$ en el momento $i$.  Esto encaja perfectamente en el modelo que se describirá en la sección \ref{sec:streaming_model}.
 
         \end{itemize}
 
@@ -73,10 +73,32 @@
         \paragraph{}
         Como medida de eficiencia para los \emph{Algoritmos Online}, Karp \cite{Karp:1992:OAV:645569.659725} proponen el indicador de \textbf{Ratio Competitivo}, el cual se define como la cota inferior del coste de cualquier nueva entrada con respecto de la que tiene menor coste. Sin embargo, dicha medida de eficiencia no es comúnmente utilizada en el caso de los \emph{Algoritmos para Streaming} por la componente estocástica de los mismos, para los cuales son más apropiadas medidas probabilistas. A continuación se describen las ventajas de estos respecto de su vertiente estática.
 
+
+      \subsection{Algoritmos Probabilistas}
+
+        \paragraph{}
+        Los \emph{Algoritmos Probabilistas} son una estrategia de diseño que emplea en un cierto grado de aleatoriedad en alguna parte de su lógica. Estos utilizan distribuciones uniformes de probabilidad para tratar de conseguir un incremento del rendimiento en su caso promedio. A continuación se describen los dos tipos de algoritmos probabilísticos según la clasificación realizada por Babai \cite{Babai79monte-carloalgorithms}:
+
+        \begin{itemize}
+
+          \item \textbf{Algoritmos Las Vegas}: Devuelven un resultado incorrecto con una determinada probabilidad, pero avisan del resultado incorrecto cuando esto sucede. Para contrarrestrar este suceso basta llevar a cabo una nueva ejecución del algoritmo, lo cual tras un número indeterminado de ejecuciones produce un resultado válido.
+
+          \item \textbf{Algoritmos Monte Carlo}: Fallan con un cierto grado de probabilidad, pero en este caso no avisan del resultado incorrecto. Por lo tando, lo único que se puede obtener al respecto es una indicador de la estimación del resultado correcto hacia la que converge tras varias ejecuciones. Además, se asegura una determinada cota del error $\epsilon$, que se cumple con probabilidad $\delta$.
+
+        \end{itemize}
+
+        \paragraph{}
+        La razón anecdótica por la cual Babai \cite{Babai79monte-carloalgorithms} decidió denominar dichas categorías de algoritmos de esta manera se debe a lo siguiente (teniendo en cuenta el contexto de lengua inglesa): cuando se va a un casino en \emph{Las Vegas} y se realiza una apuesta el \emph{croupier} puede decir si se ha ganado o perdido porque habla el mismo idioma. Sin embargo, si sucede la misma situación en \emph{Monte Carlo}, tan solo se puede conocer una medida de probabilidad debido a que en este caso el \emph{croupier} no puede comunicarlo por la diferencia dialéctica.
+
+
       \subsection{Algoritmos Online Probabilistas vs Deterministas}
 
         \paragraph{}
-        [TODO]
+        La idea subyacente acerca del diseño de los \emph{Algoritmos Online} es la mejora de eficiencia con respecto a sus homónimos estáticos cuando el conjunto de valores de entrada es dependiente de los resultados anteriores. Sin embargo, existen casos en que la frecuencia de ejecución del algoritmo, debido a una alta tasa de llegada de sucesos de entrada, las soluciones deterministas se convierten en alternativas poco escalables.
+
+        \paragraph{}
+        Dicha problemática se ha incrementado de manera exponencial debido al avance tecnológico y la gran cantidad de información que se está generando en la actualidad. Este fenómeno ha convertido en algo necesario el diseño de estrategias basadas en sucesos probabilísticos que reduzcen en gran medida el coste computacional eliminando el determinismo de la solución.
+        
 
     \section{Modelo en Streaming}
     \label{sec:streaming_model}
@@ -104,5 +126,9 @@
 
     \section{Medidas de Análisis}
     \label{sec:streaming_analysis}
+
+      \paragraph{}
+      [TODO]
+
 
 \end{document}
