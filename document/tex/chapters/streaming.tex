@@ -58,16 +58,20 @@
       \subsection{Algoritmos Online vs Algoritmos Offline}
 
         \paragraph{}
-        Una vez descrita la problemática de \emph{Computación en Tiempo Real} en la sección \ref{sec:realtime_computing} y la categoría de \emph{Problemas Dinámicos} en la sección \ref{sec:dynamic_problems}, en esta sección se pretende ilustrar la diferencia entre los \emph{Algoritmos Online} y los \emph{Algoritmos Offline}. A continuación se muestran las carácterísticas de cada subgrupo:
+        Una vez descrita la problemática de \emph{Computación en Tiempo Real} en la sección \ref{sec:realtime_computing} y la categoría de \emph{Problemas Dinámicos} en la sección \ref{sec:dynamic_problems}, en esta sección se pretende ilustrar la diferencia entre los \emph{Algoritmos Online} y los \emph{Algoritmos Offline}. Para ello, se ha seguido la diferenciación propuesta por Karp \cite{Karp:1992:OAV:645569.659725}, en la cual se plantea el problema de la siguiente manera (Se utilizará la misma notación que sigue Muthukrishnan\cite{Muthukrishnan:2005:DSA:1166409.1166410} para tratar mantener la consistencia durante todo el documento): Sea $A$ el conjunto de datos o eventos de entrada, siendo cada $A[i]$ el elemento \emph{i-ésimo} del conjunto. En el caso de los \emph{Algoritmos Online} supondremos que es el elemento recibido en el instante \emph{i}. A continuación se muestran las características de cada subgrupo:
 
         \begin{itemize}
-          \item \textbf{Algoritmos Online}: [TODO]
+          \item \textbf{Algoritmos Offline}: Esta categoría contiene todos los algoritmos que realizan el cómputo suponiendo el acceso a cualquier elemento del conjunto de datos $A$ durante cualquier momento de su ejecución. Además, en esta categoría se impore la restricción de que el $A$ debe ser invariante respecto del tiempo, lo que impone que para la adaptación del resultado a cambios, este tenga que realizar una nueva ejecución desde su estado inicial. Nótese que por tanto, dentro de este grupo se engloba la mayoría de algoritmos utilizados comunmente.
 
-          \item \textbf{Algoritmos Offline}: [TODO]
+          \item \textbf{Algoritmos Online}: Son aquellos que calculan el resultado a partir de una secuencia de sucesos $A[i]$, los cuales generan un resultado dependiente del valor, y posiblemente de los sucedidos posteriormente. A partir de dicha estrategia, se añade una componente dinámica, la cual permite que tamaño del conjunto de datos de entrada $A$ no tenga impuesta una restricción acerca de su longitud. Por contra, en este modelo no se permite conocer el cuceso $A[i+1]$ en el momento $i$.  Esto encaja perfectamente en el modelo que se describirá en la sección \ref{sec:streaming_model}.
+
         \end{itemize}
 
         \paragraph{}
-        [TODO hablar acerca del "análisis competitivo"]
+        Según la diferenciación que se acaba de describir, estas dos estrategias de diseño de algoritmos encajan en disciplinas distintas de diseño de algoritmos, teniendo una gran ventaja a nivel de eficiencia en el caso estático los \emph{Algoritmos Offline}, pero quedando prácticamente inutilizables cuando la computación es en tiempo real, donde es mucho más apropiado el uso de estrategias de diseño de \emph{Algoritmos Online}.
+
+        \paragraph{}
+        Como medida de eficiencia para los \emph{Algoritmos Online}, Karp \cite{Karp:1992:OAV:645569.659725} proponen el indicador de \textbf{Ratio Competitivo}, el cual se define como la cota inferior del coste de cualquier nueva entrada con respecto de la que tiene menor coste. Sin embargo, dicha medida de eficiencia no es comúnmente utilizada en el caso de los \emph{Algoritmos para Streaming} por la componente estocástica de los mismos, para los cuales son más apropiadas medidas probabilistas. A continuación se describen las ventajas de estos respecto de su vertiente estática.
 
       \subsection{Algoritmos Online Probabilistas vs Deterministas}
 
@@ -97,5 +101,8 @@
 
       \paragraph{}
       [TODO]
+
+    \section{Medidas de Análisis}
+    \label{sec:streaming_analysis}
 
 \end{document}
