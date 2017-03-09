@@ -29,7 +29,7 @@
 
           \item \textbf{Confiabilidad}\emph{(correctness)}: Otro de los puntos cruciales en un sistema de \emph{Cómputación en Tiempo Real} es la determinación de una unidad de medida o indicador acerca de las garantias de una determinada solución algorítmica para cumplir lo que promete de manera correcta en el tiempo esperado.
 
-          \item \textbf{Entorno}\emph{(environment)}: El último factor que indican Shin y Ramanathan\cite{259423} para describir un sistema de \emph{Computación en Tiempo Real} es el entorno del mismo, debido a que este condiciona el conjunto de tareas y la periodicidad en que se deben llevar a cabo. Debido a esta razón, realizan una diferenciación entre
+          \item \textbf{Entorno}\emph{(environment)}: El último factor que indican Shin y Ramanathan\cite{259423} para describir un sistema de \emph{Computación en Tiempo Real} es el entorno del mismo, debido a que este condiciona el conjunto de tareas y la periodicidad en que se deben llevar a cabo. Debido a esta razón, realizan una diferenciación entre:
           \begin{enumerate*}[label=\itshape\alph*\upshape)]
   					\item tareas periódicas \emph{periodic tasks} las cuales se realizan secuencialmente a partir de la finalización de una ventana de tiempo, y
   					\item tareas no periódicas \emph{periodic tasks} que se llevan a cabo debido al suceso de un determinado evento externo.
@@ -71,7 +71,7 @@
         Según la diferenciación que se acaba de describir, estas dos estrategias de diseño de algoritmos encajan en disciplinas distintas de diseño de algoritmos, teniendo una gran ventaja a nivel de eficiencia en el caso estático los \emph{Algoritmos Offline}, pero quedando prácticamente inutilizables cuando la computación es en tiempo real, donde es mucho más apropiado el uso de estrategias de diseño de \emph{Algoritmos Online}.
 
         \paragraph{}
-        Como medida de eficiencia para los \emph{Algoritmos Online}, Karp \cite{Karp:1992:OAV:645569.659725} proponen el indicador de \textbf{Ratio Competitivo}, el cual se define como la cota inferior del coste de cualquier nueva entrada con respecto de la que tiene menor coste. Sin embargo, dicha medida de eficiencia no es comúnmente utilizada en el caso de los \emph{Algoritmos para Streaming} por la componente estocástica de los mismos, para los cuales son más apropiadas medidas probabilistas. A continuación se describen las ventajas de estos respecto de su vertiente estática.
+        Como medida de eficiencia para los \emph{Algoritmos Online}, Karp \cite{Karp:1992:OAV:645569.659725} propone el \textbf{Ratio Competitivo}, el cual se define como la cota inferior del coste de cualquier nueva entrada con respecto de la que tiene menor coste. Sin embargo, dicha medida de eficiencia no es comúnmente utilizada en el caso de los \emph{Algoritmos para Streaming} por la componente estocástica de los mismos, para los cuales son más apropiadas medidas probabilistas. A continuación se describen las ventajas de estos respecto de su vertiente estática.
 
 
       \subsection{Algoritmos Probabilistas}
@@ -98,13 +98,32 @@
 
         \paragraph{}
         Dicha problemática se ha incrementado de manera exponencial debido al avance tecnológico y la gran cantidad de información que se está generando en la actualidad. Este fenómeno ha convertido en algo necesario el diseño de estrategias basadas en sucesos probabilísticos que reduzcen en gran medida el coste computacional eliminando el determinismo de la solución.
-        
+
 
     \section{Modelo en Streaming}
     \label{sec:streaming_model}
 
       \paragraph{}
-      [TODO]
+      En esta sección se describen los aspectos formales del \emph{Modelo en Streaming}. Para ello se ha seguido la representación definida por Muthukrishnan \cite{Muthukrishnan:2005:DSA:1166409.1166410}. Lo primero por tanto, es definir lo que es un flujo de datos o \emph{Data Stream} como una \say{secuencia de señales digitalmente codificadas utilizadas para representar una transmisión de información} \cite{ITS-def-data-stream}. Muthukrishnan \cite{Muthukrishnan:2005:DSA:1166409.1166410} hace una aclaración sobre dicha definición y añade la objeción de que los datos de entrada deben tener un ritmo elevado de llegada. Debido a esta razón existe complejidad a tres niveles:
+
+      \begin{itemize}
+
+        \item \textbf{Transmisión}: Ya que debido a la alta tasa de llegada es necesario diseñar un sistema de interconexiones que permita que no se produzcan congestiones debido a la obtención de los datos de entrada.
+
+        \item \textbf{Computación}: Puesto que la tarea de procesar la gran cantidad de información que llega por unidad de tiempo produce cuellos de botella en el planteamiento. Por lo que es necesario implementar técnicas algorítmicas con un reducido nivel de complejidad computacional que para contrarrestar dicha problemática.
+
+        \item \textbf{Almacenamiento}: Debido a la gran cantidad de datos que se presentan en la entrada, deben existir técnicas que permitan almacenar dicha información de manera eficiente. Esto puede ser visto desde dos puntos de vista diferences: \begin{enumerate*}[label=\itshape\alph*\upshape)]
+          \item tanto desde el punto de vista del espacio, tratando de minimizar el tamaño de los datos almacenados, maximizando la cantidad de información que se puede recuperar de ellos,
+          \item como desde el punto de vista del tiempo necesario para realizar operaciones de búsqueda, addición, eliminación o edición.
+        \end{enumerate*}
+
+      \end{itemize}
+
+      \paragraph{}
+      [TODO ejemplo de los tres niveles de complejidad a partir del análisis meteorológico ]
+
+      \paragraph{}
+      En los siguientes apartados se expone la clasificación que propone Muthukrishnan \cite{Muthukrishnan:2005:DSA:1166409.1166410} y cuya notación serán seguida durante el resto del capítulo.
 
       \subsection{Modelo de Serie Temporal}
         \paragraph{}
