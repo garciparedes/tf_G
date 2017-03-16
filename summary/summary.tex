@@ -36,48 +36,17 @@
   \section{Estructuras de Datos de Resumen}
 
     \paragraph{}
-    [TODO ]
-
-    \subsection{Sampling}
-
-      \paragraph{}
-      [TODO ]
-
-    \subsection{Histogram}
-
-      \paragraph{}
-      [TODO ]
-
-    \subsection{Wavelets}
-
-      \paragraph{}
-      [TODO ]
+    Para reducir el coste necesario para obtener resultados valiosos del conjunto masivo de datos es necesario apoyarse en diferentes estructuras de datos que resumen la información presente en el mismo, de manera que la complejidad de procesamiento a partir de estas sea asumible.
 
     \subsection{Sketch}
 
       \paragraph{}
-      [TODO ][Count-Sketch, CountMin-Sketch, AMS Sketch...]
+      Son estructuras de datos que se basan en la idea de procesar el conjunto completo de datos de entrada aplicando la misma operación sobre cada una de las instancias (lo que permite su uso tanto en entornos estáticos como en tiempo real) para almacenar caracteríscas de de las mismas. Para dicha labor se utilizan \emph{Algoritmos para Streaming}, puesto que se enmarcan perfectamente en dicho contexto. Estas estructuras permiten la obtención de propiedades estadísticas del conjunto de datos. Entre las distintas alternativas destacan \emph{Count-Sketch}, \emph{CountMin-Sketch}, \emph{AMS Sketch}, \emph{HyperLogLog}...
 
-  \section{Algoritmos para Grafos}
-
-    \paragraph{}
-    [TODO ]
-
-  \section{Técnicas de Minería de Datos}
+  \section{Redución de la Dimensionalidad}
 
     \paragraph{}
     [TODO ]
-
-    \subsection{Clasificación vs Regresión}
-
-      \paragraph{}
-      [TODO ]
-
-    \subsection{Supervisadas vs No Supervisadas}
-
-      \paragraph{}
-      [TODO ]
-
 
   \section{Paralelización a gran Escala}
 
@@ -88,5 +57,10 @@
 
       \paragraph{}
       [TODO ]
+
+  \section{Técnicas de Minería de Datos}
+
+    \paragraph{}
+    Una de las razones por las cuales es necesaria la investigación sobre algoritmos como los citados anteriormente es la obtención de nuevos resultados a partir de conjuntos masivos de datos. A este fenómeno se le denomina \emph{Minería de Datos}. Desde el punto de vista de la obtenición de un nuevo atributo referido a un determinado dato, hay dos grandes categorías que se corresponden con la \emph{Clasificación} (determinar el grupo al que pertenece) y la \emph{Regresión} (determinar el valor numérico que tomará). Para ello existen distintas alternativas como \emph{Árboles de Decisión}, \emph{Métodos Bayesianos}, \emph{Redes Neuronales}, \emph{Máquinas de Vector Soporte}...
 
 \end{document}
