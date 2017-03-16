@@ -1,3 +1,5 @@
+% !TEX root = ./summary.tex
+
 \ProvidesPackage{mystyle}
 
 \usepackage[utf8]{inputenc}
@@ -23,4 +25,7 @@
 
 \usepackage{titlesec}
 \titleformat{\section}[block]{\large\scshape\centering}{\thesection.}{1em}{}
-\titleformat{\subsection}[block]{\large}{\thesubsection.}{1em}{}
+\titleformat{\subsection}[block]{\normalsize\scshape}{\thesubsection.}{0.5em}{}
+
+\usepackage{graphicx}
+\graphicspath{{./img/}}
