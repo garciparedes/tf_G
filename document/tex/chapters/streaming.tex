@@ -122,21 +122,29 @@
       \paragraph{}
       [TODO ejemplo de los tres niveles de complejidad a partir del análisis meteorológico ]
 
-      \paragraph{}
-      Una vez descritos los niveles de complejidad a los que es necesario enfrentarse, en los apartados \ref{sec:streaming_time_series}, \ref{sec:streaming_cash_register} y \ref{sec:streaming_turnstile} se realiza una descripción acerca de los distintos modelos que propone Muthukrishnan \cite{Muthukrishnan:2005:DSA:1166409.1166410}. La notación descrita en dichos apartados será seguida durante el resto del capítulo. Para ello nos basaremos en el siguiente formalismo:
+      \subsection{Formalismo para Streaming}
+      \label{sec:streaming_formalism}
 
-      \paragraph{}
-      Sea $a_1, a_2,...$ el conjunto de posibles elementos de entrada con cardinalidad $N$ (posiblemente no acotada tal y como se verá en el caso de las \emph{Series Temporales} (\ref{sec:streaming_time_series})), se debe cumplir que $\forall i, \forall j / i \neq j \implies a_i \neq a_j$. Se ha decidido introducir el símbolo \say{$\cdot$} como comodín siguiendo la misma interpretación que utilizan los sistemas \emph{UNIX} en el contexto de las \emph{Expresiones regulares}\cite{gnu:regular-expresions-fundamental-structure}, de tal manera que $a_{\cdot}$ indica que el elemento al que nos estamos refiriendo puede ser cualquier valor.
+        \paragraph{}
+        Una vez descritos los niveles de complejidad a los que es necesario enfrentarse, en los apartados \ref{sec:streaming_time_series}, \ref{sec:streaming_cash_register} y \ref{sec:streaming_turnstile} se realiza una descripción acerca de los distintos modelos que propone Muthukrishnan \cite{Muthukrishnan:2005:DSA:1166409.1166410}. La notación descrita en dichos apartados será seguida durante el resto del capítulo. Para ello nos basaremos en el siguiente formalismo:
 
-      \paragraph{}
-      Lo siguiente es añadir la componente dinámica al formalismo. Por tanto, diremos que $a_\cdot[t]$ se refiere al elemento recibido en el instante de tiempo $t$. La restricción más relevante que se impone a un \emph{Modelo en Streaming} es la siguiente: Sea $a_\cdot[1],a_\cdot[2],...,a_\cdot[t],... $ un flujo de entrada (\emph{Input Stream}), de tal manera que cada elemento debe tener un orden de llegada secuencial respecto de $t$. Esto quiere decir que el elemento previo a la llegada de $a_i$ debe ser $a_{i-1}$ y por inducción, el siguiente será $a_{i+1}$.
 
+        \paragraph{}
+        Sea $a_1 ,a_2 ,... ,a_t,... $ un flujo de datos de entrada (\emph{Input Stream}), de tal manera que cada elemento debe presentar un orden de llegada secuencial respecto de $t \in \mathbb{N}$. Esto puede traducirse de la como: el elemento siguiente a la llegada de $a_{t-1}$ debe ser $a_{t}$ y, por inducción, el próximo será $a_{t+1}$.
+
+        \paragraph{}
+        Lo siguiente para describir el formalismo es añadir la función $\boldsymbol{A}_t:[1...N] \rightarrow \mathbb{R}^2$, la cual tiene distintas interpretaciones dependientes del \emph{Modelo en Streaming} con el cual se esté tratando. Sin embargo algo común a todos ellos es la variable $t$, que se corresponde con el valor de la función en dicho instante de tiempo. Por motivos de claridad, en los casos en que nos estemos refiriendo al instante actual, dicha variable será eliminada de la notación.
 
       \subsection{Modelo de Serie Temporal}
       \label{sec:streaming_time_series}
 
         \paragraph{}
-        El \emph{Modelo de Serie Temporal} o \emph{Time Series Model}
+        El \emph{Modelo de Serie Temporal} o \emph{Time Series Model} es aquel en el cual se define la función $\boldsymbol{A}$ tal y como se describe en la ecuación \eqref{eq:streaming_time_series}. De manera textual, esto puede traducirse diciendo que la función $\boldsymbol{A}$ representa una estructura de datos que almacena el valor de todos los elementos presentados en la entrada hasta el instante de tiempo $t$, es decir, actúa como un historial. Un ejemplo de este modelo son los valores en bolsa que toma una determinada empresa a lo largo del tiempo, y la función $\boldsymbol{A}$ es un historial del mismo.
+
+        \begin{equation}
+  			\label{eq:streaming_time_series}
+  				\boldsymbol{A}(t) = a_t
+  			\end{equation}
 
       \subsection{Modelo de Caja Registradora}
       \label{sec:streaming_cash_register}
@@ -144,11 +152,23 @@
         \paragraph{}
         [TODO]
 
+
+        \begin{equation}
+  			\label{eq:streaming_cash_register}
+  				\boldsymbol{A}_{t}(i) = {A}_{t-1}(i) + I_{t}
+  			\end{equation}
+
+
       \subsection{Modelo de Molinete}
       \label{sec:streaming_turnstile}
 
         \paragraph{}
         [TODO]
+
+        \begin{equation}
+        \label{eq:streaming_turnstile}
+          \boldsymbol{A}_{t}(i) = {A}_{t-1}(i) + U_{t}
+        \end{equation}
 
     \section{Estructura básica}
     \label{sec:streaming_structure}
