@@ -42,7 +42,10 @@
       \label{sec:dynamic_problems}
 
         \paragraph{}
-        Una vez completada la descripción acerca de lo que se puede definir como \emph{Computación en Tiempo Real}, conviene realizar una descripción desde el punto de vista de la \emph{teoría de complejidad computacional}. Para definir este tipo de problemas, se utiliza el término \emph{problemas dinámicos}, los cuales consisten en aquellos en los cuales es necesario recalcular su solución conforme el tiempo avanza debido a variaciones en los parámetros de entrada del problema (Nótese que dicho término no debe confundirse con la estrategia de \emph{programación dinámica} para el diseño de algoritmos). Existen distintas vertientes dependiendo del punto de vista desde el que se estudien, tanto de la naturaleza del problema (soluciones dependientes temporalmente unas de otras o soluciones aisladas) como de los parámetros de entrada (entrada completa en cada nueva ejecución o variación respecto de la anterior). Los \emph{Algoritmos para Streaming} están diseñados para resolver \emph{problemas dinámicos}, por lo que en la sección \ref{sec:streaming_model}, se describe en profundidad el modelo en que se enmarcan.
+        Una vez completada la descripción acerca de lo que se puede definir como \emph{Computación en Tiempo Real}, conviene realizar una descripción desde el punto de vista de la \emph{teoría de complejidad computacional}. Para definir este tipo de problemas, se utiliza el término \emph{problemas dinámicos}, los cuales consisten en aquellos en los cuales es necesario recalcular su solución conforme el tiempo avanza debido a variaciones en los parámetros de entrada del problema (Nótese que dicho término no debe confundirse con la estrategia de \emph{programación dinámica} para el diseño de algoritmos).
+
+        \paragraph{}
+        Existen distintas vertientes dependiendo del punto de vista desde el que se estudien, tanto de la naturaleza del problema (soluciones dependientes temporalmente unas de otras o soluciones aisladas) como de los parámetros de entrada (entrada completa en cada nueva ejecución o variación respecto de la anterior). Los \emph{Algoritmos para Streaming} están diseñados para resolver \emph{problemas dinámicos}, por lo que en la sección \ref{sec:streaming_model}, se describe en profundidad el modelo en que se enmarcan.
 
         \paragraph{}
         A continuación se indican los principales indicadores utilizados para describir la complejidad de una determinada solución algorítmica destinada a resolver un problema de dicha naturaleza:
@@ -126,20 +129,29 @@
       \label{sec:streaming_formalism}
 
         \paragraph{}
-        Una vez descritos los niveles de complejidad a los que es necesario enfrentarse, en los apartados \ref{sec:streaming_time_series}, \ref{sec:streaming_cash_register} y \ref{sec:streaming_turnstile} se realiza una descripción acerca de los distintos modelos que propone Muthukrishnan \cite{Muthukrishnan:2005:DSA:1166409.1166410}. La notación descrita en dichos apartados será seguida durante el resto del capítulo. Para ello nos basaremos en el siguiente formalismo:
+        Una vez descritos los niveles de complejidad a los que es necesario hacer frente para abordar problemas en el \emph{Modelo en Streaming}, se realiza una descripción de los distintos modelos que propone Muthukrishnan \cite{Muthukrishnan:2005:DSA:1166409.1166410} en los apartados \ref{sec:streaming_time_series}, \ref{sec:streaming_cash_register} y \ref{sec:streaming_turnstile}. La especificación descrita en dichos apartados será seguida durante el resto del capítulo. Para ello nos basaremos en el siguiente formalismo:
+
+        \paragraph{}
+        Sea $a_1 ,a_2 ,... ,a_t,... $ un flujo de datos de entrada (\emph{Input Stream}), de tal manera que cada elemento debe presentar un orden de llegada secuencial respecto de $t \in \mathbb{N}$. Esto también se puede ver de la siguiente manera: el elemento siguiente a la llegada de $a_{t-1}$ debe ser $a_{t}$ y, por inducción, el próximo será $a_{t+1}$. Es necesario aclarar que $t$ no se refiere a unidades propiamente temporales, sino a la posición en la entrada.
+
+
+        \begin{equation}
+        \label{eq:streaming_A_function}
+          \boldsymbol{A}_t:[1...N] \rightarrow \mathbb{R}^2
+        \end{equation}
 
 
         \paragraph{}
-        Sea $a_1 ,a_2 ,... ,a_t,... $ un flujo de datos de entrada (\emph{Input Stream}), de tal manera que cada elemento debe presentar un orden de llegada secuencial respecto de $t \in \mathbb{N}$. Esto puede traducirse de la como: el elemento siguiente a la llegada de $a_{t-1}$ debe ser $a_{t}$ y, por inducción, el próximo será $a_{t+1}$.
-
-        \paragraph{}
-        Lo siguiente para describir el formalismo es añadir la función $\boldsymbol{A}_t:[1...N] \rightarrow \mathbb{R}^2$, la cual tiene distintas interpretaciones dependientes del \emph{Modelo en Streaming} con el cual se esté tratando. Sin embargo algo común a todos ellos es la variable $t$, que se corresponde con el valor de la función en dicho instante de tiempo. Por motivos de claridad, en los casos en que nos estemos refiriendo al instante actual, dicha variable será eliminada de la notación.
+        El siguiente paso para describir el formalismo es añadir la función $\boldsymbol{A}_t$, cuyo dominio e imagen se muestran en la ecuación \eqref{eq:streaming_A_function}. Esta función tiene distintas interpretaciones dependientes del \emph{Modelo en Streaming} con el cual se esté tratando en cada caso, pero la idea subyacente se puede resumirse asumiendo que la primera componente almacena el valor, mientras que la segunda almacena el número de ocurrencias de dicho valor. Algo común a todos ellos es la variable $t$, que se corresponde con resultado de la función en el instante de tiempo $t$. Por motivos de claridad, en los casos en que nos estemos refiriendo un único momento, dicha variable será obviada en la notación.
 
       \subsection{Modelo de Serie Temporal}
       \label{sec:streaming_time_series}
 
         \paragraph{}
-        El \emph{Modelo de Serie Temporal} o \emph{Time Series Model} es aquel en el cual se define la función $\boldsymbol{A}$ tal y como se describe en la ecuación \eqref{eq:streaming_time_series}. De manera textual, esto puede traducirse diciendo que la función $\boldsymbol{A}$ representa una estructura de datos que almacena el valor de todos los elementos presentados en la entrada hasta el instante de tiempo $t$, es decir, actúa como un historial. Un ejemplo de este modelo son los valores en bolsa que toma una determinada empresa a lo largo del tiempo, y la función $\boldsymbol{A}$ es un historial del mismo.
+        El \emph{Modelo de Serie Temporal} o \emph{Time Series Model} se refiere, tal y como indica su nombre, a una serie temporal, es decir, modeliza los valores que toma la variable $i$ respecto de $t$, codificados en el modelo como $a_t = (i,1)$. Nótese que se utiliza el valor $1$ en la segunda componente de $a_t$, la razón de ello se debe a la definición de la imagen de $\boldsymbol{A}$ en la ecuación \eqref{eq:streaming_A_function}. A pesar de ello, dicho campo es irrelevante en este modelo, por lo que se podría haber escogido cualquier otro arbitrariamente. La razón por la cual se ha utilizado el valor $1$ ha sido el refuerzo de la idea de que en este caso, el valor que toma la $a_t$ en un determinado momento, no volverá a variar su valor, pero quedará obsoleto con la llegada de $a_{t+1}$.
+
+        \paragraph{}
+        El modelo se describe de manera matemática mediante la función $\boldsymbol{A}$, tal y como se ilustra en la ecuación \eqref{eq:streaming_time_series}. Textualmente, esto puede traducirse diciendo que la función $\boldsymbol{A}$ representa una estructura de datos que almacena el valor de todos los elementos recibidos en la entrada hasta el instante de tiempo $t$, es decir, actúa como un historial. Un ejemplo de este modelo son los valores en bolsa que toma una determinada empresa a lo largo del tiempo.
 
         \begin{equation}
   			\label{eq:streaming_time_series}
@@ -150,25 +162,39 @@
       \label{sec:streaming_cash_register}
 
         \paragraph{}
-        [TODO]
+        El \emph{Modelo de Caja Registradora} o \emph{Cash Register Model} consiste en la recepción de incrementos de un determinado valor $i$. El nombre del modelo hace referencia al funcionamiento de una caja registradora (suponiendo que el pago se realiza de manera exacta), que recibe billetes o monedas de tipos diferentes de manera secuencial.
 
+        \paragraph{}
+        Para describir dicho modelo, previamente hay que realizar una aclaración acerca del contenido del elemento $a_t = (i, I_t)$, de manera que $i$ representa el valor recibido, mientras que $I_t \geq 0$ indica el incremento en el instante $t$. Una vez aclarada esta definición, la función $\boldsymbol{A}_{t}$, se construye tal y como se indica en la ecuación \eqref{eq:streaming_cash_register}.
 
         \begin{equation}
   			\label{eq:streaming_cash_register}
   				\boldsymbol{A}_{t}(i) = {A}_{t-1}(i) + I_{t}
   			\end{equation}
 
+        \paragraph{}
+        El \emph{Modelo de Caja Registradora} es ampliamente utilizado en la formalización de problemas reales debido a que muchos fenómenos siguen esta estructura. Un ejemplo de ello es el conteo de accesos a un determinado sitio web, los cuales se corresponden con incrementos $I_t$, en este caso de caracter unitario realizados por un determinado usuario $i$ en el momento $t$.
+
 
       \subsection{Modelo de Molinete}
       \label{sec:streaming_turnstile}
 
         \paragraph{}
-        [TODO]
+        El \emph{Modelo de Molinete} o \emph{Turnstile Model} se corresponde con el caso más general, en el cual no solo se permiten incrementos, sino que también se pueden realizar decrementos en la cuenta. El nombre que se le dió a este modelo se debe al funcionamiento de los molinetes que hay en las estaciones de metro para permitir el paso a los usuarios, que en la entrada incrementan la cuenta del número de personas, mientras que en la salida los decrementan. La relajación originada por la capacidad de decremento ofrece una mayor versatilidad, que permite la contextualización de un gran número de problemas en este modelo. Por contra, añade un numerosas complicaciones a nivel computacional, tal y como se verá a lo largo del capítulo.
+
+        \paragraph{}
+        Tal y como ocurre en el caso anterior, para describir este modelo, lo primero es pensar en la estructura de los elementos en la entrada, que están formados por $a_t = (i, U_t)$, algo muy semejante a lo descrito en el \emph{Modelo de Caja Registradora}. Sin embargo, en este caso $U_t$ no tiene restricciones en su imagen, sino que puede tomar cualquier valor tanto positivo como negativo, lo cual añade el concepto de decremento. La construcción de la función $\boldsymbol{A}_{t}$ se describe en la ecuación \eqref{eq:streaming_turnstile}.
 
         \begin{equation}
         \label{eq:streaming_turnstile}
           \boldsymbol{A}_{t}(i) = {A}_{t-1}(i) + U_{t}
         \end{equation}
+
+        \paragraph{}
+        Muthukrishnan \cite{Muthukrishnan:2005:DSA:1166409.1166410} hace una diferenciación dentro de este modelo dependiendo del nivel de exigencia que se le pide al modelo, se dice que es un \emph{Modelo de Molinete estricto} cuando se añade la restricción $\forall i, \forall t \ \boldsymbol{A}_{t}(i) \geq 0$, mientras que se dice que es un \emph{Modelo de Molinete relajado} cuando dicha restricción no se tiene en cuenta.
+
+        \paragraph{}
+        Un ejemplo de este modelo es el conteo del número de usuarios que están visitando un determinado sitio web, tomando $U_t$ el valor $1$ en el caso de una nueva conexión y $-1$ en el caso de de una desconexión. En este ejemplo el valor $i$ representa una determinada página dentro del sitio web.
 
     \section{Estructura básica}
     \label{sec:streaming_structure}
@@ -182,5 +208,22 @@
       \paragraph{}
       [TODO]
 
+      \subsection{Desigualdad de Markov}
+      \label{sec:streaming_markov}
+
+        \paragraph{}
+        [TODO]
+
+      \subsection{Desigualdad de Chebyshev}
+      \label{sec:streaming_chebyshev}
+
+        \paragraph{}
+        [TODO]
+
+      \subsection{Desigualdad de Chernoff}
+      \label{sec:streaming_chernoff}
+
+        \paragraph{}
+        [TODO]
 
 \end{document}
