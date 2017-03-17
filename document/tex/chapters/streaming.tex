@@ -123,17 +123,30 @@
       [TODO ejemplo de los tres niveles de complejidad a partir del análisis meteorológico ]
 
       \paragraph{}
-      En los siguientes apartados se expone la clasificación que propone Muthukrishnan \cite{Muthukrishnan:2005:DSA:1166409.1166410} y cuya notación serán seguida durante el resto del capítulo.
+      Una vez descritos los niveles de complejidad a los que es necesario enfrentarse, en los apartados \ref{sec:streaming_time_series}, \ref{sec:streaming_cash_register} y \ref{sec:streaming_turnstile} se realiza una descripción acerca de los distintos modelos que propone Muthukrishnan \cite{Muthukrishnan:2005:DSA:1166409.1166410}. La notación descrita en dichos apartados será seguida durante el resto del capítulo. Para ello nos basaremos en el siguiente formalismo:
+
+      \paragraph{}
+      Sea $a_1, a_2,...$ el conjunto de posibles elementos de entrada con cardinalidad $N$ (posiblemente no acotada tal y como se verá en el caso de las \emph{Series Temporales} (\ref{sec:streaming_time_series})), se debe cumplir que $\forall i, \forall j / i \neq j \implies a_i \neq a_j$. Se ha decidido introducir el símbolo \say{$\cdot$} como comodín siguiendo la misma interpretación que utilizan los sistemas \emph{UNIX} en el contexto de las \emph{Expresiones regulares}\cite{gnu:regular-expresions-fundamental-structure}, de tal manera que $a_{\cdot}$ indica que el elemento al que nos estamos refiriendo puede ser cualquier valor.
+
+      \paragraph{}
+      Lo siguiente es añadir la componente dinámica al formalismo. Por tanto, diremos que $a_\cdot[t]$ se refiere al elemento recibido en el instante de tiempo $t$. La restricción más relevante que se impone a un \emph{Modelo en Streaming} es la siguiente: Sea $a_\cdot[1],a_\cdot[2],...,a_\cdot[t],... $ un flujo de entrada (\emph{Input Stream}), de tal manera que cada elemento debe tener un orden de llegada secuencial respecto de $t$. Esto quiere decir que el elemento previo a la llegada de $a_i$ debe ser $a_{i-1}$ y por inducción, el siguiente será $a_{i+1}$.
+
 
       \subsection{Modelo de Serie Temporal}
+      \label{sec:streaming_time_series}
+
         \paragraph{}
-        [TODO]
+        El \emph{Modelo de Serie Temporal} o \emph{Time Series Model}
 
       \subsection{Modelo de Caja Registradora}
+      \label{sec:streaming_cash_register}
+
         \paragraph{}
         [TODO]
 
       \subsection{Modelo de Molinete}
+      \label{sec:streaming_turnstile}
+
         \paragraph{}
         [TODO]
 
