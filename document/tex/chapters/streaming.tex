@@ -200,7 +200,33 @@
     \label{sec:streaming_structure}
 
       \paragraph{}
-      [TODO]
+      Puesto que la naturaleza intríseca de los \emph{Algoritmos para Streaming} hace que procesen los elementos de entrada según van llegando, esto presenta peculiaridades con respecto a otras categorías algorítmicas utilizadas comúnmente. Por tanto, primero se describirá la estructura básica que siguen los algoritmos más comunmente utilizados para después mostrar la estrategia seguida en el caso de Streaming.
+
+      \paragraph{}
+      Los algorítmos clásicamente estudiados para resolver la mayoría de problemas se basan la idea de funciones matemáticas. Es decir, se les presenta un conjunto de valores en la entrada, y a partir de ellos, realizan una determinada transformación sobre ellos, que genera como resultado una determinada salida. Nótese que esta idea no genera ninguna restricción acerca de lo que puede suceder en dicho proceso, es decir, no se restringe el uso de estructuras de datos auxiliares o técnicas similares.
+
+      \paragraph{}
+      Esta visión no se enmarca correctamente en el contexto de los \emph{Algoritmos para Streaming}. La razón se debe a que la entrada no es propiamente un conjunto de datos, sino que se refiere a un flujo en sí mismo. Esta característica conlleva que en un gran número de ocasiones ya no sea necesario obtener los resultados tras cada llamada al algoritmo, ya que estos podrían carecer de interés o requerir un sobrecoste innecesario. Por lo tanto, el concepto de función matemática pierde el sentido en este caso, ya que estas exigen la existencia de un valor como resultado.
+
+      \paragraph{}
+      Un concepto más acertado para modelizar un \emph{Algoritmo para Streaming} podría ser lo que en los lenguajes de programación derivados de \emph{Fortran} se denomina subrutina, es decir, una secuencia de instrucciones que realizan una tarea encapsulada como una unidad. Sin embargo, para poder describir correctamente la estructura de un \emph{Algoritmo para Streaming} hace falta algo más. La razón de ello es que a partir de dicho modelo de diseño no sería posible realizar peticiones acerca de lo calculado, es decir, sería una estrategia puramente procedural. Para corregir dicha problemática surge el concepto de \emph{query} o pregunta. A través de dicha idea se pretende representar la manera de obtener un resultado a partir del cómputo realizado hasta el momento actual.
+
+      \paragraph{}
+      En resumen, con dicha estrategia de diseño se consigue separar la parte de procesado de la entrada con la parte de consulta del resultado, lo cual proporciona amplias ventajas para el modelo seguido por los \emph{Algoritmos para Streaming}. Sin embargo, dicha estrategia produce un sobrecoste espacial con respecto del modelo de algoritmo clásico. Este se debe a la necesidad de mantener una estructura de datos en la cual se almacenen los resultados parciales referentes al flujo de entrada.
+
+      \paragraph{}
+      [TODO ]
+
+
+      \begin{itemize}
+
+        \item \textbf{Inicialización}: [TODO]
+
+        \item \textbf{Procesado}: [TODO]
+
+        \item \textbf{Petición}: [TODO]
+
+      \end{itemize}
 
     \section{Medidas de Análisis}
     \label{sec:streaming_analysis}
