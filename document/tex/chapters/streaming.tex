@@ -231,7 +231,33 @@
     \label{sec:streaming_analysis}
 
       \paragraph{}
-      [TODO]
+      Los \emph{Algoritmos para Streaming} se caracterizan por utilizar soluciones estadísticas en alguna parte (generalmente en el procesado) de su cómputo para obtener la solución con un menor coste computacional. En este caso, el coste que se pretende minimizar es el referido al espacio necesario para almacenar la estructura de datos auxiliar. Tal y como se ha dicho anteriormente, la razón de ello es debida a que se presupone un conjunto masivo de datos en la entrada, por lo que se pretende que el orden de complejidad espacial respecto de la misma sea de carácter sublinear ($o(N)$).
+
+      \paragraph{}
+      El objetivo es encontrar soluciones con un índice de error acotado que permitan llegar a la solución en un orden espacial de complejidad logarítmica ($O(log(N))$). Sin embargo, existen ocasiones en que no es posible llegar a una solución en dicho orden de complejidad, como es el caso de \emph{Algoritmos para Streaming} aplicados a problemas de \emph{Grafos}, en los cuales se relaja dicha restricción a un orden de complejiddad \emph{poli-logarítmico} ($O(polylog(N))$).
+
+      \paragraph{}
+      El órden de complejidad \emph{poli-logarítmico} engloba el conjunto de funciones cuyo orden de complejidad presenta un crecimiento acorde a una función polinomial formada logaritmos. Matemáticamente esto se modeliza a través de la ecuación \eqref{eq:polylog-complexity}
+
+      \begin{equation}
+      \label{eq:polylog-complexity}
+        a_{k}\log ^{k}(N)+\cdots +a_{1}\log(N)+a_{0} = O(polylog(N)) \in o(N).
+      \end{equation}
+
+      \paragraph{}
+      En esta sección se muestran distintas estrategias para poder llevar a cabo la demostración de pertenencia a un determinado orden de complejidad de un determinado \emph{Algoritmo para Streaming}. Debido a la elevada base estadística que requieren dichas demostraciones, a continuación se definen algunos conceptos básicos en relacionadas con estimadores estadísticos, para después realizar una breve demostración acerca de distintas cotas de concentración de valores en una distribución en las subsecciones \ref{sec:streaming_markov}, \ref{sec:streaming_chebyshev} y \ref{sec:streaming_chernoff}.
+
+      \paragraph{}
+      [TODO Describir Esperanza y Propiedades]
+
+      \paragraph{}
+      [TODO Describir Varianza y Propiedades]
+
+      \paragraph{}
+      [TODO Describir Variables Independientes y Propiedades]
+
+      \paragraph{}
+      [TODO Describir Probabilidad Condicionada y Propiedades]
 
       \subsection{Desigualdad de Markov}
       \label{sec:streaming_markov}
