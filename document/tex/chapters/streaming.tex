@@ -215,16 +215,15 @@
       En resumen, con dicha estrategia de diseño se consigue separar la parte de procesado de la entrada con la parte de consulta del resultado, lo cual proporciona amplias ventajas para el modelo seguido por los \emph{Algoritmos para Streaming}. Sin embargo, dicha estrategia produce un sobrecoste espacial con respecto del modelo de algoritmo clásico. Este se debe a la necesidad de mantener una estructura de datos en la cual se almacenen los resultados parciales referentes al flujo de entrada.
 
       \paragraph{}
-      [TODO ]
-
+      Los algoritmos \emph{Algoritmos para Streaming} se componen por tanto de algoritmo de procesamiento del flujo de datos, una estructura de datos que almacena dichos resultados, y por último, un algoritmo de procesamiento de la \emph{query} o pregunta necesaria para obtener los resultados requeridos. a continuación se dividen las fases para el funcionamiento de un algoritmo de dichas caraterísticas.
 
       \begin{itemize}
 
-        \item \textbf{Inicialización}: [TODO]
+        \item \textbf{Inicialización}: En esta fase se llevan a cabo el conjunto de tareas necesarias para inicializar la estructura de datos que actuará como almacen de información durante el procesamiento del flujo de datos de entrada. Generalmente esto consite en el proceso de reservar memoria, inicializar a un valor por defecto la estructura de datos, etc. Sin embargo, existen técnicas sofisticadas que requieren de una mayor carga computacional en esta fase.
 
-        \item \textbf{Procesado}: [TODO]
+        \item \textbf{Procesado}: Se corresponde con el procesamiento del flujo de datos de manera secuencial. La idea subyacente en esta fase es la de realizar una determinada operación sobre la estructura de datos y el elemento de entrada actual, de manera que se lleve a cabo una actualización sobre la misma. Nótese en que la manera en que se manipula dicha estructura de datos condiciona en gran medida el conjunto de peticiones que se podrán realizar sobre ella.
 
-        \item \textbf{Petición}: [TODO]
+        \item \textbf{Petición}: La fase de petición se caracteriza con respecto de la anterior por ser de carácter consultivo. Con esto nos estamos refiriendo a que dicha tarea no modifica el estado actual de la estructura de datos, sino que recoge información de la misma, que posiblemente transforme mediante alguna operación, para despues obtener un valor como resultado de dicha petición.
 
       \end{itemize}
 
