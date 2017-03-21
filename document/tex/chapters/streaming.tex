@@ -357,13 +357,13 @@
 
 
         \paragraph{}
-        Una vez descritos los conceptos estadísticos básicos para el análisis de algoritmos probabilísticos, lo siguiente es realizar una exposición acerca de las distintas cotas de concentración de valores, lo cual permite obtener resultados aproximados acerca de los resultados esperados por dichos algoritmos, así como sus niveles de complejidad. Primero se describirá de una cota para la unión para después tratar las Desigualdades de \emph{Markov}(\ref{sec:markov_inequality}), \emph{Chebyshev}(\ref{sec:chebyshev_inequality}) y \emph{Chernoff}(\ref{sec:chernoff_inequality})
+        Una vez descritos los conceptos estadísticos básicos para el análisis de algoritmos probabilísticos, lo siguiente es realizar una exposición acerca de las distintas cotas de concentración de valores, lo cual permite obtener resultados aproximados acerca de los resultados esperados por dichos algoritmos, así como sus niveles de complejidad. Primero se describirá \emph{Desigualdad de Boole}, para después tratar las desigualdades de \emph{Markov}(\ref{sec:markov_inequality}), \emph{Chebyshev}(\ref{sec:chebyshev_inequality}) y \emph{Chernoff}(\ref{sec:chernoff_inequality})
 
         \paragraph{}
-        La \textbf{cota para la unión} consiste en una propiedad básica \eqref{eq:union_bound}
+        La \textbf{Desigualdad de Boole} consiste en una propiedad básica que indica que la probabilidad de que se cumpla la ocurrencia de un suceso es menor o igual que ocurrencia de la suma de todas ellas. Esto se modeliza matemáticamente en la ecuación \eqref{eq:boole_inequality}.
 
         \begin{equation}
-        \label{eq:union_bound}
+        \label{eq:boole_inequality}
           Pr\bigg[\bigcup_{i=1}^n \boldsymbol{E_i}\bigg] \leq \sum_{i=1}^n Pr[\boldsymbol{E_i}]
         \end{equation}
 
@@ -373,11 +373,21 @@
         \paragraph{}
         [TODO]
 
+        \begin{equation}
+        \label{eq:markov_inequality}
+          \forall c > 0 \ Pr[\boldsymbol{X} \geq c \mathbb{E}[\boldsymbol{X}]] \leq \frac{1}{c}
+        \end{equation}
+
       \subsection{Desigualdad de Chebyshev}
       \label{sec:chebyshev_inequality}
 
         \paragraph{}
         [TODO]
+
+        \begin{equation}
+        \label{eq:chebyshev_inequality}
+          \forall c > 0 \ Pr[|\boldsymbol{X} - \mathbb{E}[\boldsymbol{X}]| \geq c \sqrt{Var[\boldsymbol{X}]}]  \leq \frac{1}{c^2}
+        \end{equation}
 
       \subsection{Desigualdad de Chernoff}
       \label{sec:chernoff_inequality}
@@ -385,6 +395,10 @@
         \paragraph{}
         [TODO]
 
+        \begin{equation}
+        \label{eq:chernoff_inequality}
+          \forall 0 < \delta < 1
+        \end{equation}
 
     \section{Ejemplo Ilustrativo}
     \label{sec:streaming_puzzle}
