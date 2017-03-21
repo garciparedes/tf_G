@@ -245,7 +245,7 @@
       \end{equation}
 
       \paragraph{}
-      En esta sección se muestran distintas estrategias para poder llevar a cabo la demostración de pertenencia a un determinado orden de complejidad de un \emph{Algoritmo para Streaming}. Debido a la elevada base estadística que requieren dichas demostraciones, a continuación se definen algunos conceptos básicos en relacionadas con estimadores estadísticos, para después realizar una breve demostración acerca de distintas cotas de concentración de valores en una distribución en las subsecciones \ref{sec:streaming_markov}, \ref{sec:streaming_chebyshev} y \ref{sec:streaming_chernoff}. Las definiciones que se exponen a continuación han sido extraidas de los apuntes del curso sobre \emph{Randomized Algorithms} \cite{aspnes2014notes} impartido por Aspnes en la \emph{Universidad de Yale} así como las de la asignatura de \emph{Estadística}\cite{estadistica2016notes} impartida en el Grado de Ingeniería Informática de la \emph{Universidad de Valladolid}.
+      En esta sección se muestran distintas estrategias para poder llevar a cabo la demostración de pertenencia a un determinado orden de complejidad de un \emph{Algoritmo para Streaming}. Debido a la elevada base estadística que requieren dichas demostraciones, a continuación se definen algunos conceptos básicos en relacionadas con estimadores estadísticos, para después realizar una breve demostración acerca de distintas cotas de concentración de valores en una distribución en las subsecciones \ref{sec:markov_inequality}, \ref{sec:chebyshev_inequality} y \ref{sec:chernoff_inequality}. Las definiciones que se exponen a continuación han sido extraidas de los apuntes del curso sobre \emph{Randomized Algorithms} \cite{aspnes2014notes} impartido por Aspnes en la \emph{Universidad de Yale} así como las de la asignatura de \emph{Estadística}\cite{estadistica2016notes} impartida en el Grado de Ingeniería Informática de la \emph{Universidad de Valladolid}.
 
       \subsection{Conceptos básicos de Estadística}
       \label{sec:basic_statistics}
@@ -254,7 +254,7 @@
         Denotaremos como $x_1$ a una observación cualquiera contenida en el espacio de todas los posibles. Al conjunto de todas las observaciones posibles lo denotaremos como $\Omega$ y lo denominaremos espacio muestral, por lo tanto, $x \in \Omega$. Este concepto se puede entender de manera más sencilla mediante el siguiente ejemplo. Supongamos el lanzamiento de una moneda, que como resultado puede tomar los valores cara o cruz. Definiremos entonces $x_1 = \text{cara}$ y $x_2 = \text{cruz}$ como los sucesos posibles de lanzar una moneda. Por tanto el espacio $\Omega$ se define como $\Omega = \{x_1, x_2\} = \{\text{cara}, \text{cruz}\}$.
 
         \paragraph{}
-        El siguiente paso es definir el concepto de \textbf{Variable Aleatoria}, que representa una función que mapea la realización de un determinado suceso sobre el espacio $\Omega$. Dicha función se denota con letras mayúsculas y puesto que sus parámetros de entrada son desconocidos, estos se ignoran en la notación. Por tanto denotaremos las variables aleatorias como ($\boldsymbol{X}, \boldsymbol{Y}, \text{etc.}$). Para la variable aleatoria $\boldsymbol{X}$, sean $x_1, x_2, ..., x_i,...$ cada una de las observaciones posibles. Siguiendo el ejemplo anterior, se puede modelizar el lanzamiento de una moneda como $X$. Nótese por tanto, que una variable aleatoria puede definirse de manera textual como la modelización del resultado de un suceso a priori desconocido.
+        El siguiente paso es definir el concepto de \textbf{Variable Aleatoria}, que representa una función que mapea la realización de un determinado suceso sobre el espacio $\Omega$. Dicha función se denota con letras mayúsculas y puesto que sus parámetros de entrada son desconocidos, estos se ignoran en la notación. Por tanto denotaremos las variables aleatorias como ($\boldsymbol{E}, \boldsymbol{X}, \boldsymbol{Y}, \text{etc.}$). Para la variable aleatoria $\boldsymbol{X}$, sean $x_1, x_2, ..., x_i,...$ cada una de las observaciones posibles. Siguiendo el ejemplo anterior, se puede modelizar el lanzamiento de una moneda como $X$. Nótese por tanto, que una variable aleatoria puede definirse de manera textual como la modelización del resultado de un suceso a priori desconocido.
 
         \paragraph{}
         Definiremos probabilidad como la medida de certidumbre asociada a un suceso o evento futuro, expresada como un valor contenido en el intervalo $[0,1]$, tomando el valor $0$ un suceso imposible y $1$ un suceso seguro. La notación seguida para representar esto será $Pr[\boldsymbol{X} = x_i]$. Suponiendo la equiprobabilidad en el ejemplo de la moneda, podemos definir sus valores de probabilidad como $Pr[\boldsymbol{X} = \text{cara}] = \tfrac{1}{2}$ y $Pr[\boldsymbol{X} = \text{cruz}] = \tfrac{1}{2}$
@@ -280,7 +280,6 @@
           \mathbb{E}[\boldsymbol{X} + \boldsymbol{Y}] = \mathbb{E}[\boldsymbol{X}] + \mathbb{E}[\boldsymbol{Y}]
         \end{equation}
 
-
         \paragraph{}
         La \textbf{Varianza} se define como una medida de dispersión de una variable aleatoria. Dicho estimador representa el error cuadrático respecto de la esperanza. Su modelización matemática se muestra en la ecuación \eqref{eq:variance}. Aplicando propiedades algebraicas se puede demostrar la veracidad de las propiedades descritas en las ecuaciones \eqref{eq:variance_p1} y \eqref{eq:variance_p2}.
 
@@ -304,7 +303,7 @@
 
         \begin{equation}
         \label{eq:independence}
-          Pr[\boldsymbol{X} = x, \boldsymbol{Y} = y] = Pr[\boldsymbol{X} = x] \cdot Pr[\boldsymbol{Y} = y]
+          Pr[\boldsymbol{X} = x \cap \boldsymbol{Y} = y] = Pr[\boldsymbol{X} = x] \cdot Pr[\boldsymbol{Y} = y]
         \end{equation}
 
         \paragraph{}
@@ -312,7 +311,7 @@
 
         \begin{equation}
         \label{eq:mutual_independence}
-          Pr[\boldsymbol{X_1} = x_1, \boldsymbol{X_2} = x_2,... \boldsymbol{X_n} = x_n] = \prod_{i=1}^n Pr[\boldsymbol{X_i} = x_i]
+          Pr \bigg[ \bigcap_{i=1}^n \boldsymbol{X_i} = x_i \bigg] = \prod_{i=1}^n Pr[\boldsymbol{X_i} = x_i]
         \end{equation}
 
         \paragraph{}
@@ -320,27 +319,68 @@
 
         \begin{equation}
         \label{eq:pairwise_independence}
-          \forall i, \forall j \ Pr[\boldsymbol{X_i} = x_i, \boldsymbol{X_j} = x_j] = Pr[\boldsymbol{X_i} = x_i] \cdot Pr[\boldsymbol{X_j} = x_j]
+          \forall i, \forall j \ Pr[\boldsymbol{X_i} = x_i \cap \boldsymbol{X_j} = x_j] = Pr[\boldsymbol{X_i} = x_i] \cdot Pr[\boldsymbol{X_j} = x_j]
+        \end{equation}
+
+        \paragraph{}
+        Desde el punto de vista de conjuntos de $n$ variables aleatorias  $\boldsymbol{X_1}, \boldsymbol{X_2},..., \boldsymbol{X_n}$, existen distintas propiedades de linearidad que se cumplen entre ellas a nivel del cálculo de la \emph{Esperanza} y la \emph{Varianza}. En el caso de la \emph{Esperanza}, la linealidad respecto de la suma (ecuación \eqref{eq:expectation_linearity}) se cumple para variables dependientes e independientes. Sin embargo, en el caso de la \emph{Varianza}, la linealidad respecto de la suma (ecuación \eqref{eq:variance_linearity}) se cumple tan solo para variables \textbf{independientes pareadas}.
+
+        \begin{equation}
+        \label{eq:expectation_linearity}
+          \mathbb{E}\bigg[\sum_{i=1}^n \boldsymbol{X_i}\bigg] = \sum_{i=1}^n \mathbb{E}[\boldsymbol{X_i}]
+        \end{equation}
+
+        \begin{equation}
+        \label{eq:variance_linearity}
+          Var\bigg[\sum_{i=1}^n \boldsymbol{X_i}\bigg] = \sum_{i=1}^n Var[\boldsymbol{X_i}]
+        \end{equation}
+
+        \paragraph{}
+        La \textbf{Probabilidad Condicionada} entre dos variables aleatorias $\boldsymbol{E_1}$ y $\boldsymbol{E_2}$ se puede definir como la medida de verosimilitud de la ocurrencia del suceso $\boldsymbol{E_1}$ sabiendo que ya ha ocurrido $\boldsymbol{E_2}$. Esto se puede modelizar matemáticamente tal y como se muestra en la ecuación \eqref{eq:conditional_probability}.
+
+        \begin{equation}
+        \label{eq:conditional_probability}
+          Pr[\boldsymbol{E_1} \rvert \boldsymbol{E_2}] = \frac{Pr[\boldsymbol{E_1} \cap \boldsymbol{E_2}]}{Pr[\boldsymbol{E_1}]}
+        \end{equation}
+
+        \paragraph{}
+        En el caso de la \textbf{Probabilidad Condicionada} sobre variables independientes, surge la propiedad descrita en la ecuación \eqref{eq:conditional_probability_independence}. Es fácil entender la razón, que se apoya en la idea de que si dos variables aleatorias no guardan relación, entonces la ocurrencia de una de ellas, no condicionará el resultado de la otra.
+
+
+        \begin{equation}
+        \label{eq:conditional_probability_independence}
+          Pr[\boldsymbol{X_1} = x_1 \rvert \boldsymbol{X_2} = x_2] =
+          \frac{Pr[\boldsymbol{X_1} = x_1 \cap  \boldsymbol{X_2} = x_2]}{Pr[\boldsymbol{X_1} = x_1]} =
+          \frac{Pr[\boldsymbol{X_1} = x_1 \cdot \boldsymbol{X_2} = x_2]}{Pr[\boldsymbol{X_1} = x_1]} =
+          Pr[\boldsymbol{X_2} = x_2]
         \end{equation}
 
 
         \paragraph{}
-        [TODO Describir Probabilidad Condicionada y Propiedades]
+        Una vez descritos los conceptos estadísticos básicos para el análisis de algoritmos probabilísticos, lo siguiente es realizar una exposición acerca de las distintas cotas de concentración de valores, lo cual permite obtener resultados aproximados acerca de los resultados esperados por dichos algoritmos, así como sus niveles de complejidad. Primero se describirá de una cota para la unión para después tratar las Desigualdades de \emph{Markov}(\ref{sec:markov_inequality}), \emph{Chebyshev}(\ref{sec:chebyshev_inequality}) y \emph{Chernoff}(\ref{sec:chernoff_inequality})
+
+        \paragraph{}
+        La \textbf{cota para la unión} consiste en una propiedad básica \eqref{eq:union_bound}
+
+        \begin{equation}
+        \label{eq:union_bound}
+          Pr\bigg[\bigcup_{i=1}^n \boldsymbol{E_i}\bigg] \leq \sum_{i=1}^n Pr[\boldsymbol{E_i}]
+        \end{equation}
 
       \subsection{Desigualdad de Markov}
-      \label{sec:streaming_markov}
+      \label{sec:markov_inequality}
 
         \paragraph{}
         [TODO]
 
       \subsection{Desigualdad de Chebyshev}
-      \label{sec:streaming_chebyshev}
+      \label{sec:chebyshev_inequality}
 
         \paragraph{}
         [TODO]
 
       \subsection{Desigualdad de Chernoff}
-      \label{sec:streaming_chernoff}
+      \label{sec:chernoff_inequality}
 
         \paragraph{}
         [TODO]
