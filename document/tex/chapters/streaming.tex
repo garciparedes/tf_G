@@ -245,10 +245,38 @@
       \end{equation}
 
       \paragraph{}
-      En esta sección se muestran distintas estrategias para poder llevar a cabo la demostración de pertenencia a un determinado orden de complejidad de un determinado \emph{Algoritmo para Streaming}. Debido a la elevada base estadística que requieren dichas demostraciones, a continuación se definen algunos conceptos básicos en relacionadas con estimadores estadísticos, para después realizar una breve demostración acerca de distintas cotas de concentración de valores en una distribución en las subsecciones \ref{sec:streaming_markov}, \ref{sec:streaming_chebyshev} y \ref{sec:streaming_chernoff}.
+      En esta sección se muestran distintas estrategias para poder llevar a cabo la demostración de pertenencia a un determinado orden de complejidad de un \emph{Algoritmo para Streaming}. Debido a la elevada base estadística que requieren dichas demostraciones, a continuación se definen algunos conceptos básicos en relacionadas con estimadores estadísticos, para después realizar una breve demostración acerca de distintas cotas de concentración de valores en una distribución en las subsecciones \ref{sec:streaming_markov}, \ref{sec:streaming_chebyshev} y \ref{sec:streaming_chernoff}. Las definiciones que se exponen a continuación han sido extraidas de los apuntes del curso sobre \emph{Randomized Algorithms} \cite{aspnes2014notes} impartido por Aspnes en la \emph{Universidad de Yale} así como las de la asignatura de \emph{Estadística}\cite{estadistica2016notes} impartida en el Grado de Ingeniería Informática de la \emph{Universidad de Valladolid}.
 
       \paragraph{}
-      [TODO Describir Esperanza y Propiedades]
+      Denotaremos como $x_1$ a una observación cualquiera contenida en el espacio de todas los posibles. Al conjunto de todas las observaciones posibles lo denotaremos como $\Omega$ y lo denominaremos espacio muestral, por lo tanto, $x \in \Omega$. Este concepto se puede entender de manera más sencilla mediante el siguiente ejemplo. Supongamos el lanzamiento de una moneda, que como resultado puede tomar los valores cara o cruz. Definiremos entonces $x_1 = \text{cara}$ y $x_2 = \text{cruz}$ como los sucesos posibles de lanzar una moneda. Por tanto el espacio $\Omega$ se define como $\Omega = \{x_1, x_2\} = \{\text{cara}, \text{cruz}\}$.
+
+      \paragraph{}
+      El siguiente paso es definir el concepto de \textbf{Variable Aleatoria}, que representa una función que mapea la realización de un determinado suceso sobre el espacio $\Omega$. Dicha función se denota con letras mayúsculas y puesto que sus parámetros de entrada son desconocidos, estos se ignoran en la notación. Por tanto denotaremos las variables aleatorias como ($\boldsymbol{X}, \boldsymbol{Y}, \text{etc.}$). Para la variable aleatoria $\boldsymbol{X}$, sean $x_1, x_2, ..., x_i,...$ cada una de las observaciones posibles. Siguiendo el ejemplo anterior, se puede modelizar el lanzamiento de una moneda como $X$. Nótese por tanto, que una variable aleatoria puede definirse de manera textual como la modelización del resultado de un suceso a priori desconocido.
+
+      \paragraph{}
+      Definiremos probabilidad como la medida de certidumbre asociada a un suceso o evento futuro, expresada como un valor contenido en el intervalo $[0,1]$, tomando el valor $0$ un suceso imposible y $1$ un suceso seguro. La notación seguida para representar esto será $Pr[\boldsymbol{X} = x_i]$. Suponiendo la equiprobabilidad en el ejemplo de la moneda, podemos definir sus valores de probabilidad como $Pr[\boldsymbol{X} = \text{cara}] = \tfrac{1}{2}$ y $Pr[\boldsymbol{X} = \text{cruz}] = \tfrac{1}{2}$
+
+      \paragraph{}
+      Una vez descritos estos conceptos simples, a continuación hablaremos sobre distintos conceptos estadísticos utilizados en el análisis de algorítmos probabilisticos tales como \emph{Esperanza}, \emph{Varianza}, \emph{Variables Independientes} y \emph{Probabilidad Condicionada}.
+
+      \paragraph{}
+      Denominaremos \textbf{Esperanza Matemática} al valor medio o más probable que se espera que tome una determinada variable aleatoria. La modelización matemática de dicho concepto se muestra en la ecuación \eqref{eq:expectation}. Además, la esperanza matemática es de carácter lineal, por lo que se cumplen las ecuaciones \eqref{eq:expectation_l1} y \eqref{eq:expectation_l2}
+
+      \begin{equation}
+      \label{eq:expectation}
+        \mathbb{E}[\boldsymbol{X}] = \sum_{i=1}^\infty x_i \cdot Pr[\boldsymbol{X} = x_i]
+      \end{equation}
+
+      \begin{equation}
+      \label{eq:expectation_l1}
+        \mathbb{E}[c\boldsymbol{X}] = c \mathbb{E}[\boldsymbol{X}]
+      \end{equation}
+
+      \begin{equation}
+      \label{eq:expectation_l2}
+        \mathbb{E}[\boldsymbol{X} + \boldsymbol{Y}] = \mathbb{E}[\boldsymbol{X}] + \mathbb{E}[\boldsymbol{Y}]
+      \end{equation}
+
 
       \paragraph{}
       [TODO Describir Varianza y Propiedades]
