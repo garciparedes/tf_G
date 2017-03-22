@@ -272,7 +272,7 @@
 
         \begin{equation}
         \label{eq:expectation_l1}
-          \mathbb{E}[c\boldsymbol{X}] = c \mathbb{E}[\boldsymbol{X}]
+          \mathbb{E}[c \boldsymbol{X}] = c \mathbb{E}[\boldsymbol{X}]
         \end{equation}
 
         \begin{equation}
@@ -295,7 +295,7 @@
 
         \begin{equation}
         \label{eq:variance_p2}
-          Var[c\boldsymbol{X}] = c^2Var[\boldsymbol{X}]
+          Var[c \boldsymbol{X}] = c^2 Var[\boldsymbol{X}]
         \end{equation}
 
         \paragraph{}
@@ -371,29 +371,67 @@
       \label{sec:markov_inequality}
 
         \paragraph{}
-        [TODO]
+        La \emph{Desigualdad de Markov} es la técnica base que utilizan otras desigualdades más sofisticadas para tratar de acotar la \emph{Esperanza} de una determinada \emph{Variable Aleatoria}. Proporciona una cota superior de probabilidad respecto de la \emph{Esperanza} tal y como se muestra en la ecuación \eqref{eq:markov_inequality}. Tal y como se puede intuir, dicha cota es muy poco ajustada, sin embargo, presenta una propiedad muy interesante como estructura base. Sea $f: \boldsymbol{X} \rightarrow \mathbb{R}^+$ una función positiva, entonces también se cumple la desigualdad de la ecuación \eqref{eq:markov_inequality_function}. El punto interesante surge cuando se escoge la función $f$ de tal manera que sea estrictamente creciente, entonces se cumple la propiedad descrita ecuación \eqref{eq:markov_inequality_function_positive}, a través de la cual podemos obtener cotas mucho más ajustadas. Dicha idea se apoya en la \emph{Desigualdad de Jensen}.
 
         \begin{equation}
         \label{eq:markov_inequality}
-          \forall c > 0 \ Pr[\boldsymbol{X} \geq c \mathbb{E}[\boldsymbol{X}]] \leq \frac{1}{c}
+          \forall \lambda > 0 \ Pr[\boldsymbol{X} \geq \lambda ] \leq \frac{\mathbb{E}[\boldsymbol{X}]}{\lambda}
         \end{equation}
+
+        \begin{equation}
+        \label{eq:markov_inequality_function}
+          \forall \lambda > 0 \ Pr[f(\boldsymbol{X}) \geq f(\lambda) ] \leq \frac{\mathbb{E}[f(\boldsymbol{X})]}{f(\lambda)}
+        \end{equation}
+
+        \begin{equation}
+        \label{eq:markov_inequality_function_positive}
+          \forall \lambda > 0 \ Pr[\boldsymbol{X} \geq \lambda ] = Pr[f(\boldsymbol{X}) \geq f(\lambda) ] \leq \frac{\mathbb{E}[f(\boldsymbol{X})]}{f(\lambda)}
+        \end{equation}
+
 
       \subsection{Desigualdad de Chebyshev}
       \label{sec:chebyshev_inequality}
 
         \paragraph{}
-        [TODO]
+        La \emph{Desigualdad de Chebyshev} utiliza la técnica descrita en la subsección anterior apoyandose en al idea de la función $f$ para obtener una cota de concentración mucho más ajustada basandose en la \emph{Varianza}. Dicha propiedad se muestra en la ecuación \eqref{eq:chebyshev_inequality}. En este caso se utiliza $f(\boldsymbol{X}) = \boldsymbol{X}^2$, que es estrictamente creciente en el dominio de aplicación de $\boldsymbol{X}$. Además, se selecciona como variable aleatoria $|\boldsymbol{X} - \mathbb{E}[\boldsymbol{X}]$, es decir, el error absoluto de una  $\boldsymbol{X}$ respecto de su valor esperado. La demostración de esta idea se muestra en la ecuación \eqref{eq:chebyshev_inequality_demo}.
 
         \begin{equation}
         \label{eq:chebyshev_inequality}
-          \forall c > 0 \ Pr[|\boldsymbol{X} - \mathbb{E}[\boldsymbol{X}]| \geq c \sqrt{Var[\boldsymbol{X}]}]  \leq \frac{1}{c^2}
+          \forall \lambda > 0 \ Pr[|\boldsymbol{X} - \mathbb{E}[\boldsymbol{X}]| \geq \lambda]  \leq \frac{Var[\boldsymbol{X}]}{\lambda^2}
+        \end{equation}
+
+        \begin{equation}
+        \label{eq:chebyshev_inequality_demo}
+          \forall \boldsymbol{X} > 0 \
+          Pr[|\boldsymbol{X} - \mathbb{E}[\boldsymbol{X}]| \geq \lambda] =
+          Pr[(\boldsymbol{X} - \mathbb{E}[\boldsymbol{X}])^2 \geq \lambda^2] \leq
+          \frac{\mathbb{E}[(\boldsymbol{X} - \mathbb{E}[\boldsymbol{X}])^2]}{\lambda^2} =
+          \frac{Var[\boldsymbol{X}]}{\lambda^2}
         \end{equation}
 
       \subsection{Desigualdad de Chernoff}
       \label{sec:chernoff_inequality}
 
         \paragraph{}
-        [TODO]
+        La \emph{Desigualdad de Chernoff} proporciona cotas mucho más ajustadas que por contra, exigen unas presunciones más restrictivas para poder ser utilizada. La variable aleatoria en este caso debe ser de la forma $\boldsymbol{S} = \sum_{i=1}^n \boldsymbol{X_i}$ donde cada $\boldsymbol{X_i}$ es una variable aleatoria uniformemente distribuida e independiente del resto. También describiremos la esperanza de cada una de las variables $\boldsymbol{X_i}$ como $\mathbb{E}[\boldsymbol{X}] = p_i$.
+
+        \paragraph{}
+        Denotaremos como $\mu$ a la esperanza de $\boldsymbol{S}$, tal y como se describe en la ecuación \eqref{eq:chernoff_inequality_expectation}. También se define la función $f$ como $f(\boldsymbol{S}) = e^{t\boldsymbol{S}}$.
+
+        \begin{equation}
+        \label{eq:chernoff_inequality_expectation}
+          \mu = \mathbb{E}\bigg[\sum_{i=1}^n \boldsymbol{X_i}\bigg] = \sum_{i=1}^n  \mathbb{E}[\boldsymbol{X_i}] = \sum_{i=1}^n p_i
+        \end{equation}
+
+        \paragraph{}
+        El siguiente paso es utilizar la ecuación \eqref{eq:markov_inequality_function_positive} de la \emph{Desigualdad de Markov} con la función $f$, que en este caso es posible puesto que es estrictamente creciente. En este caso en lugar de utilizar $\lambda$ como constante, se prefiere $\delta \in [0,1]$, que se relacionada con la anterior de la siguiente manera: $\lambda = (1 + \delta)$. Entonces la ecuación \eqref{eq:chernoff_inequality_raw} muestra el paso inicial para llegar a la \emph{Desigualdad de Chernoff}.
+
+        \begin{equation}
+        \label{eq:chernoff_inequality_raw}
+          Pr[ \boldsymbol{X} > (1+\delta) \mu] =
+          Pr[ e^{t \mathbb{X}} > e^{(1+\delta)t\mu}] \leq
+          \frac{\mathbb{E}[ e^{t \boldsymbol{X}}] }{e^{(1 + \delta) t \mu}}
+        \end{equation}
 
         \begin{equation}
         \label{eq:chernoff_inequality}
