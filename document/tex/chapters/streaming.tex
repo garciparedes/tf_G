@@ -375,17 +375,17 @@
 
         \begin{equation}
         \label{eq:markov_inequality}
-          \forall \lambda > 0 \ Pr[\boldsymbol{X} \geq \lambda ] \leq \frac{\mathbb{E}[\boldsymbol{X}]}{\lambda}
+          \forall \lambda \geq 0, \ Pr[\boldsymbol{X} \geq \lambda ] \leq \frac{\mathbb{E}[\boldsymbol{X}]}{\lambda}
         \end{equation}
 
         \begin{equation}
         \label{eq:markov_inequality_function}
-          \forall \lambda > 0 \ Pr[f(\boldsymbol{X}) \geq f(\lambda) ] \leq \frac{\mathbb{E}[f(\boldsymbol{X})]}{f(\lambda)}
+          \forall \lambda \geq 0, \ Pr[f(\boldsymbol{X}) \geq f(\lambda) ] \leq \frac{\mathbb{E}[f(\boldsymbol{X})]}{f(\lambda)}
         \end{equation}
 
         \begin{equation}
         \label{eq:markov_inequality_function_positive}
-          \forall \lambda > 0 \ Pr[\boldsymbol{X} \geq \lambda ] = Pr[f(\boldsymbol{X}) \geq f(\lambda) ] \leq \frac{\mathbb{E}[f(\boldsymbol{X})]}{f(\lambda)}
+          \forall \lambda \geq 0, \ Pr[\boldsymbol{X} \geq \lambda ] = Pr[f(\boldsymbol{X}) \geq f(\lambda) ] \leq \frac{\mathbb{E}[f(\boldsymbol{X})]}{f(\lambda)}
         \end{equation}
 
 
@@ -397,12 +397,12 @@
 
         \begin{equation}
         \label{eq:chebyshev_inequality}
-          \forall \lambda > 0 \ Pr[|\boldsymbol{X} - \mathbb{E}[\boldsymbol{X}]| \geq \lambda]  \leq \frac{Var[\boldsymbol{X}]}{\lambda^2}
+          \forall \lambda \geq 0, \ Pr[|\boldsymbol{X} - \mathbb{E}[\boldsymbol{X}]| \geq \lambda]  \leq \frac{Var[\boldsymbol{X}]}{\lambda^2}
         \end{equation}
 
         \begin{equation}
         \label{eq:chebyshev_inequality_demo}
-          \forall \boldsymbol{X} > 0 \
+          \forall \lambda \geq 0, \
           Pr[|\boldsymbol{X} - \mathbb{E}[\boldsymbol{X}]| \geq \lambda] =
           Pr[(\boldsymbol{X} - \mathbb{E}[\boldsymbol{X}])^2 \geq \lambda^2] \leq
           \frac{\mathbb{E}[(\boldsymbol{X} - \mathbb{E}[\boldsymbol{X}])^2]}{\lambda^2} =
@@ -433,16 +433,21 @@
           \frac{\mathbb{E}[ e^{t \boldsymbol{X}}] }{e^{(1 + \delta) t \mu}}
         \end{equation}
 
+        \paragraph{}
+        Aplicando operaciones aritméticas y otras propiedades estadísticas, se puede demostrar la veracidad de las ecuaciones \eqref{eq:chernoff_inequality_upper} y \eqref{eq:chernoff_inequality_lower}, que proporcionan cotas mucho muy ajustadas de concentración de la distribución de una \emph{variable aleatoria} formada por la suma de $n$ variables aleatorias independientes uniformemente distribuidas.
+
         \begin{equation}
-        \label{eq:chernoff_inequality}
-          \forall 0 < \delta < 1
+        \label{eq:chernoff_inequality_upper}
+          \forall \delta \geq 0, \ Pr[\boldsymbol{X} \geq (1 + \delta)\mu]  \leq e^\frac{-\lambda^2\mu}{2 + \lambda}
         \end{equation}
 
-    \section{Ejemplo Ilustrativo}
-    \label{sec:streaming_puzzle}
+        \begin{equation}
+        \label{eq:chernoff_inequality_lower}
+          \forall \delta \geq 0, \ Pr[\boldsymbol{X} \leq (1 - \delta)\mu]  \leq e^\frac{-\lambda^2\mu}{2 + \lambda}
+        \end{equation}
 
-      \paragraph{}
-      [TODO ]
+    \paragraph{}
+    [TODO Explicar que se van a empezar a describir algoritmos para streaming]
 
 
     \section{Algoritmo de Morris}
@@ -458,5 +463,10 @@
       \paragraph{}
       [TODO ]
 
+    \section{Aproximación a los Momentos de Frecuencia}
+    \label{sec:streaming_frecuency_moment_aproximation}
+
+      \paragraph{}
+      [TODO ]
 
 \end{document}
