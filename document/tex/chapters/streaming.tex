@@ -54,7 +54,7 @@
           \item Espacio: Cantidad de espacio utilizado en memoria durante la ejecución del algoritmo.
           \item Inicialización: Tiempo necesario para la inicialización del algoritmo.
           \item Procesado: Tiempo necesario para procesar una determinada entrada.
-          \item Pregunta[TODO Buscar mejor palabra]: Tiempo necesario para procesar la solución a partir de los datos de entrada procesados hasta el momento.
+          \item Consulta: Tiempo necesario para procesar la solución a partir de los datos de entrada procesados hasta el momento.
         \end{itemize}
 
 
@@ -223,7 +223,7 @@
 
         \item \textbf{Procesado}: Se corresponde con el procesamiento del flujo de datos de manera secuencial. La idea subyacente en esta fase es la de realizar una determinada operación sobre la estructura de datos y el elemento de entrada actual, de manera que se lleve a cabo una actualización sobre la misma. Nótese en que la manera en que se manipula dicha estructura de datos condiciona en gran medida el conjunto de peticiones que se podrán realizar sobre ella.
 
-        \item \textbf{Petición}: La fase de petición se caracteriza con respecto de la anterior por ser de carácter consultivo. Con esto nos estamos refiriendo a que dicha tarea no modifica el estado actual de la estructura de datos, sino que recoge información de la misma, que posiblemente transforme mediante alguna operación, para despues obtener un valor como resultado de dicha petición.
+        \item \textbf{Consulta}: La fase de consulta se caracteriza con respecto de la anterior por ser de carácter consultivo. Con esto nos estamos refiriendo a que dicha tarea no modifica el estado actual de la estructura de datos, sino que recoge información de la misma, que posiblemente transforme mediante alguna operación, para despues obtener un valor como resultado de dicha petición.
 
       \end{itemize}
 
@@ -451,14 +451,57 @@
         \end{equation}
 
     \paragraph{}
-    [TODO Explicar que se van a empezar a describir algoritmos para streaming]
+    Una vez descritos los conceptos básicos acerca de lo que son los \emph{Algoritmos para Streaming} y las bases estadísticas necesarias para poder entender el funcionamiento de los mismo y entender sus niveles de complejidad así como de precisión, en las siguientes secciones se realizará una descripción sobre algunos de los algoritmos más relevantes en esta area. En especial se explica el algoritmo de \emph{Morris} en la sección \ref{sec:streaming_morris_algorithm}, el de \emph{Flajolet-Martin} en la \ref{sec:streaming_morris_algorithm} y por último se hablará de la \emph{Estimación de Momentos de Frecuencia} en el modelo en streaming en la sección \ref{sec:streaming_frecuency_moment_aproximation}.
 
 
     \section{Algoritmo de Morris}
     \label{sec:streaming_morris_algorithm}
 
       \paragraph{}
-      [TODO ]
+      El \emph{Algoritmo de Morris} fue presentado por primera vez en el artículo \emph{The space complexity of approximating the frequency moments} \cite{alon1996space} redactado por \emph{Robert Morris}. En dicho documento se trata de encontrar una solución al problema de conteo de ocurrencias de un determinado suceso teniendo en cuenta las restriciones de espacio debido a la elevada tasa de ocurencias que se da en muchos fenómenos.
+
+      \paragraph{}
+      Por tanto, lo \emph{Morris} propone es realizar una estimación de dicha tasa para reducir el espacio necesario para guardar dicha cifra. Intuitivamente, a partir dicha restricción se consigue un orden de complejidad espacial sublineal ($o(N)$) con respecto al número de ocurrencias. Se puede decir que el artículo publicado por \emph{Morris} marcó el punto de comienzo de este área de investigación. El conteo probabilista es algo trivial si se restringe a la condición de incrementar el conteo de ocurrencias siguiendo una distribución de \emph{Bernoulli} con un parámetro $p$ prefijado previamente. Con esto se consigue un error absoluto relativamente pequeño con respecto al valor $p$ escogido. Sin embargo, el error cuando el número de ocurrencias es pequeño es muy elevado.
+
+
+      \paragraph{}
+      Para solucionar dicha problemática y conseguir una cota del error relativo reducida, la solución propuesta por \emph{Morris} se basa en la selección del parámetro $p$ variable con respecto al número de ocurrencias, con lo cual se consigue que la decisión de incrementar el contador sea muy probable en los primeros casos, lo cual eliminar dicho problema. \emph{Morris} propone aumentar el contador $X$ con probabilidad $\frac{1}{2^X}$. Tras $n$ ocurrencias, el resultado que devuelve dicho algoritmo es $\widetilde{n} = 2^X -1$.
+
+      \paragraph{}
+      [TODO añadir pseudocódigo]
+
+      \paragraph{}
+      A continuación se realiza un análisis sobre dicha solución. Esta ha sido extraida de los apuntes de la asignatura \emph{Algorithms for Big Data} \cite{bigdata2015jelani} impartida por \emph{Jelani Nelson} en la \emph{Universidad de Harvard}. Denotaremos por $X_n$ el valor del contador $X$ tras $n$ ocurrencias. Entonces se cumplen las igualdades descritas en las ecuaciones \eqref{eq:morris_expectation_1} y \eqref{eq:morris_expectation_2}. Esto se puede demostrar mediante técnicas inductivas sobre $n$.
+
+      \begin{equation}
+      \label{eq:morris_expectation_1}
+        \mathbb{E}[2^{X_n}] = n + 1
+      \end{equation}
+
+      \begin{equation}
+      \label{eq:morris_expectation_2}
+        \mathbb{E}[2^{2X_n}] = \frac{3}{2}n^2 + \frac{3}{2}n + 1
+      \end{equation}
+
+      \paragraph{}
+      Por la \emph{Desigualdad de Chebyshev} podemos acotar el error cometido tras $n$ repeticiones, dicha formulación se muestra en la ecuación \eqref{eq:morris_bound}.
+
+      \begin{align}
+      \label{eq:morris_bound}
+        Pr[|\widetilde{n} - n| > \epsilon n ] < \frac{1}{\epsilon^2n^2}\cdot\mathbb{E}[\widetilde{n} - n]^2
+          &= \frac{1}{\epsilon^2n^2}\cdot\mathbb{E}[2^X-1-n]^2
+        \\&= \frac{1}{\epsilon^2n^2}\cdot \frac{n^2}{2}
+        \\&= \frac{1}{2\epsilon^2}
+      \end{align}
+
+      \paragraph{}
+      La ventaja de esta estrategia algorítmica con respecto de la trivial es la cota del error relativo producido en cada iteracción del algoritmos, lo cual aporta una mayor genericidad debido a que esta se mantiene constante con respecto del número de ocurrencias. Sin embargo, se han propuesto otras soluciones para tratar de reducir más dicha cota. El algoritmo \emph{Morris+} se basa en el mantenimiento de $s$ copias independientes de \emph{Morris} para después devolver la media del resultado de cada una de ellas. A partir de dicha solución se consigue lo descrito en la ecuación \eqref{eq:morris+_bound}.
+
+      \begin{align}
+      \label{eq:morris+_bound}
+        Pr[|\widetilde{n} - n| > \epsilon n ] < \frac{1}{2s\epsilon^2} && s > \frac{3}{2\epsilon^2}
+      \end{align}
+
 
 
     \section{Algoritmo de Flajolet-Martin}
