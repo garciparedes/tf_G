@@ -458,10 +458,10 @@
     \label{sec:streaming_morris_algorithm}
 
       \paragraph{}
-      El \emph{Algoritmo de Morris} fue presentado por primera vez en el artículo \emph{The space complexity of approximating the frequency moments} \cite{alon1996space} redactado por \emph{Robert Morris}. En dicho documento se trata de encontrar una solución al problema de conteo de ocurrencias de un determinado suceso teniendo en cuenta las restriciones de espacio debido a la elevada tasa de ocurencias que se da en muchos fenómenos.
+      El \emph{Algoritmo de Morris} fue presentado por primera vez en el artículo \emph{Counting Large Numbers of Events in Small Registers} \cite{morris1978counting} redactado por \emph{Robert Morris}. En dicho documento se trata de encontrar una solución al problema de conteo de ocurrencias de un determinado suceso teniendo en cuenta las restriciones de espacio debido a la elevada tasa de ocurencias que se da en muchos fenómenos. El problema del conteo de ocurrencias también se denomina el momento de frecuencia $F_1$ tal y como se verá en la sección \ref{sec:streaming_frecuency_moment_aproximation}.
 
       \paragraph{}
-      Por tanto, lo \emph{Morris} propone es realizar una estimación de dicha tasa para reducir el espacio necesario para guardar dicha cifra. Intuitivamente, a partir dicha restricción se consigue un orden de complejidad espacial sublineal ($o(N)$) con respecto al número de ocurrencias. Se puede decir que el artículo publicado por \emph{Morris} marcó el punto de comienzo de este área de investigación. El conteo probabilista es algo trivial si se restringe a la condición de incrementar el conteo de ocurrencias siguiendo una distribución de \emph{Bernoulli} con un parámetro $p$ prefijado previamente. Con esto se consigue un error absoluto relativamente pequeño con respecto al valor $p$ escogido. Sin embargo, el error cuando el número de ocurrencias es pequeño es muy elevado.
+      Por tanto, \emph{Morris} propone realizar una estimación de dicha tasa para reducir el espacio necesario para almacenar el valor. Intuitivamente, a partir dicha restricción se consigue un orden de complejidad espacial sublineal ($o(N)$) con respecto al número de ocurrencias. Se puede decir que el artículo publicado por \emph{Morris} marcó el punto de comienzo de este área de investigación. El conteo probabilista es algo trivial si se restringe a la condición de incrementar el conteo de ocurrencias siguiendo una distribución de \emph{Bernoulli} con un parámetro $p$ prefijado previamente. Con esto se consigue un error absoluto relativamente pequeño con respecto al valor $p$ escogido. Sin embargo, el error cuando el número de ocurrencias es pequeño es muy elevado.
 
 
       \paragraph{}
@@ -471,7 +471,7 @@
       [TODO añadir pseudocódigo]
 
       \paragraph{}
-      A continuación se realiza un análisis sobre dicha solución. Esta ha sido extraida de los apuntes de la asignatura \emph{Algorithms for Big Data} \cite{bigdata2015jelani} impartida por \emph{Jelani Nelson} en la \emph{Universidad de Harvard}. Denotaremos por $X_n$ el valor del contador $X$ tras $n$ ocurrencias. Entonces se cumplen las igualdades descritas en las ecuaciones \eqref{eq:morris_expectation_1} y \eqref{eq:morris_expectation_2}. Esto se puede demostrar mediante técnicas inductivas sobre $n$.
+      A continuación se realiza un análisis de la solución. Esta ha sido extraida de los apuntes de la asignatura \emph{Algorithms for Big Data} \cite{bigdata2015jelani} impartida por \emph{Jelani Nelson} en la \emph{Universidad de Harvard}. Denotaremos por $X_n$ el valor del contador $X$ tras $n$ ocurrencias. Entonces se cumplen las igualdades descritas en las ecuaciones \eqref{eq:morris_expectation_1} y \eqref{eq:morris_expectation_2}. Esto se puede demostrar mediante técnicas inductivas sobre $n$.
 
       \begin{equation}
       \label{eq:morris_expectation_1}
@@ -508,7 +508,7 @@
     \label{sec:streaming_morris_algorithm}
 
       \paragraph{}
-      En esta sección se describe el \emph{Algoritmo de Flajolet-Martin}, cuya descripción aparece en el artículo \emph{Probabilistic Counting Algorithms for Data Base Applications} \cite{flajolet1985probabilistic} redactado por \emph{Philppe Flajolet} y \emph{Nigel Martin}. En este caso, la problemática que se pretende resolver no es el número de ocurrencias de un determinado suceso, sino el número de sucesos distintos (\textbf{Count Distinct Problem}) en la entrada. Este problema también se denomina el momento de frecuencia $F_0$. Las razones de ello se describen en la sección \ref{sec:streaming_frecuency_moment_aproximation}.
+      En esta sección se describe el \emph{Algoritmo de Flajolet-Martin}, cuya descripción aparece en el artículo \emph{Probabilistic Counting Algorithms for Data Base Applications} \cite{flajolet1985probabilistic} redactado por \emph{Philppe Flajolet} y \emph{Nigel Martin}. En este caso, la problemática que se pretende resolver no es el número de ocurrencias de un determinado suceso, sino el número de sucesos distintos (\textbf{Count Distinct Problem}) en la entrada. Este problema también se denomina el momento de frecuencia $F_0$ tal y como se verá en la sección \ref{sec:streaming_frecuency_moment_aproximation}. Al igual que en el caso del algoritmo de \emph{Morris}, se apoya en estrategias probabilistas para ajustarse a un orden de complejidad espacial de carácter sublineal ($o(N))$) manteniendo una cota de error ajustada.
 
       \paragraph{}
       [TODO descripción]
@@ -521,13 +521,14 @@
 
       \paragraph{}
       [TODO comentario final]
+      Posteriormente,
 
 
     \section{Aproximación a los Momentos de Frecuencia}
     \label{sec:streaming_frecuency_moment_aproximation}
 
       \paragraph{}
-      [TODO introducción]
+      [TODO introducción] \emph{The space complexity of approximating the frequency moments} \cite{alon1996space} redactado por \emph{Noga Alon}, \emph{Yossi Matias} y \emph{Mario Szegedy}.
 
       \paragraph{}
       [TODO descripción]
