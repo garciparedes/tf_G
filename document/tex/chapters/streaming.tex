@@ -471,10 +471,19 @@
 
 
       \paragraph{}
-      Para solucionar dicha problemática y conseguir una cota del error relativo reducida, la solución propuesta por \emph{Morris} se basa en la selección del parámetro $p$ variable con respecto al número de ocurrencias, con lo cual se consigue que la decisión de incrementar el contador sea muy probable en los primeros casos, lo cual eliminar dicho problema. \emph{Morris} propone aumentar el contador $X$ con probabilidad $\frac{1}{2^X}$. Tras $n$ ocurrencias, el resultado que devuelve dicho algoritmo es $\widetilde{n} = 2^X -1$. A continuación se muestra el pseudocódigo para la implementación de dicho algoritmo.
+      Para solucionar dicha problemática y conseguir una cota del error relativo reducida, la solución propuesta por \emph{Morris} se basa en la selección del parámetro $p$ variable con respecto al número de ocurrencias, con lo cual se consigue que la decisión de incrementar el contador sea muy probable en los primeros casos, lo cual eliminar dicho problema. \emph{Morris} propone aumentar el contador $X$ con probabilidad $\frac{1}{2^X}$. Tras $n$ ocurrencias, el resultado que devuelve dicho algoritmo es $\widetilde{n} = 2^X -1$. El pseudocódigo se muestra en el algoritmo \ref{code:morris-algorithm}.
 
       \paragraph{}
-      [TODO añadir pseudocódigo]
+      \begin{algorithm}[h]
+        \SetAlgoLined
+        \KwResult{$\widetilde{n} = 2^X -1$ }
+        $X \gets 0$\;
+        \For{cada evento}{
+          $X \gets X + 1 \ \text{con probabilidad} \frac{1}{2^X}$\;
+        }
+        \caption{Morris-Algorithm}
+        \label{code:morris-algorithm}
+      \end{algorithm}
 
       \paragraph{}
       A continuación se realiza un análisis de la solución. Esta ha sido extraida de los apuntes de la asignatura \emph{Algorithms for Big Data} \cite{bigdata2015jelani} impartida por \emph{Jelani Nelson} en la \emph{Universidad de Harvard}. Denotaremos por $X_n$ el valor del contador $X$ tras $n$ ocurrencias. Entonces se cumplen las igualdades descritas en las ecuaciones \eqref{eq:morris_expectation_1} y \eqref{eq:morris_expectation_2}. Esto se puede demostrar mediante técnicas inductivas sobre $n$.
@@ -522,7 +531,7 @@
       \begin{itemize}
         \item $hash(x)$ Es la función hash con distribución uniforme e independiente de probabilidad que mapea una entrada cualquiera a un valor entero en el rango $[0,...,2^L-1]$.
         \item $bit(y, k)$ Esta función devuelve el bit \emph{k-ésimo} de la representación binaria de $y$, de tal manera que se cumple que $y = \sum_{k \geq 0} bit(y,k)2^k$
-        \item $\rho(y)$ La función $\rho$ devuelve la posición en la cual se encuentra el bit con valor $1$ empezando a contar a partir del menos significativo. Por convenio, devuelve el valor $L$ si se $y$ no contiene ningún $1$. Esto se modeliza matemáticamente en la ecuación \eqref{eq:rho_function}.
+        \item $\rho(y)$ La función $\rho$ devuelve la posición en la cual se encuentra el bit con valor $1$ empezando a contar a partir del menos significativo. Por convenio, devuelve el valor $L$ si $y$ no contiene ningún $1$ en su representación binaria, es decir, si $y = 0$. Esto se modeliza matemáticamente en la ecuación \eqref{eq:rho_function}.
       \end{itemize}
 
       \begin{equation}
@@ -535,13 +544,26 @@
       \end{equation}
 
       \paragraph{}
-      \emph{Flajolet} y \emph{Martin} se apoyan en una estructura de datos indexada a la cual denominan \textbf{BITMAP}, de tamaño $[0...L-1]$ la cual almacena valores binarios $\{ 0, 1\}$ y se inicializa con todos los valores a $0$. Nótese por tanto, que esta estructura de datos puede ser codificada como un string binario de longitud $L$. La idea del algoritmo es marcar con un $1$ la posición \textbf{BITMAP[$\rho(hash(x))$]}. Seguidamente, queda definir el resultado de la consulta sobre cuántos elementos distintos han aparecido en el Stream de datos de entrada. Para ello se calcula $2^{\rho(\textbf{BITMAP})}$. A continuación se muestra el pseudocódigo para la implementación de dicho algoritmo.
+      \emph{Flajolet} y \emph{Martin} se apoyan en una estructura de datos indexada a la cual denominan \textbf{BITMAP}, de tamaño $[0...L-1]$ la cual almacena valores binarios $\{ 0, 1\}$ y se inicializa con todos los valores a $0$. Nótese por tanto, que esta estructura de datos puede ser codificada como un string binario de longitud $L$. La idea del algoritmo es marcar con un $1$ la posición \textbf{BITMAP[$\rho(hash(x))$]}. Seguidamente, queda definir el resultado de la consulta sobre cuántos elementos distintos han aparecido en el Stream de datos de entrada. Para ello se calcula $2^{\rho(\textbf{BITMAP})}$. El pseudocódigo se muestra en el algoritmo \ref{code:fm-algorithm}.
 
       \paragraph{}
-      [TODO añadir pseudocódigo]
+      \begin{algorithm}[h]
+        \SetAlgoLined
+        \KwResult{$2^{\rho(\textbf{BITMAP})}$}
+        \For{$i \in [0,...,L-1]$}{
+          $\textbf{BITMAP[$i$]} \gets 0$\;
+        }
+        \For{cada evento}{
+          \If{$\textbf{BITMAP[$\rho(hash(x))$]} = 0$}{
+            $\textbf{BITMAP[$\rho(hash(x))$]} \gets 1$\;
+          }
+        }
+        \caption{FM-Algorithm}
+        \label{code:fm-algorithm}
+      \end{algorithm}
 
       \paragraph{}
-      [TODO análisis]
+      El análisis de esta solución ha sido estraido de los apuntes del libro \emph{Mining of massive datasets} \cite{leskovec2014mining} de la \emph{Universidad de Cambridge}. En este caso lo representa teniendo el cuenta el número de $0$'s seguidos en la parte menos significativa de la representación binaria de $h(x)$. Nótese que esto es equivalente al valor de la función $\rho(h(y))$, por tanto, adapteremos dicho análisis a la solución inicial propuesta por \emph{Flajolet} y \emph{Martin}. La probabilidad de que se cumpla $\rho(h(x)) = r$ es $2^{-r}$. Supongamos que el número de elementos distintos en el stream es $m$. Entonces la probabilidad de que ninguno de ellos cumpla $\rho(h(x)) = r$ es al menos $(1- 2^{-r})^m$ lo cual puede ser reescrito como $((1- 2^{-r})^{2^r})^{m2^{-r}}$. Para valores suficientemente grandes $r$ se puede asumir que dicho valor es de la forma $(1-\epsilon)^{1/\epsilon} \approx 1/\epsilon$. Entonces la probabilidad de que no se cumpla que $\rho(h(x)) = r$ cuando han aparecido $m$ elementos distintos en el stream es de $e^{-m2^{-r}}$
 
       \paragraph{}
       La problemática de este algoritmo deriva de la suposición de la capacidad de generación de claves Hash totalmente aleatorias, lo cual no se ha conseguido aún. Por lo tanto posteriormente, \emph{Flajolet} ha seguido trabajando el problema de conteo de elementos distintos en \emph{Loglog counting of large cardinalities} \cite{durand2003loglog} y \emph{Hyperloglog: the analysis of a near-optimal cardinality estimation algorithm} \cite{flajolet2007hyperloglog}. En el artículo \emph{An optimal algorithm for the distinct elements problem} \cite{kane2010optimal} \emph{Daniel Kane y otros} muestran un algoritmo óptimo para el problema. Los resultados de dichos trabajos se discuten en la sección \ref{sec:hyper_log_log} por su cercana relación con las \emph{estructuras de datos de resumen}.
@@ -555,6 +577,18 @@
 
       \paragraph{}
       [TODO descripción]
+
+
+      \begin{equation}
+      \label{eq:frecuency_moments}
+        F_k = \sum_{i=1}^n m_i^k
+      \end{equation}
+
+      \begin{equation}
+      \label{eq:frecuency_moments_max}
+        F_\infty^* = max_{1 \leq i \leq n} m_i
+      \end{equation}
+
 
       \paragraph{}
       [TODO añadir pseudocódigo]
