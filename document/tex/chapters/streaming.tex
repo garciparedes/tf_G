@@ -227,7 +227,7 @@
 
       \end{itemize}
 
-    \section{Medidas de Análisis}
+    \section{Medidas de Análisis y Conceptos Matemáticos}
     \label{sec:streaming_analysis}
 
       \paragraph{}
@@ -450,15 +450,21 @@
           \forall \delta \geq 0, \ Pr[\boldsymbol{X} \leq (1 - \delta)\mu]  \leq e^\frac{-\lambda^2\mu}{2 + \lambda}
         \end{equation}
 
-    \paragraph{}
-    Una vez descritos los conceptos básicos acerca de lo que son los \emph{Algoritmos para Streaming} y las bases estadísticas necesarias para poder entender el funcionamiento de los mismo y entender sus niveles de complejidad así como de precisión, en las siguientes secciones se realizará una descripción sobre algunos de los algoritmos más relevantes en esta area. En especial se explica el algoritmo de \emph{Morris} en la sección \ref{sec:streaming_morris_algorithm}, el de \emph{Flajolet-Martin} en la \ref{sec:streaming_morris_algorithm} y por último se hablará de la \emph{Estimación de Momentos de Frecuencia} en el modelo en streaming en la sección \ref{sec:streaming_frecuency_moment_aproximation}.
+      \subsection{Funciones Hash}
+      \label{sec:hash_functions}
+
+        \paragraph{}
+        [TODO ]
+
+      \paragraph{}
+      Una vez descritos los conceptos básicos acerca de lo que son los \emph{Algoritmos para Streaming} y las bases estadísticas necesarias para poder entender el funcionamiento de los mismo y entender sus niveles de complejidad así como de precisión, en las siguientes secciones se realizará una descripción sobre algunos de los algoritmos más relevantes en esta area. En especial se explica el algoritmo de \emph{Morris} en la sección \ref{sec:streaming_morris_algorithm}, el de \emph{Flajolet-Martin} en la \ref{sec:streaming_morris_algorithm} y por último se hablará de la \emph{Estimación de Momentos de Frecuencia} en el modelo en streaming en la sección \ref{sec:streaming_frecuency_moment_aproximation}.
 
 
     \section{Algoritmo de Morris}
     \label{sec:streaming_morris_algorithm}
 
       \paragraph{}
-      El \emph{Algoritmo de Morris} fue presentado por primera vez en el artículo \emph{Counting Large Numbers of Events in Small Registers} \cite{morris1978counting} redactado por \emph{Robert Morris}. En dicho documento se trata de encontrar una solución al problema de conteo de ocurrencias de un determinado suceso teniendo en cuenta las restriciones de espacio debido a la elevada tasa de ocurencias que se da en muchos fenómenos. El problema del conteo de ocurrencias también se denomina el momento de frecuencia $F_1$ tal y como se verá en la sección \ref{sec:streaming_frecuency_moment_aproximation}.
+      El \emph{Algoritmo de Morris} fue presentado por primera vez en el artículo \emph{Counting Large Numbers of Events in Small Registers} \cite{morris1978counting} redactado por \emph{Robert Morris}. En dicho documento se trata de encontrar una solución al problema de conteo de ocurrencias de un determinado suceso teniendo en cuenta las restriciones de espacio debido a la elevada tasa de ocurencias que se da en muchos fenómenos. El problema del conteo (\textbf{Count Problem}) de ocurrencias también se denomina el momento de frecuencia $F_1$ tal y como se verá en la sección \ref{sec:streaming_frecuency_moment_aproximation}.
 
       \paragraph{}
       Por tanto, \emph{Morris} propone realizar una estimación de dicha tasa para reducir el espacio necesario para almacenar el valor. Intuitivamente, a partir dicha restricción se consigue un orden de complejidad espacial sublineal ($o(N)$) con respecto al número de ocurrencias. Se puede decir que el artículo publicado por \emph{Morris} marcó el punto de comienzo de este área de investigación. El conteo probabilista es algo trivial si se restringe a la condición de incrementar el conteo de ocurrencias siguiendo una distribución de \emph{Bernoulli} con un parámetro $p$ prefijado previamente. Con esto se consigue un error absoluto relativamente pequeño con respecto al valor $p$ escogido. Sin embargo, el error cuando el número de ocurrencias es pequeño es muy elevado.
@@ -511,6 +517,9 @@
       En esta sección se describe el \emph{Algoritmo de Flajolet-Martin}, cuya descripción aparece en el artículo \emph{Probabilistic Counting Algorithms for Data Base Applications} \cite{flajolet1985probabilistic} redactado por \emph{Philppe Flajolet} y \emph{Nigel Martin}. En este caso, la problemática que se pretende resolver no es el número de ocurrencias de un determinado suceso, sino el número de sucesos distintos (\textbf{Count Distinct Problem}) en la entrada. Este problema también se denomina el momento de frecuencia $F_0$ tal y como se verá en la sección \ref{sec:streaming_frecuency_moment_aproximation}. Al igual que en el caso del algoritmo de \emph{Morris}, se apoya en estrategias probabilistas para ajustarse a un orden de complejidad espacial de carácter sublineal ($o(N))$) manteniendo una cota de error ajustada.
 
       \paragraph{}
+      La intuicción en la cual se basa el \emph{Algoritmo de Flajolet-Martin}, es la transformación de los elementos de entrada sobre una \emph{función Hash} universal binaria con distribución uniforme de probabilidad. La propiedad de distribución uniforme permite entonces preveer que la mitad de los elementos tendrán un $0$ en el bit menos significativo, que una cuarta parte de los elementos tendrán un $0$ en el segundo bit menos significativo y así sucesivamente. Por tanto, a partir de esta idea se puede realizar una aproximación estadística del número de elementos distintos que han sido presentados en la entrada. A continuación se explica el esta estrategia.
+
+      \paragraph{}
       [TODO descripción]
 
       \paragraph{}
@@ -520,8 +529,7 @@
       [TODO análisis]
 
       \paragraph{}
-      [TODO comentario final]
-      Posteriormente,
+      La problemática de este algoritmo deriva de la suposición de la capacidad de generación de claves Hash totalmente aleatorias, lo cual no se ha conseguido aún. Por lo tanto posteriormente, \emph{Flajolet} ha seguido trabajando el problema de conteo de elementos distintos en \emph{Loglog counting of large cardinalities} \cite{durand2003loglog} y \emph{Hyperloglog: the analysis of a near-optimal cardinality estimation algorithm} \cite{flajolet2007hyperloglog}. En el artículo \emph{An optimal algorithm for the distinct elements problem} \cite{kane2010optimal} \emph{Daniel Kane y otros} muestran un algoritmo óptimo para el problema. Los resultados de dichos trabajos se discuten en la sección \ref{sec:hyper_log_log} por su cercana relación con las \emph{estructuras de datos de resumen}.
 
 
     \section{Aproximación a los Momentos de Frecuencia}
