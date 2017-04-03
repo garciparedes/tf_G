@@ -132,7 +132,7 @@
         Una vez descritos los niveles de complejidad a los que es necesario hacer frente para abordar problemas en el \emph{Modelo en Streaming}, se realiza una descripción de los distintos modelos que propone Muthukrishnan \cite{Muthukrishnan:2005:DSA:1166409.1166410} en los apartados \ref{sec:streaming_time_series}, \ref{sec:streaming_cash_register} y \ref{sec:streaming_turnstile}. La especificación descrita en dichos apartados será seguida durante el resto del capítulo. Para ello nos basaremos en el siguiente formalismo:
 
         \paragraph{}
-        Sea $a_1 ,a_2 ,... ,a_t,... $ un flujo de datos de entrada (\emph{Input Stream}), de tal manera que cada elemento debe presentar un orden de llegada secuencial respecto de $t \in \mathbb{N}$. Esto también se puede ver de la siguiente manera: el elemento siguiente a la llegada de $a_{t-1}$ debe ser $a_{t}$ y, por inducción, el próximo será $a_{t+1}$. Es necesario aclarar que $t$ no se refiere a unidades propiamente temporales, sino a la posición en la entrada.
+        Sea $a_1 ,a_2 ,... ,a_t,... $ un flujo de datos de entrada (\emph{Input Stream}), de tal manera que cada elemento debe presentar un orden de llegada secuencial respecto de $t \in \mathbb{M}$. Esto también se puede ver de la siguiente manera: el elemento siguiente a la llegada de $a_{t-1}$ debe ser $a_{t}$ y, por inducción, el próximo será $a_{t+1}$. Es necesario aclarar que $t$ no se refiere a unidades propiamente temporales, sino a la posición en la entrada.
 
 
         \begin{equation}
@@ -471,7 +471,7 @@
 
 
       \paragraph{}
-      Para solucionar dicha problemática y conseguir una cota del error relativo reducida, la solución propuesta por \emph{Morris} se basa en la selección del parámetro $p$ variable con respecto al número de ocurrencias, con lo cual se consigue que la decisión de incrementar el contador sea muy probable en los primeros casos, lo cual eliminar dicho problema. \emph{Morris} propone aumentar el contador $X$ con probabilidad $\frac{1}{2^X}$. Tras $n$ ocurrencias, el resultado que devuelve dicho algoritmo es $\widetilde{n} = 2^X -1$.
+      Para solucionar dicha problemática y conseguir una cota del error relativo reducida, la solución propuesta por \emph{Morris} se basa en la selección del parámetro $p$ variable con respecto al número de ocurrencias, con lo cual se consigue que la decisión de incrementar el contador sea muy probable en los primeros casos, lo cual eliminar dicho problema. \emph{Morris} propone aumentar el contador $X$ con probabilidad $\frac{1}{2^X}$. Tras $n$ ocurrencias, el resultado que devuelve dicho algoritmo es $\widetilde{n} = 2^X -1$. A continuación se muestra el pseudocódigo para la implementación de dicho algoritmo.
 
       \paragraph{}
       [TODO añadir pseudocódigo]
@@ -514,13 +514,28 @@
     \label{sec:streaming_morris_algorithm}
 
       \paragraph{}
-      En esta sección se describe el \emph{Algoritmo de Flajolet-Martin}, cuya descripción aparece en el artículo \emph{Probabilistic Counting Algorithms for Data Base Applications} \cite{flajolet1985probabilistic} redactado por \emph{Philppe Flajolet} y \emph{Nigel Martin}. En este caso, la problemática que se pretende resolver no es el número de ocurrencias de un determinado suceso, sino el número de sucesos distintos (\textbf{Count Distinct Problem}) en la entrada. Este problema también se denomina el momento de frecuencia $F_0$ tal y como se verá en la sección \ref{sec:streaming_frecuency_moment_aproximation}. Al igual que en el caso del algoritmo de \emph{Morris}, se apoya en estrategias probabilistas para ajustarse a un orden de complejidad espacial de carácter sublineal ($o(N))$) manteniendo una cota de error ajustada.
+      En esta sección se describe el \emph{Algoritmo de Flajolet-Martin}, cuya descripción aparece en el artículo \emph{Probabilistic Counting Algorithms for Data Base Applications} \cite{flajolet1985probabilistic} redactado por \emph{Philippe Flajolet} y \emph{G. Nigel Martin}. En este caso, la problemática que se pretende resolver no es el número de ocurrencias de un determinado suceso, sino el número de sucesos distintos (\textbf{Count Distinct Problem}) en la entrada. Este problema también se denomina el momento de frecuencia $F_0$ tal y como se verá en la sección \ref{sec:streaming_frecuency_moment_aproximation}. Al igual que en el caso del algoritmo de \emph{Morris}, se apoya en estrategias probabilistas para ajustarse a un orden de complejidad espacial de carácter sublineal ($o(N))$) manteniendo una cota de error ajustada.
 
       \paragraph{}
-      La intuicción en la cual se basa el \emph{Algoritmo de Flajolet-Martin}, es la transformación de los elementos de entrada sobre una \emph{función Hash} universal binaria con distribución uniforme de probabilidad. La propiedad de distribución uniforme permite entonces preveer que la mitad de los elementos tendrán un $0$ en el bit menos significativo, que una cuarta parte de los elementos tendrán un $0$ en el segundo bit menos significativo y así sucesivamente. Por tanto, a partir de esta idea se puede realizar una aproximación estadística del número de elementos distintos que han sido presentados en la entrada. A continuación se explica el esta estrategia.
+      La intuicción a partir de la cual se basa el \emph{Algoritmo de Flajolet-Martin}, es la transformación de los elementos de entrada sobre una \emph{función Hash} universal binaria con distribución uniforme e independiente de probabilidad. La propiedad de distribución uniforme permite entonces preveer que la mitad de los elementos tendrán un $1$ en el bit menos significativo, que una cuarta parte de los elementos tendrán un $1$ en el segundo bit menos significativo y así sucesivamente. Por tanto, a partir de esta idea se puede realizar una aproximación estadística del número de elementos distintos que han sido presentados en la entrada. Requiere de $L$ bits de espacio para el almacenamiento del número de elementos distintos. Por la notación descrita en anteriores secciones $L = log(n)$, donde $n$ es el número máximo de elementos distintos en la entrada. A continuación se explica esta estrategia, para ello nos apoyaremos en las siguientes funciones:
+
+      \begin{itemize}
+        \item $hash(x)$ Es la función hash con distribución uniforme e independiente de probabilidad que mapea una entrada cualquiera a un valor entero en el rango $[0,...,2^L-1]$.
+        \item $bit(y, k)$ Esta función devuelve el bit \emph{k-ésimo} de la representación binaria de $y$, de tal manera que se cumple que $y = \sum_{k \geq 0} bit(y,k)2^k$
+        \item $\rho(y)$ La función $\rho$ devuelve la posición en la cual se encuentra el bit con valor $1$ empezando a contar a partir del menos significativo. Por convenio, devuelve el valor $L$ si se $y$ no contiene ningún $1$. Esto se modeliza matemáticamente en la ecuación \eqref{eq:rho_function}.
+      \end{itemize}
+
+      \begin{equation}
+      \label{eq:rho_function}
+        \rho(y) =
+          \begin{cases}
+            min_{k \geq 0} bit(y, k) \neq 0 & y \geq 0\\
+            L & y =0
+          \end{cases}
+      \end{equation}
 
       \paragraph{}
-      [TODO descripción]
+      \emph{Flajolet} y \emph{Martin} se apoyan en una estructura de datos indexada a la cual denominan \textbf{BITMAP}, de tamaño $[0...L-1]$ la cual almacena valores binarios $\{ 0, 1\}$ y se inicializa con todos los valores a $0$. Nótese por tanto, que esta estructura de datos puede ser codificada como un string binario de longitud $L$. La idea del algoritmo es marcar con un $1$ la posición \textbf{BITMAP[$\rho(hash(x))$]}. Seguidamente, queda definir el resultado de la consulta sobre cuántos elementos distintos han aparecido en el Stream de datos de entrada. Para ello se calcula $2^{\rho(\textbf{BITMAP})}$. A continuación se muestra el pseudocódigo para la implementación de dicho algoritmo.
 
       \paragraph{}
       [TODO añadir pseudocódigo]
