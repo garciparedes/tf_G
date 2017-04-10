@@ -592,10 +592,33 @@
       Para el cálculo de $F_k$ para $k \geq 0$ \emph{Alon}, \emph{Matias} y \emph{Szedgedy} proponen un enfoque similar a los propuestos en algoritmos anteriores (la definición de una variable aleatoria $X$ tal que $\mathbb{E}[X] = F_k$). Sin embargo, la novedad en este caso es que su algoritmo no está restringido a un $k$ concreto, sino que en su caso es generalizable para cualquier entero positivo, sin embargo, en este caso la exposición es a nivel teórico. La definición del algoritmo a nivel práctico se describe en la sección \ref{sec:ams_sketch}.
 
       \paragraph{}
-      %En este caso supondremos que el tamaño $n$ del \emph{Stream} es conocido \emph{a-priori} 
+      Definiremos las constantes $S_1 =O(n^{1-1/k}/\lambda ^{2})$ y $S_2 = O(\log(1/\varepsilon ))$. El algoritmo utiliza $S_2$ variables aleatorias denominadas $Y_1, Y_2, Y_{S_2}$ y devuelve la mediana de estas denominandola $Y$. Cada una de estas variables $Y_i$ está formada por la media de $X_{ij}$ variables aleatorias tales que $1 leq j leq S_1$. La forma en que se actualiza el estado del algoritmo tras cada nueva llegada se apoya en el uso de $S_2$ funciones hash uniformemente distribuidas e independientes entre si que mapean cada símbolo a un determinado indice $j$.
 
       \paragraph{}
-      [TODO análisis]
+      Para el análisis del algoritmos supondremos que el tamaño $n$ del \emph{Stream} es conocido \emph{a-priori}. La demostración se apoya en una variable aleatoria $X$ construida de la siguiente manera:
+
+      \begin{itemize}
+        \item Seleccionaremos de manera aleatoria el elemento $a_{p \in (1,2,...,n)}$ del Stream, siendo $a_p = l \in (1,2,...m)$. Es decir, el elemento procesado en el momento $p$ representa la llegada del símbolo $l$.
+        \item Definiremos $r=|\{q:q\geq p,a_{p}=l\}|$ como el número de ocurrencias del símbolo $l$ hasta el momento $p$.
+        \item La variable aleatoria $X$ se define como $X=m(r^{k}-(r-1)^{k})$
+      \end{itemize}
+
+      \paragraph{}
+      Desarrollando la Esperanza Matemática de la variable aleatoria $X$ se puede demostrar que esta tiende al momento de frecuencia $k$ tal y como se muestra en la ecuación \eqref{eq:expectation_frecuency_moments}.
+
+      \begin{equation}
+      \label{eq:expectation_frecuency_moments}
+        {\displaystyle {\begin{array}{lll}\mathbb{E}(X)&=&\sum _{i=1}^{n}\sum _{i=1}^{m_{i}}(j^{k}-(j-1)^{k})\\&=&{\frac {m}{m}}[(1^{k}+(2^{k}-1^{k})+\ldots +(m_{1}^{k}-(m_{1}-1)^{k}))\\&&\;+\;(1^{k}+(2^{k}-1^{k})+\ldots +(m_{2}^{k}-(m_{2}-1)^{k}))+\ldots \\&&\;+\;(1^{k}+(2^{k}-1^{k})+\ldots +(m_{n}^{k}-(m_{n}-1)^{k}))]\\&=&\sum _{i=1}^{n}m_{i}^{k}=F_{k}\end{array}}}
+      \end{equation}
+
+      \paragraph{}
+      En cuanto al coste espacial del algoritmo, se puede demostrar tal y como indican \emph{Alon}, \emph{Matias} y \emph{Szedgedy} en su artículo original \cite{alon1996space} que este sigue el orden descrito en la ecuación \eqref{eq:complexity_frecuency_moments} puesto que es necesario almacenar $a_p$ y $r$ lo cual requiere de $log(n) + log(m)$ bits de memoria, además de $S_1 x S_2$ variables aleatorias para mantener $X$.
+
+      \begin{equation}
+      \label{eq:complexity_frecuency_moments}
+        {\displaystyle O\left({\dfrac {k\log {1 \over \varepsilon }}{\lambda ^{2}}}n^{1-{1 \over k}}\left(\log n+\log m\right)\right)}
+      \end{equation}
+
 
       \paragraph{}
       [TODO comentario final]
