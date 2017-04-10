@@ -598,7 +598,7 @@
       Para el análisis del algoritmos supondremos que el tamaño $n$ del \emph{Stream} es conocido \emph{a-priori}. La demostración se apoya en una variable aleatoria $X$ construida de la siguiente manera:
 
       \begin{itemize}
-        \item Seleccionaremos de manera aleatoria el elemento $a_{p \in (1,2,...,n)}$ del Stream, siendo $a_p = l \in (1,2,...m)$. Es decir, el elemento procesado en el momento $p$ representa la llegada del símbolo $l$.
+        \item Seleccionaremos de manera aleatoria el elemento $a_{p \in (1,2,...,m)}$ del Stream, siendo $a_p = l \in (1,2,...n)$. Es decir, el elemento procesado en el momento $p$ representa la llegada del símbolo $l$.
         \item Definiremos $r=|\{q:q\geq p,a_{p}=l\}|$ como el número de ocurrencias del símbolo $l$ hasta el momento $p$.
         \item La variable aleatoria $X$ se define como $X=m(r^{k}-(r-1)^{k})$
       \end{itemize}
