@@ -40,7 +40,50 @@
       \label{sec:sampling}
 
         \paragraph{}
+        El \emph{Sampling} o \emph{muestreo} es la estrategia más consolidada entre las que se presentan. Las razones se deben a su simplicidad conceptual así como su extendido uso en el mundo de la estadística. La intuición en que se basa dicha estrategia es la selección de un subconjunto de elementos denominado \emph{muestra} de entre el conjunto global al cual se denomina \emph{población}. Una vez obtenida la \emph{muestra} del conjunto de datos global cuyo tamaño es significativamente menor (lo cual reduce drásticamente el coste computacional), se realizan los cálculos que se pretendía realizar sobre toda la \emph{población}, a partir de los cuales se obtiene un estimador del valor real que habría sido obtenido al realizarlos sobre el conjunto de datos global.
+
+        \paragraph{}
+        Para que las estrategias de sumarización de información obtengan resultados válidos o significativos respecto del conjunto de datos, es necesario que se escojan adecuadamente las instancias de la \emph{muestra}, de manera que represente de manera fiel la información global. Para llevar a cabo dicha labor existen distintas estrategias, desde las más simples basadas en la selección aleatoria sin reemplazamiento como otras mucho más sofisticadas basadas en el mantenimiento de \emph{muestras} estratificadas. Sea $R$ la población y $|R|$ el tamaño de la misma. Denominaremos $t_j$ al valor $j$-ésimo de la población y $X_j$ al número de ocurrencias del mismo en la \emph{muestra}. A continuación se describen distintas técnicas de muestreo:
+
+        \begin{itemize}
+
+          \item \textbf{Selección Aleatoria Sin Reemplazamiento}: Consiste en la estrategia más simple de generación de \emph{muestras}. Se basa en la selección aleatoria de un valor entero $r$ en el rango $[1, |R|]$ para después añadir el elemento localizado en la posición $r$ de la \emph{población} al subconjunto de \emph{muestra}. Después repetir dicha secuencia durante $n$ veces para generar una \emph{muestra} de tamaño $n$. El estimador para la operación \emph{SUMA} se muestra en la ecuación \eqref{eq:sum_with_replacement}.
+            \begin{align}
+            \label{eq:sum_with_replacement}
+              Y &= \frac{|R|}{n}\sum_jX_jt_j \\
+            \label{eq:sum_with_replacement_deviation}
+              \sigma^2(Y) &= \frac{|R|^2\sigma^2(R)}{n}
+            \end{align}
+
+          \item \textbf{Selección Aleatoria Con Reemplazamiento}:
+            \begin{align}
+            \label{eq:sum_without_replacement}
+              Y &= \frac{|R|}{n}\sum_jX_jt_j \\
+            \label{eq:sum_without_replacement_deviation}
+              \sigma^2(Y) &= \frac{|R|(|R| - n)\sigma^2(R)}{n}
+            \end{align}
+
+          \item \textbf{Bernoulli y Poisson}:
+            \begin{align}
+            \label{eq:sum_bernoulli_poisson}
+              Y &= \sum_{i \in muestra }\frac{t_i}{p_i} \\
+            \label{eq:sum_bernoulli_poisson_deviation}
+              \sigma^2(Y) &= \sum_i(\frac{1}{p_i}-1)t_i^2
+            \end{align}
+
+          \item \textbf{Muestreo Estratificado}:
+            
+
+        \end{itemize}
+
+        \paragraph{}
         [TODO ]
+
+
+        \paragraph{}
+        La estrategia del \emph{muestreo} es válida para consultas relacionadas con propieda
+
+
 
       \subsection{Histogram}
       \label{sec:histogram}
