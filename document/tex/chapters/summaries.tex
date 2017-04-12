@@ -40,7 +40,7 @@
       \label{sec:sampling}
 
         \paragraph{}
-        El \emph{Sampling} o \emph{muestreo} es la estrategia más consolidada entre las que se presentan. Las razones se deben a su simplicidad conceptual así como su extendido uso en el mundo de la estadística. La intuición en que se basa dicha estrategia es la selección de un subconjunto de elementos denominado \emph{muestra} de entre el conjunto global al cual se denomina \emph{población}. Una vez obtenida la \emph{muestra} del conjunto de datos global cuyo tamaño es significativamente menor (lo cual reduce drásticamente el coste computacional), se realizan los cálculos que se pretendía realizar sobre toda la \emph{población}, a partir de los cuales se obtiene un estimador del valor real que habría sido obtenido al realizarlos sobre el conjunto de datos global.
+        El \emph{Sampling} o \emph{muestreo} es la estrategia más consolidada entre las que se presentan. Las razones se deben a su simplicidad conceptual así como su extendido uso en el mundo de la estadística. Uno de los primeros artículos en que se trata el muestreo aplicado a bases de datos es \emph{Accurate estimation of the number of tuples satisfying a condition} \cite{piatetsky1984accurate} redactado por \emph{Piatetsky-Shapiro} y \emph{Connell}. La intuición en que se basa dicha estrategia es la selección de un subconjunto de elementos denominado \emph{muestra} de entre el conjunto global al cual se denomina \emph{población}. Una vez obtenida la \emph{muestra} del conjunto de datos global cuyo tamaño es significativamente menor (lo cual reduce drásticamente el coste computacional), se realizan los cálculos que se pretendía realizar sobre toda la \emph{población}, a partir de los cuales se obtiene un estimador del valor real que habría sido obtenido al realizarlos sobre el conjunto de datos global.
 
         \paragraph{}
         Para que las estrategias de sumarización de información obtengan resultados válidos o significativos respecto del conjunto de datos, es necesario que se escojan adecuadamente las instancias de la \emph{muestra}, de manera que represente de manera fiel la información global. Para llevar a cabo dicha labor existen distintas estrategias, desde las más simples basadas en la selección aleatoria sin reemplazamiento como otras mucho más sofisticadas basadas en el mantenimiento de \emph{muestras} estratificadas. Sea $R$ la población y $|R|$ el tamaño de la misma. Denominaremos $t_j$ al valor $j$-ésimo de la población y $X_j$ al número de ocurrencias del mismo en la \emph{muestra}. A continuación se describen distintas técnicas de muestreo:
@@ -76,13 +76,10 @@
         \end{itemize}
 
         \paragraph{}
-        [TODO ]
-
+        La estrategia de sumarización de información mediante \emph{muestreo} tiene como ventajas la independencia de la complejidad con respecto a la dimensionalidad de los datos (algo que como se verá a continuación no sucede con otras alternativas) además de su simplicidad conceptual. También existen cotas de error para las consultas, para las cuales no ofrece restricciones en cuanto al tipo (debido a que se realizan sobre un subconjunto con la misma estructura que el global). El muestre es apropiado para conocer información general acerca del conjunto de datos que cada instancia del mismo posee. Además, presenta la cualidad de permitir la modificación en tiempo real, es decir, se pueden añadir o eliminar nuevas instancias a la muestra conforme se añaden o eliminan del conjunto de datos global.
 
         \paragraph{}
-        La estrategia del \emph{muestreo} es válida para consultas relacionadas con propieda
-
-
+        Sin embargo, en entornos donde el ratio de addiciones/eliminaciones es muy elevado el coste del mantenimiento de la muestra puede hacerse impracticable . El \emph{muestreo} es una buena alternativa para conjuntos de datos homogéneos en los cuales la presencia de valores atípicos es irrelevante. Tampoco obtiene buenos resultados en consultas relacionadas con el conteo de elementos distintos. En las siguientes secciones se describen alternativas que resuelven estas dificultades y limitaciones.
 
       \subsection{Histogram}
       \label{sec:histogram}
