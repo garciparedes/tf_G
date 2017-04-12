@@ -47,7 +47,7 @@
 
         \begin{itemize}
 
-          \item \textbf{Selección Aleatoria Sin Reemplazamiento}: Consiste en la estrategia más simple de generación de \emph{muestras}. Se basa en la selección aleatoria de un valor entero $r$ en el rango $[1, |R|]$ para después añadir el elemento localizado en la posición $r$ de la \emph{población} al subconjunto de \emph{muestra}. Después repetir dicha secuencia durante $n$ veces para generar una \emph{muestra} de tamaño $n$. El estimador para la operación \emph{SUMA} se muestra en la ecuación \eqref{eq:sum_with_replacement}.
+          \item \textbf{Selección Aleatoria Sin Reemplazamiento}: Consiste en la estrategia más simple de generación de \emph{muestras}. Se basa en la selección aleatoria de un valor entero $r$ en el rango $[1, |R|]$ para después añadir el elemento localizado en la posición $r$ de la \emph{población} al subconjunto de \emph{muestra}. Después repetir dicha secuencia durante $n$ veces para generar una \emph{muestra} de tamaño $n$. El estimador para la operación \emph{SUMA} se muestra en la ecuación \eqref{eq:sum_with_replacement} además de la desviación de dicho estimador en la ecuación \eqref{eq:sum_with_replacement_deviation}.
             \begin{align}
             \label{eq:sum_with_replacement}
               Y &= \frac{|R|}{n}\sum_jX_jt_j \\
@@ -55,7 +55,7 @@
               \sigma^2(Y) &= \frac{|R|^2\sigma^2(R)}{n}
             \end{align}
 
-          \item \textbf{Selección Aleatoria Con Reemplazamiento}:
+          \item \textbf{Selección Aleatoria Con Reemplazamiento}: En este caso se supone que la selección de una instancia de la población tan solo se puede llevar a cabo una única vez como mucho, por lo tanto se cumple que $\forall X_j \in {0,1}$. La selección se lleva a cabo de la siguiente manera: se genera de manera aleatoria un valor entero $r$ en el rango $[1, |R|]$ para después añadir el elemento localizado en la posición $r$ de la \emph{población} al subconjunto de \emph{muestra} si este no ha sido añadido ya, sino volver a generar otro valor $r$. Después repetir dicha secuencia durante $n$ veces para generar una \emph{muestra} de tamaño $n$. Al igual que en la estrategia anterior, en este caso también se muestra el estimador para la operación \emph{SUMA} en la ecuación \eqref{eq:sum_without_replacement}. Nótese que el cálculo es el mismo que en el caso de la estrategia sin reemplazamiento. Sin embargo, la varianza obtenida a partir de dicha estrategia es menor tal y como se muestra en la ecuación \eqref{eq:sum_without_replacement_deviation}.
             \begin{align}
             \label{eq:sum_without_replacement}
               Y &= \frac{|R|}{n}\sum_jX_jt_j \\
@@ -63,7 +63,7 @@
               \sigma^2(Y) &= \frac{|R|(|R| - n)\sigma^2(R)}{n}
             \end{align}
 
-          \item \textbf{Bernoulli y Poisson}:
+          \item \textbf{Bernoulli y Poisson}: Mediante esta alternativa de muestreo se sigue una estrategia completamente distinta a las anteriores. En lugar de seleccionar la siguiente instancia aleatoriamente de entre todas las posibles, se decide generar $|R|$ valores aleatorios $r_j$ independientes en el intervalo $[0,1]$ de tal manera que si $r_j$ es menor que un valor $p_j$ fijado a priori, la instancia se añade al conjunto de \emph{muestra}. Cuando se cumple que $\forall i, j \ p_i = p_j$ se dice que es un muestreo de \emph{Bernoulli}, mientras que cuando no se cumple dicha condición se habla de muestreo de \emph{Poisson}. El cálculo de la \emph{SUMA} en este caso es muy diferente de los anteriores tal y como se muestra en la ecuación \eqref{eq:sum_bernoulli_poisson}. La desviación de este estimador se muestra en la ecuación \eqref{eq:sum_bernoulli_poisson_deviation}, que en general presenta peores resultados (mayor desviación) que las anteriores alternativas, sin embargo, esta alternativa posee la cualidad de aplicar distintos pesos a cada instancia de la población, lo que puede traducirse en que una selección adecuada de dichos valores $p_j$ puede mejorar significativamente dichos resultados.
             \begin{align}
             \label{eq:sum_bernoulli_poisson}
               Y &= \sum_{i \in muestra }\frac{t_i}{p_i} \\
@@ -71,8 +71,7 @@
               \sigma^2(Y) &= \sum_i(\frac{1}{p_i}-1)t_i^2
             \end{align}
 
-          \item \textbf{Muestreo Estratificado}:
-            
+          \item \textbf{Muestreo Estratificado}: El muestreo estratificado trata de minimizar al máximo las diferencias entre la distribución del conjunto de datos de la \emph{población} de la \emph{muestra} que se pretende generar. Para ello existen distintas alternativas entre las que se encuentra una selección que  actualiza los pesos $p_j$ tras cada iteracción, lo que reduce la desviación de la \emph{muestra}, sin embargo produce un elevado coste computacional en su generación. Por lo tanto se proponen otras estrategia más intuitiva basada en la partición del conjunto de datos de la \emph{población} en subconjuntos disjuntos con varianza mínima entre las instancias que contienen a los cuales se denomina \emph{estratos}. Posteriormente se selecciona mediante cualquiera de los métodos anteriores una \emph{muestra} de cada \emph{estrato}, lo cual reduce en gran medida la desviación típica global del estimador.
 
         \end{itemize}
 
