@@ -11,7 +11,23 @@
     \label{sec:summaries_intro}
 
       \paragraph{}
-      [TODO ]
+      El gran crecimiento tecnológico que se está llevando a cabo en la actualidad a todos los niveles está propiciando además un aumento exponencial en cuanto a la cantidad de información que se genera. La reducción de costes en cuanto a la instalación de sensores que permiten recoger información de muchos procesos productivos, así como la obtenición de metadatos a partir del uso de internet y las redes sociales por parte de los usuarios hace que el ritmo de crecimiento en cuanto a información generada por unidad de tiempo haya crecido a un gran ritmo.
+
+      \paragraph{}
+      Una de las razones que han facilitado dicha tendencia es la disminución de costes de almacenamiento de información a la vez que las capacidades de cómputo necesarias para procesar dicha información han aumentado. Sin embargo, debido al crecimiento exponencial en cuanto al tamaño del conjunto de datos, es necesario investigar nuevas técnicas y estrategias que permitan obtener respuestas satisfactorias basadas en la gran cantidad de información de la que se dispone en un tiempo razonable.
+
+      \paragraph{}
+      Tradicionalmente, la investigación en el campo de las \emph{bases de datos} se ha centrado en obtener respuestas exactas a distintas consultas, tratando de hacerlo de la manera más eficiente posible, así como de tratar de reducir el espacio necesario para almacenar la información. \emph{Acharya y otros} proponen en el artículo \emph{Join synopses for approximate query answering} \cite{acharya1999join} el concepto de \emph{Approximate Query Processing}. Dicha idea se expone en la subsección \ref{sec:aproximate_query_processing}.
+
+      \subsection{Approximate Query Processing}
+      \label{sec:aproximate_query_processing}
+
+        \paragraph{}
+        El \emph{procesamiento aproximado de consultas}, (\emph{Approximate Query Processing} o \textbf{AQP}) se presenta como una estrategia de consulta basada en conceptos y propiedades estadísticas que permiten una gran reducción de la complejidad computacional y espacial necesaria para la resolución de consultas a una base de datos. Por contra, dicha reducción a nivel de complejidad tiene como consecuencia la inserción de un determinado nivel de imprecisión en el resultado a la cual denominaremos tasa de error. Se pretende que dicha tasa de error pueda ser acotada en una desviación máxima determinada por $\epsilon$ y se cumpla con un índice de probabilidad $\delta$. Al igual que en capítulos anteriores, en este caso también se presta especial importancia en la minimización del error relativo lo cual consigue que las soluciones mediante el \emph{procesamiento aproximado de consultas} sean válidas tanto para consultas de tamaño reducido como de gran tamaño.
+
+
+      \paragraph{}
+      Durante el resto del capítulo se describen y analizan distintas estrategias que permiten llevar a cabo implementaciones basadas en \emph{procesamiento aproximado de consultas} centrando especial atención en los \emph{Sketches} por su similitud con el \emph{Modelo en Streaming} descrito en el capítulo \ref{chapter:streaming}. En la sección \ref{sec:summaries_types} se realiza una decripción a partir de la cual se pretende aclarar las diferencias entre las distintas \emph{estructuras de datos de resumen}. Posteriormente, en la sección \ref{sec:sketching} se explican en detalle las cualidades de las estrategias basadas en \emph{Sketching}. En las secciones \ref{sec:count_min_sketch}, \ref{sec:count_sketch}, \ref{sec:ams_sketch} y \ref{sec:hyper_log_log} se habla de \emph{Count-Min Sketch}, \emph{Count Sketch}, \emph{AMS Sketch} e \emph{HyperLogLog} respectivamente.
 
 
     \section{Tipos de Estructuras de Datos de Resumen}
@@ -19,6 +35,26 @@
 
       \paragraph{}
       [TODO ]
+
+      \subsection{Sampling}
+
+        \paragraph{}
+        [TODO ]
+
+      \subsection{Histogram}
+
+        \paragraph{}
+        [TODO ]
+
+      \subsection{Wavelet}
+
+        \paragraph{}
+        [TODO ]
+
+      \subsection{Sketch}
+
+        \paragraph{}
+        [TODO ]
 
     \section{Sketching}
     \label{sec:sketching}
