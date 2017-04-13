@@ -85,28 +85,33 @@
       \label{sec:histogram}
 
         \paragraph{}
-        [TODO introducción a los histogramas]
+        Los \emph{histogramas} son estructuras de datos utilizadas para sumarizar grandes conjuntos de datos, pero por contra, tienen un enfoque completamente diferente al que siguen las estrategias de \emph{muestreo} de la sección anterior. En este caso, el concepto es similar a la visión estadística de los histogramas. Consiste en dividir el dominio de valores que pueden tomar las instancias del conjunto de datos de tal manera que se mantiene un conteo del número de instancias pertenecientes a cada partición.
 
         \paragraph{}
-        [TODO Descripción de esquemas de estimación]
+        Durante el resto de la sección se describen de manera resumida distintas estrategias de estimación del valor de las particiones así como las distintas estrategias de particionamiento del conjunto de datos. Para llevar a cabo dicha labor es necesario describir la notación que se seguirá: Sea $D$ el conjunto de datos e $i \in [1,M]$ cada una de las categorías de los mismos. Denotaremos por $g(i)$ el número de ocurrencias del valor $i$. Para referirnos a cada uno de las particiones utilizaremos la notación $S_j$ para $j \in [1, B]$. Nótese por tanto que $M$ representa el número de categorías distintas mientras que $B$ es el número de particiones utilizadas para \say{comprimir} los datos. La mejora de eficiencia en cuanto a espacio se consigue devido a la presuposición de que $B \ll M$
+
+
+        \paragraph{}
+        Cuando se habla de \emph{esquemas de estimación} se trata de describir la manera en que se almacena o trata el contenido de cada una de las particiones $S_j$ del histograma. La razón por la cual este es un factor importante a la hora de caracterizar un histograma es debida a que está altamente ligada a la precisión del mismo.
 
         \begin{itemize}
 
-          \item \textbf{Esquema Uniforme}:[TODO ]
+          \item \textbf{Esquema Uniforme}: Los esquemas que presuponen distribución uniforme se subdividen en dos categorías: \begin{enumerate*} [label=\itshape\alph*\upshape)]
+        			\item \emph{continous-value asumption} que presupone que todas las categorías $i$ contenidas en la partición $S_j$ presentan el mismo valor para la función $g(i)$ y
+        			\item \emph{uniform-spread asumption} que presupone que el número de ocurrencias de la partición $S_j$ se localiza distribuido uniformemente al igual que en el caso anterior, pero en este caso entre los elementos de un subconjunto $P_j$ generado iterando con un determinado desplazamiento $k$ sobre las categorías $i$ contenidas en $S_j$.
+        		\end{enumerate*} El segundo enfoque presenta mejores resultados en el caso de consultas de cuantiles que se distribuyen sobre más de una partición $S_j$
 
-          \item \textbf{Esquema Basado en Splines}:[TODO ]
+          \item \textbf{Esquema Basado en Splines}: En la estrategia basada en splines se presupone que los valores se distribuyen conforme una determinada función lineal de la forma $y_j = a_jx_j + b_j$ en cada partición $S_j$ de tal manera que el conjunto total de datos $D$ puede verse como una función continua a trozos. Nótese que en este caso se habla de una función lineal, sin embargo puede generalizarse a funciones no lineales.
 
-          \item \textbf{Esquema Basado en Árboles}:[TODO ]
+          \item \textbf{Esquema Basado en Árboles}: Consiste en el almacenamiento de las frecuencias de cada partición $S_j$ en forma de árbol binario, lo cual permite seleccionar de manera apropiada el nivel del árbol que reduzca el número de operaciones necesarias para obtener la estimación del número de ocurrencias según el tamaño rango de la consulta. La razón por la cual se escoje un árbol binario es debida a que se puede reducir en un orden de $2$ el espacio necesario para almacenar dichos valores manteniendo únicamente los de una de las ramas del mismo. La razón de ello es debida a que se puede calcular el valor de la otra mediante una resta sobre el valor almacenado en el nodo padre y la rama que si contiene el valor.
 
-          \item \textbf{Esquema Heterogéneo}:[TODO ]
-
-          \item \textbf{Esquema Probabilista}:[TODO ]
+          \item \textbf{Esquema Heterogéneo}: El esquema heterogéneo se basa la intuición de que la distribución de frecuencias de cada una de las particiones $S_j$ no es uniforme, por lo tanto sigue un enfoque diferente en cada una de ellas tratanto de minimizar al máximo la tasa de error producida. Para ello existen  distintas heurísticas basadas en distancias o teoría de la información entre otros.
 
         \end{itemize}
 
 
         \paragraph{}
-        [TODO Estrategias de particionamiento]
+        Una vez descritas distintas estrategias de estimación del valor de frecuencias de una determinada partición $S_j$, el siguiente paso para describir un \emph{histograma} es realizar una descripción acerca de las distintas formas de generación de dichas particiones. Para tratar de ajustarse de manera más adecuada a la distribución de los datos, se realiza un \emph{muestreo} con el cual se generan las particiones. A continuación se describen las técnicas más comunes para dicha labor:
 
         \begin{itemize}
 
