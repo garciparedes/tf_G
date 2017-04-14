@@ -115,8 +115,18 @@
 
         \begin{itemize}
 
-          \item \textbf{Particionamiento Heurístico}:[TODO ]
+          \item \textbf{Particionamiento Heurístico}: Dichas estrategias de particionamiento se basan en distintas heurísticas que en la práctica han demostrado comportamientos aceptables en cuanto a resultados a nivel de precisión, sin embargo, no proporcionan ninguna garantía a nivel de optimalidad. Su uso está ampliamente extendido debido al reducido coste computacional. Dentro de esta categoría las heurísticas más populares son las siguientes:
+            \begin{itemize}
 
+              \item \textbf{Equi-Width}: Consiste en la división del dominio de categorías $[1,M]$ en particiones equi-espaciadas unas de otras. Para dicha estrategia tan solo es necesario conocer a priorir los valores mínimo y máximo del posible conjunto de valores.
+
+              \item \textbf{Equi-Deepth}:[TODO ]
+
+              \item \textbf{Singleton-Bucket}:[TODO ]
+
+              \item \textbf{Maxdiff}:[TODO ]
+
+            \end{itemize}
           \item \textbf{Particionamiento con Garantías de Optimalidad}:[TODO ]
 
           \item \textbf{Particionamiento Jerárquico}:[TODO ]
@@ -124,10 +134,10 @@
         \end{itemize}
 
         \paragraph{}
-        [TODO Hablar de multidimensionalidad]
+        Las ideas descritas en esta sección sobre los \emph{histogramas} son extrapolables conforme se incrementa la dimensionalidad de los datos, en el caso de los esquemas de estimación, esto sucede de manera directa. Sin embargo, en el caso de los esquemas de particionamiento surgen distintos problemas debido al crecimiento exponencial tanto del espacio como del tiempo conforme aumenta el número de dimensiones de los datos.
 
         \paragraph{}
-        [TODO Ventajas y desventajas]
+        Los \emph{Histogramas} representan una estrategia sencilla, tanto a nivel de construcción como de consulta, la cual ofrece buenos resultados en un gran número de casos. Dichas estructuras han sido ampliamente probadas para aproximación de consultas relacionadas con suma de rangos o frecuencias puntuales. Tal y como se ha dicho previamente, su comportamiento en el caso unidimensional ha sido ampliamente estudiado, sin embargo, debido al crecimiento exponencial a nivel de complejidad conforme las dimensiones del conjunto de datos aumentan, estas estrategias son descartadas en muchas ocasiones. Los \emph{Histogramas} requieren de un conjunto de parámetros fijados \emph{a-priori}, los cuales afectan en gran medida al grado de precisión de los mismos (pero cuando se seleccionan de manera adecuada esta solución goza de una gran cercanía al punto de optimalidad), por tanto, en casos en que la estimación de dichos valores necesarios \emph{a-priori} se convierte en una labor complicada existen otras técnicas que ofrecen mejores resultados.
 
       \subsection{Wavelet}
       \label{sec:wavelet}
