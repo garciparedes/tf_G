@@ -118,18 +118,18 @@
           \item \textbf{Particionamiento Heurístico}: Dichas estrategias de particionamiento se basan en distintas heurísticas que en la práctica han demostrado comportamientos aceptables en cuanto a resultados a nivel de precisión, sin embargo, no proporcionan ninguna garantía a nivel de optimalidad. Su uso está ampliamente extendido debido al reducido coste computacional. Dentro de esta categoría las heurísticas más populares son las siguientes:
             \begin{itemize}
 
-              \item \textbf{Equi-Width}: Consiste en la división del dominio de categorías $[1,M]$ en particiones equi-espaciadas unas de otras. Para dicha estrategia tan solo es necesario conocer a priorir los valores mínimo y máximo del posible conjunto de valores.
+              \item \textbf{Equi-Width}: Consiste en la división del dominio de categorías $[1,M]$ en particiones equi-espaciadas unas de otras. Para dicha estrategia tan solo es necesario conocer \emph{a-priori} el rango del posible conjunto de valores. Es la solución con menor coste computacional, a pesar de ello sus resultados a nivel práctico son similares a otras estrategias más sofisticadas cuando la distribución de frecuencias es uniforme.
 
-              \item \textbf{Equi-Deepth}:[TODO ]
+              \item \textbf{Equi-Depth}: Esta estrategia de particionamiento requiere conocer la distribución de frecuencias \emph{a-priori} (o aproximarla a partir de algún método de muestreo). Se basa en la división del dominio de valores de tal manera que las particiones tengan la misma frecuencia. Para ello se crean particiones de tamaños diferentes.
 
-              \item \textbf{Singleton-Bucket}:[TODO ]
+              \item \textbf{Singleton-Bucket}: Para tratar de mejorar la precisión esta estrategia de particionamiento se basa en la utilización de dos particiones especiales, las cuales contienen las categorías de mayor y menor frecuencia respectivamente para después cubrir el resto de categorías restante mediante otra estrategia (generalmente \emph{equi-depth}).
 
-              \item \textbf{Maxdiff}:[TODO ]
+              \item \textbf{Maxdiff}: En este caso, el método de particionamiento se apoya en la idea de utilizar los puntos de mayor variación de frecuencias mediante la medida $|g(i+1) - g(i)|$, para dividir el conjunto de categorías en sus respectivas particiones, de tal manera que las frecuencias contenidas en cada partición sean lo más homogéneas posibles.
 
             \end{itemize}
-          \item \textbf{Particionamiento con Garantías de Optimalidad}:[TODO ]
+          \item \textbf{Particionamiento con Garantías de Optimalidad}: En esta categoría se enmarcan las estrategias de generación de particiones que ofrecen garantías de optimalidad a nivel de la precisión de resultados en las consultas. Para ello se apoyan en técnicas de \emph{Programación Dinámica} (DP), de tal manera que la selección de las particiones se presenta como un problema de \emph{Optimización}. Sin embargo, dichas estrategias presentan un elevado coste computacional que muchas veces no es admisible debido al gran tamaño del conjunto de datos que se pretende sumarizar. Como solución ante dicha problemática se han propuesto distintas estrategias que se basan en la resolución del problema de optimización, pero sobre una \emph{muestra} del conjunto de datos global, lo cual anula las garantías de optimalidad pero si se escoge de manera adecuada ofrece una buena aproximación hacia ellas.
 
-          \item \textbf{Particionamiento Jerárquico}:[TODO ]
+          \item \textbf{Particionamiento Jerárquico}: Las estrategias de particionamiento jerárquico se basan en la utilización de particiones siguiendo la idea de un árbol binario. Por lo tanto, dichas particiones no son disjuntas entre ellas, sino que se contienen unas a otras. Esto sigue la misma idea que se describió en el apartado de \emph{Esquemas de estimación Basados en Árboles}. Apoyandose en este estilo de particionamiento se consigue que las consultas de rangos de frecuencias tengan un coste computacional menor en promedio (aún en el casos en que el rango sea muy amplio). En esta categoría destacan los histogramas \emph{nLT} (n-level Tree) y \emph{Lattice Histograms}. Estos últimos tratan de aprovechar las ventajas a nivel de flexibilidad y precisión que presentan los histogramas, además de las estrategias jerárquicas de sumarización en que se apoyan las \emph{Wavelets} tal y como se describe en la siguiente sección.
 
         \end{itemize}
 
