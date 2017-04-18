@@ -143,7 +143,10 @@
       \label{sec:wavelet}
 
         \paragraph{}
-        [TODO ]
+        Las estructuras de sumarización denominadas \emph{Wavelets}, a diferencia de las descritas anteriormente, han comenzado a utilizarse en el campo del \emph{procesamiento aproximado de consultas} desde hace relativamente poco tiempo, por lo que su uso no está completamente asentado en soluciones comerciales sino que todavía están en fase de descubrimiento e investigación. Las \emph{Wavelets} (u \emph{ondículas}) se apoyan en la idea de representar la tabla de frecuencias del conjunto de datos como una función de ondas discreta. Para ello se almacenan distintos valores (dependiendo del tipo de \emph{Wavelet}) que permiten reconstruir la tabla de frecuencias. Tal y como se describirá a continuación cuando se describa la \emph{transformada de Haar}, la mejora de eficiencia en cuanto a espacio a partir de esta estructura de sumarización se apoya en el mantenimiento aproximado de los valores que representan el conjunto de datos.
+
+        \paragraph{}
+        A continuación se describe la \emph{transformada de Haar}, a partir de la cual se presentan las distintas ideas en que se apoyan este tipo de estructuras de sumarización. En los últimos años se ha trabajado en estrategias más complejas como la \emph{Daubechies Wavelet} \cite{akansu2001multiresolution} de \emph{Akansu y otros}o la \emph{transformada de Wavelet basada en árboles duales completos} \cite{selesnick2005dual} de \emph{Selesnick y otros}.
 
         \subsubsection{Haar Wavelet Transform}
 
@@ -153,6 +156,34 @@
         \paragraph{}
         [TODO hablar sobre tipos de error]
 
+        \begin{equation}
+        \label{eq:l2_error}
+          ||A - \widetilde{A} ||_2  = \sqrt{\sum_{i}(A[i]-\widetilde{A}[i])^2}
+        \end{equation}
+
+        \begin{equation}
+        \label{eq:abs_error}
+          absErr_i = |A[i]-\widetilde{A}[i]|
+        \end{equation}
+
+        \begin{equation}
+        \label{eq:rel_error}
+          relErr_i = \frac{|A[i]-\widetilde{A}[i]|}{max\{|A[i]|,s\}}
+        \end{equation}
+
+        \begin{equation}
+        \label{eq:lp_error}
+        ||A - \widetilde{A} ||_{p}  = (\sum_{i}(A[i]-\widetilde{A}[i])^p)^{\frac{1}{p}}
+        \end{equation}
+
+        \begin{equation}
+        \label{eq:lp_w_error}
+        ||A - \widetilde{A} ||_{p,w}  = (\sum_{i}w_i \cdot(A[i]-\widetilde{A}[i])^p)^{\frac{1}{p}}
+        \end{equation}
+
+        \paragraph{}
+        [TODO]
+        
         \begin{itemize}
 
           \item \textbf{Wavelets Restringidas}: [TODO ]
@@ -162,10 +193,10 @@
         \end{itemize}
 
         \paragraph{}
-        [TODO hablar de problemas de dimensionalidad]
+        Al igual que en el caso de los \emph{Histogramas}, las \emph{Wavelets} presentan problemas de eficiencia cuando se usa en entornos en los cuales el conjunto de datos está compuesto por una gran número de atributos. Por lo tanto se dice que sufren la \emph{Maldición de la dimensionalidad} (\emph{Curse of Dimensionality}) que provoca un crecimiento en el coste de orden exponencial tanto en espacio como tiempo respecto del número de dimensiones.
 
         \paragraph{}
-        [Todo hablar de ventajas e inconvenientes]
+        Tal y como se puede apreciar, esta estrategia es muy similar a la basada en \emph{Histogramas} dado que ambas se basan en el almacenamiento de valores que tratan de describir o resumir la tabla de frecuencias de los datos de manera similar. Sin embargo, mientras que en el caso de los \emph{Histogramas} estos destacan cuando se pretende conocer la estructura general de los datos, las \emph{Wavelets} ofrecen muy buenos resultados cuando se pretenden conocer valores atípico o extremos (a los cuales se denomina \emph{Heavy Hitters}). Por su estrategia de construcción las \emph{Wavelets} permiten sumarizar una mayor cantidad de información utilizando menos espacio. Además, en el caso de la \emph{transformada de Haar}, que posee la característica de linealidad, se puede adaptar de manera sencilla al \emph{modelo en Streaming}. Tal y como se ha dicho en el párrafo anterior, las desventajas de esta alternativa vienen derivadas en gran medida de los problemas relacionados con el incremento de la dimensionalidad de los datos.
 
       \subsection{Sketch}
       \label{sec:sketch}
