@@ -1,0 +1,66 @@
+% !TEX root = ./summary.tex
+
+\documentclass[a4paper]{article}
+
+\usepackage{thestyle}
+\usepackage{thevars}
+
+
+\begin{document}
+
+  \maketitle % Insert title
+
+
+  %-----------------------------
+  %	ABSTRACT
+  %-----------------------------
+
+  	\begin{abstract}
+  		\noindent En este documento se expone una breve descripción acerca de las distintas áreas del conocimiento relacionadas con el tratamiento de grandes cantidas de información (\emph{Big Data}) desde una perspectiva algorítmica.
+  	\end{abstract}
+
+  %-----------------------------
+  %	TEXT
+  %-----------------------------
+
+  \section{Introducción}
+
+    \paragraph{}
+    El procesamiento de cantidades masivas de información presenta un gran reto a nivel computacional, debido a un elevado coste originado por el gran tamaño en la entrada. Para solventar dicha problemática, se prefieren algoritmos que posean un orden de complejidad sublineal ($o(N)$) sobre todo en espacio. Dichas técnicas se llevan a cabo sobre paradigmas de computación paralela, lo que permite aprovechar en mayor medida las restriciciones a nivel de hardware.
+
+  \section{Algoritmos para Streaming}
+
+    \paragraph{}
+    Los \emph{Algoritmos para Streaming} se caracterizan por procesar las instancias del conjunto de datos secuencialmente e imponen como restricción que el orden de dicha operación sea irrelevante para el resultado final. La ventaja que presentan respecto de otras alternativas en tiempo real, como los \emph{Algoritmos Online}, es la utilización de propiedades estadísticas (se enmarcan por tanto, dentro de los \emph{Algoritmos Probabilísticos}) para reducir su coste, lo que por contra, añade una determinada tasa de error. El descubrimiento de métodos altamente eficientes para estimar los \emph{Momentos de Frecuencia} ha marcado un gran hito dentro de esta categoría algorítmica.
+
+  \section{Estructuras de Datos de Resumen}
+
+    \paragraph{}
+    Para reducir el coste derivado de la obtención de resultados valiosos sobre conjuntos masivos de datos, es necesario apoyarse en diferentes estructuras que los sinteticen, de manera que el coste de procesamiento a partir de estas estructuras se convierta en una tarea mucho más asequible. Se utilizan sobre conjuntos de datos de distínta índole, como \emph{streamings en tiempo real}, \emph{bases de datos estáticas} o \emph{grafos}. Existen distintas técnicas como \emph{Sampling}, \emph{Histogram}, \emph{Wavelets} o \emph{Sketch}. A continuación se realiza una breve descripción acerca de esta última técnica.
+
+    \subsection{Sketch}
+
+      \paragraph{}
+      Son estructuras de datos que se basan en la idea de realizar sobre cada una de las instancias del conjunto de datos la misma operación (lo que permite su uso en entornos tanto estáticos como dinámicos) para recolectar distintas caracteríscas. Destacan los \emph{Sketches lineales}, que permiten su procesamiento de manera distribuida. Para mantener estas estructuras se utilizan \emph{Algoritmos para Streaming}, puesto que se encajan perfectamente en el contexto descrito. Los \emph{Sketches} permiten realizar distintas preguntas sobre propiedades estadísticas referentes al conjunto de datos. Los ejemplos más destacados son: \emph{Count-Sketch}, \emph{CountMin-Sketch}, \emph{AMS Sketch}, \emph{HyperLogLog}, etc.
+
+  \section{Redución de la Dimensionalidad}
+
+    \paragraph{}
+    Los algoritmos que utilizan técnicas de reducción de dimensionalidad se basan en la intuicción originada a partir del lema de \emph{Johnson–Lindenstrauss}, que demuestra la existencia de funciones para la redución de la dimensión espacial con un ratio de distorsión acotado. Estas técnicas son utilizadas en algoritmos para la \emph{busqueda de los vecinos más cercanos}, la \emph{multiplicación aproximada de matrices} o el aprendizaje mediante \emph{Manifold Leaning}.
+
+  \section{Paralelización a gran Escala}
+
+    \paragraph{}
+    El paradigma de alto nivel sobre el que se lleva a cabo el procesamiento de conjuntos de datos de gran escala se apoya fuertemente en técnicas de paralelización. La razón se debe al elevado tamaño de la entrada, que no permite su almacenamiento en la memoria de un único sistema.
+
+    \subsection{Modelo MapReduce}
+
+      \paragraph{}
+      El modelo \emph{MapReduce} ha sufrido un crecimiento exponencial en los últimos años debido a su alto grado de abstracción, que oculta casi por completo cuestiones relacionadas con la implementación de bajo nivel al desarrollador, y su capacidad para ajustarse a un gran número de problemas de manera eficiente.
+
+  \section{Técnicas de Minería de Datos}
+
+    \paragraph{}
+    Una de las razones por las cuales es necesaria la investigación de nuevos algoritmos de carácter sublineal es la necesidad de obtención de información valiosa a partir de conjuntos masivos de datos. A este fenómeno se le denomina \emph{Minería de Datos}. Existen dos grandes categorías denominadas: \emph{Clasificación} (determinar una clase de pertenencia) y \emph{Regresión} (determinar un valor continuo). Para ello, se utilizan distintas técnicas como: \emph{Árboles de Decisión}, \emph{Métodos Bayesianos}, \emph{Redes Neuronales}, \emph{Máquinas de Vector Soporte}, \emph{Manifold Leaning}, etc.
+
+\end{document}
