@@ -146,7 +146,7 @@
         Las estructuras de sumarización denominadas \emph{Wavelets}, a diferencia de las descritas anteriormente, han comenzado a utilizarse en el campo del \emph{procesamiento aproximado de consultas} desde hace relativamente poco tiempo, por lo que su uso no está completamente asentado en soluciones comerciales sino que todavía están en fase de descubrimiento e investigación. Las \emph{Wavelets} (u \emph{ondículas}) se apoyan en la idea de representar la tabla de frecuencias del conjunto de datos como una función de ondas discreta. Para ello se almacenan distintos valores (dependiendo del tipo de \emph{Wavelet}) que permiten reconstruir la tabla de frecuencias. Tal y como se describirá a continuación cuando se describa la \emph{transformada de Haar}, la mejora de eficiencia en cuanto a espacio a partir de esta estructura de sumarización se apoya en el mantenimiento aproximado de los valores que representan el conjunto de datos.
 
         \paragraph{}
-        A continuación se describe la \emph{transformada de Haar}, a partir de la cual se presentan las distintas ideas en que se apoyan este tipo de estructuras de sumarización. En los últimos años se ha trabajado en estrategias más complejas como la \emph{Daubechies Wavelet} \cite{akansu2001multiresolution} de \emph{Akansu y otros}o la \emph{transformada de Wavelet basada en árboles duales completos} \cite{selesnick2005dual} de \emph{Selesnick y otros}.
+        A continuación se describe la \emph{transformada de Haar}, a partir de la cual se presentan las distintas ideas en que se apoyan este tipo de estructuras de sumarización. En los últimos años se ha trabajado en estrategias más complejas como la \emph{Daubechies Wavelet} \cite{akansu2001multiresolution} de \emph{Akansu y otros} o la \emph{transformada de Wavelet basada en árboles duales completos} \cite{selesnick2005dual} de \emph{Selesnick y otros}.
 
         \subsubsection{Haar Wavelet Transform}
 
@@ -154,49 +154,35 @@
           [TODO ]
 
         \paragraph{}
-        [TODO hablar sobre tipos de error]
-
-        \begin{equation}
-        \label{eq:l2_error}
-          ||A - \widetilde{A} ||_2  = \sqrt{\sum_{i}(A[i]-\widetilde{A}[i])^2}
-        \end{equation}
-
-        \begin{equation}
-        \label{eq:abs_error}
-          absErr_i = |A[i]-\widetilde{A}[i]|
-        \end{equation}
-
-        \begin{equation}
-        \label{eq:rel_error}
-          relErr_i = \frac{|A[i]-\widetilde{A}[i]|}{max\{|A[i]|,s\}}
-        \end{equation}
-
-        \begin{equation}
-        \label{eq:lp_error}
-        ||A - \widetilde{A} ||_{p}  = (\sum_{i}(A[i]-\widetilde{A}[i])^p)^{\frac{1}{p}}
-        \end{equation}
-
-        \begin{equation}
-        \label{eq:lp_w_error}
-        ||A - \widetilde{A} ||_{p,w}  = (\sum_{i}w_i \cdot(A[i]-\widetilde{A}[i])^p)^{\frac{1}{p}}
-        \end{equation}
+        Una vez entendida la estrategia de construcción en que se apoya la \emph{transformada de Haar}, se puede apreciar que esta no ofrece ventajas a nivel de coste de almacenamiento respecto del conjunto de frecuencias con el cual ha sido construida. Sin embargo, posee la siguiente cualidad, en la cual se apoya esta estrategia de sumarización: \emph{Para las categorías contiguas en que la variación de frecuencias es muy reducida, los coeficientes de detalle tienden a aproximarse a $0$}.
 
         \paragraph{}
-        [TODO]
-        
-        \begin{itemize}
+        Por la razón descrita en el parrafo anterior, se intuye que dichos coeficientes de detalle pueden ser obviados, de tal manera que el espacio utilizado para el almacenamiento de la \emph{Wavelet} se convierte en sublineal ($o(N)$), en lugar de lineal ($O(N))$ respecto del espacio del conjunto de datos. Para elegir qué coeficientes de detalle se utilizan estrategias que tratan de minimizar el error. Comúnmente, las \emph{Wavelets} han sido construidas a partir del \emph{error quadrático medio} o \emph{norma-$L_2$}, la cual se describe en la ecuación \eqref{eq:l2_error}. Sin embargo, distintos estudios como el descrito en el artículo \emph{Probabilistic wavelet synopses} \cite{garofalakis2004probabilistic} de \emph{Garofalakis y otros} muestran como esta obtienen medida del error obtiene malos resultados en el caso de sumarización de datos mediante \emph{Wavelets}.
 
-          \item \textbf{Wavelets Restringidas}: [TODO ]
+        \paragraph{}
+        Por tanto, se proponen otras medidas de error como la minimización del máximo error absoluto o relativo, que se describen en las ecuaciones \eqref{eq:abs_error} y \eqref{eq:rel_error}. También se propone como alternativa la minimización de la \emph{norma-$L_p$} que se describe en la ecuación \eqref{eq:lp_error}. Dicha medida de error es una generalización del \emph{error cuadrático medio} (caso $p=2$) a cualquier valor de $p \geq 0$. Por último se muestra en la ecuación \eqref{eq:lp_w_error} el caso del cálculo del error mediante la \emph{norma-$L_p$} con pesos, lo cual permite añadir mayor o menor importancia una determinada categoría sobre otras en la representación mediante \emph{Wavelets}.
 
-          \item \textbf{Wavelets No Restringidas}: [TODO ]
-
-        \end{itemize}
+        \begin{align}
+        \label{eq:l2_error}
+          ||A - \widetilde{A} ||_2  &= \sqrt{\sum_{i}(A[i]-\widetilde{A}[i])^2} \\
+        \label{eq:abs_error}
+          max_i\{absErr_i\} &= max_i\{|A[i]-\widetilde{A}[i]|\} \\
+        \label{eq:rel_error}
+          max_i\{relErr_i\} &= max_i\bigg\{\frac{|A[i]-\widetilde{A}[i]|}{|A[i]|} \bigg\} \\
+        \label{eq:lp_error}
+          ||A - \widetilde{A} ||_{p}  &= (\sum_{i}(A[i]-\widetilde{A}[i])^p)^{\frac{1}{p}} \\
+        \label{eq:lp_w_error}
+          ||A - \widetilde{A} ||_{p,w}  &= (\sum_{i}w_i \cdot(A[i]-\widetilde{A}[i])^p)^{\frac{1}{p}}
+        \end{align}
 
         \paragraph{}
         Al igual que en el caso de los \emph{Histogramas}, las \emph{Wavelets} presentan problemas de eficiencia cuando se usa en entornos en los cuales el conjunto de datos está compuesto por una gran número de atributos. Por lo tanto se dice que sufren la \emph{Maldición de la dimensionalidad} (\emph{Curse of Dimensionality}) que provoca un crecimiento en el coste de orden exponencial tanto en espacio como tiempo respecto del número de dimensiones.
 
         \paragraph{}
-        Tal y como se puede apreciar, esta estrategia es muy similar a la basada en \emph{Histogramas} dado que ambas se basan en el almacenamiento de valores que tratan de describir o resumir la tabla de frecuencias de los datos de manera similar. Sin embargo, mientras que en el caso de los \emph{Histogramas} estos destacan cuando se pretende conocer la estructura general de los datos, las \emph{Wavelets} ofrecen muy buenos resultados cuando se pretenden conocer valores atípico o extremos (a los cuales se denomina \emph{Heavy Hitters}). Por su estrategia de construcción las \emph{Wavelets} permiten sumarizar una mayor cantidad de información utilizando menos espacio. Además, en el caso de la \emph{transformada de Haar}, que posee la característica de linealidad, se puede adaptar de manera sencilla al \emph{modelo en Streaming}. Tal y como se ha dicho en el párrafo anterior, las desventajas de esta alternativa vienen derivadas en gran medida de los problemas relacionados con el incremento de la dimensionalidad de los datos.
+        Tal y como se puede apreciar, esta estrategia es muy similar a la basada en \emph{Histogramas}, dado que ambas se basan en el almacenamiento de valores que tratan de describir o resumir la tabla de frecuencias de los datos de manera similar. Sin embargo, mientras que en el caso de los \emph{Histogramas} estos destacan cuando se pretende conocer la estructura general de los datos, las \emph{Wavelets} ofrecen muy buenos resultados cuando se pretenden conocer valores atípico o extremos (a los cuales se denomina \emph{Heavy Hitters}).
+
+        \paragraph{}
+        Por su estrategia de construcción, las \emph{Wavelets} permiten sumarizar una mayor cantidad de información utilizando menos espacio. Además, en el caso de la \emph{transformada de Haar}, que posee la característica de linealidad, se puede adaptar de manera sencilla al \emph{modelo en Streaming}. Tal y como se ha dicho en el párrafo anterior, las desventajas de esta alternativa vienen derivadas en gran medida de los problemas relacionados con el incremento de la dimensionalidad de los datos.
 
       \subsection{Sketch}
       \label{sec:sketch}
