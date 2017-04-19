@@ -1,6 +1,6 @@
 \ProvidesPackage{thestyle}
 \usepackage[utf8]{inputenc}
-\usepackage[spanish]{babel}
+\usepackage[spanish, es-tabla]{babel}
 \usepackage{subfiles}
 \usepackage{geometry}
 \geometry{top=1.5cm, bottom=1.5cm, inner=2cm, outer=1.5cm}
@@ -10,6 +10,9 @@
 \setcounter{tocdepth}{1}
 \usepackage{fancyhdr}
 \fancyhf{}
+\usepackage{tabu}
+\tabulinesep=1.2mm
+\usepackage{float}
 \renewcommand{\headrulewidth}{0pt}
 \fancyfoot[LE,RO]{\thepage}
 \pagestyle{fancy}
