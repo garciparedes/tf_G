@@ -1,3 +1,5 @@
+% !TEX root = ./document.tex
+
 \ProvidesPackage{thevars}
 
 \newcommand{\theschool}{
@@ -13,11 +15,15 @@
   Trabajo Fin de Grado
 }
 
-\title{
+\newcommand{\thetitle}{
   Algoritmos para Big Data
 }
 
-\author{
+\newcommand{\thedate}{
+  \today
+}
+
+\newcommand{\theauthor}{
   Sergio García Prado
 }
 
@@ -25,8 +31,14 @@
   Manuel Barrio Solórzano
 }
 
-\makeatletter
-\let\thetitle\@title
-\let\theauthor\@author
-\let\thedate\@date
-\makeatother
+\title{
+  \thetitle
+}
+
+\author{
+  \thetitle
+}
+
+\date{
+  \thedate
+}
