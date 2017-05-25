@@ -129,5 +129,6 @@
     <orderEntry type="library" name="org.apache.spark:spark-mllib_2.11:2.1.1" level="project" />
     <orderEntry type="library" name="org.apache.spark:spark-streaming_2.11:2.1.1" level="project" />
     <orderEntry type="library" name="org.apache.spark:spark-graphx_2.11:2.1.1" level="project" />
+    <orderEntry type="library" name="org.scalanlp:breeze_2.11:0.11.2" level="project" />
   </component>
 </module>
