@@ -456,10 +456,7 @@
         Las funciones hash son transformaciones matemáticas basadas en la idea de trasladar un valor en un espacio discreto con $n$ posibles valores a otro de $m$ valores de tamaño menor tratando de evitar que se produzcan colisiones en la imagen. Por tanto son funciones que tratan tratan de ser inyectivas en un subespacio de destino menor que el de partida. Sin embargo, tal y como se puede comprender de manera intuitiva es una propiedad imposible de cumplir debido a los tamaños del espacio de partida y de destino.
 
         \paragraph{}
-        Las familias de funciones hash universales se refieren a distintas categorías en las cuales se pueden agrupar las funciones hash según el nivel de propiedades que cumplen. La categorías en las que se agrupan se denominan \emph{funciones hash k-universales}, de tal manera que el valor $k$ indican la dificultad de aparición de colisiones. Las funciones \emph{2-universales} se refieren a aquellas en las cuales se cumple que $Pr[h(x) \neq h(y)] \leq 1/m$ siendo $h$ la función hash, $x$ e $y$ dos posibles entradas tales que $x \neq y$ y $m$ el cardinal del conjunto de todas las posibles claves. Se dice que una función hash es \emph{fuertemente 2-universal} (\emph{strongly 2-universal}) si cumple que $Pr[h(x) \neq h(y)] \leq 1/m^2$ y genéricamente se dice que una función es \emph{k-universal} si cumple que $Pr[h(x) \neq h(y)] \leq 1/m^k$.
-
-        \paragraph{}
-        A continuación se describen distintas estrategias de diseño de funciones hash desde técnicas simples a otras más sofisticadas:
+        Las familias de funciones hash universales se refieren a distintas categorías en las cuales se pueden agrupar las funciones hash según el nivel de propiedades que cumplen. La categorías en las que se agrupan se denominan \emph{funciones hash k-universales}, de tal manera que el valor $k$ indican la dificultad de aparición de colisiones. Las funciones \emph{2-universales} se refieren a aquellas en las cuales se cumple que $Pr[h(x) = h(y)] \leq 1/m$ siendo $h$ la función hash, $x$ e $y$ dos posibles entradas tales que $x \neq y$ y $m$ el cardinal del conjunto de todas las posibles claves. Se dice que una función hash es \emph{fuertemente 2-universal} (\emph{strongly 2-universal}) si cumple que $Pr[h(x) = h(y)] \leq 1/m^2$ y genéricamente se dice que una función es \emph{k-universal} si cumple que $Pr[h(x) = h(y)] \leq 1/m^-k$. A continuación se describen dos estrategias básicas de diseño de funciones hash. Posteriormente se realiza una descripción acerca de las funciones hash sensibles a la localización.
 
         \subsubsection{Hash basado en Congruencias}
         \label{sec:hash_congruential}
@@ -483,17 +480,20 @@
             h(x) = T_1[x_1] \oplus T_2[x_2] \oplus ... \oplus T_c[x_c]
           \end{equation}
 
-        \subsubsection{FKS Hashing}
-        \label{sec:hash_fks}
+      \subsubsection{Funciones Hash sensibles a la localización}
+      \label{sec:hash_lsh}
 
-          \paragraph{}
-          [TODO ]
+        \paragraph{}
+        Una categoría a destacar son las \emph{funciones hash sensibles a la localización}. Estas poseen la propiedad de distribuir los valores cercanos en el espacio de destino tratando mantener las propiedades de cercanía entre los valores. El primer artículo en que se habla de ellas es \emph{Approximate Nearest Neighbor: Towards Removing the Curse of Dimensionality} \ref{indyk1998approximate} de \emph{Indyk} y \emph{Motwani} inicialmente para resolver el problema de la \emph{búsqueda del vecino más cercano (Nearest Neighbor Search)}. Se trata de funciones hash multidimensionales, es decir, en la entrada están compuestas por más de un elemento. Estas funciones han cobrado especial importancia en los últimos años por su uso en problemas de dimensión muy elevada, ya que sirven como estrategia de reducción de la dimensionalidad del conjunto de datos, que como consecuencia reduce el coste computacional del problema.
 
-        \subsubsection{Cuckoo Hashing}
-        \label{sec:hash_cuckoo}
+        \paragraph{}
+        \emph{Indyk} indica que para que una función hash sea sensible a la localización o $(r_1,r_2, p_1, p_2)$-sensible, para cualquier par de puntos de entrada $p,q$ y la función de distancia $d$ se cumpla la ecuación \eqref{eq:hash_lsh}. Las funciones hash que cumplen esta propiedad son interesantes cuando $p_1 > p_2$ y $r_1 < r_2$, de tal forma que para puntos cercanos en el espacio, el valor hash obtenido es el mismo, por lo que se asume que dichos puntos se encuentran cercanos en el espacio de partida.
 
-          \paragraph{}
-          [TODO ]
+        \begin{align}
+        \label{eq:hash_lsh}
+          \text{if} d(p,q) \leq r_1, &\text{then} Pr[h(x) = h(y)] \geq p_1 \\
+          \text{if} d(p,q) \geq r_2, &\text{then} Pr[h(x) = h(y)] \leq p_2
+        \end{align}
 
       \paragraph{}
       Una vez descritos los conceptos básicos acerca de lo que son los \emph{Algoritmos para Streaming} y las bases estadísticas necesarias para poder entender el funcionamiento de los mismo y sus niveles de complejidad así como de precisión, en las siguientes secciones se realiza una descripción sobre algunos de los algoritmos más relevantes en este área. En especial se explica el algoritmo de \emph{Morris} en la sección \ref{sec:streaming_morris_algorithm}, el de \emph{Flajolet-Martin} en la \ref{sec:streaming_morris_algorithm} y por último se hablará de la \emph{Estimación de Momentos de Frecuencia} en el modelo en streaming en la sección \ref{sec:streaming_frecuency_moment_aproximation}.
