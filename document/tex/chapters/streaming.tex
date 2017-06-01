@@ -453,7 +453,47 @@
       \label{sec:hash_functions}
 
         \paragraph{}
-        [TODO ]
+        Las funciones hash son transformaciones matemáticas basadas en la idea de trasladar un valor en un espacio discreto con $n$ posibles valores a otro de $m$ valores de tamaño menor tratando de evitar que se produzcan colisiones en la imagen. Por tanto son funciones que tratan tratan de ser inyectivas en un subespacio de destino menor que el de partida. Sin embargo, tal y como se puede comprender de manera intuitiva es una propiedad imposible de cumplir debido a los tamaños del espacio de partida y de destino.
+
+        \paragraph{}
+        Las familias de funciones hash universales se refieren a distintas categorías en las cuales se pueden agrupar las funciones hash según el nivel de propiedades que cumplen. La categorías en las que se agrupan se denominan \emph{funciones hash k-universales}, de tal manera que el valor $k$ indican la dificultad de aparición de colisiones. Las funciones \emph{2-universales} se refieren a aquellas en las cuales se cumple que $Pr[h(x) \neq h(y)] \leq 1/m$ siendo $h$ la función hash, $x$ e $y$ dos posibles entradas tales que $x \neq y$ y $m$ el cardinal del conjunto de todas las posibles claves. Se dice que una función hash es \emph{fuertemente 2-universal} (\emph{strongly 2-universal}) si cumple que $Pr[h(x) \neq h(y)] \leq 1/m^2$ y genéricamente se dice que una función es \emph{k-universal} si cumple que $Pr[h(x) \neq h(y)] \leq 1/m^k$.
+
+        \paragraph{}
+        A continuación se describen distintas estrategias de diseño de funciones hash desde técnicas simples a otras más sofisticadas:
+
+        \subsubsection{Hash basado en Congruencias}
+        \label{sec:hash_congruential}
+
+          \paragraph{}
+          Las funciones hash basadas en congruencias poseen la propiedad de ser \emph{2-universales}. Se basan en la idea de utilizar como espacio de destino aquel formado por $\mathbb{Z}_p$, es decir, todos los enteros que son congruentes con $p$ siendo $p \geq m$ un número primo. Además, se utilizan los enteros $a,b \in \mathbb{Z}_p$ con $a \neq 0$. La función hash entonces se describe tal y como se indica en la ecuación \eqref{eq:hash_congruential}.
+
+          \begin{equation}
+          \label{eq:hash_congruential}
+            h_{ab}(x) = (ax + b) mod p
+          \end{equation}
+
+        \subsubsection{Hash basado en Tabulación}
+        \label{sec:hasch_tabulation}
+
+          \paragraph{}
+          El hash basado en tabulación consiste en un método de generación de valores hash que restringe su dominio de entrada a cadenas de texto de tamaño fijo (u otras entradas que puedan codificarse de dicha forma). Denominaremos $c$ al tamaño fijo y  $T_i, i \in [1,c]$ a vectores que mapean el caracter i-ésimo de manera aleatoria. Entonces la función hash realiza una operación \emph{or-exclusiva} sobre los $T_i[x_i]$ valores tal y como se indica en la ecuación \eqref{eq:hash_tabulation}. Las funciones hash que se construyen siguiendo esta estrategia poseen la propiedad pertenecer a la categoría de las \emph{3-universales}.
+
+          \begin{equation}
+          \label{eq:hash_tabulation}
+            h(x) = T_1[x_1] \oplus T_2[x_2] \oplus ... \oplus T_c[x_c]
+          \end{equation}
+
+        \subsubsection{FKS Hashing}
+        \label{sec:hash_fks}
+
+          \paragraph{}
+          [TODO ]
+
+        \subsubsection{Cuckoo Hashing}
+        \label{sec:hash_cuckoo}
+
+          \paragraph{}
+          [TODO ]
 
       \paragraph{}
       Una vez descritos los conceptos básicos acerca de lo que son los \emph{Algoritmos para Streaming} y las bases estadísticas necesarias para poder entender el funcionamiento de los mismo y sus niveles de complejidad así como de precisión, en las siguientes secciones se realiza una descripción sobre algunos de los algoritmos más relevantes en este área. En especial se explica el algoritmo de \emph{Morris} en la sección \ref{sec:streaming_morris_algorithm}, el de \emph{Flajolet-Martin} en la \ref{sec:streaming_morris_algorithm} y por último se hablará de la \emph{Estimación de Momentos de Frecuencia} en el modelo en streaming en la sección \ref{sec:streaming_frecuency_moment_aproximation}.
