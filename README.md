@@ -4,8 +4,8 @@
 TODO: Write description
 
 ## Contenido
-* [Projecto LaTeX](document/)
-* [Documento PDF](document/document.pdf)
+* [Documento](document/document.pdf)
+* [Resumen](summary/summary.pdf)
 
 ## License
 TODO: Write license
