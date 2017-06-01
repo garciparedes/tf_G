@@ -17,15 +17,15 @@
       \subsection{Computación en Tiempo Real}
       \label{sec:realtime_computing}
         \paragraph{}
-        El primer concepto que se describe es \textbf{Computación en Tiempo Real}, que tal y cómo describen Shin y Ramanathan \cite{259423} se carácteriza por tres términos que se describen a continuación:
+        El primer concepto del que hablaremos es \textbf{Computación en Tiempo Real}, que tal y cómo describen Shin y Ramanathan \cite{259423} se carácteriza por tres términos que se exponen a continuación:
 
         \begin{itemize}
 
-          \item \textbf{Tiempo}\emph{(time)}: En la disciplina de \emph{Computación en Tiempo Real} el tiempo de ejecucción de una determinada tarea es especialmente crucial para garantizar el correcto desarrollo del cómputo, debido a que se asume un plazo de ejecucción permitido, a partir del cual la solución del problema deja de tener un valor óptimo. Shin y Ramanathan\cite{259423} diferencian entre tres categorías dentro de dicha restricción, a las cuales denominan \emph{hard}, \emph{firm} y \emph{soft}, dependiendo del grado de relajación de la misma.
+          \item \textbf{Tiempo}\emph{(time)}: En la disciplina de \emph{Computación en Tiempo Real} el tiempo de ejecucción de una determinada tarea es especialmente crucial para garantizar el correcto desarrollo del cómputo, debido a que se asume un plazo de ejecucción permitido, a partir del cual la solución del problema deja de tener validez. Shin y Ramanathan\cite{259423} diferencian entre tres categorías dentro de dicha restricción, a las cuales denominan \emph{hard}, \emph{firm} y \emph{soft}, dependiendo del grado de relajación de la misma.
 
           \item \textbf{Confiabilidad}\emph{(correctness)}: Otro de los puntos cruciales en un sistema de \emph{Cómputación en Tiempo Real} es la determinación de una unidad de medida o indicador acerca de las garantias de una determinada solución algorítmica para cumplir lo que promete de manera correcta en el tiempo esperado.
 
-          \item \textbf{Entorno}\emph{(environment)}: El último factor que indican Shin y Ramanathan\cite{259423} para describir un sistema de \emph{Computación en Tiempo Real} es el entorno del mismo, debido a que este condiciona el conjunto de tareas y la periodicidad en que se deben llevar a cabo. Debido a esta razón, realizan una diferenciación entre:
+          \item \textbf{Entorno}\emph{(environment)}: El último factor que indican Shin y Ramanathan\cite{259423} para describir un sistema de \emph{Computación en Tiempo Real} es el entorno del mismo, debido a que este condiciona el conjunto de tareas y la periodicidad en que se deben llevar a cabo. Por esta razón, realizan una diferenciación entre:
           \begin{enumerate*}[label=\itshape\alph*\upshape)]
   					\item tareas periódicas \emph{periodic tasks} las cuales se realizan secuencialmente a partir de la finalización de una ventana de tiempo, y
   					\item tareas no periódicas \emph{periodic tasks} que se llevan a cabo debido al suceso de un determinado evento externo.
@@ -57,20 +57,20 @@
       \subsection{Algoritmos Online vs Algoritmos Offline}
 
         \paragraph{}
-        Una vez descrita la problemática de \emph{Computación en Tiempo Real} en la sección \ref{sec:realtime_computing} y la categoría de \emph{Problemas Dinámicos} en la sección \ref{sec:dynamic_problems}, en esta sección se pretende ilustrar la diferencia entre los \emph{Algoritmos Online} y los \emph{Algoritmos Offline}. Para ello, se ha seguido la diferenciación propuesta por Karp \cite{Karp:1992:OAV:645569.659725}, en la cual se plantea el problema de la siguiente manera (Se utilizará la misma notación que sigue Muthukrishnan\cite{Muthukrishnan:2005:DSA:1166409.1166410} para tratar mantener la consistencia durante todo el documento): Sea $A$ el conjunto de datos o eventos de entrada, siendo cada $A[i]$ el elemento \emph{i-ésimo} del conjunto. En el caso de los \emph{Algoritmos Online} supondremos que es el elemento recibido en el instante \emph{i}. A continuación se muestran las características de cada subgrupo:
+        Una vez descrita la problemática de \emph{Computación en Tiempo Real} en la sección \ref{sec:realtime_computing} y la categoría de \emph{Problemas Dinámicos} en la sección \ref{sec:dynamic_problems}, en esta sección se pretende ilustrar la diferencia entre los \emph{Algoritmos Online} y los \emph{Algoritmos Offline}. Para ello, se ha seguido la diferenciación propuesta por Karp \cite{Karp:1992:OAV:645569.659725}, en la cual se plantea el problema de la siguiente manera (Se utilizará la misma notación que sigue Muthukrishnan\cite{Muthukrishnan:2005:DSA:1166409.1166410} para tratar mantener la consistencia durante todo el documento): Sea $A$ el conjunto de datos o eventos de entrada, siendo cada $A[i]$ el elemento \emph{i-ésimo} del conjunto, y que en el caso de los \emph{Algoritmos Online} supondremos que es el elemento recibido en el instante \emph{i}. A continuación se muestran las características de cada subgrupo:
 
         \begin{itemize}
-          \item \textbf{Algoritmos Offline}: Esta categoría contiene todos los algoritmos que realizan el cómputo suponiendo el acceso a cualquier elemento del conjunto de datos $A$ durante cualquier momento de su ejecución. Además, en esta categoría se impore la restricción de que el $A$ debe ser invariante respecto del tiempo, lo que impone que para la adaptación del resultado a cambios, este tenga que realizar una nueva ejecución desde su estado inicial. Nótese que por tanto, dentro de este grupo se engloba la mayoría de algoritmos utilizados comunmente.
+          \item \textbf{Algoritmos Offline}: Esta categoría contiene todos los algoritmos que realizan el cómputo suponiendo el acceso a cualquier elemento del conjunto de datos $A$ durante cualquier momento de su ejecución. Además, en esta categoría se impone la restricción de que el $A$ debe ser invariante respecto del tiempo, lo que conlleva que para la adaptación del resultado a cambios en la entrada, este tenga que realizar una nueva ejecución desde su estado inicial. Nótese por tanto, que dentro de este grupo se engloba la mayoría de algoritmos utilizados comunmente.
 
-          \item \textbf{Algoritmos Online}: Son aquellos que calculan el resultado a partir de una secuencia de sucesos $A[i]$, los cuales generan un resultado dependiente del valor, y posiblemente de los sucedidos anteriormente. A partir de dicha estrategia, se añade una componente dinámica, la cual permite que tamaño del conjunto de datos de entrada $A$ no tenga impuesta una restricción acerca de su longitud. Por contra, en este modelo no se permite conocer el cuceso $A[i+1]$ en el momento $i$.  Esto encaja perfectamente en el modelo que se describirá en la sección \ref{sec:streaming_model}.
+          \item \textbf{Algoritmos Online}: Son aquellos que calculan el resultado a partir de una secuencia de sucesos $A[i]$, los cuales generan un resultado dependiente de la entrada actual, y posiblemente de las anteriores. A partir de dicha estrategia, se añade una componente dinámica, la cual permite que el tamaño del conjunto de datos de entrada $A$ no tenga impuesta una restricción acerca de su longitud \emph{a-priori}. Por contra, en este modelo no se permite conocer el suceso $A[i+1]$ en el momento $i$.  Esto encaja perfectamente en el modelo que se describirá en la sección \ref{sec:streaming_model}.
 
         \end{itemize}
 
         \paragraph{}
-        Según la diferenciación que se acaba de describir, estas dos estrategias de diseño de algoritmos encajan en disciplinas distintas de diseño de algoritmos, teniendo una gran ventaja a nivel de eficiencia en el caso estático los \emph{Algoritmos Offline}, pero quedando prácticamente inutilizables cuando la computación es en tiempo real, donde es mucho más apropiado el uso de estrategias de diseño de \emph{Algoritmos Online}.
+        Según la diferenciación que se acaba de indicar, estas dos estrategias de diseño de algoritmos encajan en disciplinas distintas, teniendo una gran ventaja a nivel de eficiencia en el caso estático los \emph{Algoritmos Offline}, pero quedando prácticamente inutilizables cuando la computación es en tiempo real, donde es mucho más apropiado el uso de estrategias de diseño de \emph{Algoritmos Online}.
 
         \paragraph{}
-        Como medida de eficiencia para los \emph{Algoritmos Online}, Karp \cite{Karp:1992:OAV:645569.659725} propone el \textbf{Ratio Competitivo}, el cual se define como la cota inferior del coste de cualquier nueva entrada con respecto de la que tiene menor coste. Sin embargo, dicha medida de eficiencia no es comúnmente utilizada en el caso de los \emph{Algoritmos para Streaming} por la componente estocástica de los mismos, para los cuales son más apropiadas medidas probabilistas. A continuación se describen las ventajas de estos respecto de su vertiente estática.
+        Como medida de eficiencia para los \emph{Algoritmos Online}, Karp \cite{Karp:1992:OAV:645569.659725} propone el \textbf{Ratio Competitivo}, el cual se define como la cota inferior del coste de cualquier nueva entrada con respecto de la que tiene menor coste. Sin embargo, dicha medida de eficiencia no es comúnmente utilizada en el caso de los \emph{Algoritmos para Streaming} por la componente estocástica de los mismos, para los cuales son más apropiadas medidas probabilistas. A continuación se describen las ventajas de estos respecto de su vertiente determinista.
 
 
       \subsection{Algoritmos Probabilistas}
@@ -80,7 +80,7 @@
 
         \begin{itemize}
 
-          \item \textbf{Algoritmos Las Vegas}: Devuelven un resultado incorrecto con una determinada probabilidad, pero avisan del resultado incorrecto cuando esto sucede. Para contrarrestrar este suceso basta llevar a cabo una nueva ejecución del algoritmo, lo cual tras un número indeterminado de ejecuciones produce un resultado válido.
+          \item \textbf{Algoritmos Las Vegas}: Devuelven un resultado incorrecto con una determinada probabilidad, pero avisan del resultado incorrecto cuando esto sucede. Para contrarrestrar este suceso basta con llevar a cabo una nueva ejecución del algoritmo, lo cual tras un número indeterminado de ejecuciones produce un resultado válido.
 
           \item \textbf{Algoritmos Monte Carlo}: Fallan con un cierto grado de probabilidad, pero en este caso no avisan del resultado incorrecto. Por lo tando, lo único que se puede obtener al respecto es una indicador de la estimación del resultado correcto hacia la que converge tras varias ejecuciones. Además, se asegura una determinada cota del error $\epsilon$, que se cumple con probabilidad $\delta$.
 
@@ -93,33 +93,30 @@
       \subsection{Algoritmos Online Probabilistas vs Deterministas}
 
         \paragraph{}
-        La idea subyacente acerca del diseño de los \emph{Algoritmos Online} es la mejora de eficiencia con respecto a sus homónimos estáticos cuando el conjunto de valores de entrada es dependiente de los resultados anteriores. Sin embargo, existen casos en que la frecuencia de ejecución del algoritmo, debido a una alta tasa de llegada de sucesos de entrada, las soluciones deterministas se convierten en alternativas poco escalables.
+        La idea subyacente acerca del diseño de los \emph{Algoritmos Online} es la mejora de eficiencia con respecto de sus homónimos estáticos cuando el conjunto de valores de entrada es dependiente de los resultados anteriores. Sin embargo, existen casos en que la frecuencia de ejecución del algoritmo, debido a una alta tasa de llegada de valores en la entrada, las soluciones deterministas se convierten en alternativas poco escalables.
 
         \paragraph{}
-        Dicha problemática se ha incrementado de manera exponencial debido al avance tecnológico y la gran cantidad de información que se está generando en la actualidad. Este fenómeno ha convertido en algo necesario el diseño de estrategias basadas en sucesos probabilísticos que reduzcen en gran medida el coste computacional eliminando el determinismo de la solución.
+        Dicha problemática se ha incrementado de manera exponencial debido al avance tecnológico y la gran cantidad de información que se genera en la actualidad, que sigue creciendo a un ritmo desorbitado. Este fenómeno ha convertido en algo necesario el diseño de estrategias basadas en técnicas probabilísticas que reduzcan en gran medida el coste computacional que como consecuencia eliminan el determinismo de la solución.
 
 
     \section{Modelo en Streaming}
     \label{sec:streaming_model}
 
       \paragraph{}
-      En esta sección se describen los aspectos formales del \emph{Modelo en Streaming}. Para ello se ha seguido la representación definida por Muthukrishnan \cite{Muthukrishnan:2005:DSA:1166409.1166410}. Lo primero por tanto, es definir lo que es un flujo de datos o \emph{Data Stream} como una \say{secuencia de señales digitalmente codificadas utilizadas para representar una transmisión de información} \cite{ITS-def-data-stream}. Muthukrishnan \cite{Muthukrishnan:2005:DSA:1166409.1166410} hace una aclaración sobre dicha definición y añade la objeción de que los datos de entrada deben tener un ritmo elevado de llegada. Debido a esta razón existe complejidad a tres niveles:
+      En esta sección se describen los aspectos formales del \emph{Modelo en Streaming}. Para ello se ha seguido la representación definida por Muthukrishnan \cite{Muthukrishnan:2005:DSA:1166409.1166410}. Lo primero por tanto, es definir un flujo de datos o \emph{Data Stream} como una \say{secuencia de señales digitalmente codificadas utilizadas para representar una transmisión de información} \cite{ITS-def-data-stream}. Muthukrishnan \cite{Muthukrishnan:2005:DSA:1166409.1166410} hace una aclaración sobre dicha definición y añade la objeción de que los datos de entrada deben tener un ritmo elevado de llegada. Debido a esta razón existe complejidad a tres niveles:
 
       \begin{itemize}
 
         \item \textbf{Transmisión}: Ya que debido a la alta tasa de llegada es necesario diseñar un sistema de interconexiones que permita que no se produzcan congestiones debido a la obtención de los datos de entrada.
 
-        \item \textbf{Computación}: Puesto que la tarea de procesar la gran cantidad de información que llega por unidad de tiempo produce cuellos de botella en el planteamiento. Por lo que es necesario implementar técnicas algorítmicas con un reducido nivel de complejidad computacional que para contrarrestar dicha problemática.
+        \item \textbf{Computación}: Puesto que la tarea de procesar la gran cantidad de información que llega por unidad de tiempo produce cuellos de botella en el cálculo de la solución por lo que es necesario implementar técnicas algorítmicas con un reducido nivel de complejidad computacional para contrarrestar dicha problemática.
 
         \item \textbf{Almacenamiento}: Debido a la gran cantidad de datos que se presentan en la entrada, deben existir técnicas que permitan almacenar dicha información de manera eficiente. Esto puede ser visto desde dos puntos de vista diferences: \begin{enumerate*}[label=\itshape\alph*\upshape)]
           \item tanto desde el punto de vista del espacio, tratando de minimizar el tamaño de los datos almacenados, maximizando la cantidad de información que se puede recuperar de ellos,
           \item como desde el punto de vista del tiempo necesario para realizar operaciones de búsqueda, addición, eliminación o edición.
-        \end{enumerate*}
+        \end{enumerate*}. Además, se debe prestar especial atención en la información que se almacena, tratando de reducirla al máximo prescindiendo de datos redundantes o irrelevantes.
 
       \end{itemize}
-
-      \paragraph{}
-      [TODO ejemplo de los tres niveles de complejidad a partir del análisis meteorológico ]
 
       \subsection{Formalismo para Streaming}
       \label{sec:streaming_formalism}
@@ -138,13 +135,13 @@
 
 
         \paragraph{}
-        El siguiente paso para describir el formalismo es añadir la función $\boldsymbol{A}_t$, cuyo dominio e imagen se muestran en la ecuación \eqref{eq:streaming_A_function}. Esta función tiene distintas interpretaciones dependientes del \emph{Modelo en Streaming} con el cual se esté tratando en cada caso, pero la idea subyacente se puede resumirse asumiendo que la primera componente almacena el valor, mientras que la segunda almacena el número de ocurrencias de dicho valor. Algo común a todos ellos es la variable $t$, que se corresponde con resultado de la función en el instante de tiempo $t$. Por motivos de claridad, en los casos en que nos estemos refiriendo un único momento, dicha variable será obviada en la notación.
+        El siguiente paso para describir el formalismo es añadir la función $\boldsymbol{A}_t$, cuyo dominio e imagen se muestran en la ecuación \eqref{eq:streaming_A_function}. Esta función tiene distintas interpretaciones dependientes del \emph{Modelo en Streaming} bajo el cual se esté trabajando en cada caso, pero la idea subyacente puede resumirse asumiendo que la primera componente almacena el valor, mientras que la segunda almacena el número de ocurrencias de dicho valor. Algo común a todos ellos es la variable $t$, que se corresponde con resultado de la función en el instante de tiempo $t$. Por motivos de claridad, en los casos en que nos estemos refiriendo un único momento, dicha variable será obviada en la notación.
 
       \subsection{Modelo de Serie Temporal}
       \label{sec:streaming_time_series}
 
         \paragraph{}
-        El \emph{Modelo de Serie Temporal} o \emph{Time Series Model} se refiere, tal y como indica su nombre, a una serie temporal, es decir, modeliza los valores que toma la variable $i$ respecto de $t$, codificados en el modelo como $a_t = (i,1)$. Nótese que se utiliza el valor $1$ en la segunda componente de $a_t$, la razón de ello se debe a la definición de la imagen de $\boldsymbol{A}$ en la ecuación \eqref{eq:streaming_A_function}. A pesar de ello, dicho campo es irrelevante en este modelo, por lo que se podría haber escogido cualquier otro arbitrariamente. La razón por la cual se ha utilizado el valor $1$ ha sido el refuerzo de la idea de que en este caso, el valor que toma la $a_t$ en un determinado momento, no volverá a variar su valor, pero quedará obsoleto con la llegada de $a_{t+1}$.
+        El \emph{Modelo de Serie Temporal} o \emph{Time Series Model} se refiere, tal y como indica su nombre, a una serie temporal, es decir, modeliza los valores que toma la variable $i$ respecto de $t$, codificados en el modelo como $a_t = (i,1)$. Nótese que se utiliza el valor $1$ en la segunda componente de $a_t$, la razón de ello se debe a la definición de la imagen de $\boldsymbol{A}$ en la ecuación \eqref{eq:streaming_A_function}. A pesar de ello, dicho campo es irrelevante en este modelo, por lo que se podría haber escogido cualquier otro arbitrariamente. La razón por la cual se ha utilizado el valor $1$ ha sido el refuerzo de la idea de que en este caso, el valor que toma $a_t$ en un determinado momento, no volverá a variar su valor, pero quedará obsoleto con la llegada de $a_{t+1}$.
 
         \paragraph{}
         El modelo se describe de manera matemática mediante la función $\boldsymbol{A}$, tal y como se ilustra en la ecuación \eqref{eq:streaming_time_series}. Textualmente, esto puede traducirse diciendo que la función $\boldsymbol{A}$ representa una estructura de datos que almacena el valor de todos los elementos recibidos en la entrada hasta el instante de tiempo $t$, es decir, actúa como un historial. Un ejemplo de este modelo son los valores en bolsa que toma una determinada empresa a lo largo del tiempo.
@@ -179,7 +176,7 @@
         El \emph{Modelo de Molinete} o \emph{Turnstile Model} se corresponde con el caso más general, en el cual no solo se permiten incrementos, sino que también se pueden realizar decrementos en la cuenta. El nombre que se le dió a este modelo se debe al funcionamiento de los molinetes que hay en las estaciones de metro para permitir el paso a los usuarios, que en la entrada incrementan la cuenta del número de personas, mientras que en la salida los decrementan. La relajación originada por la capacidad de decremento ofrece una mayor versatilidad, que permite la contextualización de un gran número de problemas en este modelo. Por contra, añade un numerosas complicaciones a nivel computacional, tal y como se verá a lo largo del capítulo.
 
         \paragraph{}
-        Tal y como ocurre en el caso anterior, para describir este modelo, lo primero es pensar en la estructura de los elementos en la entrada, que están formados por $a_t = (i, U_t)$, algo muy semejante a lo descrito en el \emph{Modelo de Caja Registradora}. Sin embargo, en este caso $U_t$ no tiene restricciones en su imagen, sino que puede tomar cualquier valor tanto positivo como negativo, lo cual añade el concepto de decremento. La construcción de la función $\boldsymbol{A}_{t}$ se describe en la ecuación \eqref{eq:streaming_turnstile}.
+        Al igual que ocurre en el caso anterior, para describir este modelo, lo primero es pensar en la estructura de los elementos en la entrada, que están formados por $a_t = (i, U_t)$, algo muy semejante a lo descrito en el \emph{Modelo de Caja Registradora}. Sin embargo, en este caso $U_t$ no tiene restricciones en su imagen, sino que puede tomar cualquier valor tanto positivo como negativo, lo cual añade el concepto de decremento. La construcción de la función $\boldsymbol{A}_{t}$ se describe en la ecuación \eqref{eq:streaming_turnstile}.
 
         \begin{equation}
         \label{eq:streaming_turnstile}
@@ -196,30 +193,30 @@
     \label{sec:streaming_structure}
 
       \paragraph{}
-      Puesto que la naturaleza intríseca de los \emph{Algoritmos para Streaming} hace que procesen los elementos de entrada según van llegando, esto presenta peculiaridades con respecto a otras categorías algorítmicas utilizadas comúnmente. Por tanto, primero se describirá la estructura básica que siguen los algoritmos más comunmente utilizados para después mostrar la estrategia seguida en el caso de Streaming.
+      Puesto que la naturaleza intríseca de los \emph{Algoritmos para Streaming} hace que procesen los elementos de entrada según van llegando, esto presenta peculiaridades con respecto de otras categorías algorítmicas más asentadas y utilizadas en la actualidad. Por tanto, primero se describirá la estructura básica que siguen los algoritmos más comunmente utilizados para después mostrar la estrategia seguida en el caso de Streaming.
 
       \paragraph{}
-      Los algorítmos clásicamente estudiados para resolver la mayoría de problemas se basan la idea de funciones matemáticas. Es decir, se les presenta un conjunto de valores en la entrada, y a partir de ellos, realizan una determinada transformación sobre ellos, que genera como resultado una determinada salida. Nótese que esta idea no genera ninguna restricción acerca de lo que puede suceder en dicho proceso, es decir, no se restringe el uso de estructuras de datos auxiliares o técnicas similares.
+      Los algorítmos clásicamente estudiados para resolver la mayoría de problemas se basan la idea de funciones matemáticas. Es decir, se les presenta un conjunto de valores en la entrada, y a partir de ellos, realizan una determinada transformación sobre los datos, que genera como resultado una salida. Nótese que esta idea no impone ninguna restricción acerca de lo que puede suceder en dicho proceso, es decir, no se restringe el uso de estructuras de datos auxiliares o técnicas similares.
 
       \paragraph{}
-      Esta visión no se enmarca correctamente en el contexto de los \emph{Algoritmos para Streaming}. La razón se debe a que la entrada no es propiamente un conjunto de datos, sino que se refiere a un flujo en sí mismo. Esta característica conlleva que en un gran número de ocasiones ya no sea necesario obtener los resultados tras cada llamada al algoritmo, ya que estos podrían carecer de interés o requerir un sobrecoste innecesario. Por lo tanto, el concepto de función matemática pierde el sentido en este caso, ya que estas exigen la existencia de un valor como resultado.
+      Esta visión no se enmarca correctamente en el contexto de los \emph{Algoritmos para Streaming}. La razón se debe a que la entrada no es propiamente un conjunto de datos, sino que se refiere a un flujo en sí mismo. Esta característica tiene como consecuencia que en un gran número de ocasiones ya no sea necesario obtener los resultados tras cada llamada al algoritmo, ya que estos podrían carecer de interés o requerir un sobrecoste innecesario. Por lo tanto, el concepto de función matemática pierde el sentido en este caso, ya que estas exigen la existencia de un valor como resultado.
 
       \paragraph{}
-      Un concepto más acertado para modelizar un \emph{Algoritmo para Streaming} podría ser lo que en los lenguajes de programación derivados de \emph{Fortran} se denomina subrutina, es decir, una secuencia de instrucciones que realizan una tarea encapsulada como una unidad. Sin embargo, para poder describir correctamente la estructura de un \emph{Algoritmo para Streaming} hace falta algo más. La razón de ello es que a partir de dicho modelo de diseño no sería posible realizar peticiones acerca de lo calculado, es decir, sería una estrategia puramente procedural. Para corregir dicha problemática surge el concepto de \emph{query} o pregunta. A través de dicha idea se pretende representar la manera de obtener un resultado a partir del cómputo realizado hasta el momento actual.
+      Un concepto más acertado para modelizar un \emph{Algoritmo para Streaming} podría ser lo que en los lenguajes de programación derivados de \emph{Fortran} se denomina subrutina, es decir, una secuencia de instrucciones que realizan una tarea encapsulada como una unidad. Sin embargo, para poder describir correctamente la estructura de un \emph{Algoritmo para Streaming} hace falta algo más. La razón de ello es que a partir de dicho modelo de diseño no sería posible realizar peticiones sobre el resultado calculado, es decir, sería una estrategia puramente procedural. Para corregir dicha problemática surge el concepto de consulta o \emph{query}. A través de dicha idea se pretende representar la manera de obtener un resultado a partir del cómputo realizado hasta el momento actual.
 
       \paragraph{}
-      En resumen, con dicha estrategia de diseño se consigue separar la parte de procesado de la entrada con la parte de consulta del resultado, lo cual proporciona amplias ventajas para el modelo seguido por los \emph{Algoritmos para Streaming}. Sin embargo, dicha estrategia produce un sobrecoste espacial con respecto del modelo de algoritmo clásico. Este se debe a la necesidad de mantener una estructura de datos en la cual se almacenen los resultados parciales referentes al flujo de entrada.
+      En resumen, con dicha estrategia de diseño se consigue separar la parte de procesado de la entrada de la parte de consulta del resultado, lo cual proporciona amplias ventajas para el modelo seguido por los \emph{Algoritmos para Streaming}. Sin embargo, dicha estrategia produce un sobrecoste espacial con respecto del modelo de algoritmo clásico. Este se debe a la necesidad de mantener una estructura de datos en la cual se almacenen los resultados parciales referentes al flujo de entrada.
 
       \paragraph{}
-      Los algoritmos \emph{Algoritmos para Streaming} se componen por tanto de algoritmo de procesamiento del flujo de datos, una estructura de datos que almacena dichos resultados, y por último, un algoritmo de procesamiento de la \emph{query} o pregunta necesaria para obtener los resultados requeridos. a continuación se dividen las fases para el funcionamiento de un algoritmo de dichas caraterísticas.
+      Los algoritmos \emph{Algoritmos para Streaming} se componen por tanto de algoritmo de procesamiento del flujo de datos, una estructura de datos que almacena dichos resultados, y por último, un algoritmo de procesamiento de la consulta o \emph{query} necesaria para obtener los resultados requeridos. a continuación se dividen las fases para el funcionamiento de un algoritmo de dichas caraterísticas.
 
       \begin{itemize}
 
-        \item \textbf{Inicialización}: En esta fase se llevan a cabo el conjunto de tareas necesarias para inicializar la estructura de datos que actuará como almacen de información durante el procesamiento del flujo de datos de entrada. Generalmente esto consite en el proceso de reservar memoria, inicializar a un valor por defecto la estructura de datos, etc. Sin embargo, existen técnicas sofisticadas que requieren de una mayor carga computacional en esta fase.
+        \item \textbf{Inicialización}: En esta fase se llevan a cabo el conjunto de tareas necesarias para inicializar la estructura de datos que actuará como almacen de información durante el procesamiento del flujo de datos de entrada. Generalmente esto consite en el proceso de reservar memoria, inicializar a un valor por defecto la estructura de datos, etc. Sin embargo, existen técnicas más sofisticadas que requieren de una mayor carga computacional en esta fase.
 
         \item \textbf{Procesado}: Se corresponde con el procesamiento del flujo de datos de manera secuencial. La idea subyacente en esta fase es la de realizar una determinada operación sobre la estructura de datos y el elemento de entrada actual, de manera que se lleve a cabo una actualización sobre la misma. Nótese en que la manera en que se manipula dicha estructura de datos condiciona en gran medida el conjunto de peticiones que se podrán realizar sobre ella.
 
-        \item \textbf{Consulta}: La fase de consulta se caracteriza con respecto de la anterior por ser de carácter consultivo. Con esto nos estamos refiriendo a que dicha tarea no modifica el estado actual de la estructura de datos, sino que recoge información de la misma, que posiblemente transforme mediante alguna operación, para despues obtener un valor como resultado de dicha petición.
+        \item \textbf{Consulta}: La fase de consulta se diferencia con respecto de la anterior por ser de carácter consultivo. Con esto nos estamos refiriendo a que dicha tarea no modifica el estado actual de la estructura de datos, sino que recoge información de la misma, que posiblemente transforma mediante alguna operación, para despues obtener un valor como resultado de dicha petición.
 
       \end{itemize}
 
@@ -227,10 +224,10 @@
     \label{sec:streaming_analysis}
 
       \paragraph{}
-      Los \emph{Algoritmos para Streaming} se caracterizan por utilizar soluciones estadísticas en alguna parte (generalmente en el procesado) de su cómputo para obtener la solución con un menor coste computacional. En este caso, el coste que se pretende minimizar es el referido al espacio necesario para almacenar la estructura de datos auxiliar. Tal y como se ha dicho anteriormente, la razón de ello es debida a que se presupone un conjunto masivo de datos en la entrada, por lo que se pretende que el orden de complejidad espacial respecto de la misma sea de carácter sublinear ($o(N)$).
+      Los \emph{Algoritmos para Streaming} se caracterizan por utilizar propiedades estadísticas en alguna parte (generalmente en el procesado) de su cómputo para obtener la solución con un menor coste computacional. En este caso, el coste que se pretende minimizar es el referido al espacio necesario para almacenar la estructura de datos auxiliar. Tal y como se ha dicho anteriormente, la razón de ello es debida a que se presupone un conjunto masivo de datos en la entrada, por lo que se pretende que el orden de complejidad espacial respecto de la misma sea de carácter sublineal ($o(N)$).
 
       \paragraph{}
-      El objetivo es encontrar soluciones con un índice de error acotado que permitan llegar a la solución en un orden espacial de complejidad logarítmica ($O(log(N))$). Sin embargo, existen ocasiones en que no es posible llegar a una solución en dicho orden de complejidad, como es el caso de \emph{Algoritmos para Streaming} aplicados a problemas de \emph{Grafos}, en los cuales se relaja dicha restricción a un orden de complejiddad \emph{poli-logarítmico} ($O(polylog(N))$).
+      El objetivo es encontrar soluciones con un intervalo de error acotado que permitan llegar a la solución en un orden espacial de complejidad logarítmica ($O(log(N))$). Sin embargo, existen ocasiones en que no es posible llegar a una solución en dicho orden de complejidad, como es el caso de \emph{Algoritmos para Streaming} aplicados a problemas de \emph{Grafos}, en los cuales se relaja dicha restricción a un orden de complejiddad \emph{poli-logarítmico} ($O(polylog(N))$).
 
       \paragraph{}
       El órden de complejidad \emph{poli-logarítmico} engloba el conjunto de funciones cuyo orden de complejidad presenta un crecimiento acorde a una función polinomial formada logaritmos. Matemáticamente esto se modeliza a través de la ecuación \eqref{eq:polylog-complexity}
@@ -241,7 +238,7 @@
       \end{equation}
 
       \paragraph{}
-      En esta sección se muestran distintas estrategias para poder llevar a cabo la demostración de pertenencia a un determinado orden de complejidad de un \emph{Algoritmo para Streaming}. Debido a la elevada base estadística que requieren dichas demostraciones, a continuación se definen algunos conceptos básicos en relacionadas con estimadores estadísticos, para después realizar una breve demostración acerca de distintas cotas de concentración de valores en una distribución en las subsecciones \ref{sec:markov_inequality}, \ref{sec:chebyshev_inequality} y \ref{sec:chernoff_inequality}. Las definiciones que se exponen a continuación han sido extraidas de los apuntes del curso sobre \emph{Randomized Algorithms} \cite{aspnes2014notes} impartido por Aspnes en la \emph{Universidad de Yale} así como las de la asignatura de \emph{Estadística}\cite{estadistica2016notes} impartida en el Grado de Ingeniería Informática de la \emph{Universidad de Valladolid}.
+      En esta sección se muestran distintas estrategias para poder llevar a cabo la demostración de pertenencia a un determinado orden de complejidad de un \emph{Algoritmo para Streaming}. Debido a la elevada base estadística que requieren dichas demostraciones, a continuación se definen algunos conceptos básicos relacionadas con estimadores estadísticos, para después realizar una breve demostración acerca de distintas cotas de concentración de valores en una distribución en las subsecciones \ref{sec:markov_inequality}, \ref{sec:chebyshev_inequality} y \ref{sec:chernoff_inequality}. Las definiciones que se exponen a continuación han sido extraidas de los apuntes del curso sobre \emph{Randomized Algorithms} \cite{aspnes2014notes} impartido por Aspnes en la \emph{Universidad de Yale} así como las de la asignatura de \emph{Estadística}\cite{estadistica2016notes} impartida en el Grado de Ingeniería Informática de la \emph{Universidad de Valladolid}.
 
       \subsection{Conceptos básicos de Estadística}
       \label{sec:basic_statistics}
@@ -453,7 +450,7 @@
         [TODO ]
 
       \paragraph{}
-      Una vez descritos los conceptos básicos acerca de lo que son los \emph{Algoritmos para Streaming} y las bases estadísticas necesarias para poder entender el funcionamiento de los mismo y entender sus niveles de complejidad así como de precisión, en las siguientes secciones se realizará una descripción sobre algunos de los algoritmos más relevantes en esta area. En especial se explica el algoritmo de \emph{Morris} en la sección \ref{sec:streaming_morris_algorithm}, el de \emph{Flajolet-Martin} en la \ref{sec:streaming_morris_algorithm} y por último se hablará de la \emph{Estimación de Momentos de Frecuencia} en el modelo en streaming en la sección \ref{sec:streaming_frecuency_moment_aproximation}.
+      Una vez descritos los conceptos básicos acerca de lo que son los \emph{Algoritmos para Streaming} y las bases estadísticas necesarias para poder entender el funcionamiento de los mismo y sus niveles de complejidad así como de precisión, en las siguientes secciones se realiza una descripción sobre algunos de los algoritmos más relevantes en este área. En especial se explica el algoritmo de \emph{Morris} en la sección \ref{sec:streaming_morris_algorithm}, el de \emph{Flajolet-Martin} en la \ref{sec:streaming_morris_algorithm} y por último se hablará de la \emph{Estimación de Momentos de Frecuencia} en el modelo en streaming en la sección \ref{sec:streaming_frecuency_moment_aproximation}.
 
 
     \section{Algoritmo de Morris}
@@ -463,11 +460,10 @@
       El \emph{Algoritmo de Morris} fue presentado por primera vez en el artículo \emph{Counting Large Numbers of Events in Small Registers} \cite{morris1978counting} redactado por \emph{Robert Morris}. En dicho documento se trata de encontrar una solución al problema de conteo de ocurrencias de un determinado suceso teniendo en cuenta las restriciones de espacio debido a la elevada tasa de ocurencias que se da en muchos fenómenos. El problema del conteo (\textbf{Count Problem}) de ocurrencias también se denomina el momento de frecuencia $F_1$ tal y como se verá en la sección \ref{sec:streaming_frecuency_moment_aproximation}.
 
       \paragraph{}
-      Por tanto, \emph{Morris} propone realizar una estimación de dicha tasa para reducir el espacio necesario para almacenar el valor. Intuitivamente, a partir dicha restricción se consigue un orden de complejidad espacial sublineal ($o(N)$) con respecto al número de ocurrencias. Se puede decir que el artículo publicado por \emph{Morris} marcó el punto de comienzo de este área de investigación. El conteo probabilista es algo trivial si se restringe a la condición de incrementar el conteo de ocurrencias siguiendo una distribución de \emph{Bernoulli} con un parámetro $p$ prefijado previamente. Con esto se consigue un error absoluto relativamente pequeño con respecto al valor $p$ escogido. Sin embargo, el error cuando el número de ocurrencias es pequeño es muy elevado.
-
+      Por tanto, \emph{Morris} propone realizar una estimación de dicha tasa para reducir el espacio necesario para almacenar el valor. Intuitivamente, a de partir dicha restricción se consigue un orden de complejidad espacial sublineal ($o(N)$) con respecto del número de ocurrencias. Se puede decir que el artículo publicado por \emph{Morris} marcó el punto de comienzo de este área de investigación. El conteo probabilista es algo trivial si se restringe a la condición de incrementar el conteo de ocurrencias siguiendo una distribución de \emph{Bernoulli} con un parámetro $p$ prefijado previamente. Con esto se consigue un error absoluto relativamente pequeño con respecto al valor $p$ escogido. Sin embargo, el error relativo que se obtiene cuando el número de ocurrencias es pequeño es muy elevado, lo cual lo convierte en una solución impracticable.
 
       \paragraph{}
-      Para solucionar dicha problemática y conseguir una cota del error relativo reducida, la solución propuesta por \emph{Morris} se basa en la selección del parámetro $p$ variable con respecto al número de ocurrencias, con lo cual se consigue que la decisión de incrementar el contador sea muy probable en los primeros casos, lo cual eliminar dicho problema. \emph{Morris} propone aumentar el contador $X$ con probabilidad $\frac{1}{2^X}$. Tras $n$ ocurrencias, el resultado que devuelve dicho algoritmo es $\widetilde{n} = 2^X -1$. El pseudocódigo se muestra en el algoritmo \ref{code:morris-algorithm}.
+      Para solucionar dicha problemática y conseguir una cota del error relativo reducida, la solución propuesta por \emph{Morris} se basa en la selección del parámetro $p$ variable con respecto del número de ocurrencias, con lo cual se consigue que la decisión de incrementar el contador sea muy probable en los primeros casos, lo cual elimina el problema del error relativo. \emph{Morris} propone aumentar el contador $X$ con probabilidad $\frac{1}{2^X}$. Tras $n$ ocurrencias, el resultado que devuelve dicho algoritmo es $\widetilde{n} = 2^X -1$. El pseudocódigo se muestra en el algoritmo \ref{code:morris-algorithm}.
 
       \paragraph{}
       \begin{algorithm}[h]
@@ -506,7 +502,7 @@
       \end{align}
 
       \paragraph{}
-      La ventaja de esta estrategia algorítmica con respecto de la trivial es la cota del error relativo producido en cada iteracción del algoritmos, lo cual aporta una mayor genericidad debido a que esta se mantiene constante con respecto del número de ocurrencias. Sin embargo, se han propuesto otras soluciones para tratar de reducir más dicha cota. El algoritmo \emph{Morris+} se basa en el mantenimiento de $s$ copias independientes de \emph{Morris} para después devolver la media del resultado de cada una de ellas. A partir de dicha solución se consigue lo descrito en la ecuación \eqref{eq:morris+_bound}.
+      La ventaja de esta estrategia algorítmica con respecto de la trivial es la cota del error relativo producido en cada iteracción del algoritmo, lo cual aporta una mayor genericidad debido a que esta se mantiene constante con respecto del número de ocurrencias. Sin embargo, se han propuesto otras soluciones para tratar de reducir en mayor medida dicha cota de error. El algoritmo \emph{Morris+} se basa en el mantenimiento de $s$ copias independientes de \emph{Morris} para después devolver la media del resultado de cada una de ellas. A partir de esta estrategia se consiguen las tasas de error que se indican en la ecuación \eqref{eq:morris+_bound}.
 
       \begin{align}
       \label{eq:morris+_bound}
@@ -514,15 +510,14 @@
       \end{align}
 
 
-
     \section{Algoritmo de Flajolet-Martin}
     \label{sec:streaming_morris_algorithm}
 
       \paragraph{}
-      En esta sección se describe el \emph{Algoritmo de Flajolet-Martin}, cuya descripción aparece en el artículo \emph{Probabilistic Counting Algorithms for Data Base Applications} \cite{flajolet1985probabilistic} redactado por \emph{Philippe Flajolet} y \emph{G. Nigel Martin}. En este caso, la problemática que se pretende resolver no es el número de ocurrencias de un determinado suceso, sino el número de sucesos distintos (\textbf{Count Distinct Problem}) en la entrada. Este problema también se denomina el momento de frecuencia $F_0$ tal y como se verá en la sección \ref{sec:streaming_frecuency_moment_aproximation}. Al igual que en el caso del algoritmo de \emph{Morris}, se apoya en estrategias probabilistas para ajustarse a un orden de complejidad espacial de carácter sublineal ($o(N))$) manteniendo una cota de error ajustada.
+      En esta sección se describe el \emph{Algoritmo de Flajolet-Martin}, cuya descripción aparece en el artículo \emph{Probabilistic Counting Algorithms for Data Base Applications} \cite{flajolet1985probabilistic} redactado por \emph{Philippe Flajolet} y \emph{G. Nigel Martin}. En este caso, la problemática que se pretende resolver no es el número de ocurrencias de un determinado suceso, sino el número de sucesos distintos (\textbf{Count Distinct Problem}) en la entrada. Este problema también se conoce como el cálculo del momento de frecuencia $F_0$ tal y como se verá en la sección \ref{sec:streaming_frecuency_moment_aproximation}. Al igual que en el caso del algoritmo de \emph{Morris}, se apoya en estrategias probabilistas para ajustarse a un orden de complejidad espacial de carácter sublineal ($o(N))$) manteniendo una cota de error ajustada.
 
       \paragraph{}
-      La intuicción a partir de la cual se basa el \emph{Algoritmo de Flajolet-Martin}, es la transformación de los elementos de entrada sobre una \emph{función Hash} universal binaria con distribución uniforme e independiente de probabilidad. La propiedad de distribución uniforme permite entonces preveer que la mitad de los elementos tendrán un $1$ en el bit menos significativo, que una cuarta parte de los elementos tendrán un $1$ en el segundo bit menos significativo y así sucesivamente. Por tanto, a partir de esta idea se puede realizar una aproximación estadística del número de elementos distintos que han sido presentados en la entrada. Requiere de $L$ bits de espacio para el almacenamiento del número de elementos distintos. Por la notación descrita en anteriores secciones $L = log(n)$, donde $n$ es el número máximo de elementos distintos en la entrada. A continuación se explica esta estrategia, para ello nos apoyaremos en las siguientes funciones:
+      La intuicción en la cual se basa el \emph{Algoritmo de Flajolet-Martin}, es la transformación de los elementos de entrada sobre una \emph{función Hash} universal binaria con distribución uniforme e independiente de probabilidad. La propiedad de distribución uniforme permite entonces preveer que la mitad de los elementos tendrán un $1$ en el bit menos significativo, que una cuarta parte de los elementos tendrán un $1$ en el segundo bit menos significativo y así sucesivamente. Por tanto, a partir de esta idea se puede realizar una aproximación probabilista del número de elementos distintos que han sido presentados en la entrada. Requiere de $L$ bits de espacio para el almacenamiento del número de elementos distintos. Por la notación descrita en anteriores secciones $L = log(n)$, donde $n$ es el número máximo de elementos distintos en la entrada. A continuación se explica esta estrategia, para ello nos apoyaremos en las siguientes funciones:
 
       \begin{itemize}
         \item $hash(x)$ Es la función hash con distribución uniforme e independiente de probabilidad que mapea una entrada cualquiera a un valor entero en el rango $[0,...,2^L-1]$.
@@ -540,7 +535,7 @@
       \end{equation}
 
       \paragraph{}
-      \emph{Flajolet} y \emph{Martin} se apoyan en una estructura de datos indexada a la cual denominan \textbf{BITMAP}, de tamaño $[0...L-1]$ la cual almacena valores binarios $\{ 0, 1\}$ y se inicializa con todos los valores a $0$. Nótese por tanto, que esta estructura de datos puede ser codificada como un string binario de longitud $L$. La idea del algoritmo es marcar con un $1$ la posición \textbf{BITMAP[$\rho(hash(x))$]}. Seguidamente, queda definir el resultado de la consulta sobre cuántos elementos distintos han aparecido en el Stream de datos de entrada. Para ello se calcula $2^{\rho(\textbf{BITMAP})}$. El pseudocódigo se muestra en el algoritmo \ref{code:fm-algorithm}.
+      \emph{Flajolet} y \emph{Martin} se apoyan en una estructura de datos indexada a la cual denominan \textbf{BITMAP}, de tamaño $[0...L-1]$ la cual almacena valores binarios $\{ 0, 1\}$ y se inicializa con todos los valores a $0$. Nótese por tanto, que esta estructura de datos puede ser codificada como un string binario de longitud $L$. La idea del algoritmo es marcar con un $1$ la posición \textbf{BITMAP[$\rho(hash(x))$]}. Seguidamente, queda definir el resultado de la consulta sobre cuántos elementos distintos han aparecido en el flujo de datos de entrada. Para ello se calcula $2^{\rho(\textbf{BITMAP})}$. El pseudocódigo se muestra en el algoritmo \ref{code:fm-algorithm}.
 
       \paragraph{}
       \begin{algorithm}[h]
@@ -559,10 +554,10 @@
       \end{algorithm}
 
       \paragraph{}
-      El análisis de esta solución ha sido estraido de los apuntes del libro \emph{Mining of massive datasets} \cite{leskovec2014mining} de la \emph{Universidad de Cambridge}. En este caso lo representa teniendo el cuenta el número de $0$'s seguidos en la parte menos significativa de la representación binaria de $h(x)$. Nótese que esto es equivalente al valor de la función $\rho(h(y))$, por tanto, adapteremos dicho análisis a la solución inicial propuesta por \emph{Flajolet} y \emph{Martin}. La probabilidad de que se cumpla $\rho(h(x)) = r$ es $2^{-r}$. Supongamos que el número de elementos distintos en el stream es $m$. Entonces la probabilidad de que ninguno de ellos cumpla $\rho(h(x)) = r$ es al menos $(1- 2^{-r})^m$ lo cual puede ser reescrito como $((1- 2^{-r})^{2^r})^{m2^{-r}}$. Para valores suficientemente grandes $r$ se puede asumir que dicho valor es de la forma $(1-\epsilon)^{1/\epsilon} \approx 1/\epsilon$. Entonces la probabilidad de que no se cumpla que $\rho(h(x)) = r$ cuando han aparecido $m$ elementos distintos en el stream es de $e^{-m2^{-r}}$
+      El análisis de esta solución ha sido extraido de los apuntes del libro \emph{Mining of massive datasets} \cite{leskovec2014mining} de la \emph{Universidad de Cambridge}. En este caso lo representa teniendo el cuenta el número de $0$'s seguidos en la parte menos significativa de la representación binaria de $h(x)$. Nótese que esto es equivalente al valor de la función $\rho(h(y))$, por tanto, adapteremos dicho análisis a la solución inicial propuesta por \emph{Flajolet} y \emph{Martin}. La probabilidad de que se cumpla $\rho(h(x)) = r$ es $2^{-r}$. Supongamos que el número de elementos distintos en el stream es $m$. Entonces la probabilidad de que ninguno de ellos cumpla $\rho(h(x)) = r$ es al menos $(1- 2^{-r})^m$ lo cual puede ser reescrito como $((1- 2^{-r})^{2^r})^{m2^{-r}}$. Para valores suficientemente grandes $r$ se puede asumir que dicho valor es de la forma $(1-\epsilon)^{1/\epsilon} \approx 1/\epsilon$. Entonces la probabilidad de que no se cumpla que $\rho(h(x)) = r$ cuando han aparecido $m$ elementos distintos en el stream es de $e^{-m2^{-r}}$
 
       \paragraph{}
-      La problemática de este algoritmo deriva de la suposición de la capacidad de generación de claves Hash totalmente aleatorias, lo cual no se ha conseguido aún. Por lo tanto posteriormente, \emph{Flajolet} ha seguido trabajando el problema de conteo de elementos distintos en \emph{Loglog counting of large cardinalities} \cite{durand2003loglog} y \emph{Hyperloglog: the analysis of a near-optimal cardinality estimation algorithm} \cite{flajolet2007hyperloglog}. En el artículo \emph{An optimal algorithm for the distinct elements problem} \cite{kane2010optimal} \emph{Daniel Kane y otros} muestran un algoritmo óptimo para el problema. Los resultados de dichos trabajos se discuten en la sección \ref{sec:hyper_log_log} por su cercana relación con las \emph{estructuras de datos de resumen}.
+      La problemática de este algoritmo deriva de la suposición de la capacidad de generación de claves Hash totalmente aleatorias, lo cual no se ha conseguido en la actualidad. Por lo tanto posteriormente, \emph{Flajolet} ha seguido trabajando el problema de conteo de elementos distintos en \emph{Loglog counting of large cardinalities} \cite{durand2003loglog} y \emph{Hyperloglog: the analysis of a near-optimal cardinality estimation algorithm} \cite{flajolet2007hyperloglog} para tratar de mejorar el grado de precisión de su estrategia de conteo. En el artículo \emph{An optimal algorithm for the distinct elements problem} \cite{kane2010optimal} \emph{Daniel Kane y otros} muestran un algoritmo óptimo para el problema. Los resultados de dichos trabajos se discuten en la sección \ref{sec:hyper_log_log} por su cercana relación con las \emph{estructuras de datos de resumen}.
 
 
     \section{Aproximación a los Momentos de Frecuencia}
@@ -616,7 +611,10 @@
       \end{equation}
 
 
-      \paragraph{}
-      [TODO comentario final]
+  \section{Conclusiones}
+  \label{sec:streaming_conclusions}
+
+    \paragraph{}
+    [TODO comentario final]
 
 \end{document}
