@@ -237,26 +237,35 @@
         \paragraph{}
         Tal y como se puede apreciar en la figura \ref{fig:linear_sketch} la ventaja de sumarización de esta estrategia se obtiene en la reducción de tamaño obtenida en la transformación lineal. Posteriormente, cada estructura de \emph{Sketch} tiene asociadas un conjunto de \emph{consultas o queries} para las cuales extraer la información valiosa contenida en ellas. Puesto que la forma en que se llevan a cabo dichas consultas varía según la alternativa a la que nos estamos refiriendo, estas técnicas se expondrán en profundidad en sus correspondientes secciones.
 
+        \paragraph{}
+        Siguiendo con las restricciones descritas anteriormente, existe una implementación trivial de las estructuras de \emph{Sketch} consistente en mantener una tabla de frecuencias sobre cada posible instancia de entrada de tal manera que a partir de esta pueden resolver consultas como sumas de frecuencias, conteo de elementos distintos, búsqueda del máximo o mínimo, media o varianza del conjunto de datos. Sin embargo, esta solución no proporciona ninguna ventaja a nivel de espacio, por tanto, la tarea es encontrar técnicas que permitan \say{colapsar} dicha tabla de frecuencias para tratar de minimizar dicho coste asumiendo un cierto grado de imprecisión.
 
         \paragraph{}
-        [TODO tipos de skethes]
+        Existen dos categorías principales según la naturaleza de las consultas que el \emph{Sketch} puede responder. Dichas categorías se describen a continuación:
 
         \begin{itemize}
 
-          \item \textbf{Estimación de Frecuencias}: [TODO ]
+          \item \textbf{Estimación de Frecuencias}: Los \emph{Sketches} basados en estimación de frecuencias se corresponden con aquellos que tratan de recoger estimadores que se aproximen a la frecuencia de cada elementos $f(i)$. En esta categoría se enmarcan el \emph{Count-Min Sketch}, \emph{Count Sketch} y  \emph{AMS Sketch}.
 
-          \item \textbf{Elementos Distintos}: [TODO ]
+          \item \textbf{Elementos Distintos}: Los \emph{Sketches} basados en el conteo de elementos distintos (y que también pueden responder consultas referidas a la presencia de un determinado elemento) se basan en el mantenimiento de distintos indicadores que permiten aproximar dichos valores. Entre los más destacados en esta categoría se encuentran el \emph{Bloom Filter} y el \emph{HyperLogLog}.
 
         \end{itemize}
 
         \paragraph{}
-        [TODO dimensionalidad]
+        A pesar de que todos los \emph{Sketches} siguen una estructura básica similar, existen distintos parámetros diferenciadores que caracterizan unas alternativas frente a otras entre las que destacan las consultas soportadas, el tamaño de los mismos (algunos necesitan menor espacio para obtener un grado de precisión similar a otros), el tiempo de procesamiento de cada nueva actualización (el cual se pretende que sea muy reducido debido al modelo en streaming), el tiempo de resolución de consultas o la estrategia de inicialización del mismo.
+
 
         \paragraph{}
-        [TODO ventajas e inconvenientes]
+        La extensión de los \emph{Sketches} sobre conjuntos de datos de caracter multidimensional puede resolverse utilizando funciones hash que mapeen una entrada multidimensional sobre un espacio unidimensional para después utilizarlos de la manera que para los casos de una dimensión. Esta solución no presenta problemas en la estimación de frecuencias puntuales o búsqueda de máximos o mínimos, sin embargo, no es factible para consultas de sumas de rangos utilizando \emph{sketches} multidimensionales o asumiendo la independencia entre dimensiones y manteniendo una estructura de \emph{sketch} por cada dimensión.
 
         \paragraph{}
-        [TODO área de investigación para soluciones futuras]
+        Los \emph{Sketches} presentan un gran nivel de simplicidad en sus implementaciones, lo que les hace muy eficientes y válidos para modelos que requieren de actualizaciones constantes como el descrito en el modelo en streaming. La dificultad de los mismos se basa en los conceptos matemáticos subyacentes, que complica en gran medida la demostración de sus características de convergencia hacia el valor real que estiman. Generalmente para reducir su espacio se apoyan en la utilización de funciones hash con distintas propiedades, pero que también se pueden calcular eficientemente. La mayor limitación se refiere al rango de consultas que cada tipo de \emph{Sketch} puede resolver de manera eficiente, estando especialmente limitados en el ámbito de múltiples consultas anidadas.
+
+        \paragraph{}
+        Los \emph{Sketches} son un ámbito interesante dentro del mundo de la investigación, con una visión de futuro muy prometedora que les coloca como la mejor solución a medio-largo plazo para la tarea del \emph{procesamiento de consultas aproximadas} por su reducido coste computacional, tanto a nivel de espacio como de tiempo de procesamiento. Actualmente universidades prestigiosas como la \emph{Universidad de California, Berkeley} o el \emph{MIT} están trabajando en el diseño de bases de datos que se apoyan fuertemente en el uso de estas estructuras. Dicha universidad está trabajando en una base de datos a la cual denominan \emph{BlinkDB} y la cual describen en el artículo \emph{BlinkDB: queries with bounded errors and bounded response times on very large data} \cite{agarwal2013blinkdb}
+
+    \paragraph{}
+    En las siguientes secciones se describen en profundidad distintas estructuras de datos basadas en \emph{Sketches} tratando de prestar especial importancia en una visión conceptual de la misma pero sin dejar de lado la parte práctica de las mismas. Además, se trata de incluir demostraciones acerca de la precisión de las mismas respecto del espacio utilizado para su almacenamiento respecto del tamaño del conjunto de datos global.
 
 
     \section{Bloom Filter}
