@@ -208,10 +208,35 @@
       \label{sec:sketch}
 
         \paragraph{}
-        [TODO ]
+        Las estructuras de sumarización conocidas como \emph{Sketches} son las que menos tiempo de vida tienen de entre las descritas, por lo tanto, aún están en una fase muy temprana por lo que su uso en sistemas reales todavía es anecdótico. Sin embargo poseen disintas características por las que se piensa que en el futuro las convertirán en estrategias muy importantes el el ámbito del \emph{procesamiento aproximado de consultas}. Los \emph{Sketches} se amoldan perfectamente al modelo en streaming del cual se habla en el capítulo anterior en la sección \ref{sec:streaming_model}. Este modelo se amolde perfectamente a muchos sucesos cambiantes que se dan en la actualidad y que requieren de la otención de analíticas. Un ejemplo de ello es un sistema de transacciones financieras, que suceden con una frecuencia elevada y para las cuales sería apropiado obtener métricas en tiempo real para la mejora de la toma de decisiones. También encajan de manera apropiada en el modelo de transacciones de una base de datos, la cual es modificada constantemente mediante insercciones, modificaciones y eliminaciones.
 
         \paragraph{}
-        [TODO modelo streaming]
+        Los \emph{Sketches} se corresponden con estructuras de datos que funcionan manteniendo estimadores sobre cada una de las instancias que han sido procesadas hasta el momento, es decir, realizan una modificación interna por cada entrada. Esto se opone a las estrategias descritas en anteriores secciones, que procesan una parte del conjunto de datos o requieren que el mismo tenga un carácter estático. Estas modificaciones pueden enmarcarse bajo distintas especificaciones del modelo en streaming tal (serie temporal, modelo de caja registradora o modelo de molinete) teniendo que realizar pequeñas adaptaciones en algunos algunos \emph{Sketches}, pero siendo muy poco escalable la implementación del modelo de molinete (que permite eliminaciones) en otros.
+
+        \paragraph{}
+        Los \emph{Sketches Lineales} son un subconjunto de \emph{Sketches} que pueden ser vistos como una transformación lineal de la estructura de sumarización, la cual puede ser interpretada como un vector de longitud $1*n$ al cual denominaremos $S$. Para generar dicho vector es nos apoyamos en la matriz de tamaño $n*m$ a la cual denominaremos $A$ y que representa la transformación lineal del conjunto de datos, el cual puede ser codificado como un vector al cual denominaremos $D$ de tamaño $1xm$. Dicha transformación lineal se representa en la ecuación \eqref{eq:linear_sketch} y de manera gráfica en la figura \ref{fig:linear_sketch}.
+
+        \begin{equation}
+        \label{eq:linear_sketch}
+          A  * D = S
+        \end{equation}
+
+        \begin{figure}
+          \centering
+          \includegraphics[width=0.5\textwidth]{linear-sketch-abstraction}
+          \caption{Abstracción del \emph{Sketch Lineal}. \emph{(Extraida de \cite{cormode2012synopses})}}
+          \label{fig:linear_sketch}
+        \end{figure}
+
+        \paragraph{}
+        Puesto que la transformación que se muestra es de carácter lineal, entonces posee la propiedad de que siendo $S_1$ y $S_2$ dos \emph{Sketches} lineales, entonces se cumple la propiedad de que $S_1 + S_2 = S_{sum}$, lo que puede entenderse como la combinación de los estimadores de los dos \emph{Sketches}. Por tanto, se puede decir que el cada actualización se procesa como una transformación de la nueva instancia codificada en el vector $D$ para después combinar el \emph{Sketch} resultante con el generado anteriormente.
+
+        \paragraph{}
+        Por motivos de eficiencia a nivel de espacio, la matriz de transformación $A$ no se utiliza de manera explicita, sino que por contra, en muchos casos se utilizan distintas \emph{funciones hash} (las cuales se describen en la sección \ref{eq:hash_functions}), que realizan la transformación de la misma forma que la matriz $A$, solo que el coste computacional para utilizarlas es significativamente menor que el coste necesario para el almacenamiento y multiplicación de una matriz de tal tamaño.
+
+        \paragraph{}
+        Tal y como se puede apreciar en la figura \ref{fig:linear_sketch} la ventaja de sumarización de esta estrategia se obtiene en la reducción de tamaño obtenida en la transformación lineal. Posteriormente, cada estructura de \emph{Sketch} tiene asociadas un conjunto de \emph{consultas o queries} para las cuales extraer la información valiosa contenida en ellas. Puesto que la forma en que se llevan a cabo dichas consultas varía según la alternativa a la que nos estamos refiriendo, estas técnicas se expondrán en profundidad en sus correspondientes secciones.
+
 
         \paragraph{}
         [TODO tipos de skethes]
@@ -226,7 +251,6 @@
 
         \paragraph{}
         [TODO dimensionalidad]
-
 
         \paragraph{}
         [TODO ventajas e inconvenientes]
@@ -247,6 +271,14 @@
 
       \paragraph{}
       [TODO ] \emph{An improved data stream summary: the count-min sketch and its applications} \cite{cormode2005improved}
+
+      \begin{figure}
+        \centering
+        \includegraphics[width=0.7\textwidth]{count-min-sketch}
+        \caption{[TODO ]}
+        \label{fig:count_ming_sketch}
+      \end{figure}
+
 
     \section{Count Sketch}
     \label{sec:count_sketch}
