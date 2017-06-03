@@ -272,8 +272,53 @@
     \label{sec:bloom_filter}
 
       \paragraph{}
-      [TODO] \emph{Space/time trade-offs in hash coding with allowable errors} \cite{bloom1970space}
+      El \emph{Bloom-Filter} se corresponde con la primera estructura de datos basada en la idea de \emph{Sketch} por procesar cada nueva entrada de la misma forma y tener un coste a nivel de espacio sublineal ($o(N)$) respecto del cardinal de posibles valores que pueden ser procesados. Esta estructura de datos fue diseñada incialmente por \emph{Burton Howard Bloom} la cual describe en el artículo \emph{Space/time trade-offs in hash coding with allowable errors} \cite{bloom1970space} publicado en 1970.
 
+      \paragraph{}
+      La funcionalidad que suministra dicha estructura de datos es la consulta acerca de presencia de un determinado elemento. Para la implementación descrita en el artículo inicial no se permiten incrementos ni eliminaciones, tan solo la existencia o inexistencia del elemento, por tanto esta estructura de datos se enmar en el marco de \emph{serie temporal} del \emph{modelo en streaming}. El \emph{Bloom-Filter} asegura la inexistencia de falsos negativos (elementos que se presupone que no han sido introducidos cuando en realidad si que lo fueron) pero por contra, se admite una determinada tasa de falsos positivos (elementos que se presupone que han sido introducidos cuando en realidad no lo fueron).
+
+      \paragraph{}
+      Debido al tiempo de vida de dicha estrategia, su uso está muy asentado y se utiliza en distintos sistemas para tareas en las cuales se pretende optimizar el tiempo, pero sin embargo son admisibles fallos. Es comúnmente utilizado en bases de datos comerciales para limitar el número de accesos al disco durante búsquedas de elementos. Esto se lleva a cabo manteniendo un \emph{Bloom-Filter} al cual se consulta sobre la presencia del elemento a buscar y en el caso de que la respuesta sea negativa, entonces se prescinde de dicho acceso a la unidad de almacenamiento. Mientras que si es positiva se realiza el acceso a disco. Nótese por tanto que en algunos ocasiones dicho acceso será innecesario, sin embargo las consecuencias de dicha tarea tan solo tienen consecuencias negativas a nivel de eficiencia y no de resultados.
+
+      \paragraph{}
+      Una vez descrita la funcionalidad que proporciona el \emph{Bloom-Filter} así como un caso práctico de uso del mismo ya se tiene una idea a grandes rasgo acerca del mismo. Por tanto, lo siguiente es describir su composición. La estructura de datos se basa en el mantenimiento de un \emph{mapa de bits} $S$ de longitud $n$ ($|S| = n$) de tal manera que se cumpla que $n \ll m$ siendo $m$ el cardinal de elementos distintos que se pueden presentar en la entrada. Además, se utilizan $k$ funciones hash denominadas $h_1, h_2,..., h_j,..., h_k$ que distribuyen de manera independiente el elemento $i$-ésimo en $S$. El mapa de bits $S$ se inicializa con todas sus posiciones tomando el valor $0$.
+
+      \paragraph{}
+      El modo de funcionamiento del \emph{Bloom-Filter} se lleva a cabo de la siguiente manera: Cada vez que se presenta un nuevo elemento en la entrada (al cual denominaremos $i \in [1, m]$) se tomaran los $k$ valores de las funciones funciones hash indicadas anteriormente y se asignará el valor $1$ a dichas posiciones del mapa de bits $S$. Es decir, se realiza la operación descrita en la ecuación \eqref{eq:bloom_filter_update}. La consulta acerca de la presencia del elemento i-ésimo se realiza por tanto, consultando dichas posiciones, de tal manera que si $\forall j \in [1,k], \ S[h_j(i)]$ toma el valor valor $1$ se dice que el elemento ha aparecido en la entrada mientras que si alguna posición es distina de $1$ (toma el valor $0$) se dice que el elemento no ha sido introducido.
+
+      \begin{equation}
+      \label{eq:bloom_filter_update}
+        \forall j \in [1,k], \ S[h_j(i)] = 1
+      \end{equation}
+
+      \paragraph{}
+      Nótese que la restricción acerca de la presencia de un determinado elemento es mucho más débil que la de no existencia. La razón de ello se debe a que pueden existir colisiones entre las distintas funciones hash que conviertan dicho resultado en érroneo. Sin embargo, tal y como se ha indicado anteriormente, en caso de que el \emph{Bloom-Filter} indique la no presencia del elemento dicha respuesta será válida. A continuación se realiza un análisis acerca del índice de error para el caso de los falsos positivos la cual se basa en el artículo \emph{Network applications of bloom filters: A survey} \cite{broder2004network} de \emph{Broder} y \emph{Mitzenmacher}. Nótese que dicho análisis depende de 3 parámtros: el tamaño $n$ del mapa de bits, el cardinal $m$ del conjunto de posibles elementos en la entrada y el número $k$ de funciones hash utilizadas.
+
+      \begin{figure}
+        \centering
+        \includegraphics[width=0.5\textwidth]{bloom-filter}
+        \caption{Modo de funcionamiento del \emph{Bloom Filter}, que inserta los valores $\{ x, y, z\}$ y comprueba la existencia de $w$. La imagen ha sido extraida de \cite{wiki:Bloom_filter}.}
+        \label{fig:bloom_filter}
+      \end{figure}
+
+      \paragraph{}
+      Para el análisis se presupone que las funciones hash $h_j$ son totalmente aleatorias, es decir, distribuyen los valores de manera totalmente uniforme en el intervalo $[1,n]$ y son totalmente independientes entre sí. La probabilidad $p'$ de que cualquier posición de $S$ siga siendo igual a cero después de la aparición de $l$ elementos distintos se muestra en la ecuación \eqref{eq:bloom_filter_p_estimator} siendo la base del lado derecho de la igualdad la probabilidad de que cada función hash mantenga con el valor $0$ una posición.
+
+      \begin{equation}
+      \label{eq:bloom_filter_p_estimator}
+       p' = \bigg(1-\frac{1}{m}\bigg)^{kl}
+      \end{equation}
+
+      \paragraph{}
+      La probabilidad de que un elemento no introducido en la entrada tome todas sus correspondientes posiciones de $S$ con el valor $1$ se da con probabilidad $(1-p)^k$ y dado que $p'$ es un buen estimador para $p$, entonces podemos aproximar la tasa de falsos positivos. Tras desarrollar dicha expresión se puede llegar a la ecuación \eqref{eq:bloom_filters_false_positives}, que aproxima de manera apropiada la tasa de falsos positivos.
+
+      \begin{equation}
+      \label{eq:bloom_filters_false_positives}
+        f = (1-e^{-kn/m})^k
+      \end{equation}
+
+      \paragraph{}
+      El \emph{Bloom-Filter} es una buena aproximación para los casos en que es necesario reducir el sobre coste de comprobación de accesos a medios costosos, sin embargo, su utilización puede utilizarse en filtros anti-spam u otros entornos en que una determinada tasa de error sea admisible. Nótese que este típo de \emph{Sketches} no puede agruparse en el subconjunto de \emph{Sketches Lineales} puesto que la operación de asignar el valor $1$ no es lineal.
 
     \section{Count-Min Sketch}
     \label{sec:count_min_sketch}
@@ -283,7 +328,7 @@
 
       \begin{figure}
         \centering
-        \includegraphics[width=0.7\textwidth]{count-min-sketch}
+        \includegraphics[width=0.5\textwidth]{count-min-sketch}
         \caption{[TODO ]}
         \label{fig:count_ming_sketch}
       \end{figure}
