@@ -324,13 +324,48 @@
     \label{sec:count_min_sketch}
 
       \paragraph{}
-      [TODO ] \emph{An improved data stream summary: the count-min sketch and its applications} \cite{cormode2005improved}
+      El \emph{Count-Min Sketch} es otra estructura de datos con la característica de presentar un coste espacial de carácter sublineal ($o(N)$) respecto del cardinal de posibles elementos de entrada. El \emph{Count-Min Sketch} fue descrito por primera vez por \emph{Cormode} y \emph{Muthukrishnan} en el artículo \emph{An improved data stream summary: the count-min sketch and its applications} \cite{cormode2005improved} publicado en 2005. Nótese por tanto que el tiempo de vida de dicha estructura de datos es muy corto.
+
+      \paragraph{}
+      El propósito del \emph{CM Sketch} es la estimación de frecuencias para el rango de posibles valores que se presentan en la entrada. En la formulación inicial se enmarcaba modelo de caja registradora, que tan solo permite adicciones, sin embargo posteriormente se han propuesto mejoras para ampliar su uso en entornos en que también se permitan eliminaciones (modelo en molinete). Tal y como se verá a continuación, el nombre de este \emph{Sketch} se refiere a las operaciones de operaciones que utiliza durante su funcionamiento, es decir, el conteo o suma y la búsqueda del mínimo.
+
+      \paragraph{}
+      La estimación de frecuencias del \emph{CM Sketch}, tal y como se puede apreciar debido al carácter sublineal del mismo, no garantiza la exactitud en de los mismos, sino que al igual que en el caso del \emph{Bloom-Filter} devuelve como resultado una aproximación. En este caso dicha aproximación garantiza que el resultado estimado siempre será mayor o igual que el verdadero, es decir, realiza una sobre-estimación del valor real. La razón por la cual el \emph{CM Sketch} utiliza la operación de búsqueda del mínimo es para tratar de reducir dicho efecto en la medida de lo posible.
+
+      \paragraph{}
+      Debido al corto periodo de vida su uso todavía no está asentado en sistemas reales, sin embargo existen una gran variedad de situaciones que se enmarcan sobre el modelo en streaming en las cuales la precisión de frecuencias no tienen grandes efectos perjudiciales. Un ejemplo de ello podría ser el conteo de visitas a un determinado sitio web formado por distintas páginas. La estimación sobre el número de visitas para cada una de estas páginas podría llevarse a cabo utilizando esta estructura de datos, ya que es una tarea que puede admitir una determinada tasa de error y requiere de actualizaciones constantes.
+
+      \paragraph{}
+      Una vez descrita la funcionalidad que suministra el \emph{CM Sketch} se describirá la estructura interna del mismo: Esta estructura de datos está formada por una matriz $S$ de estructura bidimensional con $w$ columnas y $d$ filas, de tal manera que se mantienen $w * d$ contadores. Cada una de las $d$ filas tiene asociada una función hash $h_j$ que distribuye elementos pertenecientes al dominio $[1, m]$ (siendo $m$ el cardinal de elementos distintos) sobre la fila de dicha matriz, es decir, sobre $[1,w]$. Para que las estimaciones acerca de la precisión del \emph{CM Sketch} sean correctas cada función hash $h_j$ debe cumplir la propiedad de ser independiente del resto además de seguir una distribución uniforme. En cuanto a la inicialización de la estructura de datos, todas las posiciones toman el valor cero, esto se muestra en la ecuación \eqref{eq:count_min_sketch_init}.
+
+      \begin{equation}
+      \label{eq:count_min_sketch_init}
+        \forall k \in [1,w], \ \forall j \in [1,d], \ S[k,j] = 0
+      \end{equation}
+
+
+      \paragraph{}
+      En cuanto al modo de funcionamiento del \emph{CM Sketch}, tal y como se ha indicado anteriormente, se enmarca en el modelo de caja registradora, es decir, cada actualización se corresponde con una tupla formada por el identificador del elemento al que se refiere y un determinado valor positivo que indica el incremento $c$ al cual se refiere la actualización. El funcionamiento es similar al del \emph{Bloom-Filter} en el sentido de que por cada nueva entrada se realizan $d$ actualizaciones (una para cada fila). La operación de conteo se refiere a dicha actualización, que se ilustra de manera matemática en la ecuación \eqref{eq:count_min_sketch_update}. Una representación gráfica de dicha operación se muestra en la figura \ref{fig:count_min_sketch}. Nótese por tanto que el coste de actualización es de $O(d)$.
+
+      \begin{equation}
+      \label{eq:count_min_sketch_update}
+        \forall j \in [1,d], \ S[j, h_j(i)] = S[j, h_j(i)] + c
+      \end{equation}
+
+      \paragraph{}
+      En cuanto al proceso de consulta sobre la frecuencia del elemento i-ésimo, esto se lleva a cabo recogiendo el valor almacenado en cada fila y devolviendo el menor, de tal manera que se pretende reducir el efecto de las colisiones generados sobre las funciones hash al distribuir elementos sobre un espacio de menor tamaño, ya que se presupone que $w \ll m$ para que la ventaja a nivel de espacio se produzca. Dicha operación se muestra en la ecuación \eqref{eq:count_min_sketch_estimate}
+
+      \begin{equation}
+      \label{eq:count_min_sketch_estimate}
+        \widetilde{f}(i) = min_{j \in [1,d]}\{S[j, h_j(i)]\}
+      \end{equation}
+
 
       \begin{figure}
         \centering
         \includegraphics[width=0.5\textwidth]{count-min-sketch}
         \caption{[TODO ]}
-        \label{fig:count_ming_sketch}
+        \label{fig:count_min_sketch}
       \end{figure}
 
 
