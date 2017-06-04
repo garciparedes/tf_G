@@ -557,7 +557,7 @@
 
 
     \section{Algoritmo de Flajolet-Martin}
-    \label{sec:streaming_morris_algorithm}
+    \label{sec:streaming_flajolet_martin_algorithm}
 
       \paragraph{}
       En esta sección se describe el \emph{Algoritmo de Flajolet-Martin}, cuya descripción aparece en el artículo \emph{Probabilistic Counting Algorithms for Data Base Applications} \cite{flajolet1985probabilistic} redactado por \emph{Philippe Flajolet} y \emph{G. Nigel Martin}. En este caso, la problemática que se pretende resolver no es el número de ocurrencias de un determinado suceso, sino el número de sucesos distintos (\textbf{Count Distinct Problem}) en la entrada. Este problema también se conoce como el cálculo del momento de frecuencia $F_0$ tal y como se verá en la sección \ref{sec:streaming_frecuency_moment_aproximation}. Al igual que en el caso del algoritmo de \emph{Morris}, se apoya en estrategias probabilistas para ajustarse a un orden de complejidad espacial de carácter sublineal ($o(N))$) manteniendo una cota de error ajustada.

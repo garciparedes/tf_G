@@ -27,7 +27,7 @@
 
 
       \paragraph{}
-      Durante el resto del capítulo se describen y analizan distintas estrategias que permiten llevar a cabo implementaciones basadas en \emph{procesamiento de consultas aproximado} centrando especial atención en los \emph{Sketches} por su cercanía respecto del \emph{Modelo en Streaming} descrito en el capítulo \ref{chapter:streaming}. En la sección \ref{sec:summaries_types} se realiza una descripción a partir de la cual se pretende aclarar las diferencias entre las distintas estrategias de sumarización de grandes conjuntos de datos. Las estrategias que se describen son \emph{muestreo probabilístico}, mantenimiento de un \emph{histograma}, utilización de \emph{wavelets} y por último se describen en profundidad conceptos referidos a \emph{Sketches}. En las secciones \ref{sec:bloom_filter}, \ref{sec:count_min_sketch}, \ref{sec:count_sketch}, \ref{sec:ams_sketch} y \ref{sec:hyper_log_log} se habla del \emph{Bloom-Filter} \emph{Count-Min Sketch}, \emph{Count Sketch}, \emph{AMS Sketch} e \emph{HyperLogLog} respectivamente.
+      Durante el resto del capítulo se describen y analizan distintas estrategias que permiten llevar a cabo implementaciones basadas en \emph{procesamiento de consultas aproximado} centrando especial atención en los \emph{Sketches} por su cercanía respecto del \emph{Modelo en Streaming} descrito en el capítulo \ref{chapter:streaming}. En la sección \ref{sec:summaries_types} se realiza una descripción a partir de la cual se pretende aclarar las diferencias entre las distintas estrategias de sumarización de grandes conjuntos de datos. Las estrategias que se describen son \emph{muestreo probabilístico}, mantenimiento de un \emph{histograma}, utilización de \emph{wavelets} y por último se describen en profundidad conceptos referidos a \emph{Sketches}. En las secciones \ref{sec:bloom_filter}, \ref{sec:count_min_sketch}, \ref{sec:count_sketch} y \ref{sec:hyper_log_log} se habla del \emph{Bloom-Filter} \emph{Count-Min Sketch}, \emph{Count Sketch} y \emph{HyperLogLog} respectivamente.
 
 
     \section{Tipos de Estructuras de Datos de Resumen}
@@ -245,7 +245,7 @@
 
         \begin{itemize}
 
-          \item \textbf{Estimación de Frecuencias}: Los \emph{Sketches} basados en estimación de frecuencias se corresponden con aquellos que tratan de recoger estimadores que se aproximen a la frecuencia de cada elementos $f(i)$. En esta categoría se enmarcan el \emph{Count-Min Sketch}, \emph{Count Sketch} y  \emph{AMS Sketch}.
+          \item \textbf{Estimación de Frecuencias}: Los \emph{Sketches} basados en estimación de frecuencias se corresponden con aquellos que tratan de recoger estimadores que se aproximen a la frecuencia de cada elementos $f(i)$. En esta categoría se enmarcan el \emph{Count-Min Sketch} y \emph{Count Sketch}.
 
           \item \textbf{Elementos Distintos}: Los \emph{Sketches} basados en el conteo de elementos distintos (y que también pueden responder consultas referidas a la presencia de un determinado elemento) se basan en el mantenimiento de distintos indicadores que permiten aproximar dichos valores. Entre los más destacados en esta categoría se encuentran el \emph{Bloom Filter} y el \emph{HyperLogLog}.
 
@@ -385,7 +385,7 @@
       Sin embargo, dicho problema no sucede en el caso del modelo general o de molinete, sobre el cual si que están permitidas las eliminaciones. En este caso es más apropiado utilizar como estimación la mediana de los valores almacenados en cada columna, puesto que se escoge el mínimo para un elemento que tan solo ha recibido actualizaciones negativas probablemente este será muy diferente del valor real. La razón por la cual se escoge la mediana y no la media es por sus propiedades de resistencia ante valor atípicos u \emph{outliers}. En este caso la demostración se puede llevar a cabo apoyandose en la desigualdad de Chernoff descrita en la sección \ref{sec:chernoff_inequality}. Esta demostración se puede encontrar en el artículo \emph{Selection and sorting with limited storage }\cite{munro1980selection} de \emph{Munro} y \emph{Paterson}.
 
       \paragraph{}
-      El \emph{Count-Min Sketch} consiste en una estrategia apropiada para el conteo de ocurrencias en un espacio de orden sublineal. Además, la implementación del mismo es simple en contraposición con otras estrategias más sofisticadas. En posteriores secciones se hablará del \emph{Count Sketch} y el \emph{AMS Sketch}, que proporcionan valores de precisión equivalentes en espacios de menor tamaño añadiendo una mayor complejidad conceptual.
+      El \emph{Count-Min Sketch} consiste en una estrategia apropiada para el conteo de ocurrencias en un espacio de orden sublineal. Además, la implementación del mismo es simple en contraposición con otras estrategias más sofisticadas. En posteriores secciones se hablará del \emph{Count Sketch}, que proporcionan valores de precisión equivalentes en espacios de menor tamaño añadiendo una mayor complejidad conceptual.
 
 
     \section{Count Sketch}
@@ -438,22 +438,16 @@
       Para el análisis sobre la precisión del \emph{Count Sketch}, se utiliza un enfoque similar al del \emph{CM Sketch}. Sin embargo, en este caso el valor $\epsilon$ se escoge teniendo en cuante el segundo momento de frecuencias, es decir, $F_2 = \sum_{i=1}^mf(i)^2$, de tal manera que para estimación obtenida sobre cada fila, esta se encuentra en el intervalo $[f(i) - \sqrt{F_2/w}, f(i) + \sqrt{F_2/w}]$. La estimación global por tanto tiene un error máximo de $\epsilon\sqrt{F_2}$ con probabilidad $1- \delta$.
 
       \paragraph{}
-      Para que se cumpla dicha estimación del error el tamaño de la matriz $S$ debe escogerse de tal forma que el número de columnas sea $w = O(1/\epsilon^2)$ y el número de filas sea $d = O(log(1/\delta))$. La demostración completa acerca de la elección puede encontrarse en el artículo original \cite{charikar2002finding}. Nótese la diferencia en cuanto a la estimación del error del \emph{Count Sketch} con respecto del \emph{CM Sketch}, se debe a que en el primer caso se utiliza el segundo momento de frecuencias ($F_2$) mientras que en el \emph{CM Sketch} la estimación de la tasa de error se apoya en el primer momento de frecuencias ($F_1$). 
+      Para que se cumpla dicha estimación del error el tamaño de la matriz $S$ debe escogerse de tal forma que el número de columnas sea $w = O(1/\epsilon^2)$ y el número de filas sea $d = O(log(1/\delta))$. La demostración completa acerca de la elección puede encontrarse en el artículo original \cite{charikar2002finding}. Nótese la diferencia en cuanto a la estimación del error del \emph{Count Sketch} con respecto del \emph{CM Sketch}, se debe a que en el primer caso se utiliza el segundo momento de frecuencias ($F_2$) mientras que en el \emph{CM Sketch} la estimación de la tasa de error se apoya en el primer momento de frecuencias ($F_1$).
 
       \paragraph{}
       A nivel práctico estas dos alternativas ofrecen resultados muy similares cuando se imponen las mismas restricciones a nivel de espacio. Sin embargo, ambos poseen una carácterística destacada: En muchos casos, la estimación obtenida es mucho más precisa puesto que muchas distribuciones de probabilidad tienen formas asimétricas, es decir, algunos elementos presentan una frecuencia de aparición elevada mientras que otros aparecen en contadas ocasiones, lo cual mejora la precisión de los estimadores obtenidos por estos \emph{sketches}.
-
-    \section{AMS Sketch}
-    \label{sec:ams_sketch}
-
-      \paragraph{}
-      [TODO ] \emph{The space complexity of approximating the frequency moments} \cite{alon1996space}
 
     \section{HyperLogLog}
     \label{sec:hyper_log_log}
 
       \paragraph{}
-      [TODO ] \emph{Hyperloglog: the analysis of a near-optimal cardinality estimation algorithm} \cite{flajolet2007hyperloglog}
+      En esta sección se habla del \emph{Sketch} \emph{HyperLogLog}, que en este caso tiene tanto un enfoque como una utilidad distinta a las alternativas descritas en secciones anteriores. El \emph{HyperLogLog} se utiliza para tratar de estimar de manera precisa el número de elementos distintos que han aparecido sobre un stream de elementos. Esta estructura de datos es una evolución de la versión básica de la cual se cual se habló en el capítulo de \emph{Algoritmos para Streaming} en la sección \ref{sec:streaming_flajolet_martin_algorithm}. La descripción del \emph{HyperLogLog} se indica en el trabajo \emph{Hyperloglog: the analysis of a near-optimal cardinality estimation algorithm} \cite{flajolet2007hyperloglog} llevado a cabo por \emph{Flajolet}.
 
 
 \end{document}
