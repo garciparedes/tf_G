@@ -286,10 +286,10 @@
       \paragraph{}
       El modo de funcionamiento del \emph{Bloom-Filter} se lleva a cabo de la siguiente manera: Cada vez que se presenta un nuevo elemento en la entrada (al cual denominaremos $i \in [1, m]$) se tomaran los $k$ valores de las funciones funciones hash indicadas anteriormente y se asignará el valor $1$ a dichas posiciones del mapa de bits $S$. Es decir, se realiza la operación descrita en la ecuación \eqref{eq:bloom_filter_update}. La consulta acerca de la presencia del elemento i-ésimo se realiza por tanto, consultando dichas posiciones, de tal manera que si $\forall j \in [1,k], \ S[h_j(i)]$ toma el valor valor $1$ se dice que el elemento ha aparecido en la entrada mientras que si alguna posición es distina de $1$ (toma el valor $0$) se dice que el elemento no ha sido introducido.
 
-      \begin{equation}
+      \begin{align}
       \label{eq:bloom_filter_update}
-        \forall j \in [1,k], \ S[h_j(i)] = 1
-      \end{equation}
+        S[h_j(i)] = 1 && \forall j \in [1,k]
+      \end{align}
 
       \paragraph{}
       Nótese que la restricción acerca de la presencia de un determinado elemento es mucho más débil que la de no existencia. La razón de ello se debe a que pueden existir colisiones entre las distintas funciones hash que conviertan dicho resultado en érroneo. Sin embargo, tal y como se ha indicado anteriormente, en caso de que el \emph{Bloom-Filter} indique la no presencia del elemento dicha respuesta será válida. A continuación se realiza un análisis acerca del índice de error para el caso de los falsos positivos la cual se basa en el artículo \emph{Network applications of bloom filters: A survey} \cite{broder2004network} de \emph{Broder} y \emph{Mitzenmacher}. Nótese que dicho análisis depende de 3 parámtros: el tamaño $n$ del mapa de bits, el cardinal $m$ del conjunto de posibles elementos en la entrada y el número $k$ de funciones hash utilizadas.
@@ -338,19 +338,19 @@
       \paragraph{}
       Una vez descrita la funcionalidad que suministra el \emph{CM Sketch} se describirá la estructura interna del mismo: Esta estructura de datos está formada por una matriz $S$ de estructura bidimensional con $w$ columnas y $d$ filas, de tal manera que se mantienen $w * d$ contadores. Cada una de las $d$ filas tiene asociada una función hash $h_j$ que distribuye elementos pertenecientes al dominio $[1, m]$ (siendo $m$ el cardinal de elementos distintos) sobre la fila de dicha matriz, es decir, sobre $[1,w]$. Para que las estimaciones acerca de la precisión del \emph{CM Sketch} sean correctas cada función hash $h_j$ debe cumplir la propiedad de ser independiente del resto además de seguir una distribución uniforme. En cuanto a la inicialización de la estructura de datos, todas las posiciones toman el valor cero, esto se muestra en la ecuación \eqref{eq:count_min_sketch_init}.
 
-      \begin{equation}
+      \begin{align}
       \label{eq:count_min_sketch_init}
-        \forall k \in [1,w], \ \forall j \in [1,d], \ S[k,j] = 0
-      \end{equation}
+        S[k,j] = 0 && \forall k \in [1,w], \ \forall j \in [1,d]
+      \end{align}
 
 
       \paragraph{}
       En cuanto al modo de funcionamiento del \emph{CM Sketch}, tal y como se ha indicado anteriormente, se enmarca en el modelo de caja registradora, es decir, cada actualización se corresponde con una tupla formada por el identificador del elemento al que se refiere y un determinado valor positivo que indica el incremento $c$ al cual se refiere la actualización. El funcionamiento es similar al del \emph{Bloom-Filter} en el sentido de que por cada nueva entrada se realizan $d$ actualizaciones (una para cada fila). La operación de conteo se refiere a dicha actualización, que se ilustra de manera matemática en la ecuación \eqref{eq:count_min_sketch_update}. Una representación gráfica de dicha operación se muestra en la figura \ref{fig:count_min_sketch}. Nótese por tanto que el coste de actualización es de $O(d)$.
 
-      \begin{equation}
+      \begin{align}
       \label{eq:count_min_sketch_update}
-        \forall j \in [1,d], \ S[j, h_j(i)] = S[j, h_j(i)] + c
-      \end{equation}
+        S[j, h_j(i)] = S[j, h_j(i)] + c && \forall j \in [1,d]
+      \end{align}
 
       \paragraph{}
       En cuanto al proceso de consulta sobre la frecuencia del elemento i-ésimo, esto se lleva a cabo recogiendo el valor almacenado en cada fila y devolviendo el menor, de tal manera que se pretende reducir el efecto de las colisiones generados sobre las funciones hash al distribuir elementos sobre un espacio de menor tamaño, ya que se presupone que $w * d \ll m$ para que la ventaja a nivel de espacio se produzca. Dicha operación se muestra en la ecuación \eqref{eq:count_min_sketch_estimate}
@@ -361,11 +361,11 @@
       \end{equation}
 
       \paragraph{}
-      A nivel de análisis acerca del coste espacial necesario para almacenar en memoria el \emph{CM Sketch} este es dependiente del grado de precisión que se pretenda asegurar mediante el uso del mismo. Sin embargo, el análisis no se realiza sobre el cardinal de posibles elementos que pueden aparecer en la entrada, sino que depende del sumatorio del conteo de los mismos. A este valor se le define como $N$ tal y como se indica en la ecuación \eqref{eq:count_min_sketch_sum}.
+      A nivel de análisis sobre el coste espacial necesario para almacenar en memoria el \emph{CM Sketch}, este es dependiente del grado de precisión que se pretenda asegurar mediante el uso del mismo. Sin embargo, el análisis no se realiza sobre el cardinal de posibles elementos que pueden aparecer en la entrada, sino que depende del sumatorio del conteo de estos. Este valor se denomina $F_1$ (o primer momento de frecuencia), que se define tal y como se indica en la ecuación \eqref{eq:count_min_sketch_sum}.
 
       \begin{equation}
       \label{eq:count_min_sketch_sum}
-        N = \sum_{i=1}^m \widetilde{f}(i)
+        F_1 = \sum_{i=1}^m f(i)
       \end{equation}
 
       \begin{figure}
@@ -392,7 +392,56 @@
     \label{sec:count_sketch}
 
       \paragraph{}
-      [TODO ] \emph{Finding frequent items in data streams} \cite{charikar2002finding}
+      El \emph{Count Sketch} se refiere a una estructura muy similar al \emph{Count-Min Sketch} ya que sigue la misma estructura e ideas muy similares en para la actualización y consulta de valores, sin embargo proporciona ventajas a nivel de coste espacial respecto del anterior reduciendo en un orden de dos el espacio necesario para mantener la estructura de datos. La definición acerca del \emph{Count Sketch} se indicó por primera vez en el trabajo \emph{Finding frequent items in data streams} \cite{charikar2002finding} desarrollado por \emph{Charikar y otros}. Nótese que este trabajo fue llevado a cabo en el año 2002, es decir, es anterior a la publicación del referido al \emph{Count-Min Sketch} (2005). La razón por la cual se ha seguido este orden y no el temporal se debe a que el \emph{Count Sketch} puede ser visto como una mejora sobre el descrito en la sección anterior, lo que simplifica el entendimiento de los mismos.
+
+      \begin{figure}
+        \centering
+        \includegraphics[width=0.5\textwidth]{count-sketch}
+        \caption{Modo de funcionamiento del \emph{Count Sketch} durante el proceso de inserción de un nuevo elemento. La imagen ha sido extraida de \cite{cormode2012synopses}.}
+        \label{fig:count_sketch}
+      \end{figure}
+
+      \paragraph{}
+      El \emph{Count Sketch} se basa en los mismos elementos para su funcionamiento que su homónimo más simple, por lo tanto se utilizará la definición utilizada previamente de la matriz $S$ compuesta por $w$ columnas y $d$ filas además de las funciones hash $h_1, h_2, ..., h_j,..., h_d$ independientes entre si, y cuya distribución es uniforme. La variación surge a nivel de las operaciones que se realizan en el proceso de actualización y consulta sobre la estructura de datos. El funcionamiento del \emph{Count Sketch} puede ser visto de varias formas, primero describiremos la versión extendida del mismo para después describir una versión que resuce a la mitar el espacio necesario para su mantenimiento en memoria.
+
+      \begin{equation}
+      \label{eq:count_sketch_hash_2}
+        h'_j(i) =
+          \begin{cases}
+            h_j(i) - 1, & h_j(i) \ mod \ 2 = 0\\
+            h_j(i) + 1, & h_j(i) \ mod \ 2 = 1
+          \end{cases}
+      \end{equation}
+
+      \paragraph{}
+      A continuación se describe la versión extendida, que se apoya en la utilización de la función hash $h'_j(i)$, la cual se define en la ecuación \eqref{eq:count_sketch_hash_2}, que consiste en una variación sobre la función hash base $h_j(i)$. Esta función se utiliza únicamente en el momento de la estimación, es decir, no se utiliza para la actualización tras la llegada de elementos. La intuición en la que se basa su utilización es la reducción del sesgo producido por las colisiones de otros elementos en cada fila, que siempre sobre-estima los resultados (en promedio la sobre-estimación de cada fila es de $\frac{\sum_{k=1}^wS[j,k]}{w}$). De esta manera se pretende contrarrestar dicho efecto por lo que ya no es apropiada la utilización de la búsqueda del mínimo, sino que se puede llevar a cabo la estimación mediante el uso de la mediana, tal y como se indica en la ecuación \eqref{eq:count_sketch_estimation_1}.
+
+      \begin{equation}
+      \label{eq:count_sketch_estimation_1}
+        \widetilde{f}(i) = median_{j \in [1,d]}\{S[j, h_j(i)] - S[j, h'_j(i)]\}
+      \end{equation}
+
+      \paragraph{}
+      La versión reducida de esta alternativa se apoya en la utilización de $d$ funciones hash uniformes e independientes entre sí con dominio de entrada $[1,m]$ e imagen en el subconjunto $\{-1,1\}$. Si se sustituye el método de actualización de elementos por el descrito en la ecuación \eqref{eq:count_sketch_update} donde $i$ identifíca el i-ésimo elemento y $c$ la variación del mismo correspondiente a dicha actualización, entonces para conseguir la misma precisión que en el caso anterior se requiere de la mitad de espacio. Puesto que esto es equivalente a mantener $S[j, h_j(i)] - S[j, h'_j(i)]$ en una única posición de $S$, entonces la estimación de la frecuencia se sustituye por la ecuación \eqref{eq:count_sketch_estimation_2}.
+
+      \begin{equation}
+      \label{eq:count_sketch_update}
+        S[j,h_j(i)] = S[j,h_j(i)] +  g_j(i)c
+      \end{equation}
+
+      \begin{equation}
+      \label{eq:count_sketch_estimation_2}
+      \widetilde{f}(i) = median_{j \in [1,d]}\{S[j, h_j(i)]\}
+      \end{equation}
+
+      \paragraph{}
+      Para el análisis sobre la precisión del \emph{Count Sketch}, se utiliza un enfoque similar al del \emph{CM Sketch}. Sin embargo, en este caso el valor $\epsilon$ se escoge teniendo en cuante el segundo momento de frecuencias, es decir, $F_2 = \sum_{i=1}^mf(i)^2$, de tal manera que para estimación obtenida sobre cada fila, esta se encuentra en el intervalo $[f(i) - \sqrt{F_2/w}, f(i) + \sqrt{F_2/w}]$. La estimación global por tanto tiene un error máximo de $\epsilon\sqrt{F_2}$ con probabilidad $1- \delta$.
+
+      \paragraph{}
+      Para que se cumpla dicha estimación del error el tamaño de la matriz $S$ debe escogerse de tal forma que el número de columnas sea $w = O(1/\epsilon^2)$ y el número de filas sea $d = O(log(1/\delta))$. La demostración completa acerca de la elección puede encontrarse en el artículo original \cite{charikar2002finding}. Nótese la diferencia en cuanto a la estimación del error del \emph{Count Sketch} con respecto del \emph{CM Sketch}, se debe a que en el primer caso se utiliza el segundo momento de frecuencias ($F_2$) mientras que en el \emph{CM Sketch} la estimación de la tasa de error se apoya en el primer momento de frecuencias ($F_1$). 
+
+      \paragraph{}
+      A nivel práctico estas dos alternativas ofrecen resultados muy similares cuando se imponen las mismas restricciones a nivel de espacio. Sin embargo, ambos poseen una carácterística destacada: En muchos casos, la estimación obtenida es mucho más precisa puesto que muchas distribuciones de probabilidad tienen formas asimétricas, es decir, algunos elementos presentan una frecuencia de aparición elevada mientras que otros aparecen en contadas ocasiones, lo cual mejora la precisión de los estimadores obtenidos por estos \emph{sketches}.
 
     \section{AMS Sketch}
     \label{sec:ams_sketch}
