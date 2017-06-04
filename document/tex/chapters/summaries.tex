@@ -324,7 +324,7 @@
     \label{sec:count_min_sketch}
 
       \paragraph{}
-      El \emph{Count-Min Sketch} es otra estructura de datos con la característica de presentar un coste espacial de carácter sublineal ($o(N)$) respecto del cardinal de posibles elementos de entrada. El \emph{Count-Min Sketch} fue descrito por primera vez por \emph{Cormode} y \emph{Muthukrishnan} en el artículo \emph{An improved data stream summary: the count-min sketch and its applications} \cite{cormode2005improved} publicado en 2005. Nótese por tanto que el tiempo de vida de dicha estructura de datos es muy corto.
+      El \emph{Count-Min Sketch} es otra estructura de datos con la característica de presentar un coste espacial de carácter sublineal ($o(N)$) respecto del cardinal de posibles elementos de entrada. El \emph{Count-Min Sketch} (en adelante \emph{CM Sketch} por abreviación) fue descrito por primera vez por \emph{Cormode} y \emph{Muthukrishnan} en el artículo \emph{An improved data stream summary: the count-min sketch and its applications} \cite{cormode2005improved} publicado en 2005. Nótese por tanto que el tiempo de vida de dicha estructura de datos es muy corto.
 
       \paragraph{}
       El propósito del \emph{CM Sketch} es la estimación de frecuencias para el rango de posibles valores que se presentan en la entrada. En la formulación inicial se enmarcaba modelo de caja registradora, que tan solo permite adicciones, sin embargo posteriormente se han propuesto mejoras para ampliar su uso en entornos en que también se permitan eliminaciones (modelo en molinete). Tal y como se verá a continuación, el nombre de este \emph{Sketch} se refiere a las operaciones de operaciones que utiliza durante su funcionamiento, es decir, el conteo o suma y la búsqueda del mínimo.
@@ -353,20 +353,39 @@
       \end{equation}
 
       \paragraph{}
-      En cuanto al proceso de consulta sobre la frecuencia del elemento i-ésimo, esto se lleva a cabo recogiendo el valor almacenado en cada fila y devolviendo el menor, de tal manera que se pretende reducir el efecto de las colisiones generados sobre las funciones hash al distribuir elementos sobre un espacio de menor tamaño, ya que se presupone que $w \ll m$ para que la ventaja a nivel de espacio se produzca. Dicha operación se muestra en la ecuación \eqref{eq:count_min_sketch_estimate}
+      En cuanto al proceso de consulta sobre la frecuencia del elemento i-ésimo, esto se lleva a cabo recogiendo el valor almacenado en cada fila y devolviendo el menor, de tal manera que se pretende reducir el efecto de las colisiones generados sobre las funciones hash al distribuir elementos sobre un espacio de menor tamaño, ya que se presupone que $w * d \ll m$ para que la ventaja a nivel de espacio se produzca. Dicha operación se muestra en la ecuación \eqref{eq:count_min_sketch_estimate}
 
       \begin{equation}
       \label{eq:count_min_sketch_estimate}
         \widetilde{f}(i) = min_{j \in [1,d]}\{S[j, h_j(i)]\}
       \end{equation}
 
+      \paragraph{}
+      A nivel de análisis acerca del coste espacial necesario para almacenar en memoria el \emph{CM Sketch} este es dependiente del grado de precisión que se pretenda asegurar mediante el uso del mismo. Sin embargo, el análisis no se realiza sobre el cardinal de posibles elementos que pueden aparecer en la entrada, sino que depende del sumatorio del conteo de los mismos. A este valor se le define como $N$ tal y como se indica en la ecuación \eqref{eq:count_min_sketch_sum}.
+
+      \begin{equation}
+      \label{eq:count_min_sketch_sum}
+        N = \sum_{i=1}^m \widetilde{f}(i)
+      \end{equation}
 
       \begin{figure}
         \centering
         \includegraphics[width=0.5\textwidth]{count-min-sketch}
-        \caption{[TODO ]}
+        \caption{Modo de funcionamiento del \emph{Count-Min Sketch} durante el proceso de inserción de un nuevo elemento. La imagen ha sido extraida de \cite{cormode2005improved}.}
         \label{fig:count_min_sketch}
       \end{figure}
+
+      \paragraph{}
+      Por tanto, la precisión de esta estructura de datos probabilística se indica diciendo que $\widetilde{f}(i)$ tendrá un error máximo de $\epsilon N$ que el cual se cumplirá con probabilidad $1-\delta$. Estos parámetros se fijan en el momento de la inicialización del \emph{CM Sketch} fijando el número de filas y columnas de tal manera que $d = log(1/\delta)$ y $w=2/\epsilon$. La demostración acerca de la elección de estos valores puede encontrarse en el artículo original \cite{cormode2005improved}.
+
+      \paragraph{}
+      En cuanto a la estimación de frecuencias obtenida por el \emph{CM Sketch}, en sentido estricto se dice que esta es sesgada respecto de su valor real. La razón se debe a que siempre se produce una sobre-estimación, a pesar de tratar de reducir los efectos negativos de la misma tratando de seleccionar el mínimo de las estimaciones siempre será mayor o igual (nunca menor). Para tratar de solventar esta problemática se han propuesto distintas heurísticas que tratan de contrarrestar esta problemática en el modelo de caja de registradora (tan solo se permiten inserciones).
+
+      \paragraph{}
+      Sin embargo, dicho problema no sucede en el caso del modelo general o de molinete, sobre el cual si que están permitidas las eliminaciones. En este caso es más apropiado utilizar como estimación la mediana de los valores almacenados en cada columna, puesto que se escoge el mínimo para un elemento que tan solo ha recibido actualizaciones negativas probablemente este será muy diferente del valor real. La razón por la cual se escoge la mediana y no la media es por sus propiedades de resistencia ante valor atípicos u \emph{outliers}. En este caso la demostración se puede llevar a cabo apoyandose en la desigualdad de Chernoff descrita en la sección \ref{sec:chernoff_inequality}. Esta demostración se puede encontrar en el artículo \emph{Selection and sorting with limited storage }\cite{munro1980selection} de \emph{Munro} y \emph{Paterson}.
+
+      \paragraph{}
+      El \emph{Count-Min Sketch} consiste en una estrategia apropiada para el conteo de ocurrencias en un espacio de orden sublineal. Además, la implementación del mismo es simple en contraposición con otras estrategias más sofisticadas. En posteriores secciones se hablará del \emph{Count Sketch} y el \emph{AMS Sketch}, que proporcionan valores de precisión equivalentes en espacios de menor tamaño añadiendo una mayor complejidad conceptual.
 
 
     \section{Count Sketch}
