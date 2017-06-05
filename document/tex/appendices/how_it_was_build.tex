@@ -6,4 +6,38 @@
 
   \chapter{¿Cómo ha sido generado este documento?}
 
+    \paragraph{}
+    En este apéndice se describen tanto la estructura como las tecnologías utilizadas para redactar este documento. El estilo visual que se ha aplicado al documento se ha tratado de almoldar lo máximo posible a las especificaciones suministradas en la \emph{guía docente} de la asignatura \emph{Trabajo de Fin de Grado} \cite{uva:tfg-teaching-guide}.
+
+    \paragraph{}
+    Este documento ha sido redactado utilizando la herramienta de generación de documentos \LaTeX \cite{tool:latex}, en concreto se ha utilizado la distribución para sistemas \emph{OS X} denominada \emph{MacTeX} \cite{tool:mactex} desarrollada por la organización \emph{\TeX \ User Group}. Mediante esta estrategia todas las labores de compilación y generación de documentos \emph{PDF} (tal y como se especifica en la guía docente) se realizan de manera local. Se ha preferido esta alternativa frente a otras como la utilización de plataformas online de redacción de documentos \LaTeX \ como \emph{ShareLateX} \cite{tool:sharelatex} u \emph{Overleaf} \cite{tool:overleaf} por razones de flexibilidad permitiendo trabajar en lugares en que la conexión a internet no esté disponible. Sin embargo, dichos servicios ofrecen son una buena alternativa para redactar documentos sin tener que preocuparse por todos aquellos aspectos referidos con la instalación de la distribución u otros aspectos como un editor de texto. Además garantizan un alto grado de confiabilidad respecto de pérdidas inesperadas.
+
+    \paragraph{}
+    Junto con la distribución \LaTeX \ se han utilizado una gran cantidad de paquetes que extienden y simplifican el proceso de redactar documentos. Sin embargo, debido al tamaño de la lista de paquetes, esta será obviada en este apartado, pero puede ser consultada visualizando el correspondiente fichero \texttt{thestyle.sty} del documento.
+
+    \paragraph{}
+    Puesto que la alternativa escogida ha sido la de generar el documento mediante herramientas locales es necesario utilizar un editor de texto así como un visualizador de resultados. En este caso se ha utilizado \emph{Atom} \cite{tool:atom}, un editor de texto de propósito general que destaca sobre el resto por ser desarrollado mediante licencia de software libre (\emph{MIT License}) y estar mantenido por una amplia comunidad de desarrolladores además de una extensa cantidad de paquetes con los cuales se puede extender su funcionalidad. En este caso, para adaptar el comportamiento de \emph{Atom} a las necesidades de escritura de texto con latex se han utilizados los siguientes paquetes: \emph{latex} \cite{tool:atom-latex}, \emph{language-latex} \cite{tool:atom-language-latex}, \emph{pdf-view} \cite{tool:atom-pdf-view} encargados de añadir la capacidad de compilar ficheros latex, añadir la sintaxis y permitir visualizar los resultados respectivamente.
+
+    \paragraph{}
+    Puesto que el \emph{Trabajo de Fin de Grado} se refiere a algo que requiere de un periodo de tiempo de elaboración largo, que además sufrirá una gran cantidad de cambios, se ha creido conveniente la utilización de una herramienta de control de versiones que permita realizar un seguimiento de los cambios de manera organizada. Para ello se ha utilizado la tecnología \emph{Git} \cite{tool:git} desarrollada originalmente por \emph{Linus Torvalds}. En este caso en lugar de confiar en el entorno local u otro servidor propio se ha preferido utilizar la plataforma \emph{GitHub} \cite{tool:github}, la cual ofrece un alto grado de confiabilidad respecto de posibles perdidas además de alojar un gran número de proyectos de software libre. A pesar de ofrecer licencias para estudiantes que permiten mantener el repositorio oculto al público, no se ha creido necesario en este caso, por lo cual se puede acceder al través de la siguiente url: \url{https://github.com/garciparedes/tfg-big-data-algorithms} \cite{garciparedes:tfg-big-data-algorithms}
+
+    \paragraph{}
+    Una vez descritas las distintas tecnologías y herramientas utilizadas para la elaboración de este trabajo, lo siguiente es hablar sobre la organización de ficheros. Todos los ficheros utilizados para este documento (obviando las referencias bibliográficas) han sido incluidos en el repositorio indicado anteriormente \cite{garciparedes:tfg-big-data-algorithms}.
+
+    \paragraph{}
+    Para el documento, principal alojado en el directorio \texttt{/document/} se ha seguido una estructura modular, dividiendo los capítulos, apéndices y partes destacadas como portada, bibliografía o prefacio entre otros en distintos ficheros, lo cual permite un acceso sencillo a los mismos. Los apéndices y capítulos se han añadido en los subdirectorios separados.  Para la labor de combinar el conjunto de ficheros en un único documento se ha utilizado el paquete \emph{subfiles}. El fichero raiz a partir del cual se compila el documento es \texttt{document.tex}. La importación de los distintos paquetes así como la adaptación del estulo del documento a los requisitos impuestos se ha realizado en \texttt{thestyle.sty} mientras que el conjunto de variables necesarias como el nombre de los autores, del trabajo, etc. se han incluido en \texttt{thevars.sty}.
+
+    \paragraph{}
+    En cuanto al documento de resumen, en el cual se presenta una vista panorámica acerca de las distintas disciplinas de estudio relacionadas con el \emph{Big Data} se ha preferido mantener un único fichero debido a la corta longitud del mismo. Este se encuentra en el directorio \texttt{/summary/}.
+
+    \paragraph{}
+    Por último se ha decidido añadir otro directorio denominado \texttt{/notes/} en el cual se han añadido distintas ideas de manera informal, así como enlaces a distintos cursos, árticulos y sitios web en que se ha basado la base bibliográfica del trabajo. En la figura \ref{fig:repository-tree} se muestra la estructura del repositorio en forma de árbol.
+
+    \begin{figure}
+      \centering
+      \BVerbatimInput{other/directory-tree.txt}
+      \caption{Árbol de directorios del repositorio}
+      \label{fig:repository-tree}
+    \end{figure}
+
 \end{document}
