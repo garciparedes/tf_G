@@ -4,7 +4,7 @@
 
 \begin{document}
 
-  \chapter{Estructuras de Datos de Resumen}
+  \chapter{Estrategias de Sumarización}
   \label{chapter:summaries}
 
     \section{Introducción}
@@ -30,7 +30,7 @@
       Durante el resto del capítulo se describen y analizan distintas estrategias que permiten llevar a cabo implementaciones basadas en \emph{procesamiento de consultas aproximado} centrando especial atención en los \emph{Sketches} por su cercanía respecto del \emph{Modelo en Streaming} descrito en el capítulo \ref{chapter:streaming}. En la sección \ref{sec:summaries_types} se realiza una descripción a partir de la cual se pretende aclarar las diferencias entre las distintas estrategias de sumarización de grandes conjuntos de datos. Las estrategias que se describen son \emph{muestreo probabilístico}, mantenimiento de un \emph{histograma}, utilización de \emph{wavelets} y por último se describen en profundidad conceptos referidos a \emph{Sketches}. En las secciones \ref{sec:bloom_filter}, \ref{sec:count_min_sketch}, \ref{sec:count_sketch} y \ref{sec:hyper_log_log} se habla del \emph{Bloom-Filter} \emph{Count-Min Sketch}, \emph{Count Sketch} y \emph{HyperLogLog} respectivamente.
 
 
-    \section{Tipos de Estructuras de Datos de Resumen}
+    \section{Tipos de Estrategias de Sumarización}
     \label{sec:summaries_types}
 
       \paragraph{}
@@ -455,15 +455,51 @@
     \label{sec:hyper_log_log}
 
       \paragraph{}
-      En esta sección se habla del \emph{Sketch} \emph{HyperLogLog}, que en este caso tiene tanto un enfoque como una utilidad distintas a las alternativas descritas en secciones anteriores. El \emph{HyperLogLog} se utiliza para tratar de estimar de manera precisa el número de elementos distintos que han aparecido sobre un stream de elementos. Esta estructura de datos es una evolución de la versión básica de la cual se cual se habló en el capítulo de \emph{Algoritmos para Streaming} en la sección \ref{sec:streaming_flajolet_martin_algorithm}. La descripción del \emph{HyperLogLog} se indica en el trabajo \emph{Hyperloglog: the analysis of a near-optimal cardinality estimation algorithm} \cite{flajolet2007hyperloglog} llevado a cabo por \emph{Flajolet}.
+      En esta sección se habla del \emph{Sketch} \emph{HyperLogLog}, que en este caso tiene tanto un enfoque como una utilidad distintas a las alternativas descritas en secciones anteriores. El \emph{HyperLogLog} se utiliza para tratar de estimar de manera precisa el número de elementos distintos que han aparecido sobre un stream de elementos. Esta estructura de datos es una evolución de la versión básica de la cual se cual se habló en el capítulo de \emph{Algoritmos para Streaming} en la sección \ref{sec:streaming_flajolet_martin_algorithm}.
 
       \paragraph{}
-      [TODO]
+      Esta versión fue ampliada posteriormente en \emph{Loglog counting of large cardinalities} \cite{durand2003loglog} y para finalmente en 2007 se presentar el \emph{HyperLogLog}. La descripción del \emph{HyperLogLog} se indica en el trabajo \emph{Hyperloglog: the analysis of a near-optimal cardinality estimation algorithm} \cite{flajolet2007hyperloglog} llevado a cabo por \emph{Flajolet}. Para las explicaciones indicadas en esta secciones se ha seguido el artículo \emph{HyperLogLog in practice: algorithmic engineering of a state of the art cardinality estimation algorithm} \cite{heule2013hyperloglog} en el cual se exponen distintas mejoras sobre el \emph{HyperLogLog} que se describirán posteriormente.
+
+      \paragraph{}
+      Al igual que se indicó en la descripción del \emph{Algorimo de Flajolet-Martin} (Sección \ref{sec:streaming_flajolet_martin_algorithm}), la tarea que el \emph{HyperLogLog} pretende resolver es el conteo de elementos distintos o cardinalidad de un conjunto de elementos. Para ello, esta estrategia se apoya en la idea de mapear cada elemento que se presente en la entrada sobre una función hash binaria que cumpla una distribución uniforme de probabilidad. Bajo estas condiciones, la intuición en que se basa el \emph{HyperLogLog} es que en el subespacio de destino de la función hash, el $50\%$ de los elementos se codificarán de tal manera que el bit menos significativo sea un $0$, el $25\%$ se codificarán de tal manera que los dos bits más significativos sean $00$ y así sucesivamente, de tal manera que $1/2^k$ tendrán $k$ ceros como bits más significativos.
+
+      \paragraph{}
+      Por tanto, el \emph{HyperLogLog} se basa en la utilización de la función $\rho(x)$, que indica el número de ceros contiguos más significativos mas uno de en la representación binaria generada por la función hash. Hasta este punto, la estrategia es equivalente al \emph{Algorimo de Flajolet-Martin}, sin embargo, a continuación se indica una alternativa a esta a partir de la cual se obtiene una estimación con varianza mucho más reducida. Para ello en lugar de tratar el stream de elementos $S$ de manera conjunta, se divide dicho stream en $m$ sub-streamns de tal manera que todos tengan longitudes similares a los cuales denotaremos por $S_i$ con $i \in [1,m]$.
+
+      \begin{equation}
+      \label{eq:hyper_log_log_counter}
+        M[i] = max_{x in S_i}\rho(x)
+      \end{equation}
+
+      \paragraph{}
+      Para mantener la cuenta de cada estimador se utiliza un vector $M$ que almacena dicho valor. La estrategia de construcción del mismo se muestra en la ecuación \eqref{eq:hyper_log_log_counter}. En cuanto a la estimación de resultados, se utiliza la estrategia que se describe en la ecuación \eqref{eq:hyper_log_log_estimation}, que se apoya en el término $\alpha_m$ descrito en la ecuación \eqref{eq:hyper_log_log_alpha}. Nótese que el último término se corresponde con una media armónica de la cada contador. La elección de dichos operadores así como el término $\alpha_m$ se describe en el artículo original \cite{flajolet2007hyperloglog} y la razón por la cual se escogen de dicha manera es la de tratar la varianza de la estimación y, por tanto, mejorar su precisión.
+
+      \begin{equation}
+      \label{eq:hyper_log_log_estimation}
+        card(S) = \alpha_m \cdot m^2 \cdot \bigg( \sum_{j=1}^{m}2^{-M[j]}\bigg)
+      \end{equation}
+
+      \begin{equation}
+      \label{eq:hyper_log_log_alpha}
+        \alpha_m = \bigg(m \cdot \int_0^\infty \bigg(log_2\bigg(\frac{2+u}{1+u}\bigg)\bigg)^m du\bigg)^{-1}
+      \end{equation}
+
+      \paragraph{}
+      En cuanto a las mejoras propuestas en \cite{heule2013hyperloglog} sobre el \emph{HyperLogLog} original, estas se basan en la utilización de una función hash de \emph{64 bits} (en lugar de 32 como la propuesta original), la utilización de un estimador diferente cuando se cumple que $card(S) < \frac{5}{2}m$ y una estrategia de representación dispersa que trata de aprovechar en mayor medida el espacio en memoria.
+
 
     \section{Conclusiones}
     \label{sec:summaries_conclusions}
 
       \paragraph{}
-      [TODO]
+      En este capítulo se han descrito distintas estrategias y técnicas para tratar de estimar indicadores estadísticos que ayuden a entender y comprender mejor conjuntos de datos de tamaño masivo. Estos estimadores tratan de agilizar la obtención de métricas sobre el conjunto de datos que debido a gran tamaño, muchas veces hace impracticable su obtención de manera determinística por el coste en complejidad tanto espacial como temporal. Para ello, se han descrito distintas soluciones, desde la extracción de muestras, así como histogramas o wavelets, hasta técnicas más novedosas y que encajan de manera más apropiada en el entorno cambiante sobre el que en muchas ocasiones se trabaja.
+
+      \paragraph{}
+      Por contra, las soluciones basadas en \emph{Sketches} tienen un escaso tiempo de vida, por lo que todavía se encuentran en fase de investigación. A pesar de ello existen soluciones para la comprobación de la aparición de elementos mediante el \emph{Bloom Filter}, la estimación de frecuencias mediante el \emph{Count-Min Sketch} o el \emph{Count Sketch}, y el conteo de elementos distintos a partir del \emph{HyperLogLog}.
+
+      \paragraph{}
+      Se cree que el conjunto de estructuras de datos probabilísticas basadas en \emph{Sketches} aumentará conforme el paso del tiempo y en el futuro se diseñarán alternativas más sofisticadas que permitan estimar un gran número de parámetros.
+
+
 
 \end{document}
