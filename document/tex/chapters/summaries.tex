@@ -345,7 +345,7 @@
 
 
       \paragraph{}
-      En cuanto al modo de funcionamiento del \emph{CM Sketch}, tal y como se ha indicado anteriormente, se enmarca en el modelo de caja registradora, es decir, cada actualización se corresponde con una tupla formada por el identificador del elemento al que se refiere y un determinado valor positivo que indica el incremento $c$ al cual se refiere la actualización. El funcionamiento es similar al del \emph{Bloom-Filter} en el sentido de que por cada nueva entrada se realizan $d$ actualizaciones (una para cada fila). La operación de conteo se refiere a dicha actualización, que se ilustra de manera matemática en la ecuación \eqref{eq:count_min_sketch_update}. Una representación gráfica de dicha operación se muestra en la figura \ref{fig:count_min_sketch}. Nótese por tanto que el coste de actualización es de $O(d)$.
+      En cuanto al modo de funcionamiento del \emph{CM Sketch}, tal y como se ha indicado anteriormente, se enmarca en el modelo de caja registradora, es decir, cada actualización se corresponde con una tupla formada por el identificador del elemento al que se refiere y un determinado valor positivo que indica el incremento $c$ al cual se refiere la actualización. El funcionamiento es similar al del \emph{Bloom-Filter} en el sentido de que por cada nueva entrada se realizan $d$ actualizaciones (una para cada fila). La operación de conteo se refiere a dicha actualización, que se ilustra de manera matemática en la ecuación \eqref{eq:count_min_sketch_update}. Una representación gráfica de dicha operación se muestra en la figura \ref{fig:count_min_sketch}. Nótese por tanto que el coste de actualización es de $O(d)$. Nótese que esta operación es de carácter lineal por lo que el \emph{CM Sketch} se agrupa en el subconjunto de \emph{Sketches Lineales}.
 
       \begin{align}
       \label{eq:count_min_sketch_update}
@@ -441,13 +441,29 @@
       Para que se cumpla dicha estimación del error el tamaño de la matriz $S$ debe escogerse de tal forma que el número de columnas sea $w = O(1/\epsilon^2)$ y el número de filas sea $d = O(log(1/\delta))$. La demostración completa acerca de la elección puede encontrarse en el artículo original \cite{charikar2002finding}. Nótese la diferencia en cuanto a la estimación del error del \emph{Count Sketch} con respecto del \emph{CM Sketch}, se debe a que en el primer caso se utiliza el segundo momento de frecuencias ($F_2$) mientras que en el \emph{CM Sketch} la estimación de la tasa de error se apoya en el primer momento de frecuencias ($F_1$).
 
       \paragraph{}
+      En esta implementación del \emph{Count Sketch} tan solo se ha impuesto la restricción a nivel de funciones hash de que estas sean de carácter \emph{2-universales}, lo cual es una condición suficiente para estimar frecuencias puntuales. Sin embargo, esta estructura de datos se puede extender para la estimación del segundo momento de frecuencias ($F_2$) mediante la técnica descrita en la sección \ref{sec:streaming_frecuency_moment_aproximation} extraida del artículo de \emph{Alon y otros} \cite{alon1996space}. Para la estimación de $F_2$ basta con calcular la mediana de las sumas de los elementos de cada fila al cuadrado. Esto se indica en la ecuación \eqref{eq:ams_sketch_f2}. Sin embargo, para que esta solución sea correcta desde el punto de vista de la varianza del estimador es necesario que las funciones hash utilizadas sean \emph{4-universales} (la razón se debe al cálculo de las potencias de grado 2). Cuando se cumple esta propiedad entonces la técnica se denomina \textbf{AMS Sketch}.
+
+      \begin{equation}
+      \label{eq:ams_sketch_f2}
+        \widetilde{F}_2 = median_{j \in [1,d]}\{\sum_{k=1}^w S[j, k]^2\}
+      \end{equation}
+
+      \paragraph{}
       A nivel práctico estas dos alternativas ofrecen resultados muy similares cuando se imponen las mismas restricciones a nivel de espacio. Sin embargo, ambos poseen una carácterística destacada: En muchos casos, la estimación obtenida es mucho más precisa puesto que muchas distribuciones de probabilidad tienen formas asimétricas, es decir, algunos elementos presentan una frecuencia de aparición elevada mientras que otros aparecen en contadas ocasiones, lo cual mejora la precisión de los estimadores obtenidos por estos \emph{sketches}.
 
     \section{HyperLogLog}
     \label{sec:hyper_log_log}
 
       \paragraph{}
-      En esta sección se habla del \emph{Sketch} \emph{HyperLogLog}, que en este caso tiene tanto un enfoque como una utilidad distinta a las alternativas descritas en secciones anteriores. El \emph{HyperLogLog} se utiliza para tratar de estimar de manera precisa el número de elementos distintos que han aparecido sobre un stream de elementos. Esta estructura de datos es una evolución de la versión básica de la cual se cual se habló en el capítulo de \emph{Algoritmos para Streaming} en la sección \ref{sec:streaming_flajolet_martin_algorithm}. La descripción del \emph{HyperLogLog} se indica en el trabajo \emph{Hyperloglog: the analysis of a near-optimal cardinality estimation algorithm} \cite{flajolet2007hyperloglog} llevado a cabo por \emph{Flajolet}.
+      En esta sección se habla del \emph{Sketch} \emph{HyperLogLog}, que en este caso tiene tanto un enfoque como una utilidad distintas a las alternativas descritas en secciones anteriores. El \emph{HyperLogLog} se utiliza para tratar de estimar de manera precisa el número de elementos distintos que han aparecido sobre un stream de elementos. Esta estructura de datos es una evolución de la versión básica de la cual se cual se habló en el capítulo de \emph{Algoritmos para Streaming} en la sección \ref{sec:streaming_flajolet_martin_algorithm}. La descripción del \emph{HyperLogLog} se indica en el trabajo \emph{Hyperloglog: the analysis of a near-optimal cardinality estimation algorithm} \cite{flajolet2007hyperloglog} llevado a cabo por \emph{Flajolet}.
 
+      \paragraph{}
+      [TODO]
+
+    \section{Conclusiones}
+    \label{sec:summaries_conclusions}
+
+      \paragraph{}
+      [TODO]
 
 \end{document}
