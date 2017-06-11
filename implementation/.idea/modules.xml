@@ -1,9 +1,0 @@
-<?xml version="1.0" encoding="UTF-8"?>
-<project version="4">
-  <component name="ProjectModuleManager">
-    <modules>
-      <module fileurl="file://$PROJECT_DIR$/.idea/modules/implementation.iml" filepath="$PROJECT_DIR$/.idea/modules/implementation.iml" />
-      <module fileurl="file://$PROJECT_DIR$/.idea/modules/tfg-big-data-algorithms-build.iml" filepath="$PROJECT_DIR$/.idea/modules/tfg-big-data-algorithms-build.iml" />
-    </modules>
-  </component>
-</project>
