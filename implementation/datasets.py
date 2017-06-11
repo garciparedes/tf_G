@@ -21,3 +21,18 @@ class DataSets:
     @staticmethod
     def wiki_vote():
         return DataSets._compose('wiki-Vote')
+
+    @staticmethod
+    def naive():
+        """
+            url: http://www.math.cornell.edu/~mec/Winter2009/RalucaRemus/Lecture3/lecture3.html
+        """
+        return pd.DataFrame([
+            [0, 1],
+            [0, 2],
+            [0, 3],
+            [1, 2],
+            [1, 3],
+            [2, 0],
+            [3, 0],
+            [3, 2]])

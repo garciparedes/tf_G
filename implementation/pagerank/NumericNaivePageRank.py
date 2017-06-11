@@ -3,13 +3,12 @@ import tensorflow as tf
 from utils import Utils
 
 
-class NaivePageRank():
-    def __init__(self, sess, graph_edges, reset_probability):
+class NumericNaivePageRank():
+    def __init__(self, sess, graph_edges):
         self.sess = sess
 
         n_raw = graph_edges.max(axis=0).max() + 1
 
-        self.beta = tf.constant(reset_probability, tf.float32, name="Beta")
         self.n = tf.constant(n_raw, tf.float32, name="NodeCounts")
         self.a = tf.Variable(tf.transpose(
             tf.scatter_nd(graph_edges.values.tolist(),
@@ -19,13 +18,8 @@ class NaivePageRank():
                              name="PageRankVector")
 
         o_degree = tf.reduce_sum(self.a, 0)
-        condition = tf.not_equal(o_degree, 0)
 
-        self.transition = tf.transpose(
-            tf.where(condition,
-                     tf.transpose(self.beta * tf.div(self.a, o_degree) + (
-                         1 - self.beta) / self.n),
-                     tf.fill([n_raw, n_raw], tf.pow(self.n, -1))))
+        self.transition = tf.div(self.a, o_degree)
 
     def page_rank_vector(self, steps=10):
         page_rank = tf.matmul(self.transition, self.v, a_is_sparse=True)
