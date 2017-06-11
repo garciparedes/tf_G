@@ -1,11 +1,12 @@
 import tensorflow as tf
 
+from pagerank.PageRank import PageRank
 from utils import Utils
 
 
-class NumericNaivePageRank():
+class NumericNaivePageRank(PageRank):
     def __init__(self, sess, graph_edges):
-        self.sess = sess
+        super(NumericNaivePageRank, self).__init__(sess)
 
         n_raw = graph_edges.max(axis=0).max() + 1
 
@@ -35,7 +36,7 @@ class NumericNaivePageRank():
 
     def ranks(self):
         ranks = tf.transpose(
-            tf.py_func(Utils.ranked, [-self.v], tf.int64))[0]
+            tf.py_func(Utils.ranked, [tf.multiply(self.v,-1)], tf.int64))[0]
         init = tf.global_variables_initializer()
         self.sess.run(init)
         tf.summary.FileWriter('logs/.', self.sess.graph)

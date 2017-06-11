@@ -1,14 +1,12 @@
-from abc import abstractmethod
-
-import numpy as np
+from abc import abstractmethod, ABC
 
 
-class PageRank:
+class PageRank(ABC):
     def __init__(self, sess):
         self.sess = sess
 
     @abstractmethod
-    def page_rank_vector(self):
+    def page_rank_vector(self, steps):
         pass
 
     @abstractmethod
