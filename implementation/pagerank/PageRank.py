@@ -6,7 +6,7 @@ class PageRank(ABC):
         self.sess = sess
 
     @abstractmethod
-    def page_rank_vector(self, steps):
+    def page_rank_vector(self, convergence=None, steps=None):
         pass
 
     @abstractmethod

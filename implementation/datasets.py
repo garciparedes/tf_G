@@ -16,11 +16,11 @@ class DataSets:
 
     @staticmethod
     def followers():
-        return DataSets._compose('followers')
+        return DataSets._compose('followers') - 1
 
     @staticmethod
     def wiki_vote():
-        return DataSets._compose('wiki-Vote')
+        return DataSets._compose('wiki-Vote') - 1
 
     @staticmethod
     def naive():
