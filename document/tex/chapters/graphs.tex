@@ -98,6 +98,21 @@
         En la práctica, cuando se trabaja con grafos de tamaño masivo, es muy común que estos sean muy dispersos. Algunos ejemplos de ellos son el \emph{grafo de la web} (grafo dirigido), en el cual cada vértice representa sitio web y cada arista un enlace hacia otro sitio web. Es fácil comprobar que este grafo es altamente disperso ya que es muy poco probable que un sitio web contenga enlaces al resto de sitios de la red cuando se habla de millones de vértices. Algo similar ocurre en el caso de redes sociales como \emph{Facebook} (grafo no dirigido debido a relaciones de amistad) o \emph{Twitter} (grafo dirigido debido a relaciones seguimiento). Por tanto, la representación mediante listas de adyacencia es una herramienta útil a nivel conceptual pero en la práctica se utilizan otras alternativas por la inviabilidad derivada del gran coste espacial en la representación.
 
 
+        \subsubsection{Matrix Laplaciana}
+        \label{sec:laplacian_matrix}
+
+          \paragraph{}
+          La \emph{matriz laplaciana} consiste en una estrategia de representación de grafos que cumple importantes propiedades a partir de las cuales se facilita en gran medida la resolución de un gran número de problemas sobre grafos.
+
+          \paragraph{}
+          [TODO ]
+
+          \paragraph{}
+          [TODO ]
+
+          \paragraph{}
+          [TODO ]
+
     \section{Modelo en Semi-Streaming}
     \label{sec:semi_streaming_model}
 
@@ -188,23 +203,7 @@
       \label{sec:sparsifiers}
 
         \paragraph{}
-        Otra alternativa para la generación del subgrafo $H$ construido sobre el mismo conjunto de vértices y un subconjunto de aristas respecto del grafo $G$ son los \emph{Sparsifiers}. En este caso, en lugar de tratar de mantener la propiedad de la distancia del camino más corto entre pares de vértices, se centran en la minimización del número de cortes mínimos (eliminación de aristas) para separar el conjunto de vértices del grafo en dos subconjuntos disjuntos para cada par de vértices. A este concepto se lo denomina \emph{corte mínimo} (o \emph{Minimun Cut}) y se denota por $\lambda_{u,v}(G)$ para indicar el número de aristas a eliminar para formar dos subconjuntos disjuntos $V_{1}, V_{2}$ de tal manera que $u\in V_{1}$ y $v \in V_{2}$. Nótese por tanto que en un grafo dirigido el \emph{corte mínimo} puede tomar valores en el intervalo $[1, n\cdot(n-1)]$.  En la ecuación \eqref{eq:sparsifier} se muestra la definición formal de \emph{Sparsifier} donde $A$ representa todas las combinaciones de pares de vértices y $\epsilon$ la desviación máxima permitida por el \emph{Sparsifier}, de tal manera que se denota como \emph{$\epsilon$-Sparsifier}.
-
-        \begin{equation}
-        \label{eq:sparsifier}
-          \forall A \in V \  (1-\epsilon)\lambda_A(G)\leq\lambda_A(H)\leq(1+\epsilon)\lambda_A(G)
-        \end{equation}
-
-        \paragraph{}
-        A continuación se describe una definición para entender las ideas subyacentes en que se basan los \emph{Sparsifiers}. Podemos definir $G$ como $G = G_0 \subseteq G_1 \subseteq ...  \subseteq G_{i-1} \subseteq G_i \subseteq ... $ de tal manera que $Gi$ se construye eliminando los aristas de $G_{i-1}$ con probabilidad $p = 1/2$. Por tanto, $G_i$ está formado por el subconjunto de aristas de $G$ seleccionadas con probabilidad $p = (\frac{1}{2})^i$. Entonces, para construir un \emph{$\epsilon$-Sparsifier} de $G$, el valor $p$ debe ser escogido tal y como se indica en la ecuación \eqref{eq:sparsifier_p}. La demostración se encuentra en el artículo \emph{On graph problems in a semi-streaming model} \cite{feigenbaum2005graph} desarrollado por \emph{Feigenbaum y otros}.
-
-        \begin{equation}
-        \label{eq:sparsifier_p}
-          p \geq min\{6\lambda(G)^{-1}\epsilon^{-2}log(n),1\}
-        \end{equation}
-
-        \paragraph{}
-        Por tanto, el problema se reduce al mantenimiento de un \emph{$L_{0}$-Sampler} que mantenga un subconjunto de aristas seleccionados con probabilidad $p$ del stream de aristas.
+        Otra alternativa para la generación del subgrafo $H$ construido sobre el mismo conjunto de vértices y un subconjunto de aristas respecto del grafo $G$ son los \emph{Sparsifiers}. En este caso, en lugar de tratar de mantener la propiedad de la distancia del camino más corto entre pares de vértices, se centran en la minimización del número de cortes mínimos (eliminación de aristas) para separar el conjunto de vértices del grafo en dos subconjuntos disjuntos para cada par de vértices. A este concepto se lo denomina \emph{corte mínimo} (o \emph{Minimun Cut}) y se denota por $\lambda_{u,v}(G)$ para indicar el número de aristas a eliminar para formar dos subconjuntos disjuntos $V_{1}, V_{2}$ de tal manera que $u\in V_{1}$ y $v \in V_{2}$. Nótese por tanto que en un grafo dirigido el \emph{corte mínimo} puede tomar valores en el intervalo $[1, n\cdot(n-1)]$.  En la ecuación \eqref{eq:sparsifier_cut} se muestra la definición formal de \emph{Sparsifier} donde $A$ representa todas las combinaciones de pares de vértices y $\epsilon$ la desviación máxima permitida por el \emph{Sparsifier}, de tal manera que se denota como \emph{$\epsilon$-Sparsifier}.
 
         \begin{figure}
           \centering
@@ -212,6 +211,28 @@
           \caption{Ejemplo de \emph{Sparsifier}. (Extraido de \cite{harvey2011randomized})}
           \label{img:graph_community_structure}
         \end{figure}
+
+        \begin{equation}
+        \label{eq:sparsifier_cut}
+          \forall A \in V \  (1-\epsilon)\lambda_A(G)\leq\lambda_A(H)\leq(1+\epsilon)\lambda_A(G)
+        \end{equation}
+
+        \paragraph{}
+        A continuación se describe una definición para entender las ideas subyacentes en que se basan los \emph{Sparsifiers}. Podemos definir $G$ como $G = G_0 \subseteq G_1 \subseteq ...  \subseteq G_{i-1} \subseteq G_i \subseteq ... $ de tal manera que $Gi$ se construye eliminando los aristas de $G_{i-1}$ con probabilidad $p = 1/2$. Por tanto, $G_i$ está formado por el subconjunto de aristas de $G$ seleccionadas con probabilidad $p = (\frac{1}{2})^i$. Entonces, para construir un \emph{$\epsilon$-Sparsifier} de $G$, el valor $p$ debe ser escogido tal y como se indica en la ecuación \eqref{eq:sparsifier_p}. La demostración se encuentra en el artículo \emph{On graph problems in a semi-streaming model} \cite{feigenbaum2005graph} desarrollado por \emph{Feigenbaum y otros}. Por tanto, el problema se reduce al mantenimiento de un \emph{$L_{0}$-Sampler} que mantenga un subconjunto de aristas seleccionados con probabilidad $p$ del stream de aristas.
+
+        \begin{equation}
+        \label{eq:sparsifier_p}
+          p \geq min\{6\lambda(G)^{-1}\epsilon^{-2}log(n),1\}
+        \end{equation}
+
+        \paragraph{}
+        Otro enfoque diferente para la construcción de \emph{Sparsifiers} se basa en la utilización de la \emph{Matriz Laplaciana} (definida en la sección \ref{sec:laplacian_matrix}) del grafo $H$ que denotaremos como $L_{H}$. A los \emph{Sparsifiers} construidos manteniendo la propiedad definida en la ecuación \eqref{eq:sparsifier_spectral} se los denomina \emph{Spectral Sparsifiers}.
+
+        \begin{equation}
+        \label{eq:sparsifier_spectral}
+          \forall x \in \mathbb{R} \  x^TL_{H}x = (1 \pm \epsilon) x^TL_{G}x
+        \end{equation}
+
 
     \section{Problemas sobre Grafos}
     \label{sec:graph_problems}
