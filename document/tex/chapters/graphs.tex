@@ -62,7 +62,7 @@
       Desde el punto de vista de las transformaciones que se pueden realizar sobre grafos, se denomina \emph{isomorfismo} a una transformación biyectiva sobre el grafo $G =(V_G, E_G)$ al grafo $H = (V_H, E_H)$ que se realiza sobre los vértices de manera que $f: V_G \rightarrow V_H$ y por cada arista $(e_1, e_2) \in E_G$, entonces $(f(e_1), f(e_2)) \in E_H$ de tal manera que la estructura de $G$ se conserva en $H$. Entonces se dice que $G$ y $H$ son isomorfos entre si. Si se modifica la condición de biyectividad del \emph{isomorfismo} y tan solo se requiere la propiedad de inyectividad entonces se habla de \emph{homomorfismo}. Por tanto, esto puede ser visto como una transformación en la cual no se mantiene completamente la estructura, entonces $H$ ya no es equivalente a $G$, sino que es un \emph{subgrafo} de este.
 
       \paragraph{}
-      Las transformaciones \emph{homomorficas} son interesantes desde el punto de vista del tratamiento de grafos de tamaño masivo, dado que a partir de estas se trata de reducir la complejidad cuando el tamaño de estos los hace intratables. Por lo tanto, interesa conseguir \emph{homomorfismos} que reduzcan el tamaño del grafo, pero que traten de mantener su estructura lo más semejante posible. Destacan transformaciones conocidas como \emph{Spanners} (Sección \ref{sec:spanners}) y \emph{Sparsifiers} (Sección \ref{sec:sparsifiers}).
+      Las transformaciones \emph{homomórficas} son interesantes desde el punto de vista del tratamiento de grafos de tamaño masivo, dado que a partir de estas se trata de reducir la complejidad cuando el tamaño de estos los hace intratables. Por lo tanto, interesa conseguir \emph{homomorfismos} que reduzcan el tamaño del grafo, pero que traten de mantener su estructura lo más semejante posible. Destacan transformaciones conocidas como \emph{Spanners} (Sección \ref{sec:spanners}) y \emph{Sparsifiers} (Sección \ref{sec:sparsifiers}).
 
       \subsection{Métodos de Representación}
       \label{sec:laplacian_matrix}
@@ -156,7 +156,7 @@
         \end{equation}
 
         \paragraph{}
-        Tal y como se indica en la ecuación \eqref{eq:alpha_spanner}, lo que se pretende acotar mediante esta estrategia es por tanto, el error a nivel de distancias entre vértices. Tal y como se puede intuir, mediante el cumplimiento de esta propiedad se soluciona el problema descrito anteriormente en grafos dispersos, dado que si se elimina el único arista que conecta dos comunidades distintas, entonces la distancia del camino más corto entre los vértices de de comunidades distintas variará en gran medida, posiblemente superior a la acotada por el valor $\alpha$.
+        Tal y como se indica en la ecuación \eqref{eq:alpha_spanner}, lo que se pretende acotar mediante esta estrategia es por tanto, el error a nivel de distancias entre vértices. Tal y como se puede intuir, mediante el cumplimiento de esta propiedad se soluciona el problema descrito anteriormente en grafos dispersos, dado que si se elimina el único arista que conecta dos comunidades distintas, entonces la distancia del camino más corto entre los vértices de comunidades distintas variará en gran medida, posiblemente superior a la acotada por el valor $\alpha$.
 
         \paragraph{}
         Para la construcción de un \emph{$\alpha$-spanner} sobre el modelo en streaming existe un algoritmo sencillo que resuelve este problema para el caso del modelo de caja registradora (sección \ref{sec:streaming_cash_register}), es decir, en el cual tan solo estén permitadas adicciones. Esta estrategia se ilustra en el algoritmo \ref{code:basic_spanner}. Esta técnica es trivial y consiste en añadir únicamente al conjunto de aristas $E'$ del grafo $H$ aquellos cuya distancia del camino más corto entre sus vértices en $H$ sea mayor que $\alpha$, con lo cual se garantiza la propiedad del \emph{$\alpha$-spanner}.
@@ -164,6 +164,7 @@
         \paragraph{}
         Sin embargo, esta técnica requiere del cálculo del camino más corto entre los vértices $u$ y $v$ en cada actualización, lo cual requiere un coste de $O(card(E'))$ en tiempo, o el mantenimiento de una estructura de datos auxiliar que almacene dichas distancias, lo cual requiere de un $O(n^2)$ en espacio. El mejor resultado encontrado para este problema es la construcción de un \emph{$(2k-1)$-spanner} utilizando $O(n^(1+1/k)$ de espacio. Esta solución se ha demostrado que es óptima respecto de la precisión utilizando tan solo una pasada sobre el stream de aristas. La descripción completa de la misma se encuentra en el trabajo \emph{Streaming and Fully Dynamic Centralized Algorithms for Constructing and Maintaining Sparse Spanners} \cite{elkin2007streaming} de \emph{Elkin}.
 
+        \paragraph{}
         \begin{algorithm}
           \SetAlgoLined
           \KwResult{$E'$ }
@@ -178,13 +179,16 @@
         \end{algorithm}
 
         \paragraph{}
-        Para el caso general, en el cual están permitidas tanto adicciones como eliminaciones (modelo en molinete (sección \ref{sec:streaming_turnstile})) la solución básica no es trivial.
+        Para el caso general, en el cual están permitidas tanto adicciones como eliminaciones (modelo en molinete (sección \ref{sec:streaming_turnstile})) la solución básica no es trivial. El algoritmo que se describe en \cite{elkin2007streaming} se basa en la generación de árboles incrementales que se construyen a partir de la selección aleatoria de vértices. Sin embargo, esto no es sencillo cuando se permiten las eliminaciones. Por lo tanto, para la adaptación de dichas técnicas al modelo en molinete una solución es la utilización de \emph{$L_0$-Samplers}, que se describieron en la sección \ref{sec:lp_samplers}, lo cual reuquiere de múltiples pasadas sobre el stream de aristas.
+
+        \paragraph{}
+        Tal y como se ha visto en esta sección, la construcción de \emph{Spanners} añade un sobrecoste a la resolución de problemas sobre grafos, junto con una determinada tasa de error a nivel de distancias entre vértices. Sin embargo, dichos inconvenientes se ven recompensados en muchos casos por la reducción en tiempo y espacio de la resolución del problema sobre el subgrafo resultante.
 
       \subsection{Sparsifiers}
       \label{sec:sparsifiers}
 
         \paragraph{}
-        [TODO ]
+        Otra alternativa para la generación de subgrafos construidos sobre el mismo conjunto de vértices y un subconjunto de vértices respecto de los originales son los \emph{Sparsifiers}. En este caso en lugar de tratar de mantener la propiedad de la distancia del camino más corto entre nodos, se centran en la acotación del número de cortes mínimos en las aristas para separar el grafo conexo en dos subgrafos.
 
         \paragraph{}
         [TODO min-cut]
