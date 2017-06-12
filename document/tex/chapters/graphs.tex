@@ -126,14 +126,14 @@
       Para tratar de agilizar los cálculos necesarios para la resolución de problemas sobre grafos se han propuesto distintas alternativas, muchas de las cuales son aplicables únicamente a problemas concretos. Estas ideas se discutirán en la sección \ref{sec:graph_problems}. Sin embargo, en esta sección se describen distintas técnicas utilizadas para tratar de \say{sumarizar} o disminuir el espacio necesario para almacenar un determinado grafo $G$ transformándolo en un nuevo grafo $H$, de tal manera que la estructura del mismo siga siendo similar a la del original.
 
       \paragraph{}
-      La descripción de estas técnicas se ha basado en las ideas recogidas en los artículos \emph{Graph stream algorithms: a survey} \cite{mcgregor2014graph} de \emph{McGregor} y \emph{Graph sketches: sparsification, spanners, and subgraphs} \cite{ahn2012graph} de \emph{Ahn y otros}. Tal y como se ha indicado en el párrafo anterior, estas técnicas consisten en la eliminación de vértices y/o aristas, de tal manera que la distorsión producida tras dichas modificaciones sea mínima.
+      La descripción de estas técnicas se ha basado en las ideas recogidas en los artículos \emph{Graph stream algorithms: a survey} \cite{mcgregor2014graph} de \emph{McGregor} y \emph{Graph sketches: sparsification, spanners, and subgraphs} \cite{ahn2012graph} de \emph{Ahn y otros} así como las notas de la \emph{Clase 11} de la asignatura \emph{Randomized Algorithms} \cite{harvey2011randomized} impartida en la \emph{Universidad de Columbia Británica}. Tal y como se ha indicado en el párrafo anterior, estas técnicas consisten en la eliminación de vértices y/o aristas, de tal manera que la distorsión producida tras dichas modificaciones sea mínima.
 
       \paragraph{}
       Existe un enfoque trivial para la reducción del tamaño en grafos, sin embargo, este tan solo ofrece resultados aceptables sobre grafos densos (aquellos similares al grafo completo $K_n$). La técnica consiste en la eliminación de aristas a partir de una determinada tasa de probabilidad $\alpha$. Mediante esta estrategia se reduce el espacio necesario para almacenar las aristas del mismo en orden de $(1-\alpha)$. Tal y como se ha dicho, esta solución tan solo es válida en aquellos casos en que el grafo sea denso. Cuando el grafo es disperso, por contra, la eliminación de aristas mediante esta estrategia puede producir una gran distorsión respecto del grafo original.
 
       \begin{figure}
         \centering
-        \includegraphics[width=0.4\textwidth]{graph-community-structure}
+        \includegraphics[width=0.3\textwidth]{graph-community-structure}
         \caption{Ejemplo de \emph{Grafo Disperso}. (Extraido de \cite{wiki:Community_structure})}
         \label{img:graph_community_structure}
       \end{figure}
@@ -148,8 +148,37 @@
       \label{sec:spanners}
 
         \paragraph{}
-        [TODO ]
+        Se denomina \emph{Spanner} a un determinado subgrafo que mantiene las propiedades de distancia entre todos sus vértices respecto del original con una tasa máxima de variación acotada por $\alpha$. Por tanto, se denomina \emph{$\alpha$-spanner} del grafo $G = (V, E)$ a un subgrafo $H = (V, E')$ donde $E' \subset E$, construido de tal manera que se cumpla la ecuación \eqref{eq:alpha_spanner} representando $d_G(v_{i_1},v_{i_2})$ la distancia del camino más corto entre los vértices $v_{i_1}$ y $v_{i_2}$ sobre el grafo $G$.
 
+        \begin{equation}
+        \label{eq:alpha_spanner}
+          \forall v_{i_1}, v_{i_2} \in V, \ d_G(v_{i_1},v_{i_2}) \leq d_H(v_{i_1},v_{i_2}) \leq \alpha \cdot d_G(v_{i_1},v_{i_2})
+        \end{equation}
+
+        \paragraph{}
+        Tal y como se indica en la ecuación \eqref{eq:alpha_spanner}, lo que se pretende acotar mediante esta estrategia es por tanto, el error a nivel de distancias entre vértices. Tal y como se puede intuir, mediante el cumplimiento de esta propiedad se soluciona el problema descrito anteriormente en grafos dispersos, dado que si se elimina el único arista que conecta dos comunidades distintas, entonces la distancia del camino más corto entre los vértices de de comunidades distintas variará en gran medida, posiblemente superior a la acotada por el valor $\alpha$.
+
+        \paragraph{}
+        Para la construcción de un \emph{$\alpha$-spanner} sobre el modelo en streaming existe un algoritmo sencillo que resuelve este problema para el caso del modelo de caja registradora (sección \ref{sec:streaming_cash_register}), es decir, en el cual tan solo estén permitadas adicciones. Esta estrategia se ilustra en el algoritmo \ref{code:basic_spanner}. Esta técnica es trivial y consiste en añadir únicamente al conjunto de aristas $E'$ del grafo $H$ aquellos cuya distancia del camino más corto entre sus vértices en $H$ sea mayor que $\alpha$, con lo cual se garantiza la propiedad del \emph{$\alpha$-spanner}.
+
+        \paragraph{}
+        Sin embargo, esta técnica requiere del cálculo del camino más corto entre los vértices $u$ y $v$ en cada actualización, lo cual requiere un coste de $O(card(E'))$ en tiempo, o el mantenimiento de una estructura de datos auxiliar que almacene dichas distancias, lo cual requiere de un $O(n^2)$ en espacio. El mejor resultado encontrado para este problema es la construcción de un \emph{$(2k-1)$-spanner} utilizando $O(n^(1+1/k)$ de espacio. Esta solución se ha demostrado que es óptima respecto de la precisión utilizando tan solo una pasada sobre el stream de aristas. La descripción completa de la misma se encuentra en el trabajo \emph{Streaming and Fully Dynamic Centralized Algorithms for Constructing and Maintaining Sparse Spanners} \cite{elkin2007streaming} de \emph{Elkin}.
+
+        \begin{algorithm}
+          \SetAlgoLined
+          \KwResult{$E'$ }
+          $E' \gets \emptyset$\;
+          \For{cada $(u, v) \in E$}{
+            \If{$d_H(u,v) > \alpha$}{
+              $E' \gets E' \cup \{(u,v)\}$\;
+            }
+          }
+          \caption{Basic Spanner}
+          \label{code:basic_spanner}
+        \end{algorithm}
+
+        \paragraph{}
+        Para el caso general, en el cual están permitidas tanto adicciones como eliminaciones (modelo en molinete (sección \ref{sec:streaming_turnstile})) la solución básica no es trivial.
 
       \subsection{Sparsifiers}
       \label{sec:sparsifiers}
@@ -159,6 +188,13 @@
 
         \paragraph{}
         [TODO min-cut]
+
+        \begin{figure}
+          \centering
+          \includegraphics[width=0.5\textwidth]{graph-sparsifier}
+          \caption{Ejemplo de \emph{Sparsifier}. (Extraido de \cite{harvey2011randomized})}
+          \label{img:graph_community_structure}
+        \end{figure}
 
     \section{Problemas sobre Grafos}
     \label{sec:graph_problems}
