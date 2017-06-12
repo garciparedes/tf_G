@@ -98,7 +98,7 @@
         En la práctica, cuando se trabaja con grafos de tamaño masivo, es muy común que estos sean muy dispersos. Algunos ejemplos de ellos son el \emph{grafo de la web} (grafo dirigido), en el cual cada vértice representa sitio web y cada arista un enlace hacia otro sitio web. Es fácil comprobar que este grafo es altamente disperso ya que es muy poco probable que un sitio web contenga enlaces al resto de sitios de la red cuando se habla de millones de vértices. Algo similar ocurre en el caso de redes sociales como \emph{Facebook} (grafo no dirigido debido a relaciones de amistad) o \emph{Twitter} (grafo dirigido debido a relaciones seguimiento). Por tanto, la representación mediante listas de adyacencia es una herramienta útil a nivel conceptual pero en la práctica se utilizan otras alternativas por la inviabilidad derivada del gran coste espacial en la representación.
 
 
-        \subsubsection{Matrix Laplaciana}
+        \subsubsection{Matriz Laplaciana}
         \label{sec:laplacian_matrix}
 
           \paragraph{}
@@ -226,12 +226,21 @@
         \end{equation}
 
         \paragraph{}
-        Otro enfoque diferente para la construcción de \emph{Sparsifiers} se basa en la utilización de la \emph{Matriz Laplaciana} (definida en la sección \ref{sec:laplacian_matrix}) del grafo $H$ que denotaremos como $L_{H}$. A los \emph{Sparsifiers} construidos manteniendo la propiedad definida en la ecuación \eqref{eq:sparsifier_spectral} se los denomina \emph{Spectral Sparsifiers}.
+        Otro enfoque más general para la construcción de \emph{Sparsifiers} se basa en la utilización de la \emph{Matriz Laplaciana} (definida en la sección \ref{sec:laplacian_matrix}) del grafo $H$ que denotaremos como $L_{H}$. A los \emph{Sparsifiers} construidos manteniendo la propiedad definida en la ecuación \eqref{eq:sparsifier_spectral} se los denomina \emph{Spectral Sparsifiers}. Desarollando la ecuación obtenida si restringimos el rango de valores de $x$ al subconjunto $\{ 0, 1\}^n$ entonces podemos obtener la ecuación \ref{eq:sparsifier_cut}. Dado que el vector $x$ modeliza el conjunto $A$ en dicha ecuación. Por tanto, los \emph{Spectral Sparsifiers} pueden ser vistos como una generalización de los anteriores.
 
         \begin{equation}
         \label{eq:sparsifier_spectral}
-          \forall x \in \mathbb{R} \  x^TL_{H}x = (1 \pm \epsilon) x^TL_{G}x
+          \forall x \in \mathbb{R} \leq (1 - \epsilon) x^TL_{G}x \leq x^TL_{H}x \leq (1 + \epsilon) x^TL_{G}x
         \end{equation}
+
+        \paragraph{}
+        Mediante la estrategia de los \emph{Spectral Sparsifiers} además de aproximar el corte mínimo $\lambda(G)$ se pueden aproximar otras propiedades como propiedades de los paseos aleatorios (que se describen en la sección \ref{sec:random_walks}). A continuación se describen los \emph{Twice-Ramanujan Sparsifiers}, que son capaces de generar un \emph{$e$-Spectral Sparsifiers} en un espacio de $O(\epsilon^{-2}n)$.
+
+        \paragraph{}
+        [TODO describir] \emph{Twice-Ramanujan Sparsifiers} \cite{batson2012twice} redactado por \emph{Batson y otros}.
+
+        \paragraph{}
+        Las estrategias descritas en esta sección para la redución de la complejidad de grafos ajustandose al \emph{modelo en semi-streaming} proporcionan una ventaja significativa a nivel de espacio mediante la redución del conjunto de aristas para la resolución de otros problemas a partir de ellas. Por contra, estas generan una determinada tasa de error. Cuando se ha hablado de optimalidad en esta sección, ha sido referida al caso de \emph{grafos no dirigidos}, dado que para el caso de los \emph{grafos dirigidos}, aún no se han encontrado métodos de generación de \emph{Spanners} o \emph{Sparsifiers} óptimos debido a la mayor complejidad que estos conllevan. En la siguiente sección se describen distintos problemas para los cuales se ha encontrado una solución sobre el \emph{modelo en semi-streaming} y sus correspondientes restricciónes
 
 
     \section{Problemas sobre Grafos}
