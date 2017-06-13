@@ -1,7 +1,4 @@
-from abc import abstractmethod, ABC
-
-
-class PageRank(ABC):
+class PageRank:
     def __init__(self, sess):
         self.sess = sess
 
@@ -11,16 +8,16 @@ class PageRank(ABC):
         elif steps > 0:
             return self.page_rank_until_steps(steps)
         else:
-            raise ValueError("'convergence' or 'steps' must be assigned")
+            raise ValueError("'convergence' or 'steps' must be assigned!")
 
-    @abstractmethod
     def page_rank_until_convergence(self, convergence):
-        pass
+        raise NotImplementedError(
+            'subclasses must override page_rank_until_convergence()!')
 
-    @abstractmethod
     def page_rank_until_steps(self, steps):
-        pass
+        raise NotImplementedError(
+            'subclasses must override page_rank_until_steps()!')
 
-    @abstractmethod
     def ranks(self, convergence=None, steps=None):
-        pass
+        raise NotImplementedError(
+            'subclasses must override ranks()!')
