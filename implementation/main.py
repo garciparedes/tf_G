@@ -2,7 +2,7 @@ import tensorflow as tf
 
 from datasets import DataSets
 from pagerank.NumericPageRank import NumericPageRank
-
+from graph.Graph import Graph
 from utils import Utils
 
 
@@ -12,7 +12,9 @@ def main():
     graph_edges = DataSets.followers()
 
     with tf.Session() as sess:
-        pr = NumericPageRank(sess, graph_edges, reset_probability)
+        graph = Graph(sess, graph_edges, "G1")
+
+        pr = NumericPageRank(sess, "PR_1", graph, reset_probability)
 
         print(pr.page_rank_vector(convergence=0.001))
 

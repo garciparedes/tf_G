@@ -5,33 +5,29 @@ from utils import Utils
 
 
 class NumericPageRank(PageRank):
-    def __init__(self, sess, graph_edges, reset_probability=None):
+    def __init__(self, sess, name, graph, reset_probability=None):
         super(NumericPageRank, self).__init__(sess)
 
-        n_raw = graph_edges.max(axis=0).max() + 1
-        self.n = tf.constant(n_raw, tf.float32, name="NodeCounts")
-
-        a = tf.Variable(tf.transpose(
-            tf.scatter_nd(graph_edges.values.tolist(),
-                          graph_edges.shape[0] * [1.0],
-                          [n_raw, n_raw])), tf.float64, name="AdjacencyMatrix")
-        o_degree = tf.reduce_sum(a, 0)
+        self.name = name
+        self.G = graph
 
         if reset_probability is None:
-            self.transition = tf.div(a, o_degree)
+            self.transition = tf.div(self.G.A_tf, self.G.E_o_degrees)
         else:
             beta = tf.constant(reset_probability, tf.float32, name="Beta")
-            condition = tf.not_equal(o_degree, 0)
+            condition = tf.not_equal(self.G.E_o_degrees, 0)
             self.transition = tf.transpose(
                 tf.where(condition,
-                         tf.transpose(beta * tf.div(a, o_degree) + (
-                             1 - beta) / self.n),
-                         tf.fill([n_raw, n_raw], tf.pow(self.n, -1))))
-        self.v_last = tf.Variable(tf.fill([n_raw, 1], 0.0),
-                                  name="PageRankVectorLast")
-        self.v = tf.Variable(tf.fill([n_raw, 1], tf.pow(self.n, -1)),
-                             name="PageRankVector")
-        self.sess.run(tf.global_variables_initializer())
+                         tf.transpose(
+                             beta * tf.div(self.G.A_tf, self.G.E_o_degrees) + (
+                                 1 - beta) / self.G.n_tf),
+                         tf.fill([self.G.n, self.G.n],
+                                 tf.pow(self.G.n_tf, -1))))
+        self.v_last = tf.Variable(tf.fill([self.G.n, 1], 0.0),
+                                  name=name + "_Vi-1")
+        self.v = tf.Variable(tf.fill([self.G.n, 1], tf.pow(self.G.n_tf, -1)),
+                             name=name + "_Vi")
+        self.sess.run(tf.variables_initializer([self.v_last, self.v]))
 
     def page_rank_vector(self, convergence=None, steps=None):
         page_rank = tf.matmul(self.transition, self.v, a_is_sparse=True)
@@ -40,7 +36,8 @@ class NumericPageRank(PageRank):
             diff = tf.reduce_max(tf.abs(tf.subtract(self.v_last, self.v)), 0)
             self.sess.run(tf.assign(self.v_last, self.v))
             self.sess.run(run_iteration)
-            while self.sess.run(diff)[0] > convergence / self.sess.run(self.n):
+            while self.sess.run(diff)[0] > convergence / self.sess.run(
+                    self.G.n_tf):
                 self.sess.run(tf.assign(self.v_last, self.v))
                 self.sess.run(run_iteration)
         elif steps > 0:
