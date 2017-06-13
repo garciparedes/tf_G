@@ -14,14 +14,14 @@ def main():
     graph_edges = DataSets.wiki_vote()
 
     with tf.Session() as sess:
-        graph = Graph(sess, graph_edges, "G1")
+        graph = Graph(sess, "G1", graph_edges)
 
         pr_1 = NumericIterativePageRank(sess, "PR_1", graph, reset_probability)
         ranks_1 = pr_1.ranks(convergence=0.001)
         Utils.save_ranks('logs/wiki_vote_log.csv', ranks_1)
 
         '''
-        graph_sparsifier = GraphSparsifier(sess, graph_edges, 0.8, "G2")
+        graph_sparsifier = GraphSparsifier(sess, "G2", graph_edges, 0.8)
         pr_2 = NumericIterativePageRank(sess, "PR_2", graph_sparsifier,
                                         reset_probability)
         ranks_2 = pr_2.ranks(convergence=0.001)

@@ -5,10 +5,9 @@ from pagerank.numeric_page_rank import NumericPageRank
 
 class NumericIterativePageRank(NumericPageRank):
     def __init__(self, sess, name, graph, reset_probability=None):
-        super(NumericIterativePageRank, self).__init__(sess, name, graph,
-                                                       reset_probability)
+        NumericPageRank.__init__(self, sess, name, graph, reset_probability)
         self.v_last = tf.Variable(tf.fill([self.G.n, 1], 0.0),
-                                  name=name + "_Vi-1")
+                                  name=self.name + "_Vi-1")
         self.iteration = tf.assign(self.v,
                                    tf.matmul(self.transition.get, self.v,
                                              a_is_sparse=True))

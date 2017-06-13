@@ -5,7 +5,7 @@ from pagerank.transition_matrix import TransitionMatrix
 
 class TransitionResetMatrix(TransitionMatrix):
     def __init__(self, sess, name, graph, reset_probability):
-        super(TransitionResetMatrix, self).__init__(sess, name, graph)
+        TransitionMatrix.__init__(self,sess, name, graph)
         self.beta = reset_probability
         self.beta_tf = tf.constant(self.beta, tf.float32, name="Beta")
         condition = tf.not_equal(self.G.E_o_degrees, 0)

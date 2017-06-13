@@ -1,6 +1,9 @@
-class PageRank:
-    def __init__(self, sess):
-        self.sess = sess
+from tensor_flow_object import TensorFlowObject
+
+
+class PageRank(TensorFlowObject):
+    def __init__(self, sess, name):
+        TensorFlowObject.__init__(self, sess, name)
 
     def page_rank_vector(self, convergence=None, steps=None):
         if convergence is not None:

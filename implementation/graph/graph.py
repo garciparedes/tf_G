@@ -1,16 +1,17 @@
 import tensorflow as tf
 
+from tensor_flow_object import TensorFlowObject
 
-class Graph:
-    def __init__(self, sess, edges_data_frame, name):
-        self.name = name
-        self.sess = sess
+
+class Graph(TensorFlowObject):
+    def __init__(self, sess, name, edges_data_frame):
+        TensorFlowObject.__init__(self, sess, name)
         self.edges_data_frame = edges_data_frame
         self.A_tf = tf.Variable(tf.transpose(
             tf.scatter_nd(self.E_list,
                           self.m * [1.0],
-                          [self.n, self.n])), tf.float64, name=name + "_A")
-        self.n_tf = tf.Variable(float(self.n), tf.float32, name=name + "_n")
+                          [self.n, self.n])), tf.float64, name=self.name + "_A")
+        self.n_tf = tf.Variable(float(self.n), tf.float32, name=self.name + "_n")
 
         self.sess.run(tf.variables_initializer([self.A_tf, self.n_tf]))
 
