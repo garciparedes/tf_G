@@ -8,14 +8,15 @@ import numpy as np
 
 
 class NumericPageRank(PageRank):
-    def __init__(self, sess, name, graph, reset_probability=None):
+    def __init__(self, sess, name, graph, beta=None):
         PageRank.__init__(self, sess, name)
         self.G = graph
-        if reset_probability is None:
-            self.transition = TransitionMatrix(self.sess, self.name, self.G)
+        if beta is None:
+            self.T = TransitionMatrix(self.sess, self.name, self.G)
         else:
-            self.transition = TransitionResetMatrix(self.sess, self.name, self.G,
-                                                    reset_probability)
+            self.T = TransitionResetMatrix(self.sess, self.name,
+                                           self.G,
+                                           beta)
         self.v = tf.Variable(tf.fill([self.G.n, 1], tf.pow(self.G.n_tf, -1)),
                              name=self.name + "_Vi")
         self.page_rank = None

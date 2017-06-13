@@ -11,7 +11,8 @@ class Graph(TensorFlowObject):
             tf.scatter_nd(self.E_list,
                           self.m * [1.0],
                           [self.n, self.n])), tf.float64, name=self.name + "_A")
-        self.n_tf = tf.Variable(float(self.n), tf.float32, name=self.name + "_n")
+        self.n_tf = tf.Variable(float(self.n), tf.float32,
+                                name=self.name + "_n")
 
         self.sess.run(tf.variables_initializer([self.A_tf, self.n_tf]))
 
