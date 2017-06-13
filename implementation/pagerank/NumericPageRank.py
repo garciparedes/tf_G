@@ -52,7 +52,8 @@ class NumericPageRank(PageRank):
         return self.sess.run(self.v)
 
     def ranks(self):
-        ranks = tf.transpose(
-            tf.py_func(Utils.ranked, [tf.multiply(self.v, -1)], tf.int64))[0]
+        ranks = tf.py_func(Utils.ranked, [tf.multiply(self.v, -1)], tf.int64)
+        ranks = tf.map_fn(lambda x: [x, tf.gather(self.v, x)[0]], ranks,
+                          dtype=[tf.int64, tf.float32])
         tf.summary.FileWriter('logs/.', self.sess.graph)
         return self.sess.run(ranks)

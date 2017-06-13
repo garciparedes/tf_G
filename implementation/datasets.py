@@ -11,16 +11,19 @@ class DataSets:
         return DataSets._get_path() + '/' + name + '/' + name + ".csv"
 
     @staticmethod
-    def _compose(name):
-        return pd.read_csv(DataSets._compose_url(name))
+    def _compose(name, index_decrement):
+        data = pd.read_csv(DataSets._compose_url(name))
+        if index_decrement:
+            data -= 1
+        return data
 
     @staticmethod
-    def followers():
-        return DataSets._compose('followers') - 1
+    def followers(index_decrement=True):
+        return DataSets._compose('followers', index_decrement)
 
     @staticmethod
-    def wiki_vote():
-        return DataSets._compose('wiki-Vote') - 1
+    def wiki_vote(index_decrement=True):
+        return DataSets._compose('wiki-Vote', index_decrement)
 
     @staticmethod
     def naive():

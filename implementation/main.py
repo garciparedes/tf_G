@@ -15,9 +15,8 @@ def main():
         pr = NumericPageRank(sess, graph_edges, reset_probability)
 
         print(pr.page_rank_vector(convergence=0.001))
-        #print(sess.run(tf.reduce_sum(pr.page_rank_vector(convergence=0.01))))
 
-        Utils.save('logs/test.csv', pr.ranks()+1)
+        Utils.save_ranks('logs/test.csv', pr.ranks())
 
 
 if __name__ == '__main__':
