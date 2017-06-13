@@ -1,8 +1,8 @@
 import tensorflow as tf
 
 from datasets import DataSets
-from pagerank.NumericPageRank import NumericPageRank
-from graph.Graph import Graph
+from pagerank.numeric_page_rank import NumericPageRank
+from graph.graph import Graph
 from utils import Utils
 
 
