@@ -20,6 +20,8 @@ def main():
 
         Utils.save_ranks('logs/test.csv', pr.ranks())
 
+        tf.summary.FileWriter('logs/.', sess.graph)
+
 
 if __name__ == '__main__':
     main()

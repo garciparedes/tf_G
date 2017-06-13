@@ -1,51 +1,50 @@
 import tensorflow as tf
 
 from pagerank.PageRank import PageRank
+from pagerank.transition_matrix import TransitionMatrix
+from pagerank.transition_reset_matrix import TransitionResetMatrix
 from utils import Utils
 
 
 class NumericPageRank(PageRank):
     def __init__(self, sess, name, graph, reset_probability=None):
         super(NumericPageRank, self).__init__(sess)
-
         self.name = name
         self.G = graph
-
         if reset_probability is None:
-            self.transition = tf.div(self.G.A_tf, self.G.E_o_degrees)
+            self.transition = TransitionMatrix(self.G)
         else:
-            beta = tf.constant(reset_probability, tf.float32, name="Beta")
-            condition = tf.not_equal(self.G.E_o_degrees, 0)
-            self.transition = tf.transpose(
-                tf.where(condition,
-                         tf.transpose(
-                             beta * tf.div(self.G.A_tf, self.G.E_o_degrees) + (
-                                 1 - beta) / self.G.n_tf),
-                         tf.fill([self.G.n, self.G.n],
-                                 tf.pow(self.G.n_tf, -1))))
+            self.transition = TransitionResetMatrix(self.G, reset_probability)
         self.v_last = tf.Variable(tf.fill([self.G.n, 1], 0.0),
                                   name=name + "_Vi-1")
         self.v = tf.Variable(tf.fill([self.G.n, 1], tf.pow(self.G.n_tf, -1)),
                              name=name + "_Vi")
+        self.page_rank = tf.matmul(self.transition.get, self.v,
+                                   a_is_sparse=True)
+        self.iteration = tf.assign(self.v, self.page_rank)
         self.sess.run(tf.variables_initializer([self.v_last, self.v]))
 
     def page_rank_vector(self, convergence=None, steps=None):
-        page_rank = tf.matmul(self.transition, self.v, a_is_sparse=True)
-        run_iteration = tf.assign(self.v, page_rank)
         if convergence is not None:
-            diff = tf.reduce_max(tf.abs(tf.subtract(self.v_last, self.v)), 0)
-            self.sess.run(tf.assign(self.v_last, self.v))
-            self.sess.run(run_iteration)
-            while self.sess.run(diff)[0] > convergence / self.sess.run(
-                    self.G.n_tf):
-                self.sess.run(tf.assign(self.v_last, self.v))
-                self.sess.run(run_iteration)
+            return self.page_rank_until_convergence(convergence)
         elif steps > 0:
-            for step in range(steps):
-                self.sess.run(run_iteration)
+            return self.page_rank_until_steps(steps)
         else:
             raise ValueError("'convergence' or 'steps' must be assigned")
-        tf.summary.FileWriter('logs/.', self.sess.graph)
+
+    def page_rank_until_convergence(self, convergence):
+        diff = tf.reduce_max(tf.abs(tf.subtract(self.v_last, self.v)), 0)
+        self.sess.run(tf.assign(self.v_last, self.v))
+        self.sess.run(self.iteration)
+        while self.sess.run(diff)[0] > convergence / self.sess.run(
+                self.G.n_tf):
+            self.sess.run(tf.assign(self.v_last, self.v))
+            self.sess.run(self.iteration)
+        return self.sess.run(self.v)
+
+    def page_rank_until_steps(self, steps):
+        for step in range(steps):
+            self.sess.run(self.iteration)
         return self.sess.run(self.v)
 
     def ranks(self):
