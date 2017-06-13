@@ -2,10 +2,10 @@ import tensorflow as tf
 
 
 class Graph:
-    def __init__(self, sess, edges_dataframe, name):
+    def __init__(self, sess, edges_data_frame, name):
         self.name = name
         self.sess = sess
-        self.edges_data_frame = edges_dataframe
+        self.edges_data_frame = edges_data_frame
         self.A_tf = tf.Variable(tf.transpose(
             tf.scatter_nd(self.E_list,
                           self.m * [1.0],
