@@ -4,6 +4,7 @@ from pagerank.PageRank import PageRank
 from pagerank.transition_matrix import TransitionMatrix
 from pagerank.transition_reset_matrix import TransitionResetMatrix
 from utils import Utils
+import numpy as np
 
 
 class NumericPageRank(PageRank):
@@ -47,9 +48,11 @@ class NumericPageRank(PageRank):
             self.sess.run(self.iteration)
         return self.sess.run(self.v)
 
-    def ranks(self):
+    def ranks(self, convergence=None, steps=None):
+        if convergence or steps is not None:
+            self.page_rank_vector(convergence, steps)
         ranks = tf.py_func(Utils.ranked, [tf.multiply(self.v, -1)], tf.int64)
         ranks = tf.map_fn(lambda x: [x, tf.gather(self.v, x)[0]], ranks,
                           dtype=[tf.int64, tf.float32])
         tf.summary.FileWriter('logs/.', self.sess.graph)
-        return self.sess.run(ranks)
+        return np.concatenate(self.sess.run(ranks), axis=1)

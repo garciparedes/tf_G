@@ -1,9 +1,11 @@
 import tensorflow as tf
 
+from pagerank.transition_matrix import TransitionMatrix
 
-class TransitionResetMatrix:
+
+class TransitionResetMatrix(TransitionMatrix):
     def __init__(self, graph, reset_probability):
-        self.G = graph
+        super(TransitionResetMatrix, self).__init__(graph)
         self.beta = reset_probability
         self.beta_tf = tf.constant(self.beta, tf.float32, name="Beta")
 
