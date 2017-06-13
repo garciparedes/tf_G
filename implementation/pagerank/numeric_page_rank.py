@@ -25,14 +25,6 @@ class NumericPageRank(PageRank):
         self.iteration = tf.assign(self.v, self.page_rank)
         self.sess.run(tf.variables_initializer([self.v_last, self.v]))
 
-    def page_rank_vector(self, convergence=None, steps=None):
-        if convergence is not None:
-            return self.page_rank_until_convergence(convergence)
-        elif steps > 0:
-            return self.page_rank_until_steps(steps)
-        else:
-            raise ValueError("'convergence' or 'steps' must be assigned")
-
     def page_rank_until_convergence(self, convergence):
         diff = tf.reduce_max(tf.abs(tf.subtract(self.v_last, self.v)), 0)
         self.sess.run(tf.assign(self.v_last, self.v))
