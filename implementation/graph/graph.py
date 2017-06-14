@@ -7,10 +7,10 @@ class Graph(TensorFlowObject):
     def __init__(self, sess, name, edges_data_frame):
         TensorFlowObject.__init__(self, sess, name)
         self.edges_data_frame = edges_data_frame
-        self.A_tf = tf.Variable(tf.transpose(
+        self.A_tf = tf.Variable(
             tf.scatter_nd(self.E_list,
                           self.m * [1.0],
-                          [self.n, self.n])), tf.float64, name=self.name + "_A")
+                          [self.n, self.n]), tf.float64, name=self.name + "_A")
         self.n_tf = tf.Variable(float(self.n), tf.float32,
                                 name=self.name + "_n")
 
@@ -30,4 +30,4 @@ class Graph(TensorFlowObject):
 
     @property
     def E_o_degrees(self):
-        return tf.reduce_sum(self.A_tf, 0)
+        return tf.reduce_sum(self.A_tf, 1)

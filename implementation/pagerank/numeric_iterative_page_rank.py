@@ -6,15 +6,14 @@ from pagerank.numeric_page_rank import NumericPageRank
 class NumericIterativePageRank(NumericPageRank):
     def __init__(self, sess, name, graph, beta=None):
         NumericPageRank.__init__(self, sess, name, graph, beta)
-        self.v_last = tf.Variable(tf.fill([self.G.n, 1], 0.0),
+        self.v_last = tf.Variable(tf.fill([1, self.G.n], 0.0),
                                   name=self.name + "_Vi-1")
-        self.iter = tf.assign(self.v,
-                              tf.matmul(self.T.get, self.v,
-                                        a_is_sparse=True))
+        self.iter = tf.assign(self.v, tf.matmul(self.v, self.T.get,
+                                                b_is_sparse=True))
         self.sess.run(tf.variables_initializer([self.v_last]))
 
     def page_rank_until_convergence(self, convergence):
-        diff = tf.reduce_max(tf.abs(tf.subtract(self.v_last, self.v)), 0)
+        diff = tf.reduce_max(tf.abs(tf.subtract(self.v_last, self.v)), 1)
         self.sess.run(tf.assign(self.v_last, self.v))
         self.sess.run(self.iter)
         while self.sess.run(diff)[0] > convergence / self.sess.run(
