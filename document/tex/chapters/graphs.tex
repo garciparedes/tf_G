@@ -203,7 +203,7 @@
       \label{sec:sparsifiers}
 
         \paragraph{}
-        Otra alternativa para la generación del subgrafo $H$ construido sobre el mismo conjunto de vértices y un subconjunto de aristas respecto del grafo $G$ son los \emph{Sparsifiers}. En este caso, en lugar de tratar de mantener la propiedad de la distancia del camino más corto entre pares de vértices, se centran en la minimización del número de cortes mínimos (eliminación de aristas) para separar el conjunto de vértices del grafo en dos subconjuntos disjuntos para cada par de vértices. A este concepto se lo denomina \emph{corte mínimo} (o \emph{Minimun Cut}) y se denota por $\lambda_{u,v}(G)$ para indicar el número de aristas a eliminar para formar dos subconjuntos disjuntos $V_{1}, V_{2}$ de tal manera que $u\in V_{1}$ y $v \in V_{2}$. Nótese por tanto que en un grafo dirigido el \emph{corte mínimo} puede tomar valores en el intervalo $[1, n\cdot(n-1)]$.  En la ecuación \eqref{eq:sparsifier_cut} se muestra la definición formal de \emph{Sparsifier} donde $A$ representa todas las combinaciones de pares de vértices y $\epsilon$ la desviación máxima permitida por el \emph{Sparsifier}, de tal manera que se denota como \emph{$\epsilon$-Sparsifier}.
+        Otra alternativa para la generación del subgrafo $H$ construido sobre el mismo conjunto de vértices y un subconjunto de aristas respecto del grafo $G$ son los \emph{Sparsifiers}. En este caso, en lugar de tratar de mantener la propiedad de la distancia del camino más corto entre pares de vértices, se centran en la minimización del número de cortes mínimos (eliminación de aristas) para separar el conjunto de vértices del grafo en dos subconjuntos disjuntos para cada par de vértices. A este concepto se lo denomina \emph{corte mínimo} (o \emph{Minimun Cut}) y se denota por $\lambda_{u,v}(G)$ para indicar el número de aristas a eliminar para formar dos subconjuntos disjuntos $V_{1}, V_{2}$ de tal manera que $u\in V_{1}$ y $v \in V_{2}$. Nótese por tanto que en un grafo dirigido el \emph{corte mínimo} puede tomar valores en el intervalo $[1, n\cdot(n-1)]$.  En la ecuación \eqref{eq:sparsifier_cut} se muestra la definición formal de \emph{Sparsifier} donde $A$ representa todas las combinaciones de pares de vértices y $\epsilon$ la desviación máxima permitida por el \emph{Sparsifier}, de tal manera que se denota como \emph{$(1 +\epsilon)$-Sparsifier}.
 
         \begin{figure}
           \centering
@@ -218,7 +218,7 @@
         \end{equation}
 
         \paragraph{}
-        A continuación se describe una definición para entender las ideas subyacentes en que se basan los \emph{Sparsifiers}. Podemos definir $G$ como $G = G_0 \subseteq G_1 \subseteq ...  \subseteq G_{i-1} \subseteq G_i \subseteq ... $ de tal manera que $Gi$ se construye eliminando los aristas de $G_{i-1}$ con probabilidad $p = 1/2$. Por tanto, $G_i$ está formado por el subconjunto de aristas de $G$ seleccionadas con probabilidad $p = (\frac{1}{2})^i$. Entonces, para construir un \emph{$\epsilon$-Sparsifier} de $G$, el valor $p$ debe ser escogido tal y como se indica en la ecuación \eqref{eq:sparsifier_p}. La demostración se encuentra en el artículo \emph{On graph problems in a semi-streaming model} \cite{feigenbaum2005graph} desarrollado por \emph{Feigenbaum y otros}. Por tanto, el problema se reduce al mantenimiento de un \emph{$L_{0}$-Sampler} que mantenga un subconjunto de aristas seleccionados con probabilidad $p$ del stream de aristas.
+        A continuación se describe una definición para entender las ideas subyacentes en que se basan los \emph{Sparsifiers}. Podemos definir $G$ como $G = G_0 \subseteq G_1 \subseteq ...  \subseteq G_{i-1} \subseteq G_i \subseteq ... $ de tal manera que $Gi$ se construye eliminando los aristas de $G_{i-1}$ con probabilidad $p = 1/2$. Por tanto, $G_i$ está formado por el subconjunto de aristas de $G$ seleccionadas con probabilidad $p = (\frac{1}{2})^i$. Entonces, para construir un \emph{$(1 +\epsilon)$-Sparsifier} de $G$, el valor $p$ debe ser escogido tal y como se indica en la ecuación \eqref{eq:sparsifier_p}. La demostración se encuentra en el artículo \emph{On graph problems in a semi-streaming model} \cite{feigenbaum2005graph} desarrollado por \emph{Feigenbaum y otros}. Por tanto, el problema se reduce al mantenimiento de un \emph{$L_{0}$-Sampler} que mantenga un subconjunto de aristas seleccionados con probabilidad $p$ del stream de aristas.
 
         \begin{equation}
         \label{eq:sparsifier_p}
@@ -234,10 +234,25 @@
         \end{equation}
 
         \paragraph{}
-        Mediante la estrategia de los \emph{Spectral Sparsifiers} además de aproximar el corte mínimo $\lambda(G)$ se pueden aproximar otras propiedades como propiedades de los paseos aleatorios (que se describen en la sección \ref{sec:random_walks}). A continuación se describen los \emph{Twice-Ramanujan Sparsifiers}, que son capaces de generar un \emph{$e$-Spectral Sparsifiers} en un espacio de $O(\epsilon^{-2}n)$.
+        Mediante la estrategia de los \emph{Spectral Sparsifiers}, además de aproximar el corte mínimo $\lambda(G)$ se pueden aproximar otras propiedades como propiedades de los paseos aleatorios (que se describen en la sección \ref{sec:random_walks}). En el trabajo \emph{Twice-Ramanujan Sparsifiers} \cite{batson2012twice} redactado por \emph{Batson y otros} se describen una estrategia de construcción de \emph{$(1 +\epsilon)$-Spectral Sparsifiers} en un espacio de $O(\epsilon^{-2}n)$.
 
         \paragraph{}
-        [TODO describir] \emph{Twice-Ramanujan Sparsifiers} \cite{batson2012twice} redactado por \emph{Batson y otros}.
+        A continuación se describe una estrategia sencilla de construcción de \emph{$(1 +\epsilon)$-Sparsifiers} para grafos no dirigidos. Esta se basa en la selección de aristas con probabilidad $p$ definido tal y como se indicó anteriormente en la ecuación \eqref{eq:sparsifier_p}.
+
+        \paragraph{}
+        \begin{algorithm}
+          \SetAlgoLined
+          \KwResult{$E'$ }
+          $E' \gets \emptyset$\;
+          \For{cada $(u, v) \in E$}{
+            $r \gets Uniform(0,1)\;$ \\
+            \If{$r < p$}{
+              $E' \gets E' \cup \{(u,v)\}$\;
+            }
+          }
+          \caption{Basic Sparsifier}
+          \label{code:basic_sparsifier}
+        \end{algorithm}
 
         \paragraph{}
         Las estrategias descritas en esta sección para la redución de la complejidad de grafos ajustandose al \emph{modelo en semi-streaming} proporcionan una ventaja significativa a nivel de espacio mediante la redución del conjunto de aristas para la resolución de otros problemas a partir de ellas. Por contra, estas generan una determinada tasa de error. Cuando se ha hablado de optimalidad en esta sección, ha sido referida al caso de \emph{grafos no dirigidos}, dado que para el caso de los \emph{grafos dirigidos}, aún no se han encontrado métodos de generación de \emph{Spanners} o \emph{Sparsifiers} óptimos debido a la mayor complejidad que estos conllevan. En la siguiente sección se describen distintos problemas para los cuales se ha encontrado una solución sobre el \emph{modelo en semi-streaming} y sus correspondientes restricciónes
@@ -247,10 +262,25 @@
     \label{sec:graph_problems}
 
       \paragraph{}
-      [TODO ]
+      El modelo de representación de grafos proporciona un marco de trabajo flexible sobre el cual se pueden modelizar un gran número de situaciones. Un ejemplo característico de esta situación son las redes sociales, en las cuales cada persona representa un vértice en el grafo mientras que las aristas representan las relaciones entre estas. El conjunto de relaciones generadas a partir de los enlaces entre páginas web (\emph{Web Graph}) también son un claro ejemplo de problemas que se pueden representar mediante un grafo. Sin embargo, este modelo permite representar otras muchas situaciones como planificación de tareas donde cada vértice representa una tarea y las aristas marcan el orden de precedencia de las mismas. Los grafos también se pueden utilizar para modelizar el problema de encontrar determinados objetos o estructuras en imágenes.
+
+      \paragraph{}
+      Muchos de estos problemas pueden extenderse a un modelo dinámico, en el cual la estructura del grafo varía con respecto del tiempo. Algunos ejemplos son nuevos amigos que se conectan en el modelo de redes sociales, la eliminación de enlaces entre webs en el caso del grafo de la red (\emph{Web Graph}), cambios de última hora debido a factores externos en cuanto a planificación de tareas o la extensión del reconocimiento de estructuras en vídeos, que pueden ser vistos como la variación del estado de la imagen con respecto del tiempo.
+
+      \paragraph{}
+      Por estas razones, en esta sección se pretende realizar una descripción acerca de distintos problemas aplicados a grafos sobre el \emph{modelo en semi-streaming}. Estos problemas generalmente son de carácter básico, sin embargo, son de vital importancia puesto que a partir de ellos pueden plantearse soluciones a otros de mayor complejidad.
+
+      \paragraph{}
+      El resto de la sección se organiza de la siguiente manera: En el apartado \ref{sec:graph_matchings} se describirá el \emph{problema de Matching}, en el apartado \ref{sec:counting_subgraphs} se habla del \emph{problema de Conteo de Subgrafos}, posteriormente se expone el problema de encontrar el \emph{Arbol Recubridor Mínimo} en el apartado \ref{sec:minimum_spanning_tree}, en el apartado \ref{sec:graph_connectiviy} se habla sobre propiedades de \emph{Conectividad en Grafos} y finalmente en el apartado \ref{sec:random_walks} se realiza una breve introducción acerca de los \emph{Paseos Aleatorios}, que será extendida en profundidad en el capítulo siguiente, destinado exclusivamente al \emph{Algoritmo PageRank}. Se vuelve a remarcar que estos problemas se describen desde la persepectiva del \emph{modelo en semi-streaming}.
 
       \subsection{Matching}
       \label{sec:graph_matchings}
+
+        \paragraph{}
+        [TODO ]
+
+      \subsection{Conteo de Subgrafos}
+      \label{sec:counting_subgraphs}
 
         \paragraph{}
         [TODO ]
@@ -261,20 +291,14 @@
         \paragraph{}
         [TODO ]
 
-      \subsection{Problemas de Rutado}
-      \label{sec:network_routing}
+      \subsection{Conectividad}
+      \label{sec:graph_connectiviy}
 
         \paragraph{}
         [TODO ]
 
-      \subsection{Problemas de Cubrimiento}
-      \label{sec:network_covering}
-
-        \paragraph{}
-        [TODO ]
-
-      \subsection{Análisis de Redes}
-      \label{sec:network_analysis}
+      \subsection{Paseos Aleatorios}
+      \label{sec:random_walks}
 
         \paragraph{}
         [TODO ]
