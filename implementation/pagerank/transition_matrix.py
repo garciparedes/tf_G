@@ -8,7 +8,9 @@ class TransitionMatrix(TensorFlowObject):
         TensorFlowObject.__init__(self, sess, name)
         self.G = graph
         self.transition = tf.Variable(
-            tf.transpose(tf.div(tf.transpose(self.G.A_tf), self.G.E_o_degrees)),
+            tf.where(self.G.is_not_sink_vertice,
+                     tf.div(self.G.A_tf, self.G.E_o_degrees),
+                     tf.fill([self.G.n, self.G.n], 0.0)),
             name=self.name + "_T_naive")
         self.sess.run(tf.variables_initializer([self.transition]))
 

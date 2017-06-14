@@ -29,5 +29,9 @@ class Graph(TensorFlowObject):
         return self.edges_data_frame.values.tolist()
 
     @property
-    def E_o_degrees(self):
-        return tf.reduce_sum(self.A_tf, 1)
+    def is_not_sink_vertice(self):
+        return tf.not_equal(tf.reduce_sum(self.A_tf, 1), 0)
+
+    @property
+    def E_o_degrees(self, keep_dims=True):
+        return tf.reduce_sum(self.A_tf, 1, keep_dims=keep_dims)
