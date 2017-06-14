@@ -18,6 +18,10 @@ class DataSets:
         return data
 
     @staticmethod
+    def empty():
+        return pd.DataFrame(data={'src': [], 'dst': []}, dtype='int')
+
+    @staticmethod
     def followers(index_decrement=True):
         return DataSets._compose('followers', index_decrement)
 
