@@ -6,12 +6,14 @@ from pagerank.transition_reset_matrix import TransitionResetMatrix
 
 class NumericIterativePageRank(NumericPageRank):
     def __init__(self, sess, name, graph, beta=None):
-        NumericPageRank.__init__(self, sess, name, graph, beta)
+        T = TransitionResetMatrix(sess, name,
+                                  graph,
+                                  beta)
+        NumericPageRank.__init__(self, sess, name, graph, beta, T)
+
         self.v_last = tf.Variable(tf.fill([1, self.G.n], 0.0),
                                   name=self.name + "_Vi-1")
-        self.T = TransitionResetMatrix(self.sess, self.name,
-                                       self.G,
-                                       self.beta_tf)
+
         self.iter = [self.v_last.assign(self.v),
                      self.v.assign(tf.matmul(self.v, self.T.get,
                                              b_is_sparse=True))]

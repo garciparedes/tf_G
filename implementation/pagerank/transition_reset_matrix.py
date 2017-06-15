@@ -1,11 +1,13 @@
 import tensorflow as tf
 
-from pagerank.transition_matrix import TransitionMatrix
+from tensor_flow_object import TensorFlowObject
 
 
-class TransitionResetMatrix(TransitionMatrix):
+class TransitionResetMatrix(TensorFlowObject):
     def __init__(self, sess, name, graph, beta):
-        TransitionMatrix.__init__(self, sess, name, graph)
+        TensorFlowObject.__init__(self, sess, name)
+        self.G = graph
+
         self.transition = tf.Variable(
             tf.where(self.G.is_not_sink_vertice,
                      tf.add(
