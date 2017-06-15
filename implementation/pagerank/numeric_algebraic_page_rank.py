@@ -15,11 +15,11 @@ class NumericAlgebraicPageRank(NumericPageRank):
         NumericPageRank.__init__(self, sess, name, graph, beta, T)
 
     def _page_rank_exact(self):
-        a = tf.fill([1, self.G.n], (1 - self.beta_tf) / self.G.n_tf)
+        a = tf.fill([1, self.G.n], (1 - self.beta) / self.G.n_tf)
         b = tf.matrix_inverse(
-            tf.eye(self.G.n, self.G.n) - self.beta_tf * self.T.get)
-        self.sess.run(self.v.assign(tf.matmul(a, b, b_is_sparse=True)))
-        return self.sess.run(self.v)
+            tf.eye(self.G.n, self.G.n) - self.beta * self.T.get)
+        self.run(self.v.assign(tf.matmul(a, b, b_is_sparse=True)))
+        return self.run(self.v)
 
     def _page_rank_until_convergence(self, convergence):
         warnings.warn('NumericPageRank not implements iterative PageRank! ' +

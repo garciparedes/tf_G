@@ -15,7 +15,7 @@ class NumericPageRank(PageRank):
         self.T = T
         self.v = tf.Variable(tf.fill([1, self.G.n], tf.pow(self.G.n_tf, -1)),
                              name=self.name + "_Vi")
-        self.sess.run(tf.variables_initializer([self.v]))
+        self.run(tf.variables_initializer([self.v]))
 
     def ranks(self, convergence=1.0, steps=0):
         self.page_rank_vector(convergence, steps)
@@ -24,5 +24,4 @@ class NumericPageRank(PageRank):
         ranks = tf.map_fn(lambda x: [x, tf.gather(tf.gather(self.v, 0), x)],
                           ranks,
                           dtype=[tf.int64, tf.float32])
-        tf.summary.FileWriter('logs/.', self.sess.graph)
-        return np.concatenate(self.sess.run(ranks), axis=1)
+        return np.concatenate(self.run(ranks), axis=1)

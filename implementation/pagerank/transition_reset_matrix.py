@@ -16,7 +16,7 @@ class TransitionResetMatrix(TensorFlowObject):
                          (1 - beta) / self.G.n_tf),
                      tf.fill([self.G.n, self.G.n], tf.pow(self.G.n_tf, -1))),
             name=self.name + "_T")
-        self.sess.run(tf.variables_initializer([self.transition]))
+        self.run(tf.variables_initializer([self.transition]))
 
     @property
     def get(self):

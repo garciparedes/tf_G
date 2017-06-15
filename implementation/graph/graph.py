@@ -23,7 +23,7 @@ class Graph(TensorFlowObject):
                                 name=self.name + "_A")
         self.n_tf = tf.Variable(float(self.n), tf.float32,
                                 name=self.name + "_n")
-        self.sess.run(tf.variables_initializer([self.A_tf, self.n_tf]))
+        self.run(tf.variables_initializer([self.A_tf, self.n_tf]))
 
     @property
     def is_not_sink_vertice(self):
@@ -38,17 +38,17 @@ class Graph(TensorFlowObject):
         return tf.reduce_sum(self.A_tf, 1, keep_dims=True)
 
     def __str__(self):
-        return str(self.sess.run(self.A_tf))
+        return str(self.run(self.A_tf))
 
     def append(self, src, dst):
         if src and dst is None:
             raise ValueError("src and dst must not be None ")
-        self.sess.run(tf.scatter_nd_update(self.A_tf, [[src, dst]], [1.0]))
+        self.run(tf.scatter_nd_update(self.A_tf, [[src, dst]], [1.0]))
         self.m += 1
 
     def remove(self, src=None, dst=None):
         if src and dst is None:
             raise ValueError("src and dst must not be None ")
-        self.sess.run(tf.scatter_nd_update(self.A_tf, [[src, dst]], [-1.0]))
+        self.run(tf.scatter_nd_update(self.A_tf, [[src, dst]], [-1.0]))
 
         self.m -= 1
