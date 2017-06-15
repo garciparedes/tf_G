@@ -273,11 +273,21 @@
       \paragraph{}
       El resto de la sección se organiza de la siguiente manera: En el apartado \ref{sec:graph_matchings} se describirá el \emph{problema de Matching}, en el apartado \ref{sec:counting_subgraphs} se habla del \emph{problema de Conteo de Triángulos}, posteriormente se expone el problema de encontrar el \emph{Arbol Recubridor Mínimo} en el apartado \ref{sec:minimum_spanning_tree}, en el apartado \ref{sec:graph_connectiviy} se habla sobre propiedades de \emph{Conectividad en Grafos} y finalmente en el apartado \ref{sec:random_walks} se realiza una breve introducción acerca de los \emph{Paseos Aleatorios}, que será extendida en profundidad en el capítulo siguiente, destinado exclusivamente al \emph{Algoritmo PageRank}. Se vuelve a remarcar que estos problemas se describen desde la persepectiva del \emph{modelo en semi-streaming}.
 
-      \subsection{Matching}
-      \label{sec:graph_matchings}
+      \subsection{Verificación de Grafos Bipartitos}
+      \label{sec:bipartite_matchings}
 
         \paragraph{}
-        [TODO ]
+        En la sección \ref{sec:graph_formalism} en la cual se realizó una descripción formal acerca de las definiciones sobre grafos que se utilizarían durante el resto del capítulo se hablo de \emph{Grafos Bipartitos}, que tal y como se indicó, estos se refieren a aquellos grafos que cumplen la propiedad de formar dos subconjuntos disjuntos de vértices que se relacionan entre si mediante aristas incidentes sobre 2 vértices cada uno perteneciente a un subconjunto distinto. Tal y como se indicó anteriormente, en la figura \ref{img:bipartite_graph_example} se muestra un ejemplo de grafo bipartito.
+
+        \paragraph{}
+        En el trabajo \emph{On graph problems in a semi-streaming model}\cite{feigenbaum2005graph} (en el cual se expone por primera vez el modelo en semi-streaming) los autores ilustran un algoritmo con un coste espacial de $O(n \cdot log(n))$ procesando cada arista en $O(1)$ y realizando $O(log(1 / \epsilon)) \epsilon$ pasadas sobre el stream de aristas que indica si se cumple la propiedad de grafo bipartito.
+
+        \paragraph{}
+        El algoritmo se basa en lo siguiente: Una fase inicial de construcción de un \emph{Matching Maximal} (selección de aristas de tal manera que ninguna sea indicente del mismo vértice que otra). Esta tarea se realiza sobre la primera pasada del stream de aristas. El resto de pasadas se basan en la adicción de aristas para hacer conexo el grafo de tal manera que se no se formen ciclos. Si esta estrategia es posible para todas las aristas del stream, entonces se cumple la propiedad de grafo bipartito.
+
+        \paragraph{}
+        Existen otras estrategias para probar que un grafo cumple la propiedad de grafo bipartito. Cuando se hable de problemas de conectividad en la sección \ref{sec:graph_connectiviy} se expondrá otra estrategia para la validación de la propiedad de grafos bipartitos.
+
 
       \subsection{Conteo de Triángulos}
       \label{sec:counting_triangles}
@@ -314,6 +324,13 @@
 
         \paragraph{}
         [TODO ]
+
+        \begin{figure}
+          \centering
+          \includegraphics[width=0.3\textwidth]{minimum-spanning-tree}
+          \caption{Ejemplo de \emph{Árbol Recubridor Mínimo}. (Extraido de \cite{wiki:Minimum_spanning_tree})}
+          \label{img:minimum_spanning_tree}
+        \end{figure}
 
       \subsection{Conectividad}
       \label{sec:graph_connectiviy}
