@@ -1,11 +1,13 @@
 import tensorflow as tf
 
+from notifier import Notifier
 from tensor_flow_object import TensorFlowObject
 
 
-class Graph(TensorFlowObject):
+class Graph(TensorFlowObject, Notifier):
     def __init__(self, sess, name, writer=None, edges_np=None, n=None):
         TensorFlowObject.__init__(self, sess, name, writer)
+        Notifier.__init__(self)
 
         if edges_np is not None:
             self.n = int(edges_np.max(axis=0).max() + 1)
@@ -45,10 +47,11 @@ class Graph(TensorFlowObject):
             raise ValueError("src and dst must not be None ")
         self.run(tf.scatter_nd_update(self.A_tf, [[src, dst]], [1.0]))
         self.m += 1
+        self._notify()
 
-    def remove(self, src=None, dst=None):
+    def remove(self, src, dst):
         if src and dst is None:
             raise ValueError("src and dst must not be None ")
         self.run(tf.scatter_nd_update(self.A_tf, [[src, dst]], [-1.0]))
-
         self.m -= 1
+        self._notify()

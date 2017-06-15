@@ -2,6 +2,7 @@ import tensorflow as tf
 import numpy as np
 from datasets import DataSets
 from graph.graph_sparsifier import GraphSparsifier
+from pagerank.numeric_algebraic_page_rank import NumericAlgebraicPageRank
 from pagerank.numeric_iterative_page_rank import NumericIterativePageRank
 from pagerank.numeric_page_rank import NumericPageRank
 from graph.graph import Graph
@@ -18,23 +19,19 @@ def main():
     with tf.Session() as sess:
         writer = tf.summary.FileWriter('logs/.')
 
-        followers_g = Graph(sess, "Gfollowers", edges_np=followers_edges_np, writer=writer)
-        wiki_vote_g = Graph(sess, "Gwikivote", edges_np=wiki_vote_edges_np, writer=writer)
-
-
-        graph_stream = Graph(sess, "Gfollowers_stream", n=int(followers_edges_np.max(axis=0).max() + 1),
+        graph_stream = Graph(sess, "Gfollowers_stream",
+                             n=int(followers_edges_np.max(axis=0).max() + 1),
                              writer=writer)
+        pr_stream = NumericIterativePageRank(sess, "PRs", graph_stream, beta)
+
         for r in followers_edges_np:
             start_time = timeit.default_timer()
             graph_stream.append(r[0], r[1])
             elapsed = timeit.default_timer() - start_time
             print(elapsed)
+            print(pr_stream.ranks(convergence=0.0001))
 
         print(graph_stream)
-
-        pr_stream = NumericIterativePageRank(sess, "PRs", graph_stream, beta)
-        pr_stream = pr_stream.ranks(convergence=0.0001)
-        print(pr_stream)
 
         '''
         pr_1 = NumericPageRank(sess, "PR_1", followers_g, beta)
