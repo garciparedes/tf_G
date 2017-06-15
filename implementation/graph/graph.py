@@ -4,8 +4,8 @@ from tensor_flow_object import TensorFlowObject
 
 
 class Graph(TensorFlowObject):
-    def __init__(self, sess, name, edges_np=None, n=None):
-        TensorFlowObject.__init__(self, sess, name)
+    def __init__(self, sess, name, writer=None, edges_np=None, n=None):
+        TensorFlowObject.__init__(self, sess, name, writer)
 
         if edges_np is not None:
             self.n = int(edges_np.max(axis=0).max() + 1)
@@ -30,8 +30,12 @@ class Graph(TensorFlowObject):
         return tf.not_equal(tf.reduce_sum(self.A_tf, 1), 0)
 
     @property
-    def E_o_degrees(self, keep_dims=True):
-        return tf.reduce_sum(self.A_tf, 1, keep_dims=keep_dims)
+    def in_degrees(self):
+        return tf.reduce_sum(self.A_tf, 0, keep_dims=True)
+
+    @property
+    def out_degrees(self):
+        return tf.reduce_sum(self.A_tf, 1, keep_dims=True)
 
     def __str__(self):
         return str(self.sess.run(self.A_tf))

@@ -9,7 +9,7 @@ class TransitionMatrix(TensorFlowObject):
         self.G = graph
         self.transition = tf.Variable(
             tf.where(self.G.is_not_sink_vertice,
-                     tf.div(self.G.A_tf, self.G.E_o_degrees),
+                     tf.div(self.G.A_tf, self.G.out_degrees),
                      tf.fill([self.G.n, self.G.n], 0.0)),
             name=self.name + "_T")
         self.sess.run(tf.variables_initializer([self.transition]))
