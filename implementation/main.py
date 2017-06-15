@@ -22,12 +22,16 @@ def main():
         print(g_followers)
         print(pr_followers.ranks(convergence=convergence))
 
+        # gs_followers = g_followers.sparsifier(alpha=0.9)
+
+        '''
         g_wiki_vote = Graph(sess, "Gwikivote", edges_np=wiki_vote_edges_np,
                             writer=writer)
         pr_wiki_vote = NumericIterativePageRank(sess, "PRwikivote",
                                                 g_wiki_vote, beta)
         print(g_wiki_vote)
         print(pr_wiki_vote.ranks(convergence=convergence))
+        '''
 
         writer.add_graph(sess.graph)
 

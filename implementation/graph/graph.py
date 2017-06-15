@@ -39,6 +39,10 @@ class Graph(TensorFlowObject, Notifier):
     def out_degrees(self):
         return tf.reduce_sum(self.A_tf, 1, keep_dims=True)
 
+    @property
+    def edges_np(self):
+        return None
+
     def __str__(self):
         return str(self.run(self.A_tf))
 
@@ -55,3 +59,11 @@ class Graph(TensorFlowObject, Notifier):
         self.run(tf.scatter_nd_update(self.A_tf, [[src, dst]], [-1.0]))
         self.m -= 1
         self._notify()
+
+    def sparsifier(self, alpha):
+        '''
+        boolean_distribution = tf.less_equal(
+            tf.random_uniform([self.m], 0.0, 1.0), alpha)
+        edges_np = self.edges_np[self.sess.run(boolean_distribution)]
+        '''
+        return Graph(self.sess, self.name + "_sparsifier", edges_np=self.edges_np)
