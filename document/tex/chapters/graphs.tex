@@ -271,7 +271,7 @@
       Por estas razones, en esta sección se pretende realizar una descripción acerca de distintos problemas aplicados a grafos sobre el \emph{modelo en semi-streaming}. Estos problemas generalmente son de carácter básico, sin embargo, son de vital importancia puesto que a partir de ellos pueden plantearse soluciones a otros de mayor complejidad.
 
       \paragraph{}
-      El resto de la sección se organiza de la siguiente manera: En el apartado \ref{sec:graph_matchings} se describirá el \emph{problema de Matching}, en el apartado \ref{sec:counting_subgraphs} se habla del \emph{problema de Conteo de Triángulos}, posteriormente se expone el problema de encontrar el \emph{Arbol Recubridor Mínimo} en el apartado \ref{sec:minimum_spanning_tree}, en el apartado \ref{sec:graph_connectiviy} se habla sobre propiedades de \emph{Conectividad en Grafos} y finalmente en el apartado \ref{sec:random_walks} se realiza una breve introducción acerca de los \emph{Paseos Aleatorios}, que será extendida en profundidad en el capítulo siguiente, destinado exclusivamente al \emph{Algoritmo PageRank}. Se vuelve a remarcar que estos problemas se describen desde la persepectiva del \emph{modelo en semi-streaming}.
+      El resto de la sección se organiza de la siguiente manera: En el apartado \ref{sec:bipartite_matchings} se describirá el \emph{problema de Matching}, a continuación se habla del \emph{problema de Conteo de Triángulos} en el apartado \ref{sec:counting_triangles}, posteriormente se expone el problema de encontrar el \emph{Arbol Recubridor Mínimo} en el apartado \ref{sec:minimum_spanning_tree}, en el apartado \ref{sec:graph_connectiviy} se habla sobre propiedades de \emph{Conectividad en Grafos} y finalmente en el apartado \ref{sec:random_walks} se realiza una breve introducción acerca de los \emph{Paseos Aleatorios}, que será extendida en profundidad en el capítulo siguiente, destinado exclusivamente al \emph{Algoritmo PageRank}. Se vuelve a remarcar que estos problemas se describen desde la persepectiva del \emph{modelo en semi-streaming}.
 
       \subsection{Verificación de Grafos Bipartitos}
       \label{sec:bipartite_matchings}
@@ -299,7 +299,10 @@
         Sean $v_{i_1},v_{i_2},v_{i_3} \in V$ tres dístintos vértices del grafo $G$ y $e_{j_1}, e_{j_2} e_{j_3} \in E$ tres aristas disintos de dicho grafo. Entónces se denomina triángulo a la tripleta $\{e_{j_1}, e_{j_2} e_{j_3}\}$ si se cumple que $e_{j_1} = (v_{i_1},v_{i_2})$, $e_{j_2} = (v_{i_2},v_{i_3})$ y $e_{j_3} = (v_{i_3},v_{i_1})$. Al cardinal del conjunto de tripletas distintas sobre el grafo $G$ se lo denomina $T_3$. Esta definición puede extenderse a figuras de con mayor número de vértices modificando el valor $3$ por otro mayor. Sin embargo, estos casos son de menor interés puesto que aportan información similar sobre la estructura del grafo pero requieren un mayor coste computacional para su cálculo.
 
         \paragraph{}
-        Se han encontrado estrategias para soluciones aproximadas al problema del \emph{conteo de triángulos} sobre las restricciones del \emph{modelo en semi-streaming}. La primera propuesta expuesta en \emph{Reductions in streaming algorithms, with an application to counting triangles in graphs} \cite{bar2002reductions} por \emph{Bar-Yossef y otros} fue la modelización del problema como el conteo de aristas que unen todas aquellas tripletas de nodos, denotadas como $x_{\{v_{i_1},v_{i_2},v_{i_3}\}}$ cuyo valor es $3$. Mediante la estimación de momentos de frecuencia (de los cuales se habló en la sección \ref{sec:streaming_frecuency_moment_aproximation}) se puede calcular el número de triángulos distintos tal y como se indica en la ecuación \ref{eq:graph_triangles_frecuency}. En el trabajo \cite{bar2002reductions} se muestra una descripción acerca del algoritmo para encontra una \emph{$(1 + \epsilon)$-estimación} basada en esta técnica con un coste computacional de $O(\alpha^{-2})$ en espacio donde $\alpha = \epsilon / (8 \cdot m \cdot n)$.
+        Se han encontrado estrategias para soluciones aproximadas al problema del \emph{conteo de triángulos} sobre las restricciones del \emph{modelo en semi-streaming}. La primera propuesta expuesta en \emph{Reductions in streaming algorithms, with an application to counting triangles in graphs} \cite{bar2002reductions} por \emph{Bar-Yossef y otros} fue la modelización del problema como el conteo de aristas que unen todas aquellas tripletas de nodos, denotadas como $x_{\{v_{i_1},v_{i_2},v_{i_3}\}}$ cuyo valor es $3$.
+
+        \paragraph{}
+        Mediante la estimación de momentos de frecuencia (de los cuales se habló en la sección \ref{sec:streaming_frecuency_moment_aproximation}) se puede calcular el número de triángulos distintos tal y como se indica en la ecuación \ref{eq:graph_triangles_frecuency}. En el trabajo \cite{bar2002reductions} se muestra una descripción acerca del algoritmo para encontra una \emph{$(1 + \epsilon)$-estimación} basada en esta técnica con un coste computacional de $O(\alpha^{-2})$ en espacio donde $\alpha = \epsilon / (8 \cdot m \cdot n)$.
 
         \begin{equation}
         \label{eq:graph_triangles_frecuency}
@@ -319,11 +322,20 @@
 
 
 
-      \subsection{Arbol Recubridor Mínimo}
+      \subsection{Árbol Recubridor Mínimo}
       \label{sec:minimum_spanning_tree}
 
         \paragraph{}
-        [TODO ]
+        El problema de la búsqueda del \emph{árbol recubridor mínimo} (\emph{Minimum Spanning Tree}) es uno de los casos más estudiados en problemas de grafos. Se refiere a la búqueda del subgrafo $H = (V, E')$ respecto del grafo $G=(V, E)$ formado por todos los vértices del grafo $G$ y un subconjunto de aristas del mismo.
+
+        \paragraph{}
+        La propiedad que debe cumplir el subconjunto de aristas $E'$ es que tan solo debe existir un único camino para llegar desde un vértice cualquiera al resto de vértices del grafo y, además, el sumatorio de los pesos de las aristas contenidas en dicho camino debe ser el mínimo respecto de todos los posible en $G$. En la figura \ref{img:minimum_spanning_tree} se muestra un ejemplo del  \emph{árbol recubridor mínimo} sobre un grafo ponderado
+
+        \paragraph{}
+        Nótese que para que exista un \emph{árbol recubridor mínimo} el grafo $G$ debe ser conexo. En el caso de que $G$ no sea conexo entonces se habla de \emph{bosque recubridor mínimo} (\emph{Minimum Spanning Forest}). El problema del \emph{árbol recubridor mínimo} no siempre tiene una solución única, sino que pueden encontrarse distintos subgrafos $H_i$ que cumplan la propiedad utilizando subconjuntos de aristas diferentes. El caso más carácterístico de esta situación es cuando se busca el \emph{árbol recubridor mínimo} sobre un grafo no ponderado, es decir, aquel en el cual todas las aristas tienen el mismo peso.
+
+        \paragraph{}
+        Este problema se ha definido comúnmente sobre grafos no dirigidos, por su mayor simplicidad y aplicación práctica. Sin embargo, la modelización es extensible a grafos dirigidos, para los cuales el problema es mucho más complejo dado que por cada vértice es necesario mantener un arista de entrada y otro de salida.
 
         \begin{figure}
           \centering
@@ -331,6 +343,20 @@
           \caption{Ejemplo de \emph{Árbol Recubridor Mínimo}. (Extraido de \cite{wiki:Minimum_spanning_tree})}
           \label{img:minimum_spanning_tree}
         \end{figure}
+
+        \paragraph{}
+        La versión estática del problema del \emph{árbol recubridor mínimo} ha sido ampliamente estudiada en la literatura, existiendo un gran número de alternativas, entre las que destaca históricamente el \emph{Algoritmo de Kruskal} descrito en el artículo \emph{On the shortest spanning subtree of a graph and the traveling salesman problem} \cite{kruskal1956shortest} cuya complejidad temporal es de $O(n + log(m))$ sobre un espacio de $O(n+m)$.
+
+        \paragraph{}
+        También se han propuesto soluciones basadas en algoritmos probabilistas, que ofrecen garantias de optimalidad en su solución. La versión más eficiente encontrada hasta la fecha se describe en el trabajo \emph{An optimal minimum spanning tree algorithm} \cite{pettie2002optimal} de \emph{Pettie y otros}. Sin embargo, debido a las técnicas que utiliza (mediante reducción a \emph{Árboles de Decisión}) no se puede representar mediante una función, pero sí que se ha demostrado su optimalidad. El problema también se ha estudiado desde la perspectiva de la parelelización. En el trabajo \emph{Fast shared-memory algorithms for computing the minimum spanning forest of sparse graphs} \cite{bader2006fast} \emph{Bader y otros} muestran un algoritmo que mediante el multiprocesamiento consiguen soluciones $5$ veces más eficientes que la versión optimizada secuencial.
+
+        \paragraph{}
+        Una vez descrito el problema y su estado actual, el resto del apartado se basará en la descripción del mismo sobre las restricciones del \emph{modelo en semi-streaming}. Para ello se realiza una descripción del algoritmo exacto propuesto por \emph{Ahn y otros} en \emph{Analyzing graph structure via linear measurements} \cite{ahn2012analyzing}.
+
+
+        \paragraph{}
+        [TODO aplicaciones del problema]
+
 
       \subsection{Conectividad}
       \label{sec:graph_connectiviy}
