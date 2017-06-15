@@ -24,7 +24,7 @@ class NumericPageRank(PageRank):
         a = tf.fill([1, self.G.n], (1 - self.beta_tf) / self.G.n_tf)
         b = tf.matrix_inverse(
             tf.eye(self.G.n, self.G.n) - self.beta_tf * self.T.get)
-        self.sess.run(tf.assign(self.v, tf.matmul(a, b, b_is_sparse=True)))
+        self.sess.run(self.v.assign(tf.matmul(a, b, b_is_sparse=True)))
         return self.sess.run(self.v)
 
     def _page_rank_until_convergence(self, convergence):

@@ -12,17 +12,15 @@ class NumericIterativePageRank(NumericPageRank):
         self.T = TransitionResetMatrix(self.sess, self.name,
                                        self.G,
                                        self.beta_tf)
-        self.iter = tf.assign(self.v, tf.matmul(self.v, self.T.get,
-                                                b_is_sparse=True))
+        self.iter = [self.v_last.assign(self.v),
+                     self.v.assign(tf.matmul(self.v, self.T.get,
+                                             b_is_sparse=True))]
         self.sess.run(tf.variables_initializer([self.v_last]))
 
     def _page_rank_until_convergence(self, convergence):
         diff = tf.reduce_max(tf.abs(tf.subtract(self.v_last, self.v)), 1)
-        self.sess.run(tf.assign(self.v_last, self.v))
         self.sess.run(self.iter)
-        while self.sess.run(diff)[0] > convergence / self.sess.run(
-                self.G.n_tf):
-            self.sess.run(tf.assign(self.v_last, self.v))
+        while self.sess.run(diff)[0] > convergence / self.sess.run(self.G.n_tf):
             self.sess.run(self.iter)
         return self.sess.run(self.v)
 

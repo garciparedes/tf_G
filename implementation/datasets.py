@@ -15,11 +15,7 @@ class DataSets:
         data = pd.read_csv(DataSets._compose_url(name))
         if index_decrement:
             data -= 1
-        return data
-
-    @staticmethod
-    def empty():
-        return pd.DataFrame(data={'src': [], 'dst': []}, dtype='int')
+        return data.as_matrix()
 
     @staticmethod
     def followers(index_decrement=True):
