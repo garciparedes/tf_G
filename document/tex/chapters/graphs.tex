@@ -255,7 +255,10 @@
         \end{algorithm}
 
         \paragraph{}
-        Las estrategias descritas en esta sección para la redución de la complejidad de grafos ajustandose al \emph{modelo en semi-streaming} proporcionan una ventaja significativa a nivel de espacio mediante la redución del conjunto de aristas para la resolución de otros problemas a partir de ellas. Por contra, estas generan una determinada tasa de error. Cuando se ha hablado de optimalidad en esta sección, ha sido referida al caso de \emph{grafos no dirigidos}, dado que para el caso de los \emph{grafos dirigidos}, aún no se han encontrado métodos de generación de \emph{Spanners} o \emph{Sparsifiers} óptimos debido a la mayor complejidad que estos conllevan. En la siguiente sección se describen distintos problemas para los cuales se ha encontrado una solución sobre el \emph{modelo en semi-streaming} y sus correspondientes restricciónes
+        Las estrategias descritas en esta sección para la redución de la complejidad de grafos ajustandose al \emph{modelo en semi-streaming} proporcionan una ventaja significativa a nivel de espacio mediante la redución del conjunto de aristas para la resolución de otros problemas a partir de ellas. Por contra, estas generan una determinada tasa de error. Cuando se ha hablado de optimalidad en esta sección, ha sido referida al caso de \emph{grafos no dirigidos}, dado que para el caso de los \emph{grafos dirigidos}, aún no se han encontrado métodos de generación de \emph{Spanners} o \emph{Sparsifiers} óptimos debido a la mayor complejidad que estos conllevan. En la siguiente sección se describen distintos problemas para los cuales se ha encontrado una solución sobre el \emph{modelo en semi-streaming} y sus correspondientes restricciónes.
+
+        \paragraph{}
+        [TODO ampliar sección]
 
 
     \section{Problemas sobre Grafos}
@@ -351,12 +354,17 @@
         También se han propuesto soluciones basadas en algoritmos probabilistas, que ofrecen garantias de optimalidad en su solución. La versión más eficiente encontrada hasta la fecha se describe en el trabajo \emph{An optimal minimum spanning tree algorithm} \cite{pettie2002optimal} de \emph{Pettie y otros}. Sin embargo, debido a las técnicas que utiliza (mediante reducción a \emph{Árboles de Decisión}) no se puede representar mediante una función, pero sí que se ha demostrado su optimalidad. El problema también se ha estudiado desde la perspectiva de la parelelización. En el trabajo \emph{Fast shared-memory algorithms for computing the minimum spanning forest of sparse graphs} \cite{bader2006fast} \emph{Bader y otros} muestran un algoritmo que mediante el multiprocesamiento consiguen soluciones $5$ veces más eficientes que la versión optimizada secuencial.
 
         \paragraph{}
-        Una vez descrito el problema y su estado actual, el resto del apartado se basará en la descripción del mismo sobre las restricciones del \emph{modelo en semi-streaming}. Para ello se realiza una descripción del algoritmo exacto propuesto por \emph{Ahn y otros} en \emph{Analyzing graph structure via linear measurements} \cite{ahn2012analyzing}.
+        Una vez descrito el problema y su estado actual sobre el modelo estático, el resto del apartado se basará en la descripción del mismo sobre las restricciones del \emph{modelo en semi-streaming}. Para ello, se realiza una descripción del algoritmo exacto propuesto por \emph{Ahn y otros} en \emph{Analyzing graph structure via linear measurements} \cite{ahn2012analyzing}. Dicha estrategia es capaz de encontrar el \emph{árbol recubridor mínimo} en $O(log(n)/log(log(n)))$ pasadas sobre el stream de aristas ajustandose a las restricciones espaciales de $O(polylog(n))$.
+
+        \paragraph{}
+        El planteamiento del algoritmo en semi-streaming se basa inicialmente en el \emph{algoritmo de Boruvka’s} (en \cite{wiki:Boruvkas_algorithm} se encuentra una breve descripción), cuyo planteamiento es el siguiente: se realizan $O(log(n))$ de tal manera que en cada una de ellas se seleccionan las aristas de menor peso que conecten vértices aún no marcados como conectados. De manera incremental se construye el \emph{árbol recubridor mínimo} hasta que todos los vértices del grafo están conectados.
+
+        \paragraph{}
+        Tal y como se indica en el documento, el \emph{algoritmo de Boruvka’s} puede emularse fácilmente sobre el modelo en semi-streaming emulando cada fase en $O(log(n))$ pasadas por el stream (para encontrar el arista de menor peso), lo cual conlleva $O(log(log(n)))$ pasadas en total. La idea en que se basa el algoritmo para reducir el número de pasadas sobre el streaming es realizar la búsqueda del arista de menor peso de cada nodo en \say{paralelo}, teniendo en cuenta las limitaciones espaciales ($O(polylog(n))$) lo cual es posible en $O(log(n)/log(log(n)))$.
 
 
         \paragraph{}
-        [TODO aplicaciones del problema]
-
+        El problema del \emph{árbol recubridor mínimo} tiene aplicaciones prácticas en muchos entornos reales, como el diseño de redes de telecomunicaciones o de transporte. También se han encontrado reducciones sobre el \emph{Problema del Viajante} y el \emph{Problema del corte mínimo}. Otros usos son el análisis de estructuras de grafos, problemas de clustering o reconocimiento de estructuras sobre imágenes.
 
       \subsection{Conectividad}
       \label{sec:graph_connectiviy}
