@@ -15,7 +15,12 @@ class NumericIterativePageRank(NumericPageRank):
                                              b_is_sparse=True))]
         self.run(tf.variables_initializer([self.v_last]))
 
-    def _page_rank_until_convergence(self, convergence):
+    def _page_rank_until_convergence(self, convergence, personalized=None):
+        if personalized is not None:
+            pass
+        else:
+            pass
+
         diff = tf.gather(
             tf.reduce_max(tf.abs(tf.subtract(self.v_last, self.v)), 1), 0)
         self.run(self.iter)
@@ -23,11 +28,15 @@ class NumericIterativePageRank(NumericPageRank):
             self.run(self.iter)
         return self.run(self.v)
 
-    def _page_rank_until_steps(self, steps):
+    def _page_rank_until_steps(self, steps, personalized=None):
+        if personalized:
+            pass
+        else:
+            pass
         for step in range(steps):
             self.run(self.iter)
         return self.run(self.v)
 
-    def _page_rank_exact(self):
+    def _page_rank_exact(self, personalized=None):
         raise NotImplementedError(
             'NumericIterativePageRank not implements exact PageRank')

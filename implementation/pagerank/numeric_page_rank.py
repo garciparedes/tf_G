@@ -1,8 +1,6 @@
 import tensorflow as tf
-import warnings
 
 from pagerank.page_rank import PageRank
-from pagerank.transition_matrix import TransitionMatrix
 from utils import Utils
 import numpy as np
 
@@ -17,8 +15,8 @@ class NumericPageRank(PageRank):
                              name=self.name + "_Vi")
         self.run(tf.variables_initializer([self.v]))
 
-    def ranks(self, convergence=1.0, steps=0):
-        self.page_rank_vector(convergence, steps)
+    def ranks(self, convergence=1.0, steps=0, personalized=None):
+        self.page_rank_vector(convergence, steps, personalized=personalized)
         ranks = tf.transpose(
             tf.py_func(Utils.ranked, [tf.scalar_mul(-1, self.v)], tf.int64))
         ranks = tf.map_fn(lambda x: [x, tf.gather(tf.gather(self.v, 0), x)],
