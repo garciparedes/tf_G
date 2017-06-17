@@ -2,6 +2,7 @@ import tensorflow as tf
 
 from datasets import DataSets
 from graph.graph import Graph
+from graph.random_graph_generator import RandomGraph
 from pagerank.numeric_iterative_page_rank import NumericIterativePageRank
 
 
@@ -14,7 +15,7 @@ def main():
 
     with tf.Session() as sess:
         writer = tf.summary.FileWriter('logs/.')
-
+        '''
         g_followers = Graph(sess, "Gfollowers", edges_np=followers_edges_np,
                             writer=writer)
         pr_followers = NumericIterativePageRank(sess, "PRfollowers",
@@ -25,6 +26,8 @@ def main():
         # gs_followers = g_followers.sparsifier(alpha=0.9)
 
         '''
+        print(RandomGraph.generate(sess, "GRandom", 10, 10, writer=writer))
+        ''''
         g_wiki_vote = Graph(sess, "Gwikivote", edges_np=wiki_vote_edges_np,
                             writer=writer)
         pr_wiki_vote = NumericIterativePageRank(sess, "PRwikivote",
