@@ -1,9 +1,9 @@
 import tensorflow as tf
 
-from implementation.datasets import DataSets
-from implementation.graph.graph import Graph
-from implementation.graph.random_graph_generator import RandomGraph
-from implementation.pagerank.numeric_iterative_page_rank import NumericIterativePageRank
+from src.datasets import DataSets
+from src.graph.graph import Graph
+from src.graph.random_graph_generator import RandomGraph
+from src.pagerank.numeric_iterative_page_rank import NumericIterativePageRank
 
 
 def main():

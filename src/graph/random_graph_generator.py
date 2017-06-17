@@ -1,6 +1,6 @@
 import numpy as np
 
-from implementation.graph.graph import Graph
+from src.graph.graph import Graph
 
 
 class RandomGraph:

@@ -2,8 +2,8 @@ import warnings
 
 import tensorflow as tf
 
-from implementation.pagerank.numeric_page_rank import NumericPageRank
-from implementation.pagerank.transition_matrix import TransitionMatrix
+from src.pagerank.numeric_page_rank import NumericPageRank
+from src.pagerank.transition_matrix import TransitionMatrix
 
 
 class NumericAlgebraicPageRank(NumericPageRank):
