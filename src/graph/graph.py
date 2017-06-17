@@ -1,7 +1,7 @@
 import tensorflow as tf
 
-from notifier import Notifier
-from tensor_flow_object import TensorFlowObject
+from src.notifier import Notifier
+from src.tensor_flow_object import TensorFlowObject
 
 
 class Graph(TensorFlowObject, Notifier):

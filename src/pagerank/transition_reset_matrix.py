@@ -1,6 +1,6 @@
 import tensorflow as tf
 
-from tensor_flow_object import TensorFlowObject
+from src.tensor_flow_object import TensorFlowObject
 
 
 class TransitionResetMatrix(TensorFlowObject):

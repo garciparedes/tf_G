@@ -4,7 +4,7 @@ import pandas as pd
 class DataSets:
     @staticmethod
     def _get_path():
-        return "./../datasets"
+        return "./datasets"
 
     @staticmethod
     def _compose_url(name):

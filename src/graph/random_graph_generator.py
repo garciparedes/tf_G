@@ -1,11 +1,12 @@
-from graph.graph import Graph
 import numpy as np
+
+from src.graph.graph import Graph
 
 
 class RandomGraph:
     @staticmethod
     def generate(sess, name, n, m, writer=None):
-        edges_np = np.random.random_integers(0, n - 1, [m,2])
+        edges_np = np.random.random_integers(0, n - 1, [m, 2])
 
         print(np.unique(edges_np))
 
