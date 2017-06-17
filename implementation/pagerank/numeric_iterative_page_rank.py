@@ -1,7 +1,7 @@
 import tensorflow as tf
 
-from pagerank.numeric_page_rank import NumericPageRank
-from pagerank.transition_reset_matrix import TransitionResetMatrix
+from implementation.pagerank.numeric_page_rank import NumericPageRank
+from implementation.pagerank.transition_reset_matrix import TransitionResetMatrix
 
 
 class NumericIterativePageRank(NumericPageRank):

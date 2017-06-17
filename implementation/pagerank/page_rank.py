@@ -1,4 +1,4 @@
-from tensor_flow_object import TensorFlowObject
+from implementation.tensor_flow_object import TensorFlowObject
 
 
 class PageRank(TensorFlowObject):

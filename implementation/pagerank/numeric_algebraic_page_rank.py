@@ -1,11 +1,9 @@
-import tensorflow as tf
 import warnings
 
-from pagerank.numeric_page_rank import NumericPageRank
-from pagerank.page_rank import PageRank
-from pagerank.transition_matrix import TransitionMatrix
-from utils import Utils
-import numpy as np
+import tensorflow as tf
+
+from implementation.pagerank.numeric_page_rank import NumericPageRank
+from implementation.pagerank.transition_matrix import TransitionMatrix
 
 
 class NumericAlgebraicPageRank(NumericPageRank):
@@ -14,7 +12,7 @@ class NumericAlgebraicPageRank(NumericPageRank):
 
         NumericPageRank.__init__(self, sess, name, graph, beta, T)
 
-    def _page_rank_exact(self,personalized=None):
+    def _page_rank_exact(self, personalized=None):
         if personalized:
             pass
         else:
@@ -25,12 +23,12 @@ class NumericAlgebraicPageRank(NumericPageRank):
         self.run(self.v.assign(tf.matmul(a, b, b_is_sparse=True)))
         return self.run(self.v)
 
-    def _page_rank_until_convergence(self, convergence,personalized=None):
+    def _page_rank_until_convergence(self, convergence, personalized=None):
         warnings.warn('NumericPageRank not implements iterative PageRank! ' +
                       'Using exact algorithm.')
         return self._page_rank_exact(personalized)
 
-    def _page_rank_until_steps(self, steps,personalized=None):
+    def _page_rank_until_steps(self, steps, personalized=None):
         warnings.warn('NumericPageRank not implements iterative PageRank! ' +
                       'Using exact algorithm.')
         return self._page_rank_exact(personalized)

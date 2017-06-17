@@ -1,6 +1,6 @@
 import tensorflow as tf
 
-from tensor_flow_object import TensorFlowObject
+from implementation.tensor_flow_object import TensorFlowObject
 
 
 class TransitionMatrix(TensorFlowObject):
