@@ -5,7 +5,7 @@ TODO: Write description
 
 ## Contenido
 * [Documento](document/document.pdf)
-* [Implementación](implementation/)
+* [Implementación](src/)
 * [Resumen](summary/summary.pdf)
 
 ## License
