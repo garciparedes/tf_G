@@ -1,6 +1,6 @@
 import tensorflow as tf
 
-from src.pagerank.numeric_page_rank import NumericPageRank
+from src.pagerank.numeric_pagerank import NumericPageRank
 from src.pagerank.transition_reset_matrix import TransitionResetMatrix
 
 
