@@ -1,8 +1,8 @@
 import tensorflow as tf
 import numpy as np
 
-from src.pagerank.page_rank import PageRank
-from src.utils import Utils
+from src.pagerank.pagerank import PageRank
+from src.utils.utils import Utils
 
 
 class NumericPageRank(PageRank):
