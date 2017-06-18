@@ -1,4 +1,5 @@
 import tensorflow as tf
+import numpy as np
 
 from src.utils.notifier import Notifier
 from src.utils.tensorflow_object import TensorFlowObject
@@ -47,6 +48,10 @@ class Graph(TensorFlowObject, Notifier):
     def edges_np(self):
         return None
 
+    @property
+    def L_pseudo_inverse(self):
+        return tf.py_func(np.linalg.pinv, [self.L_tf], tf.float32)
+
     def get_in_degrees(self, keep_dims=False):
         return tf.reduce_sum(self.A_tf, 0, keep_dims=keep_dims)
 
@@ -54,7 +59,7 @@ class Graph(TensorFlowObject, Notifier):
         return tf.reduce_sum(self.A_tf, 1, keep_dims=keep_dims)
 
     def __str__(self):
-        return str(self.run(self.L_tf))
+        return str(self.run(self.L_pseudo_inverse))
 
     def append(self, src, dst):
         if src and dst is None:
@@ -76,4 +81,5 @@ class Graph(TensorFlowObject, Notifier):
             tf.random_uniform([self.m], 0.0, 1.0), alpha)
         edges_np = self.edges_np[self.sess.run(boolean_distribution)]
         '''
-        return Graph(self.sess, self.name + "_sparsifier", edges_np=self.edges_np)
+        return Graph(self.sess, self.name + "_sparsifier",
+                     edges_np=self.edges_np)
