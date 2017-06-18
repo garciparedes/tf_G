@@ -21,30 +21,40 @@ class Graph(TensorFlowObject, Notifier):
         else:
             raise ValueError('Graph constructor must be have edges or n')
 
-        self.A_tf = tf.Variable(A_init, tf.float64,
-                                name=self.name + "_A")
         self.n_tf = tf.Variable(float(self.n), tf.float32,
                                 name=self.name + "_n")
+        self.A_tf = tf.Variable(A_init, tf.float64,
+                                name=self.name + "_A")
+        self.L_tf = tf.Variable(tf.diag(self.get_out_degrees()) - self.A_tf,
+                                name=self.name + "_L")
+
         self.run(tf.variables_initializer([self.A_tf, self.n_tf]))
+        self.run(tf.variables_initializer([self.L_tf]))
 
     @property
     def is_not_sink_vertice(self):
-        return tf.not_equal(tf.reduce_sum(self.A_tf, 1), 0)
+        return tf.not_equal(self.get_out_degrees(), 0)
 
     @property
     def in_degrees(self):
-        return tf.reduce_sum(self.A_tf, 0, keep_dims=True)
+        return self.get_in_degrees(keep_dims=True)
 
     @property
     def out_degrees(self):
-        return tf.reduce_sum(self.A_tf, 1, keep_dims=True)
+        return self.get_out_degrees(keep_dims=True)
 
     @property
     def edges_np(self):
         return None
 
+    def get_in_degrees(self, keep_dims=False):
+        return tf.reduce_sum(self.A_tf, 0, keep_dims=keep_dims)
+
+    def get_out_degrees(self, keep_dims=False):
+        return tf.reduce_sum(self.A_tf, 1, keep_dims=keep_dims)
+
     def __str__(self):
-        return str(self.run(self.A_tf))
+        return str(self.run(self.L_tf))
 
     def append(self, src, dst):
         if src and dst is None:

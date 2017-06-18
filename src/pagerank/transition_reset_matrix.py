@@ -1,3 +1,4 @@
+import warnings
 import tensorflow as tf
 
 from src.utils.tensorflow_object import TensorFlowObject
@@ -20,6 +21,7 @@ class TransitionResetMatrix(TensorFlowObject):
                      tf.fill([self.G.n, self.G.n], tf.pow(self.G.n_tf, -1))),
             name=self.name + "_T")
         self.run(tf.variables_initializer([self.transition]))
+        '''
         self.update_T = self.transition.assign(
             tf.where(self.G.is_not_sink_vertice,
                      tf.add(
@@ -27,10 +29,14 @@ class TransitionResetMatrix(TensorFlowObject):
                                                          self.G.out_degrees)),
                          (1 - self.beta) / self.G.n_tf),
                      tf.fill([self.G.n, self.G.n], tf.pow(self.G.n_tf, -1))))
+        '''
 
     @property
     def get(self):
         return self.transition
 
     def update(self):
+        warnings.warn('TransitionResetMatrix auto-update not implemented yet!')
+        '''
         self.run(self.update_T)
+        '''
