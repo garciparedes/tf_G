@@ -9,7 +9,7 @@ class NumericIterativePageRank(NumericPageRank):
         T = TransitionResetMatrix(sess, name, graph, beta)
         NumericPageRank.__init__(self, sess, name, graph, beta, T)
         self.v_last = tf.Variable(tf.zeros([1, self.G.n]),
-                                  name=self.name + "_Vi-1")
+                                  name=self.G.name + "_" + self.name + "_Vi-1")
         self.iter = [self.v_last.assign(self.v),
                      self.v.assign(tf.matmul(self.v, self.T.get_tf))]
         self.run(tf.variables_initializer([self.v_last]))

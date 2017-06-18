@@ -45,8 +45,12 @@ class Graph(TensorFlowObject, Notifier):
         return self.get_out_degrees_tf(keep_dims=True)
 
     @property
-    def edges_np(self):
-        return None
+    def edge_list_np(self):
+        return self.run(self.edge_list_tf)
+
+    @property
+    def edge_list_tf(self):
+        return tf.where(tf.not_equal(self.A_tf, 0))
 
     @property
     def L_pseudo_inverse_tf(self):
@@ -74,12 +78,3 @@ class Graph(TensorFlowObject, Notifier):
         self.run(tf.scatter_nd_update(self.A_tf, [[src, dst]], [-1.0]))
         self.m -= 1
         self._notify()
-
-    def sparsifier(self, alpha):
-        '''
-        boolean_distribution = tf.less_equal(
-            tf.random_uniform([self.m], 0.0, 1.0), alpha)
-        edges_np = self.edges_np[self.sess.run(boolean_distribution)]
-        '''
-        return Graph(self.sess, self.name + "_sparsifier",
-                     edges_np=self.edges_np)

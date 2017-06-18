@@ -12,7 +12,7 @@ class NumericPageRank(PageRank):
         self.beta = beta
         self.T = T
         self.v = tf.Variable(tf.fill([1, self.G.n], tf.pow(self.G.n_tf, -1)),
-                             name=self.name + "_Vi")
+                             name=self.G.name + "_" + self.name + "_Vi")
         self.run(tf.variables_initializer([self.v]))
 
     def ranks(self, convergence=1.0, steps=0, personalized=None):

@@ -7,23 +7,32 @@ class DataSets:
         return "./datasets"
 
     @staticmethod
-    def _compose_url(name):
+    def _name_to_default_path(name):
         return DataSets._get_path() + '/' + name + '/' + name + ".csv"
 
     @staticmethod
-    def _compose(name, index_decrement):
-        data = pd.read_csv(DataSets._compose_url(name))
+    def _compose_from_path(path, index_decrement):
+        data = pd.read_csv(path)
         if index_decrement:
             data -= 1
         return data.as_matrix()
 
     @staticmethod
+    def _compose_from_name(name, index_decrement):
+        return DataSets._compose_from_path(DataSets._name_to_default_path(name),
+                                           index_decrement)
+
+    @staticmethod
     def followers(index_decrement=True):
-        return DataSets._compose('followers', index_decrement)
+        return DataSets._compose_from_name('followers', index_decrement)
 
     @staticmethod
     def wiki_vote(index_decrement=True):
-        return DataSets._compose('wiki-Vote', index_decrement)
+        return DataSets._compose_from_name('wiki-Vote', index_decrement)
+
+    @staticmethod
+    def generate_from_path(path, index_increment=True):
+        return DataSets._compose_from_path(path, index_increment)
 
     @staticmethod
     def naive():
