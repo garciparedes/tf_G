@@ -11,8 +11,7 @@ class NumericIterativePageRank(NumericPageRank):
         self.v_last = tf.Variable(tf.zeros([1, self.G.n]),
                                   name=self.name + "_Vi-1")
         self.iter = [self.v_last.assign(self.v),
-                     self.v.assign(tf.matmul(self.v, self.T.get,
-                                             b_is_sparse=True))]
+                     self.v.assign(tf.matmul(self.v, self.T.get))]
         self.run(tf.variables_initializer([self.v_last]))
 
     def _page_rank_until_convergence(self, convergence, personalized=None):
