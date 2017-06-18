@@ -20,7 +20,7 @@ def main():
         pr_followers = NumericIterativePageRank(sess, "PRfollowers",
                                                 g_followers, beta)
         print(g_followers)
-        print(pr_followers.ranks(convergence=convergence, personalized=[2]))
+        print(pr_followers.ranks(convergence=convergence))
 
         # gs_followers = g_followers.sparsifier(alpha=0.9)
 

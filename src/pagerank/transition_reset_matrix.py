@@ -13,10 +13,10 @@ class TransitionResetMatrix(TensorFlowObject):
 
         self.beta = beta
         self.transition = tf.Variable(
-            tf.where(self.G.is_not_sink_vertice,
+            tf.where(self.G.is_not_sink_tf,
                      tf.add(
                          tf.scalar_mul(beta, tf.div(self.G.A_tf,
-                                                    self.G.out_degrees)),
+                                                    self.G.out_degrees_tf)),
                          (1 - beta) / self.G.n_tf),
                      tf.fill([self.G.n, self.G.n], tf.pow(self.G.n_tf, -1))),
             name=self.name + "_T")
@@ -32,7 +32,7 @@ class TransitionResetMatrix(TensorFlowObject):
         '''
 
     @property
-    def get(self):
+    def get_tf(self):
         return self.transition
 
     def update(self):

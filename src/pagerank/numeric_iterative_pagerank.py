@@ -1,5 +1,5 @@
 import tensorflow as tf
-
+import warnings
 from src.pagerank.numeric_pagerank import NumericPageRank
 from src.pagerank.transition_reset_matrix import TransitionResetMatrix
 
@@ -11,31 +11,31 @@ class NumericIterativePageRank(NumericPageRank):
         self.v_last = tf.Variable(tf.zeros([1, self.G.n]),
                                   name=self.name + "_Vi-1")
         self.iter = [self.v_last.assign(self.v),
-                     self.v.assign(tf.matmul(self.v, self.T.get))]
+                     self.v.assign(tf.matmul(self.v, self.T.get_tf))]
         self.run(tf.variables_initializer([self.v_last]))
 
-    def _page_rank_until_convergence(self, convergence, personalized=None):
+    def _pr_convergence_tf(self, convergence, personalized):
         if personalized is not None:
-            pass
-        else:
-            pass
+            warnings.warn('Personalized PageRank not implemented yet!')
 
         diff = tf.gather(
             tf.reduce_max(tf.abs(tf.subtract(self.v_last, self.v)), 1), 0)
         self.run(self.iter)
         while self.run(diff > convergence / self.G.n_tf):
             self.run(self.iter)
-        return self.run(self.v)
+        return self.v
 
-    def _page_rank_until_steps(self, steps, personalized=None):
-        if personalized:
-            pass
-        else:
-            pass
+    def _pr_steps_tf(self, steps, personalized):
+        if personalized is not None:
+            warnings.warn('Personalized PageRank not implemented yet!')
+
         for step in range(steps):
             self.run(self.iter)
-        return self.run(self.v)
+        return self.v
 
-    def _page_rank_exact(self, personalized=None):
+    def _pr_exact_tf(self, personalized):
+        if personalized is not None:
+            warnings.warn('Personalized PageRank not implemented yet!')
+
         raise NotImplementedError(
             'NumericIterativePageRank not implements exact PageRank')
