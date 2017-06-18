@@ -10,6 +10,7 @@
 \renewcommand{\baselinestretch}{1.2}
 \setlength{\parindent}{0.5cm}
 \setcounter{tocdepth}{1}
+\setcounter{secnumdepth}{3}
 \usepackage{fancyhdr}
 \fancyhf{}
 \usepackage{tabu}
@@ -32,8 +33,5 @@
 \usepackage[hidelinks]{hyperref}
 \usepackage{dirtytalk}
 \usepackage[inline]{enumitem}
-\usepackage{titlesec}
-\titlespacing*{\section}
-{0pt}{5.5ex plus 1ex minus .2ex}{4.3ex plus .2ex}
-\titlespacing*{\subsection}
-{0pt}{5.5ex plus 1ex minus .2ex}{4.3ex plus .2ex}
+\usepackage{minted}
+\setminted[python]{tabsize=1,fontsize=\footnotesize}

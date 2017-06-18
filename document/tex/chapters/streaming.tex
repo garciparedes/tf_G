@@ -484,15 +484,15 @@
       \label{sec:hash_lsh}
 
         \paragraph{}
-        Una categoría a destacar son las \emph{funciones hash sensibles a la localización}. Estas poseen la propiedad de distribuir los valores cercanos en el espacio de destino tratando mantener las propiedades de cercanía entre los valores. El primer artículo en que se habla de ellas es \emph{Approximate Nearest Neighbor: Towards Removing the Curse of Dimensionality} \ref{indyk1998approximate} de \emph{Indyk} y \emph{Motwani} inicialmente para resolver el problema de la \emph{búsqueda del vecino más cercano (Nearest Neighbor Search)}. Se trata de funciones hash multidimensionales, es decir, en la entrada están compuestas por más de un elemento. Estas funciones han cobrado especial importancia en los últimos años por su uso en problemas de dimensión muy elevada, ya que sirven como estrategia de reducción de la dimensionalidad del conjunto de datos, que como consecuencia reduce el coste computacional del problema.
+        Una categoría a destacar son las \emph{funciones hash sensibles a la localización}. Estas poseen la propiedad de distribuir los valores cercanos en el espacio de destino tratando mantener las propiedades de cercanía entre los valores. El primer artículo en que se habla de ellas es \emph{Approximate Nearest Neighbor: Towards Removing the Curse of Dimensionality} \cite{indyk1998approximate} de \emph{Indyk} y \emph{Motwani} inicialmente para resolver el problema de la \emph{búsqueda del vecino más cercano (Nearest Neighbor Search)}. Se trata de funciones hash multidimensionales, es decir, en la entrada están compuestas por más de un elemento. Estas funciones han cobrado especial importancia en los últimos años por su uso en problemas de dimensión muy elevada, ya que sirven como estrategia de reducción de la dimensionalidad del conjunto de datos, que como consecuencia reduce el coste computacional del problema.
 
         \paragraph{}
         \emph{Indyk} indica que para que una función hash sea sensible a la localización o $(r_1,r_2, p_1, p_2)$-sensible, para cualquier par de puntos de entrada $p,q$ y la función de distancia $d$ se cumpla la ecuación \eqref{eq:hash_lsh}. Las funciones hash que cumplen esta propiedad son interesantes cuando $p_1 > p_2$ y $r_1 < r_2$, de tal forma que para puntos cercanos en el espacio, el valor hash obtenido es el mismo, por lo que se asume que dichos puntos se encuentran cercanos en el espacio de partida.
 
         \begin{align}
         \label{eq:hash_lsh}
-          \text{if} d(p,q) \leq r_1, &\text{then} Pr[h(x) = h(y)] \geq p_1 \\
-          \text{if} d(p,q) \geq r_2, &\text{then} Pr[h(x) = h(y)] \leq p_2
+          \text{if} \ d(p,q) \leq r_1, \ & \text{then} \ Pr[h(x) = h(y)] \geq p_1 \\
+          \text{if} \ d(p,q) \geq r_2, \ & \text{then} \ Pr[h(x) = h(y)] \leq p_2
         \end{align}
 
       \paragraph{}
@@ -626,7 +626,7 @@
       El resto de la sección trata sobre la exposición de los algoritmos para el cálculo de los momentos de frecuencia descritos en el articulo \emph{The space complexity of approximating the frequency moments} \cite{alon1996space} redactado por \emph{Noga Alon}, \emph{Yossi Matias} y \emph{Mario Szegedy}, por el cual fueron galardonados con el premio \emph{Gödel} en el año 2005. En dicho trabajo además de presentar \emph{Algoritmos para Streaming} para el cálculo de $F_k$ (cabe destacar su solución para $F_2$), también presentan cotas inferiores para el problema de los \emph{Momentos de Frecuencia}. Posteriormente \emph{Piotr Indyk} y \emph{David Woodruff} encontraron un algoritmo óptimo para el problema de los\emph{Momentos de Frecuencia} tal y como exponen en \emph{Optimal Approximations of the Frequency Moments of Data Streams} \cite{indyk2005optimal}. A continuación se discuten los resultados de dichos trabajos.
 
       \paragraph{}
-      Para el cálculo de $F_k$ para $k \geq 0$ \emph{Alon}, \emph{Matias} y \emph{Szedgedy} proponen un enfoque similar a los propuestos en algoritmos anteriores (la definición de una variable aleatoria $X$ tal que $\mathbb{E}[X] = F_k$). Sin embargo, la novedad en este caso es que su algoritmo no está restringido a un $k$ concreto, sino que en su caso es generalizable para cualquier entero positivo, sin embargo, en este caso la exposición es a nivel teórico. La definición del algoritmo a nivel práctico se describe en la sección \ref{sec:ams_sketch}.
+      Para el cálculo de $F_k$ para $k \geq 0$ \emph{Alon}, \emph{Matias} y \emph{Szedgedy} proponen un enfoque similar a los propuestos en algoritmos anteriores (la definición de una variable aleatoria $X$ tal que $\mathbb{E}[X] = F_k$). Sin embargo, la novedad en este caso es que su algoritmo no está restringido a un $k$ concreto, sino que en su caso es generalizable para cualquier entero positivo, sin embargo, en este caso la exposición es a nivel teórico.
 
       \paragraph{}
       Definiremos las constantes $S_1 =O(n^{1-1/k}/\lambda ^{2})$ y $S_2 = O(\log(1/\varepsilon ))$. El algoritmo utiliza $S_2$ variables aleatorias denominadas $Y_1, Y_2, Y_{S_2}$ y devuelve la mediana de estas denominandola $Y$. Cada una de estas variables $Y_i$ está formada por la media de $X_{ij}$ variables aleatorias tales que $1 leq j leq S_1$. La forma en que se actualiza el estado del algoritmo tras cada nueva llegada se apoya en el uso de $S_2$ funciones hash uniformemente distribuidas e independientes entre si que mapean cada símbolo a un determinado indice $j$.
