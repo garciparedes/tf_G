@@ -14,11 +14,24 @@ class GraphConstructor:
         return Graph(sess, name, n=n, writer=writer)
 
     @staticmethod
-    def random(sess, name, n, m, writer=None):
-        #TODO working on
+    def unweighted_random(sess, name, n, m, writer=None):
+        if m > n * (n - 1):
+            raise ValueError('m would be less than n * (n - 1)')
+
         edges_np = np.random.random_integers(0, n - 1, [m, 2])
 
-        print(np.unique(edges_np))
+        cond = True
+        while cond:
+            edges_np = np.concatenate((edges_np,
+                                       np.random.random_integers(0, n - 1, [
+                                           m - len(edges_np), 2])), axis=0)
+            _, unique_idx = np.unique(np.ascontiguousarray(edges_np).view(
+                np.dtype(
+                    (np.void, edges_np.dtype.itemsize * edges_np.shape[1]))),
+                return_index=True)
+            edges_np = edges_np[unique_idx]
+            edges_np = edges_np[edges_np[:, 0] != edges_np[:, 1]]
+            cond = len(edges_np) != m
 
         return Graph(sess, name, edges_np=edges_np, writer=writer)
 
