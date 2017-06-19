@@ -17,7 +17,7 @@ class NumericAlgebraicPageRank(NumericPageRank):
         a = tf.fill([1, self.G.n], (1 - self.beta) / self.G.n_tf)
         b = tf.matrix_inverse(
             tf.eye(self.G.n, self.G.n) - self.beta * self.T.get_tf)
-        self.run(self.v.assign(tf.matmul(a, b, b_is_sparse=True)))
+        self.run(self.v.assign(tf.matmul(a, b)))
         return self.v
 
     def _pr_convergence_tf(self, convergence, personalized):
