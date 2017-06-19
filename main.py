@@ -17,18 +17,25 @@ def main():
 
         g_followers = GraphConstructor.from_edges(sess, "Gfollowers",
                                                   followers_edges_np, writer)
-        pr_followers = NumericIterativePageRank(sess, "PRfollowers",
+        '''
+        pr_followers = NumericIterativePageRank(sess, "PR1",
                                                 g_followers, beta)
         print(g_followers)
         print(pr_followers.ranks(convergence=convergence))
+        '''
+        print(g_followers.m)
 
-        # gs_followers = g_followers.sparsifier(alpha=0.9)
-
+        g_sparse = GraphConstructor.as_other_sparsifier(sess, g_followers, 0.5)
+        '''
+        pr_sparse = NumericIterativePageRank(sess, "PR2",
+                                             g_sparse, beta)
+        print(g_sparse.m)
+        print(pr_sparse.ranks(convergence=convergence))
+        '''
         '''
         print(GraphConstructor.random(sess, "GRandom", 10, 10, writer=writer))
         
-        g_wiki_vote = Graph(sess, "Gwikivote", edges_np=wiki_vote_edges_np,
-                            writer=writer)
+        
         pr_wiki_vote = NumericIterativePageRank(sess, "PRwikivote",
                                                 g_wiki_vote, beta)
         print(g_wiki_vote)
