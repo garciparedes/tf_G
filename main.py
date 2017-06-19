@@ -14,19 +14,21 @@ def main():
 
     with tf.Session() as sess:
         writer = tf.summary.FileWriter('logs/.')
-
+        '''
         g_followers = GraphConstructor.from_edges(sess, "Gfollowers",
                                                   followers_edges_np, writer)
         pr_followers = NumericIterativePageRank(sess, "PRfollowers",
                                                 g_followers, beta)
         print(g_followers)
         print(pr_followers.ranks(convergence=convergence))
-
+        '''
         # gs_followers = g_followers.sparsifier(alpha=0.9)
 
-        '''
-        print(GraphConstructor.random(sess, "GRandom", 10, 10, writer=writer))
-        
+
+        print(GraphConstructor.unweighted_random(sess, "GRandom", 10 ** 2,
+                                                 10 ** 3, writer=writer))
+
+        '''    
         g_wiki_vote = Graph(sess, "Gwikivote", edges_np=wiki_vote_edges_np,
                             writer=writer)
         pr_wiki_vote = NumericIterativePageRank(sess, "PRwikivote",
