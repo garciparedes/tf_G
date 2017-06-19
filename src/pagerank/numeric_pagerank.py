@@ -17,9 +17,10 @@ class NumericPageRank(PageRank):
 
     def ranks(self, convergence=1.0, steps=0, personalized=None):
         self.pagerank_vector_tf(convergence, steps, personalized)
-        ranks = tf.transpose(
-            tf.py_func(Utils.ranked, [tf.scalar_mul(-1, self.v)], tf.int64))
-        ranks = tf.map_fn(lambda x: [x, tf.gather(tf.gather(self.v, 0), x)],
-                          ranks,
-                          dtype=[tf.int64, tf.float32])
+        ranks = tf.map_fn(
+            lambda x: [x, tf.gather(tf.reshape(self.v, [self.G.n]), x)],
+            tf.transpose(
+                tf.py_func(Utils.ranked,
+                           [tf.scalar_mul(-1, self.v)], tf.int64)),
+            dtype=[tf.int64, tf.float32])
         return np.concatenate(self.run(ranks), axis=1)

@@ -17,11 +17,9 @@ class NumericIterativePageRank(NumericPageRank):
     def _pr_convergence_tf(self, convergence, personalized):
         if personalized is not None:
             warnings.warn('Personalized PageRank not implemented yet!')
-
-        diff = tf.gather(
-            tf.reduce_max(tf.abs(tf.subtract(self.v_last, self.v)), 1), 0)
+        diff = tf.reduce_max(tf.abs(tf.subtract(self.v_last, self.v)), 1)
         self.run(self.iter)
-        while self.run(diff > convergence / self.G.n_tf):
+        while self.run(diff > [convergence / self.G.n_tf]):
             self.run(self.iter)
         return self.v
 
