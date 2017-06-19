@@ -1,6 +1,7 @@
 import tensorflow as tf
-
+import numpy as np
 from src.graph.graph_constructor import GraphConstructor
+from src.pagerank.numeric_algebraic_pagerank import NumericAlgebraicPageRank
 from src.pagerank.numeric_iterative_pagerank import NumericIterativePageRank
 from src.utils.datasets import DataSets
 
@@ -14,7 +15,7 @@ def main():
 
     with tf.Session() as sess:
         writer = tf.summary.FileWriter('logs/.')
-        '''
+
         g_followers = GraphConstructor.from_edges(sess, "Gfollowers",
                                                   followers_edges_np, writer)
         pr_followers = NumericIterativePageRank(sess, "PRfollowers",
@@ -24,11 +25,9 @@ def main():
         '''
         # gs_followers = g_followers.sparsifier(alpha=0.9)
 
-
         print(GraphConstructor.unweighted_random(sess, "GRandom", 10 ** 2,
                                                  10 ** 3, writer=writer))
-
-        '''    
+     
         g_wiki_vote = Graph(sess, "Gwikivote", edges_np=wiki_vote_edges_np,
                             writer=writer)
         pr_wiki_vote = NumericIterativePageRank(sess, "PRwikivote",
