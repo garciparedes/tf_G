@@ -25,7 +25,7 @@ def main():
         '''
         print(g_followers.m)
 
-        g_sparse = GraphConstructor.as_other_sparsifier(sess, g_followers, 0.5)
+        g_sparse = GraphConstructor.as_other_sparsifier(sess, g_followers, 0.9)
         '''
         pr_sparse = NumericIterativePageRank(sess, "PR2",
                                              g_sparse, beta)

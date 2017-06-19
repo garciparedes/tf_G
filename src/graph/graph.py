@@ -45,12 +45,16 @@ class Graph(TensorFlowObject, Notifier):
         return self.get_out_degrees_tf(keep_dims=True)
 
     @property
+    def out_degrees_np(self):
+        return self.run(self.out_degrees_tf)
+
+    @property
     def edge_list_np(self):
         return self.run(self.edge_list_tf)
 
     @property
     def edge_list_tf(self):
-        return tf.where(tf.not_equal(self.A_tf, 0))
+        return tf.cast(tf.where(tf.not_equal(self.A_tf, 0)),tf.int64)
 
     @property
     def L_pseudo_inverse_tf(self):
