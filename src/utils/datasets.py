@@ -1,5 +1,5 @@
 import pandas as pd
-
+import numpy as np
 
 class DataSets:
     @staticmethod
@@ -35,11 +35,11 @@ class DataSets:
         return DataSets._compose_from_path(path, index_increment)
 
     @staticmethod
-    def naive():
+    def naive_4():
         """
             url: http://www.math.cornell.edu/~mec/Winter2009/RalucaRemus/Lecture3/lecture3.html
         """
-        return pd.DataFrame([
+        return np.array([
             [0, 1],
             [0, 2],
             [0, 3],
@@ -48,3 +48,19 @@ class DataSets:
             [2, 0],
             [3, 0],
             [3, 2]])
+
+    @staticmethod
+    def naive_6():
+        """
+            url: https://www.mathworks.com/content/dam/mathworks/mathworks-dot-com/moler/exm/chapters/pagerank.pdf
+        """
+        return np.array([
+            [1, 2],
+            [1, 6],
+            [2, 3],
+            [2, 4],
+            [3, 4],
+            [3, 5],
+            [3, 6],
+            [4, 1],
+            [6, 1]])-1

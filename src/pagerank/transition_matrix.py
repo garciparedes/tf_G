@@ -14,14 +14,17 @@ class TransitionMatrix(TensorFlowObject):
                      tf.fill([self.G.n, self.G.n], 0.0)),
             name=self.name + "_T")
         self.run(tf.variables_initializer([self.transition]))
+        '''
         self.update_T = self.transition.assign(
             tf.where(self.G.is_not_sink_tf,
                      tf.div(self.G.A_tf, self.G.out_degrees_tf),
                      tf.fill([self.G.n, self.G.n], 0.0)))
-
+        '''
     @property
     def get_tf(self):
         return self.transition
 
     def update(self):
+        '''
         self.run(self.update_T)
+        '''

@@ -45,6 +45,10 @@ class Graph(TensorFlowObject, Notifier):
         return self.get_out_degrees_tf(keep_dims=True)
 
     @property
+    def out_degrees_np(self):
+        return self.run(self.get_out_degrees_tf())
+
+    @property
     def edge_list_np(self):
         return self.run(self.edge_list_tf)
 
