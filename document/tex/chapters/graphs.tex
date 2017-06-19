@@ -155,13 +155,13 @@
     \label{sec:spanners_sparsifiers}
 
       \paragraph{}
-      Para tratar de agilizar los cálculos necesarios para la resolución de problemas sobre grafos se han propuesto distintas alternativas, muchas de las cuales son aplicables únicamente a problemas concretos. Estas ideas se discutirán en la sección \ref{sec:graph_problems}. Sin embargo, en esta sección se describen distintas técnicas utilizadas para tratar de \say{sumarizar} o disminuir el espacio necesario para almacenar un determinado grafo $G$ transformándolo en un nuevo grafo $H$, de tal manera que la estructura del mismo siga siendo similar a la del original.
+      Para tratar de agilizar los cálculos necesarios para la resolución de problemas sobre grafos, se han propuesto distintas alternativas, muchas de las cuales son aplicables únicamente a problemas concretos. Sin embargo, estas ideas se discutirán en la sección \ref{sec:graph_problems}. En esta sección se describen distintas técnicas utilizadas para tratar de \say{sumarizar} o disminuir el espacio necesario para almacenar un determinado grafo $G$ (al igual que ocurría con las técnicas descritas en el capítulo anterior para valores numéricos) transformándolo en un nuevo grafo $H$, de tal manera que la estructura del mismo siga siendo lo más similar a la del original respecto de distintas medidas.
 
       \paragraph{}
-      La descripción de estas técnicas se ha basado en las ideas recogidas en los artículos \emph{Graph stream algorithms: a survey} \cite{mcgregor2014graph} de \emph{McGregor} y \emph{Graph sketches: sparsification, spanners, and subgraphs} \cite{ahn2012graph} de \emph{Ahn y otros} así como las notas de la \emph{Clase 11} de la asignatura \emph{Randomized Algorithms} \cite{harvey2011randomized} impartida en la \emph{Universidad de Columbia Británica}. Tal y como se ha indicado en el párrafo anterior, estas técnicas consisten en la eliminación de vértices y/o aristas, de tal manera que la distorsión producida tras dichas modificaciones sea mínima.
+      La descripción de estas técnicas se ha basado en las ideas recogidas en los artículos \emph{Graph stream algorithms: a survey} \cite{mcgregor2014graph} de \emph{McGregor} y \emph{Graph sketches: sparsification, spanners, and subgraphs} \cite{ahn2012graph} de \emph{Ahn y otros}, así como las notas de la \emph{Clase 11} de la asignatura \emph{Randomized Algorithms} \cite{harvey2011randomized} impartida en la \emph{Universidad de Columbia Británica}. Tal y como se ha indicado en el párrafo anterior, estas técnicas consisten en la eliminación de vértices y/o aristas, de tal manera que la distorsión producida tras dichas modificaciones sea mínima.
 
       \paragraph{}
-      Existe un enfoque trivial para la reducción del tamaño en grafos, sin embargo, este tan solo ofrece resultados aceptables sobre grafos densos (aquellos similares al grafo completo $K_n$). La técnica consiste en la eliminación de aristas a partir de una determinada tasa de probabilidad $\alpha$. Mediante esta estrategia se reduce el espacio necesario para almacenar las aristas del mismo en orden de $(1-\alpha)$. Tal y como se ha dicho, esta solución tan solo es válida en aquellos casos en que el grafo sea denso. Cuando el grafo es disperso, por contra, la eliminación de aristas mediante esta estrategia puede producir una gran distorsión respecto del grafo original.
+      Existe un enfoque trivial para la reducción del tamaño en grafos, sin embargo, este tan solo ofrece resultados aceptables sobre grafos densos (aquellos similares al grafo completo $K_n$). La técnica consiste en la eliminación de aristas a partir de una determinada tasa de probabilidad $\alpha$. Mediante esta estrategia se reduce el espacio necesario para almacenar las aristas de $(1-\alpha)$. Tal y como se ha dicho, esta solución tan solo es válida en aquellos casos en que el grafo sea denso. Cuando el grafo es disperso, por contra, la eliminación de aristas mediante la selección uniforme puede producir una gran distorsión respecto del grafo original.
 
       \begin{figure}
         \centering
@@ -171,10 +171,10 @@
       \end{figure}
 
       \paragraph{}
-      En la figura \ref{img:graph_community_structure} se muestra un grafo disperso, que además forma 3 comunidades (conjuntos de vértices altamente conexos entre sí). Nótese que en aquiellos casos en que el grafo posea una estructura similar al de la figura, ya no es conveniente utilizar la estrategia descrita en el párrafo anterior, puesto que al tratar de preservar la estructura del mismo, no todas las aristas tienen la misma relevancia. Esto puede entenderse de manera sencilla si al comprobar la variación del grafo al eliminar una de las aristas que conectan dos comunidades. Dicha variación estructural es significativamente mayor que la ocurrida al eliminar una arista que conecta dos vértices pertenecientes a una misma comunidad.
+      En la figura \ref{img:graph_community_structure} se muestra un grafo disperso, que además forma 3 comunidades (conjuntos de vértices altamente conexos entre sí). Nótese que en aquiellos casos en que el grafo posea una estructura similar a la del de la figura, ya no es conveniente utilizar la estrategia descrita en el párrafo anterior, puesto que para tratar de preservar la estructura del mismo, no todas las aristas tienen la misma relevancia. Esto puede entenderse de manera sencilla si al comprobar la variación del grafo al eliminar una de las aristas que conectan dos comunidades. Dicha variación estructural es significativamente mayor que la ocurrida tras eliminar una arista que conecta dos vértices pertenecientes a una misma comunidad.
 
       \paragraph{}
-      Por esta razón, distintos autores han trabajado en técnicas para tratar de mantener la estructura del nuevo grafo, lo más semejante posible a la del grafo original. Para ello, las estrategias más populares se basan en la utilización de \emph{Spanners} y \emph{Sparsifiers}, los cuales se describirán a continuación en las secciones \ref{sec:spanners} y \ref{sec:sparsifiers} respectivamente. Estas técnicas han sido ampliamente estudiadas, sin embargo, en este caso se pretende orientar la descripción de las mismas sobre el \emph{modelo en semi-streaming} del cual se habló anteriormente. En este modelo se han encontrado soluciones eficientes para \emph{grafos no dirigidos}. Por contra, para el caso de los \emph{grafos dirigidos}, la búsqueda de soluciones eficientes ante este problema continuan siendo un problema abierto.
+      Por esta razón, distintos autores han trabajado en técnicas para tratar de mantener la estructura del subgrafo generado lo más semejante posible a la del grafo original. Para ello, las estrategias más populares se basan en la utilización de \emph{Spanners} y \emph{Sparsifiers}, los cuales se describirán a continuación en las secciones \ref{sec:spanners} y \ref{sec:sparsifiers} respectivamente. Estas técnicas han sido ampliamente estudiadas, sin embargo, en este caso se pretende orientar la descripción de las mismas sobre el \emph{modelo en semi-streaming} del cual se habló anteriormente. En este modelo se han encontrado soluciones eficientes para \emph{grafos no dirigidos}. Por contra, para el caso de los \emph{grafos dirigidos}, la búsqueda de soluciones eficientes para este problema continua siendo un problema abierto.
 
       \subsection{Spanners}
       \label{sec:spanners}
@@ -188,13 +188,10 @@
         \end{equation}
 
         \paragraph{}
-        Tal y como se indica en la ecuación \eqref{eq:alpha_spanner}, lo que se pretende acotar mediante esta estrategia es por tanto, el error a nivel de distancias entre vértices. Tal y como se puede intuir, mediante el cumplimiento de esta propiedad se soluciona el problema descrito anteriormente en grafos dispersos, dado que si se elimina el único arista que conecta dos comunidades distintas, entonces la distancia del camino más corto entre los vértices de comunidades distintas variará en gran medida, posiblemente superior a la acotada por el valor $\alpha$.
+        Tal y como se indica en la ecuación \eqref{eq:alpha_spanner}, lo que se pretende acotar mediante esta estrategia es, por tanto, el error desde el punto de vista de la distancia entre vértices. Tal y como se puede intuir, mediante el cumplimiento de esta propiedad se soluciona el problema descrito anteriormente que surge sobre grafos dispersos, dado que si se elimina el único arista que conecta dos comunidades distintas, entonces la distancia del camino más corto entre los vértices de comunidades distintas variará en gran medida, posiblemente superando la acotada del valor $\alpha$.
 
         \paragraph{}
-        Para la construcción de un \emph{$\alpha$-spanner} sobre el modelo en streaming existe un algoritmo sencillo que resuelve este problema para el caso del modelo de caja registradora (sección \ref{sec:streaming_cash_register}), es decir, en el cual tan solo estén permitadas adicciones. Esta estrategia se ilustra en el algoritmo \ref{code:basic_spanner}. Esta técnica es trivial y consiste en añadir únicamente al conjunto de aristas $E'$ del grafo $H$ aquellos cuya distancia del camino más corto entre sus vértices en $H$ sea mayor que $\alpha$, con lo cual se garantiza la propiedad del \emph{$\alpha$-spanner}.
-
-        \paragraph{}
-        Sin embargo, esta técnica requiere del cálculo del camino más corto entre los vértices $u$ y $v$ en cada actualización, lo cual requiere un coste de $O(card(E'))$ en tiempo, o el mantenimiento de una estructura de datos auxiliar que almacene dichas distancias, lo cual requiere de un $O(n^2)$ en espacio. El mejor resultado encontrado para este problema es la construcción de un \emph{$(2k-1)$-spanner} utilizando $O(n^(1+1/k)$ de espacio. Esta solución se ha demostrado que es óptima respecto de la precisión utilizando tan solo una pasada sobre el stream de aristas. La descripción completa de la misma se encuentra en el trabajo \emph{Streaming and Fully Dynamic Centralized Algorithms for Constructing and Maintaining Sparse Spanners} \cite{elkin2007streaming} de \emph{Elkin}.
+        Para la construcción de un \emph{$\alpha$-spanner} sobre el modelo en streaming existe un algoritmo sencillo que resuelve este problema para el caso del modelo de caja registradora (sección \ref{sec:streaming_cash_register}), es decir, en el cual tan solo estén permitadas adicciones. Esta estrategia se ilustra en el algoritmo \ref{code:basic_spanner}. En este caso, la solución es trivial y consiste en añadir únicamente al conjunto de aristas $E'$ del grafo $H$, aquellas cuya distancia del camino más corto entre sus vértices en $H$ sea mayor que $\alpha$, con lo cual se garantiza la propiedad del \emph{$\alpha$-spanner}.
 
         \paragraph{}
         \begin{algorithm}
@@ -211,16 +208,19 @@
         \end{algorithm}
 
         \paragraph{}
-        Para el caso general, en el cual están permitidas tanto adicciones como eliminaciones (modelo en molinete (sección \ref{sec:streaming_turnstile})) la solución básica no es trivial. El algoritmo que se describe en \cite{elkin2007streaming} se basa en la generación de árboles incrementales que se construyen a partir de la selección aleatoria de vértices. Sin embargo, esto no es sencillo cuando se permiten las eliminaciones. Por lo tanto, para la adaptación de dichas técnicas al modelo en molinete una solución es la utilización de \emph{$L_0$-Samplers}, que se describieron en la sección \ref{sec:lp_samplers}, lo cual reuquiere de múltiples pasadas sobre el stream de aristas.
+        Sin embargo, esta técnica requiere del cálculo del camino más corto entre los vértices $u$ y $v$ en cada actualización, lo cual genera un coste de $O(card(E'))$ en tiempo, o el mantenimiento de una estructura de datos auxiliar que almacene dichas distancias, lo que requiere de un $O(n^2)$ en espacio. El mejor resultado encontrado para este problema es la construcción de un \emph{$(2k-1)$-spanner} utilizando $O(n^(1+1/k)$ de espacio. Esta solución se ha demostrado que es óptima respecto de la precisión utilizando tan solo una pasada sobre el stream de aristas. La descripción completa de la misma se encuentra en el trabajo \emph{Streaming and Fully Dynamic Centralized Algorithms for Constructing and Maintaining Sparse Spanners} \cite{elkin2007streaming} de \emph{Elkin}.
 
         \paragraph{}
-        Tal y como se ha visto en esta sección, la construcción de \emph{Spanners} añade un sobrecoste a la resolución de problemas sobre grafos, junto con una determinada tasa de error a nivel de distancias entre vértices. Sin embargo, dichos inconvenientes se ven recompensados en muchos casos por la reducción en tiempo y espacio de la resolución del problema sobre el subgrafo resultante.
+        Para el caso general, en el cual están permitidas tanto adicciones como eliminaciones (modelo en molinete descrito en la sección \ref{sec:streaming_turnstile}) la solución básica no es trivial. El algoritmo que se describe en \cite{elkin2007streaming} se basa en la generación de árboles incrementales que se construyen a partir de la selección aleatoria de vértices. Sin embargo, esto no es sencillo cuando se permiten las eliminaciones. Por lo tanto, para la adaptación de dichas técnicas al modelo en molinete una solución es la utilización de \emph{$L_0$-Samplers}, que se describieron en la sección \ref{sec:lp_samplers}, lo que requiere de múltiples pasadas sobre el stream de aristas.
+
+        \paragraph{}
+        Tal y como se ha visto en esta sección, la construcción de \emph{Spanners} añade un sobrecoste a la resolución de problemas sobre grafos, junto con una determinada tasa de error desde el punto de vista de la distancia entre vértices. Sin embargo, dichos inconvenientes se ven recompensados en muchos casos por la reducción en tiempo y espacio de la resolución del problema sobre el subgrafo resultante.
 
       \subsection{Sparsifiers}
       \label{sec:sparsifiers}
 
         \paragraph{}
-        Otra alternativa para la generación del subgrafo $H$ construido sobre el mismo conjunto de vértices y un subconjunto de aristas respecto del grafo $G$ son los \emph{Sparsifiers}. En este caso, en lugar de tratar de mantener la propiedad de la distancia del camino más corto entre pares de vértices, se centran en la minimización del número de cortes mínimos (eliminación de aristas) para separar el conjunto de vértices del grafo en dos subconjuntos disjuntos para cada par de vértices. A este concepto se lo denomina \emph{corte mínimo} (o \emph{Minimun Cut}) y se denota por $\lambda_{u,v}(G)$ para indicar el número de aristas a eliminar para formar dos subconjuntos disjuntos $V_{1}, V_{2}$ de tal manera que $u\in V_{1}$ y $v \in V_{2}$. Nótese por tanto que en un grafo dirigido el \emph{corte mínimo} puede tomar valores en el intervalo $[1, n\cdot(n-1)]$.  En la ecuación \eqref{eq:sparsifier_cut} se muestra la definición formal de \emph{Sparsifier} donde $A$ representa todas las combinaciones de pares de vértices y $\epsilon$ la desviación máxima permitida por el \emph{Sparsifier}, de tal manera que se denota como \emph{$(1 +\epsilon)$-Sparsifier}.
+        Otra alternativa para la generación del subgrafo $H$ construido sobre el mismo conjunto de vértices y un subconjunto de aristas respecto del grafo $G$ son los \emph{Sparsifiers}. En este caso, en lugar de tratar de mantener la propiedad de la distancia del camino más corto entre pares de vértices, se basa en la minimización del número de cortes mínimos (eliminación de aristas) para separar el conjunto de vértices del grafo en dos subconjuntos disjuntos para cada par de vértices. A este concepto se lo denomina \emph{corte mínimo} (o \emph{Minimun Cut}) y se denota por $\lambda_{u,v}(G)$ para indicar el número de aristas a eliminar para formar dos subconjuntos disjuntos $V_{1}, V_{2}$ de tal manera que $u\in V_{1}$ y $v \in V_{2}$. Nótese por tanto, que en un grafo dirigido el \emph{corte mínimo} puede tomar valores en el intervalo $[1, n\cdot(n-1)]$.  En la ecuación \eqref{eq:sparsifier_cut} se muestra la definición formal de \emph{Sparsifier} donde $A$ representa todas las combinaciones de pares de vértices y $\epsilon$ la desviación máxima permitida por el \emph{Sparsifier}, de tal manera que el resultado se corresponde con un \emph{$(1 +\epsilon)$-Sparsifier}.
 
         \begin{figure}
           \centering
@@ -235,23 +235,12 @@
         \end{equation}
 
         \paragraph{}
-        A continuación se describe una definición para entender las ideas subyacentes en que se basan los \emph{Sparsifiers}. Podemos definir $G$ como $G = G_0 \subseteq G_1 \subseteq ...  \subseteq G_{i-1} \subseteq G_i \subseteq ... $ de tal manera que $Gi$ se construye eliminando los aristas de $G_{i-1}$ con probabilidad $p = 1/2$. Por tanto, $G_i$ está formado por el subconjunto de aristas de $G$ seleccionadas con probabilidad $p = (\frac{1}{2})^i$. Entonces, para construir un \emph{$(1 +\epsilon)$-Sparsifier} de $G$, el valor $p$ debe ser escogido tal y como se indica en la ecuación \eqref{eq:sparsifier_p}. La demostración se encuentra en el artículo \emph{On graph problems in a semi-streaming model} \cite{feigenbaum2005graph} desarrollado por \emph{Feigenbaum y otros}. Por tanto, el problema se reduce al mantenimiento de un \emph{$L_{0}$-Sampler} que mantenga un subconjunto de aristas seleccionados con probabilidad $p$ del stream de aristas.
+        A continuación se describe una definición para entender las ideas subyacentes en que se basan los \emph{Sparsifiers}. Para construir un \emph{$(1 +\epsilon)$-Sparsifier} de $G$, el valor $p$ debe ser escogido tal y como se indica en la ecuación \eqref{eq:sparsifier_p} donde $\lambda(G)$ representa el corte mínimo de $G$. La demostración se encuentra en el artículo \emph{On graph problems in a semi-streaming model} \cite{feigenbaum2005graph} desarrollado por \emph{Feigenbaum y otros}. Por tanto, el problema se reduce al mantenimiento de un \emph{$L_{0}$-Sampler} que devuelva un subconjunto de aristas seleccionados con probabilidad $p$ del stream de aristas.
 
         \begin{equation}
         \label{eq:sparsifier_p}
           p \geq min\{6\lambda(G)^{-1}\epsilon^{-2}log(n),1\}
         \end{equation}
-
-        \paragraph{}
-        Otro enfoque más general para la construcción de \emph{Sparsifiers} se basa en la utilización de la \emph{Matriz Laplaciana} (definida en la sección \ref{sec:laplacian_matrix}) del grafo $H$ que denotaremos como $L_{H}$. A los \emph{Sparsifiers} construidos manteniendo la propiedad definida en la ecuación \eqref{eq:sparsifier_spectral} se los denomina \emph{Spectral Sparsifiers}. Desarollando la ecuación obtenida si restringimos el rango de valores de $x$ al subconjunto $\{ 0, 1\}^n$ entonces podemos obtener la ecuación \ref{eq:sparsifier_cut}. Dado que el vector $x$ modeliza el conjunto $A$ en dicha ecuación. Por tanto, los \emph{Spectral Sparsifiers} pueden ser vistos como una generalización de los anteriores.
-
-        \begin{equation}
-        \label{eq:sparsifier_spectral}
-          \forall x \in \mathbb{R} \leq (1 - \epsilon) x^TL_{G}x \leq x^TL_{H}x \leq (1 + \epsilon) x^TL_{G}x
-        \end{equation}
-
-        \paragraph{}
-        Mediante la estrategia de los \emph{Spectral Sparsifiers}, además de aproximar el corte mínimo $\lambda(G)$ se pueden aproximar otras propiedades como propiedades de los paseos aleatorios (que se describen en la sección \ref{sec:random_walks_overview}). En el trabajo \emph{Twice-Ramanujan Sparsifiers} \cite{batson2012twice} redactado por \emph{Batson y otros} se describen una estrategia de construcción de \emph{$(1 +\epsilon)$-Spectral Sparsifiers} en un espacio de $O(\epsilon^{-2}n)$.
 
         \paragraph{}
         A continuación se describe una estrategia sencilla de construcción de \emph{$(1 +\epsilon)$-Sparsifiers} para grafos no dirigidos. Esta se basa en la selección de aristas con probabilidad $p$ definido tal y como se indicó anteriormente en la ecuación \eqref{eq:sparsifier_p}.
@@ -272,11 +261,30 @@
         \end{algorithm}
 
         \paragraph{}
-        Las estrategias descritas en esta sección para la redución de la complejidad de grafos ajustandose al \emph{modelo en semi-streaming} proporcionan una ventaja significativa a nivel de espacio mediante la redución del conjunto de aristas para la resolución de otros problemas a partir de ellas. Por contra, estas generan una determinada tasa de error. Cuando se ha hablado de optimalidad en esta sección, ha sido referida al caso de \emph{grafos no dirigidos}, dado que para el caso de los \emph{grafos dirigidos}, aún no se han encontrado métodos de generación de \emph{Spanners} o \emph{Sparsifiers} óptimos debido a la mayor complejidad que estos conllevan. En la siguiente sección se describen distintos problemas para los cuales se ha encontrado una solución sobre el \emph{modelo en semi-streaming} y sus correspondientes restricciónes.
+        Otro enfoque más general para la construcción de \emph{Sparsifiers} se basa en la utilización de la \emph{Matriz Laplaciana} (definida en la sección \ref{sec:laplacian_matrix}) del grafo $H$, que denotaremos como $L_{H}$. A los \emph{Sparsifiers} construidos manteniendo la propiedad definida en la ecuación \eqref{eq:sparsifier_spectral} se los denomina \emph{Spectral Sparsifiers}. Desarollando la ecuación obtenida si restringimos el rango de valores de $x$ al subconjunto $\{ 0, 1\}^n$ entonces podemos obtener la ecuación \ref{eq:sparsifier_cut}. Dado que el vector $x$ modeliza el conjunto $A$ en dicha ecuación. Por tanto, los \emph{Spectral Sparsifiers} pueden ser vistos como una generalización de los anteriores.
+
+        \begin{equation}
+        \label{eq:sparsifier_spectral}
+          \forall x \in \mathbb{R} \leq (1 - \epsilon) x^TL_{G}x \leq x^TL_{H}x \leq (1 + \epsilon) x^TL_{G}x
+        \end{equation}
+
+        \paragraph{}
+        Mediante la estrategia de los \emph{Spectral Sparsifiers}, además de aproximar el corte mínimo $\lambda(G)$ se pueden aproximar otras propiedades como propiedades de los paseos aleatorios (que se describen en la sección \ref{sec:random_walks_overview}). En el trabajo \emph{Twice-Ramanujan Sparsifiers} \cite{batson2012twice} redactado por \emph{Batson y otros} se describe una estrategia de construcción de \emph{$(1 +\epsilon)$-Spectral Sparsifiers} en un espacio de $O(\epsilon^{-2}n)$.
 
         \paragraph{}
         [TODO ampliar sección]
 
+        \paragraph{}
+        [TODO ampliar sección]
+
+        \paragraph{}
+        [TODO ampliar sección]
+
+      \paragraph{}
+      Las estrategias descritas en esta sección para la reducción de la complejidad de grafos ajustandose al \emph{modelo en semi-streaming} proporcionan una ventaja significativa a nivel de espacio mediante la redución del conjunto de aristas para la resolución de otros problemas a partir de ellas. Por contra, estas generan una determinada tasa de error.
+
+      \paragraph{}
+      Cuando se ha hablado de optimalidad en esta sección, ha sido desde el punto de vista de los \emph{grafos no dirigidos}, dado que para el caso de los \emph{grafos dirigidos}, aún no se han encontrado métodos de generación de \emph{Spanners} o \emph{Sparsifiers} óptimos debido a la mayor complejidad que estos conllevan. En la siguiente sección se describen distintos problemas para los cuales se ha encontrado una solución sobre el \emph{modelo en semi-streaming} y sus correspondientes restricciónes.
 
     \section{Problemas sobre Grafos}
     \label{sec:graph_problems}
