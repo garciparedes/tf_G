@@ -16,7 +16,7 @@ def main():
         writer = tf.summary.FileWriter('logs/.')
 
         g_followers = GraphConstructor.from_edges(sess, "Gfollowers",
-                                                  wiki_vote_edges_np, writer)
+                                                  followers_edges_np, writer)
         '''
         pr_followers = NumericIterativePageRank(sess, "PR1",
                                                 g_followers, beta)
