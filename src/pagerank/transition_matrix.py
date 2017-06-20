@@ -15,12 +15,6 @@ class TransitionMatrix(TensorFlowObject):
                      tf.fill([self.G.n, self.G.n], 1 / self.G.n)),
             name=self.name + "_T")
         self.run(tf.variables_initializer([self.transition]))
-        '''
-        self.update_T = self.transition.assign(
-            tf.where(self.G.is_not_sink_tf,
-                     tf.div(self.G.A_tf, self.G.out_degrees_tf),
-                     tf.fill([self.G.n, self.G.n], 0.0)))
-        '''
 
     @property
     def get_tf(self):
@@ -30,6 +24,12 @@ class TransitionMatrix(TensorFlowObject):
         warnings.warn('TransitionResetMatrix auto-update not implemented yet!')
 
         print("Edge: " + str(edge) + "\tChange: " + str(change))
-        '''
-        self.run(self.update_T)
-        '''
+
+        self.run(tf.scatter_nd_update(
+            self.transition, [[edge[0]]],
+            tf.gather(
+                tf.where(self.G.is_not_sink_tf,
+                         tf.div(self.G.A_tf, self.G.out_degrees_tf),
+                         tf.fill([self.G.n, self.G.n], 1 / self.G.n)),
+                [edge[0]])))
+
