@@ -22,6 +22,7 @@ class GraphConstructor:
 
         cond = True
         while cond:
+            # remove uniques from: https://stackoverflow.com/a/16973510/3921457
             edges_np = np.concatenate((edges_np,
                                        np.random.random_integers(0, n - 1, [
                                            m - len(edges_np), 2])), axis=0)
