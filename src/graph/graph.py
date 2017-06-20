@@ -1,14 +1,14 @@
 import tensorflow as tf
 import numpy as np
 
-from src.utils.notifier import Notifier
+from src.utils.update_edge_notifier import UpdateEdgeNotifier
 from src.utils.tensorflow_object import TensorFlowObject
 
 
-class Graph(TensorFlowObject, Notifier):
+class Graph(TensorFlowObject, UpdateEdgeNotifier):
     def __init__(self, sess, name, writer=None, edges_np=None, n=None):
         TensorFlowObject.__init__(self, sess, name, writer)
-        Notifier.__init__(self)
+        UpdateEdgeNotifier.__init__(self)
 
         if edges_np is not None:
             self.n = int(edges_np.max(axis=0).max() + 1)
@@ -72,13 +72,17 @@ class Graph(TensorFlowObject, Notifier):
     def append(self, src, dst):
         if src and dst is None:
             raise ValueError("src and dst must not be None ")
-        self.run(tf.scatter_nd_update(self.A_tf, [[src, dst]], [1.0]))
+        self.run([tf.scatter_nd_update(self.A_tf, [[src, dst]], [1.0]),
+                  tf.scatter_nd_add(self.L_tf, [[src, src], [src, dst]],
+                                    [+1.0, -1.0])])
         self.m += 1
-        self._notify()
+        self._notify([src, dst], 1)
 
     def remove(self, src, dst):
         if src and dst is None:
             raise ValueError("src and dst must not be None ")
-        self.run(tf.scatter_nd_update(self.A_tf, [[src, dst]], [-1.0]))
+        self.run([tf.scatter_nd_update(self.A_tf, [[src, dst]], [-1.0]),
+                  tf.scatter_nd_add(self.L_tf, [[src, src], [src, dst]],
+                                    [-1.0, +1.0])])
         self.m -= 1
-        self._notify()
+        self._notify([src, dst], -1)

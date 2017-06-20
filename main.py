@@ -16,10 +16,13 @@ def main():
     with tf.Session() as sess:
         writer = tf.summary.FileWriter('logs/.')
 
-        g_followers = GraphConstructor.from_edges(sess, "Gfollowers",
-                                                  followers_edges_np, writer)
+        g_followers = GraphConstructor.empty(sess, "Gfollowers",
+                                                  7, writer)
         pr_followers = NumericIterativePageRank(sess, "PRfollowers",
                                                 g_followers, beta)
+
+        for r in followers_edges_np:
+            g_followers.append(r[0],r[1])
         print(g_followers)
         print(pr_followers.ranks(convergence=convergence))
         '''
