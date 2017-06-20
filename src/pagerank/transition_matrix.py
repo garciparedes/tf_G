@@ -1,4 +1,5 @@
 import tensorflow as tf
+import warnings
 
 from src.utils.tensorflow_object import TensorFlowObject
 
@@ -11,7 +12,7 @@ class TransitionMatrix(TensorFlowObject):
         self.transition = tf.Variable(
             tf.where(self.G.is_not_sink_tf,
                      tf.div(self.G.A_tf, self.G.out_degrees_tf),
-                     tf.fill([self.G.n, self.G.n], 1/self.G.n)),
+                     tf.fill([self.G.n, self.G.n], 1 / self.G.n)),
             name=self.name + "_T")
         self.run(tf.variables_initializer([self.transition]))
         '''
@@ -20,11 +21,15 @@ class TransitionMatrix(TensorFlowObject):
                      tf.div(self.G.A_tf, self.G.out_degrees_tf),
                      tf.fill([self.G.n, self.G.n], 0.0)))
         '''
+
     @property
     def get_tf(self):
         return self.transition
 
-    def update(self):
+    def update(self, edge, change):
+        warnings.warn('TransitionResetMatrix auto-update not implemented yet!')
+
+        print("Edge: " + str(edge) + "\tChange: " + str(change))
         '''
         self.run(self.update_T)
         '''

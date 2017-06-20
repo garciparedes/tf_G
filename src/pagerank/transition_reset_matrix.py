@@ -35,8 +35,10 @@ class TransitionResetMatrix(TensorFlowObject):
     def get_tf(self):
         return self.transition
 
-    def update(self):
+    def update(self, edge, change):
         warnings.warn('TransitionResetMatrix auto-update not implemented yet!')
+
+        print("Edge: " + str(edge) + "\tChange: " + str(change))
         '''
         self.run(self.update_T)
         '''
