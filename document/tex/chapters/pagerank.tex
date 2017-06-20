@@ -11,7 +11,39 @@
     \label{sec:pagerank_intro}
 
       \paragraph{}
-      [TODO]
+      El algoritmo \emph{PageRank} fue nombrado por primera vez en el trabajo \emph{The PageRank citation ranking: Bringing order to the web} \cite{page1999pagerank} publicado por \emph{Larry Page} y \emph{Sergey Brin}. La motivación del mismo fue tratar de realizar un \emph{ranking de importancia} (o relevancia) sobre los nodos de un \emph{grafo dirigido no ponderado} de tal manera que este esté basado únicamente en la estructura de dicho grafo.
+
+      \paragraph{}
+      La motivación de dicho trabajo fue la de tratar de mejorar el ranking de resultados del buscador de sitios web \emph{Google} en que estaban trabajando. Hasta la publicación de dicho trabajo, los sistemas de búsqueda se basaban en heurísticas como el número de ocurrencias de la palabra clave sobre la cual se basaba la búsqueda o el número de enlaces hacia dicha página.
+
+      \paragraph{}
+      Sin embargo, los rankings basados en este tipo de estrategias podían ser fácilmente manipulables con el fin de tratar de conseguir posicionarse en las primeras posiciones del sistema de búsqueda. Por ejemplo, una página web que se basara en la repetición de la misma palabra muchas veces, entonces aparecería en primer lugar en rankings basados en el número de ocurrencias para dicha palabra clave. En el caso de rankings basados en el número de enlac hacia dicha página, tampoco sería complejo manipular el resultado creando un número elevado de páginas web que contuvieran links hacia la página para la cual se pretende mejorar su posicionamiento.
+
+      \paragraph{}
+      La solución propuesta por \emph{Page} y \emph{Brin} para tratar de solucionar dicha problemática se basa en la generación de un ranking sobre los sitios web basado en la estructura del grafo subyacente, de tal manera que los vértices (sitios web) sobre los cuales existan aristas (enlaces) que provengan de otros vértices relevantes, tendrán una puntuación mayor que la de vértices que cuyo subconjunto de aristas los relacione con otros vértices menos relevantes.
+
+      \paragraph{}
+      La idea en que se basa el ranking se refiere por tanto a que los sitios web a los cuales se puede acceder a partir de otros sitios web considerados como importantes, entonces deberan encontrarse en primeras posiciones. Esta idea se extiende de manera inductiva sobre todos los vértices del grafo, puesto que tal y como veremos en las siguientes secciones converge hacia un estado estable (o \emph{distribución estacionaria} desde el punto de vista estadístico)
+
+      \paragraph{}
+      Para tratar de facilitar la comprensión acerca de esta idea a continuación se expone un ejemplo: Supongamos que en una red social como \emph{Twitter} (la cual se puede entender como un conjunto de usuarios que se relacionan entre si mediante relaciones de seguimiento, por lo que se puede ver como un grafo dirigido no poderado donde el conjunto de usuarios se refiere a los vértices y el conjunto de relaciones de seguimiento con las aristas) un usuario habitual (el cual no tiene un número elevado de seguidores) comienza a seguir a un antiguo amigo de la universidad, el cual tampoco tiene un gran número de seguidores.
+
+      \paragraph{}
+      La red social \emph{Twitter} envía una notificación a todos seguidores del usuario indicando que este ha empezado a seguir a su amigo de la universidad. Puesto que su número de seguidores es bajo dicha acción no tendrá una gran relevancia y muy probablemente nadie más comience a seguir al amigo de la universidad. Sin embargo, supongamos que nuestro usuario, en lugar de tener un conjunto reducido de seguidores, es una persona influyente en la red social, a la cual siguen millones de personas, entonces la notificación del nuevo seguimiento le llegará a muchos más usuarios y probablemente el amigo de la universidad verá como su número de seguidores aumenta notablemente.
+
+      \paragraph{}
+      A grandes rasgos, esta es la idea en que se basa el algoritmo \emph{PageRank}, es decir, la puntuación de un vértice del grafo se basa en la relevancia de los vértices que contienen aristas que apuntan hacia el propio vértice.
+
+      \paragraph{}
+      La idea inicial del algoritmo \emph{PageRank} era la de realizar un ranking basado en la estructura del grafo de la web (\emph{Web Graph}), sin embargo, tal y como se verá a lo largo del capítulo, los conceptos matemáticos en que se basa dicho ranking son extrapolables a cualquier entorno que se pueda representar a partir de una red o grafo. En el trabajo \emph{PageRank beyond the Web}\cite{gleich2015pagerank} \emph{Gleich} realiza un estudio acerca de los distintos entornos sobre los cuales se han aplicado estas ideas.
+
+      \paragraph{}
+      Entre otros, se han realizado trabajos sobre los cuales se ha aplicado el algoritmo \emph{PageRank} en áreas tan dispares como la Biología, para analizar las células más importantes a partir de las interrelaciones entre ellas. También se ha aplicado en el sector de la neurociencia por razones similares. En el caso de la literatura, se ha aplicado sobre el grafo generado a partir del sistema de citaciones de artículos de investigación. Otros ámbitos de aplicación han sido sistemas de planificación de tareas o incluso estudios acerca de resultados en deportes, para conocer los encuentros más relevantes.
+
+
+      \paragraph{}
+      [TODO hablar acerca de cómo se va a organizar el resto del capítulo]
+
 
     \section{Paseos Aleatorios}
     \label{sec:random_walks}
