@@ -1,4 +1,5 @@
 import tensorflow as tf
+import warnings
 
 from src.utils.tensorflow_object import TensorFlowObject
 
@@ -26,6 +27,8 @@ class TransitionMatrix(TensorFlowObject):
         return self.transition
 
     def update(self, edge, change):
+        warnings.warn('TransitionResetMatrix auto-update not implemented yet!')
+
         print("Edge: " + str(edge) + "\tChange: " + str(change))
         '''
         self.run(self.update_T)
