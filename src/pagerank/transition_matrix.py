@@ -33,3 +33,15 @@ class TransitionMatrix(TensorFlowObject):
                          tf.fill([self.G.n, self.G.n], 1 / self.G.n)),
                 [edge[0]])))
 
+        if change > 0.0:
+            self.run(tf.scatter_nd_update(
+                self.transition, [[edge[0]]],
+                tf.div(tf.gather(self.G.A_tf, [edge[0]]),
+                       tf.gather(self.G.out_degrees_tf, [edge[0]]))))
+        else:
+            self.run(tf.scatter_nd_update(
+                self.transition, [[edge[0]]],
+                tf.where(tf.gather(self.G.is_not_sink_tf, [edge[0]]),
+                         tf.div(tf.gather(self.G.A_tf, [edge[0]]),
+                                tf.gather(self.G.out_degrees_tf, [edge[0]])),
+                         tf.fill([1, self.G.n], tf.pow(self.G.n_tf, -1)))))

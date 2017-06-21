@@ -72,7 +72,7 @@ class Graph(TensorFlowObject, UpdateEdgeNotifier):
     def append(self, src, dst):
         if src and dst is None:
             raise ValueError("src and dst must not be None ")
-        self.run([tf.scatter_nd_update(self.A_tf, [[src, dst]], [1.0]),
+        self.run([tf.scatter_nd_add(self.A_tf, [[src, dst]], [1.0]),
                   tf.scatter_nd_add(self.L_tf, [[src, src], [src, dst]],
                                     [+1.0, -1.0])])
         self.m += 1
@@ -81,7 +81,7 @@ class Graph(TensorFlowObject, UpdateEdgeNotifier):
     def remove(self, src, dst):
         if src and dst is None:
             raise ValueError("src and dst must not be None ")
-        self.run([tf.scatter_nd_update(self.A_tf, [[src, dst]], [-1.0]),
+        self.run([tf.scatter_nd_add(self.A_tf, [[src, dst]], [-1.0]),
                   tf.scatter_nd_add(self.L_tf, [[src, src], [src, dst]],
                                     [-1.0, +1.0])])
         self.m -= 1

@@ -23,6 +23,9 @@ def main():
 
         for r in followers_edges_np:
             g_followers.append(r[0],r[1])
+
+        g_followers.remove(followers_edges_np[0,0],followers_edges_np[0,1])
+        g_followers.append(followers_edges_np[0,0],followers_edges_np[0,1])
         print(g_followers)
         print(pr_followers.ranks(convergence=convergence))
         '''
