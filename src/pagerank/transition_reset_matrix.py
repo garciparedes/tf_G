@@ -37,7 +37,7 @@ class TransitionResetMatrix(TensorFlowObject):
                     tf.scalar_mul(
                         self.beta,
                         tf.div(
-                            self.G.A_tf_row(edge[0]),
+                            self.G.A_tf_vertex(edge[0]),
                             self.G.out_degrees_tf_vertex(edge[0]))),
                     (1 - self.beta) / self.G.n_tf)))
         else:
@@ -48,7 +48,7 @@ class TransitionResetMatrix(TensorFlowObject):
                              tf.scalar_mul(
                                  self.beta,
                                  tf.div(
-                                     self.G.A_tf_row(edge[0]),
+                                     self.G.A_tf_vertex(edge[0]),
                                      self.G.out_degrees_tf_vertex(edge[0]))),
                              (
                                  1 - self.beta) / self.G.n_tf),

@@ -28,12 +28,12 @@ class TransitionMatrix(TensorFlowObject):
         if change > 0.0:
             self.run(tf.scatter_nd_update(
                 self.transition, [[edge[0]]],
-                tf.div(self.G.A_tf_row(edge[0]),
+                tf.div(self.G.A_tf_vertex(edge[0]),
                        self.G.out_degrees_tf_vertex(edge[0]))))
         else:
             self.run(tf.scatter_nd_update(
                 self.transition, [[edge[0]]],
                 tf.where(self.G.is_not_sink_tf_vertex(edge[0]),
-                         tf.div(self.G.A_tf_row(edge[0]),
+                         tf.div(self.G.A_tf_vertex(edge[0]),
                                 self.G.out_degrees_tf_vertex(edge[0])),
                          tf.fill([1, self.G.n], tf.pow(self.G.n_tf, -1)))))

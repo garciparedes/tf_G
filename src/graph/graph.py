@@ -59,14 +59,15 @@ class Graph(TensorFlowObject, UpdateEdgeNotifier):
     def L_pseudo_inverse_tf(self):
         return tf.py_func(np.linalg.pinv, [self.L_tf], tf.float32)
 
-    def A_tf_row(self, row):
-        return tf.gather(self.A_tf, [row])
+    def A_tf_vertex(self, vertex):
+        return tf.gather(self.A_tf, [vertex])
 
     def out_degrees_tf_vertex(self, vertex):
         return tf.gather(self.out_degrees_tf, [vertex])
 
     def is_not_sink_tf_vertex(self, vertex):
-        return tf.gather(self.is_not_sink_tf, [vertex])
+        return tf.not_equal(
+            tf.reshape([self.out_degrees_tf_vertex(vertex)], [1]), 0)
 
     def get_in_degrees_tf(self, keep_dims=False):
         if keep_dims is False:
