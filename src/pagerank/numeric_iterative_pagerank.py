@@ -37,3 +37,8 @@ class NumericIterativePageRank(NumericPageRank):
 
         raise NotImplementedError(
             'NumericIterativePageRank not implements exact PageRank')
+
+    def update(self, edge, change):
+        warnings.warn('PageRank auto-update not implemented yet!')
+
+        print("Edge: " + str(edge) + "\tChange: " + str(change))

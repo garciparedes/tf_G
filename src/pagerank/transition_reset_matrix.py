@@ -2,11 +2,13 @@ import warnings
 import tensorflow as tf
 
 from src.utils.tensorflow_object import TensorFlowObject
+from src.utils.update_edge_notifier import UpdateEdgeNotifier
 
 
-class TransitionResetMatrix(TensorFlowObject):
+class TransitionResetMatrix(TensorFlowObject, UpdateEdgeNotifier):
     def __init__(self, sess, name, graph, beta):
         TensorFlowObject.__init__(self, sess, name)
+        UpdateEdgeNotifier.__init__(self)
 
         self.G = graph
         self.G.attach(self)
@@ -27,9 +29,9 @@ class TransitionResetMatrix(TensorFlowObject):
         return self.transition
 
     def update(self, edge, change):
-        warnings.warn('TransitionResetMatrix auto-update not implemented yet!')
 
-        print("Edge: " + str(edge) + "\tChange: " + str(change))
+        # print("Edge: " + str(edge) + "\tChange: " + str(change))
+
         if change > 0.0:
             self.run(tf.scatter_nd_update(
                 self.transition, [[edge[0]]],
@@ -53,3 +55,4 @@ class TransitionResetMatrix(TensorFlowObject):
                              (
                                  1 - self.beta) / self.G.n_tf),
                          tf.fill([1, self.G.n], tf.pow(self.G.n_tf, -1)))))
+        self._notify(edge, change)
