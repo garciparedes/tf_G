@@ -52,14 +52,14 @@
       En esta sección se trata el concepto de \emph{Paseos Aleatorios}, el cual está intimamente relacionado con el algoritmo \emph{PageRank}. Para el desarrollo de esta sección se ha utilizado como herramienta bibliográfica el libro \emph{Randomized algorithms} \cite{motwani2010randomized} de \emph{Motwani} y \emph{Raghavan}, concretamente se ha prestado especial atención al \emph{capítulo 6: Markov Chains and Random Walks}. El resto de la sección se basará en la descripción de propiedades relacionadas con \emph{Paseos Aleatorios} para finalizar ilustrando la relacion de estos con \emph{PageRank}
 
       \paragraph{}
-      Lo primero que haremos será describir en qué consiste un \emph{Paseo Aleatorio}. Para ello nos referiremos al grafo $G=(V,E)$ dirigido y no ponderado, el cual esta compuesto por $n = card(V)$ vértices y $m=card(E)$ aristas. Un paseo aleatorio se refiere entonces a un camino de longitud $l$ con origen en el vértice $v_{i_1}$ y final en $v_{i_l}$. Para que dicho camino constituya un paseo aleatorio, cada paso debe haber sido generado seleccionando de manera uniforme el siguiente vértice a visitar de entre los adyacentes al vértice actual. A continuación se describen las \emph{Cadenas de Markov} por su relación como herramienta de estudio para los paseos aleatorios.
+      Lo primero que haremos será describir en qué consiste un \emph{Paseo Aleatorio}. Para ello nos referiremos al grafo $G=(V,E)$ dirigido y no ponderado, el cual esta compuesto por $n = card(V)$ vértices y $m=card(E)$ aristas. Un paseo aleatorio se refiere entonces a un camino de longitud $l$ con origen en el vértice $v_{i_1}$ y final en $v_{i_l}$. Para que dicho camino constituya un paseo aleatorio, cada paso debe haber sido generado seleccionando de manera uniforme el siguiente vértice a visitar de entre los adyacentes al vértice actual. Nótese que este comportamiento puede ser visto como el promedio del modo en que los usuarios navegan por internet, de tal manera que acceden a páginas web mediante los enlaces que encuentran en la página que están visualizando. A continuación se describen las \emph{Cadenas de Markov} por su relación como herramienta de estudio para los paseos aleatorios.
 
 
       \subsection{Cadenas de Markov}
       \label{sec:markov_chains}
 
         \paragraph{}
-        Para el estudio de paseos aleatorios, es apropiado utilizar la abstracción conocida como \emph{Cadenas de Markov}, las cuales están intimamente relacionadas con el concepto de grafo y máquina de estados. Una \emph{Cadena de Markov} $M$ se define como un proceso estocástico que consta de $n$ posibles estados, los cuales tienen asociadas un conjunto de probabilidades denotadas como $p_{ij}$ para indicar la probabilidad con la cual se pasará del estado $i$ al estado $j$.
+        Para el estudio de paseos aleatorios, es apropiado utilizar la abstracción conocida como \emph{Cadenas de Markov}, las cuales están intimamente relacionadas con el concepto de grafo y máquina de estados. Una \emph{Cadena de Markov} $M$ se define como un proceso estocástico que consta de $n$ posibles estados, los cuales tienen asociadas un conjunto de probabilidades denotadas como $p_{ij}=\frac{A_{ij}}{d^-(i)}$ para indicar la probabilidad con la cual se pasará del estado $i$ al estado $j$.
 
         \paragraph{}
         Dichas probabilidades se pueden representar de manera matricial sobre una matriz de transiciones $P$ de tamaño $n*n$, de tal manera que la posición $(i,j)$ contenga el valor $p_{ij}$ construido tal y como se indica en el párrafo anterior. Notese por tanto, que $\sum_{j}p_{ij}=1$ para que la distribución de probabilidades sea válida, es decir, la suma de probabilidades para las transiciones sobre cada estado deben sumar $1$.
@@ -107,37 +107,37 @@
     \label{sec:pagerank_formal_definition}
 
       \paragraph{}
-      [TODO]
+      Se define el \emph{PageRank} como la \emph{distribución estacionaria} $\pi$ de un determinado grafo dirigido no ponderado $G$ sobre el cual, la matriz de transicciones $P$, ha sido ligeramente modificada. Tal y como se ha visto en la sección anterior, la \emph{distribución estacionaria} consiste en la probabilidad de encontrarse en el estado $i$ durante un paseo aletorio de longitud elevada sobre la \emph{Cadena de Markov} $M$. Tal y como se ha indicado, para que una cadena de markov sea válida, entonces no deben existir estados \emph{sumideros} (no tienen posibles estados próximos).
+
+      \paragraph{}
+      Por estas razones, obtener la \emph{distribución estacionaria} de un grafo $G$, este no debe contener vértices \emph{sumideros}. La solución que proponen \emph{Page} y \emph{Brin} en \cite{page1999pagerank} para encontrar la \emph{distribución estacionaria} o \emph{PageRank} del grafo generado por los enlaces de la web (\emph{Web Graph}) es añadir un determinado índice de probabilidad sobre el cual los usuarios dejan de seguir los enlaces entre páginas web para acceder a otra distinta introducciendo la URL directamente. El apoyo en esta estrategia soluciona por tanto el problema de los vértices \emph{sumidero}, además de asemejarse en un mayor grado al comportamiento real de un usario que navega por internet.
+
+      \paragraph{}
+      En \cite{page1999pagerank} \emph{Page} y \emph{Brin} proponen la modificación de la matriz de transiciones $P$ para la adaptación descrita en el párrafo superior, la cual se indica en la ecuación \eqref{eq:pagerank_transition_matrix}. De esta manera, se representa la situación en la cual un determinado usuario que llega a una página web sin enlaces hacia otras (\emph{sumidero}), accede a otra seleccionada de manera uniforme (esto se modeliza mediante el vector $v$ construido de tal manera que  $v_{i} = \frac{1}{n}, \ \forall i \in [1,n]$). Además, se añade un determinado índice $\beta$, que se corresponde con la probabilidad de que el usuario continue seleccionando enlaces en la página actual o ,por contra, acceda a otra seleccionandola de manera uniforme. Típicamente el valor $\beta$ se fija a $0.85$, sin embargo, admite cualquier valor contenido en el intervalo $[0,1]$.
+
+      \begin{equation}
+      \label{eq:pagerank_transition_matrix}
+        p'_{ij} =
+        \begin{cases}
+          \beta * \frac{A_{ij}}{d^-(i)} + (1- \beta) * v_{i} & \mbox{if} \ d^-(i) \neq 0 \\
+          v_{i}&\mbox{otherwise}
+        \end{cases}
+      \end{equation}
+
+      \paragraph{}
+      Tal y como se ha indicado anteriormente, el vector $v$ representa la distribución de probabilidad referida a los saltos que un usuario lleva a cabo entre sitios web sin tener en cuenta los enlaces. En el párrafo anterior se ha indicado que este vector es construido de manera uniforme, por tanto, esto puede ser visto de tal manera que la probabilidad de saltar de un sitio web a otro es la misma. Sin embargo, dicha acción podría seguir una distribución de probabilidad distinta dependiendo de cada usuario de la red. Por tanto, en \cite{page1999pagerank} se habla de \emph{PageRank Aproximado} cuando el vector $v$ sigue una determinada distribución de probabilidades referida a los sitios web a los que más accede el usuario.
+
+      \paragraph{}
+      En el trabajo \emph{Topic-sensitive pagerank} \cite{haveliwala2002topic} \emph{Haveliwala} propone la generación de 16 \emph{distribución estacionarias} (\emph{PageRanks}) distintas mediante la personalización del vector $v$, para después realizar una combinación de estas y así conseguir que el ranking final sea personalizado.
+
+      \paragraph{}
+      Una vez descritas las transformaciones necesarias a realizar sobre la matriz de transiciones $P$ para que esta se adapte a la estructura de grafos con vértices \emph{sumidero}, y que además emule de manera más apropiada el comportamiento de un determinado usuario sobre el grafo de la web (\emph{Web Graph}), lo siguiente es explicar cómo se puede obtener la \emph{distribución estacionaria} o \emph{PageRank} del grafo. Para ello, a continuación se describe el \emph{Teorema de Perron–Frobenius}, que aporta una idea acerca de como calcularlo, así como la convergencia de la matriz de transiciones hacia dicho vector $\pi$.
 
       \subsection{Teorema de Perron–Frobenius}
       \label{sec:perron_frobenius_theorem}
 
         \paragraph{}
         [TODO ]
-
-    \section{Variantes}
-    \label{sec:pagerank_variants}
-
-      \paragraph{}
-      [TODO ]
-
-      \subsection{SymRank}
-      \label{sec:symrank}
-
-        \paragraph{}
-        [TODO]
-
-      \subsection{HITS}
-      \label{sec:hits}
-
-        \paragraph{}
-        [TODO]
-
-      \subsection{SALSA}
-      \label{sec:salsa}
-
-        \paragraph{}
-        [TODO]
 
     \section{Algoritmo Básico}
     \label{sec:pagerank_algorithm}
@@ -150,6 +150,30 @@
 
       \paragraph{}
       [TODO ]
+
+      \section{Variantes}
+      \label{sec:pagerank_variants}
+
+        \paragraph{}
+        [TODO ]
+
+        \subsection{SymRank}
+        \label{sec:symrank}
+
+          \paragraph{}
+          [TODO]
+
+        \subsection{HITS}
+        \label{sec:hits}
+
+          \paragraph{}
+          [TODO]
+
+        \subsection{SALSA}
+        \label{sec:salsa}
+
+          \paragraph{}
+          [TODO]
 
     \section{Conclusiones}
     \label{sec:pagerank_conclusions}
