@@ -49,13 +49,36 @@
     \label{sec:random_walks}
 
       \paragraph{}
-      [TODO ]
+      En esta sección se trata el concepto de \emph{Paseos Aleatorios}, el cual está intimamente relacionado con el algoritmo \emph{PageRank}. Para el desarrollo de esta sección se ha utilizado como herramienta bibliográfica el libro \emph{Randomized algorithms} \cite{motwani2010randomized} de \emph{Motwani} y \emph{Raghavan}, concretamente se ha prestado especial atención al \emph{capítulo 6: Markov Chains and Random Walks}. El resto de la sección se basará en la descripción de propiedades relacionadas con \emph{Paseos Aleatorios} para finalizar ilustrando la relacion de estos con \emph{PageRank}
+
+      \paragraph{}
+      Lo primero que haremos será describir en qué consiste un \emph{Paseo Aleatorio}. Para ello nos referiremos al grafo $G=(V,E)$ dirigido y no ponderado, el cual esta compuesto por $n = card(V)$ vértices y $m=card(E)$ aristas. Un paseo aleatorio se refiere entonces a un camino de longitud $l$ con origen en el vértice $v_{i_1}$ y final en $v_{i_l}$. Para que dicho camino constituya un paseo aleatorio, cada paso debe haber sido generado seleccionando de manera uniforme el siguiente vértice a visitar de entre los adyacentes al vértice actual. A continuación se describen las \emph{Cadenas de Markov} por su relación como herramienta de estudio para los paseos aleatorios.
+
 
       \subsection{Cadenas de Markov}
       \label{sec:markov_chains}
 
         \paragraph{}
-        [TODO ]
+        Para el estudio de paseos aleatorios, es apropiado utilizar la abstracción conocida como \emph{Cadenas de Markov}, las cuales están intimamente relacionadas con el concepto de grafo y máquina de estados. Una \emph{Cadena de Markov} $M$ se define como un proceso estocástico que consta de $n$ posibles estados, los cuales tienen asociadas un conjunto de probabilidades denotadas como $p_{ij}$ para indicar la probabilidad con la cual se pasará del estado $i$ al estado $j$.
+
+        \paragraph{}
+        Dichas probabilidades se pueden representar de manera matricial sobre una matriz de transiciones $P$ de tamaño $n*n$, de tal manera que la posición $(i,j)$ contenga el valor $p_{ij}$ construido tal y como se indica en el párrafo anterior. Notese por tanto, que $\sum_{j}p_{ij}=1$ para que la distribución de probabilidades sea válida, es decir, la suma de probabilidades para las transiciones sobre cada estado deben sumar $1$.
+
+        \paragraph{}
+        Supongase que se realiza un paseo aleatorio sobre la \emph{Cadena de Markov} $M$ cuya longitud $l$ es muy elevada ($l \gg n^2$), entonces, es fácil intuir que se visitará más de una vez cada estado. Sin embargo, el ratio de veces que se visitará cada estado muy probablemente no se distribuirá de manera uniforme, sino que habrá estados que serán visitados muchas más veces que otros. Esto depende en gran medida de la matriz de transicciones $P$. A la distribución de probabilidad generada sobre el ratio de visitas sobre cada nodo tras aplicar un paseo aleatorio de longitud elevada se le conoce como \emph{distribución estacionaria} y se denota como $\pi$.
+
+        \begin{figure}
+          \centering
+          \includegraphics[width=0.6\textwidth]{markov-chain-example}
+          \caption{Ejemplo de \emph{Cadena de Markov}. (Extraido de \cite{sanchez2012wireless})}
+          \label{img:markov_chain_example}
+        \end{figure}
+
+        \paragraph{}
+        En la figura \ref{img:markov_chain_example} (Extraido de \cite{sanchez2012wireless}) se muestra una cadena de markov, tando en su forma de grafo dirigido como a partir de su matriz de transiciones $P$.
+
+        \paragraph{}
+        La distribución estacionaria $\pi$ existe siempre que la \emph{Cadena de Markov} $M$ permita que a partir de un determinado estado $i$, se pueda llegar al menos a otro estado $j$. La razón se debe a que si se llega al estado $i$ y este no contiene más posibles estados de salida, entonces el resto de épocas se seguirá en el mismo estado. A los estados que poseen esta característica se los denomina sumideros. La segunda restricción para que se pueda calcular la distrbución estacionaria $\pi$ es que la matriz de transiciones $P$ no debe ser periodica, es decir, no debe contener ciclos de probabilidad constante sobre los cuales el paseo aleatorio se quedaría iterando de manera indefinida.
 
       \subsection{Matriz Laplaciana de Caminos Aleatorios Normalizada}
       \label{sec:random_walk_normalized_laplacian_matrix}
