@@ -75,16 +75,33 @@
         \end{figure}
 
         \paragraph{}
-        En la figura \ref{img:markov_chain_example} (Extraido de \cite{sanchez2012wireless}) se muestra una cadena de markov, tando en su forma de grafo dirigido como a partir de su matriz de transiciones $P$.
+        En la figura \ref{img:markov_chain_example} (Extraido de \cite{sanchez2012wireless}) se muestra una cadena de markov constituida por 3 estados, tando en su forma de grafo dirigido como de forma matricial.
 
         \paragraph{}
         La distribución estacionaria $\pi$ existe siempre que la \emph{Cadena de Markov} $M$ permita que a partir de un determinado estado $i$, se pueda llegar al menos a otro estado $j$. La razón se debe a que si se llega al estado $i$ y este no contiene más posibles estados de salida, entonces el resto de épocas se seguirá en el mismo estado. A los estados que poseen esta característica se los denomina sumideros. La segunda restricción para que se pueda calcular la distrbución estacionaria $\pi$ es que la matriz de transiciones $P$ no debe ser periodica, es decir, no debe contener ciclos de probabilidad constante sobre los cuales el paseo aleatorio se quedaría iterando de manera indefinida.
 
-      \subsection{Matriz Laplaciana de Caminos Aleatorios Normalizada}
+        \paragraph{}
+        Las definiciones descritas en este apartado se pueden extender de manera trivial al caso de grafos dirigidos sin más que utilizar cada vértice del grafo como un estado y construir la matriz $P$ de tal manera que $p_{ij}=\frac{A_{ij}}{d^-(i)}$ donde $d^-(i)$ representa el cardinal de aristas cuyo origen es el vértice $i$. Tal y como se verá posteriormente, el vector $\pi$ se corresponde con el resultado obtenido por el algoritmo \emph{PageRank} sobre una matriz $P$ de transicciones modificada.
+
+      \subsection{Matriz Laplaciana de Paseos Aleatorios Normalizada}
       \label{sec:random_walk_normalized_laplacian_matrix}
 
         \paragraph{}
-        [TODO ]
+        En la sección \ref{sec:laplacian_matrix} se habló sobre la \emph{Matriz Laplacina}, la cual es una estrategia de representación, que ilustra distintas propiedades sobre el grafo subyacente. En este caso se describe una variación de la misma que es más apropiada para problemas relacionados con \emph{Paseos Aleatorios}. Esta se denota como $L^{{{\text{rw}}}}$ y se denomina \emph{Matriz Laplaciana de Paseos Aleatorios Normalizada}. La estrategia de construcción de la misma se indica en la ecuación \eqref{eq:random_walk_normalized_laplacian_matrix}. Esto consiste en asignar a la posición $(i,j)$ el opuesto de la probabilidad de transicción del vértice $i$ al vértice $j$. Además, en la diagonal $(i,i)$ se asigna el valor $1$ cuando el grado del vértice es mayor que $0$.
+
+        \begin{equation}
+        \label{eq:random_walk_normalized_laplacian_matrix}
+          L_{{i,j}}^{{{\text{rw}}}}:={
+          \begin{cases}
+            1&{\mbox{if}}\ i=j\ {\mbox{and}}\ d(v_{i})\neq 0\\
+            -{P_{ij}}&{\mbox{if}}\ i\neq j\ {\mbox{and}}\ v_{i}{\mbox{ is adjacent to }}v_{j}\\
+            0&{\mbox{otherwise}}.
+          \end{cases}}
+        \end{equation}
+
+
+      \paragraph{}
+      Una vez descritos los \emph{Paseos Aleatorios}, junto con las \emph{Cadenas de Markov} y la \emph{Matriz Laplaciana de Paseos Aleatorios Normalizada}, ya se está en condiciones suficientes como para describir de manera formal el \emph{PageRank} de un determinado grafo, que se realizará en la siguiente sección. Para ello, se indicarán las dificultades que surgen sobre este problema en grafos reales, así como las soluciones utilizadas para poder hacer frente a estas.
 
     \section{Definición Formal}
     \label{sec:pagerank_formal_definition}
