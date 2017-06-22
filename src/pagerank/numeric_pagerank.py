@@ -50,7 +50,7 @@ class NumericPageRank(PageRank):
                 VectorNorm.ONE(tf.subtract(self.v, other_pr.v)), [])
 
     def error_ranks_compare_tf(self, other_pr, k=-1):
-        if 0 < k < self.G.n-1:
+        if 0 < k < self.G.n - 1:
             return tf.div(tf.cast(tf.reduce_sum(tf.abs(tf.slice(
                 tf.py_func(Utils.ranked, [
                     tf.py_func(Utils.ranked, [tf.scalar_mul(-1, self.v)],
@@ -59,7 +59,7 @@ class NumericPageRank(PageRank):
                     tf.py_func(Utils.ranked, [tf.scalar_mul(-1, other_pr.v)],
                                tf.int64)], tf.int64), [0, 0], [1, k]))),
                 tf.float32),
-                (k * (k - 1)))
+                (self.G.n_tf * (self.G.n_tf - 1)))
         else:
             return tf.div(tf.cast(tf.reduce_sum(tf.abs(
                 tf.py_func(Utils.ranked, [

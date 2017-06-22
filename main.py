@@ -57,7 +57,7 @@ def main():
         pprint(pr_sparse.ranks().tolist())
 
         # pprint(pr_sparse.ranks_by_rank(convergence=convergence).tolist())
-        print(pr_followers_alge.error_ranks_compare_np(pr_sparse, k=100))
+        print(pr_followers_alge.error_ranks_compare_np(pr_sparse, k=128))
         print(g_followers.m)
         print(g_sparse.m)
 
