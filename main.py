@@ -18,9 +18,9 @@ def main():
         writer = tf.summary.FileWriter('logs/.')
 
         g_followers = GraphConstructor.from_edges(sess, "Gfollowers",
-                                                  followers_edges_np, writer)
-        pr_followers = NumericIterativePageRank(sess, "PR1",g_followers, beta)
-        
+                                                  wiki_vote_edges_np, writer)
+        pr_followers = NumericIterativePageRank(sess, "PR1", g_followers, beta)
+
         '''
         g_followers_updateable = GraphConstructor.empty(sess, "Gfollowers",
                                                   7, writer)
@@ -35,13 +35,13 @@ def main():
         g_followers_updateable.remove(followers_edges_np[0,0], followers_edges_np[0,1])
         g_followers_updateable.append(followers_edges_np[0,0], followers_edges_np[0,1])
         '''
-        
+
         print(g_followers)
         print(pr_followers.ranks(convergence=convergence))
         print(g_followers.m)
 
+        g_sparse = GraphConstructor.as_other_sparsifier(sess, g_followers, 0.90)
         '''
-        g_sparse = GraphConstructor.as_other_sparsifier(sess, g_followers, 0.9)
         pr_sparse = NumericIterativePageRank(sess, "PR2",
                                              g_sparse, beta)
         print(g_sparse.m)
