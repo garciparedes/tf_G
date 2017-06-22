@@ -2,6 +2,8 @@ import tensorflow as tf
 import warnings
 from src.pagerank.numeric_pagerank import NumericPageRank
 from src.pagerank.transition_reset_matrix import TransitionResetMatrix
+from src.utils.vector_convergence import VectorConvergenceCriterion
+from src.utils.vector_norm import VectorNorm
 
 
 class NumericIterativePageRank(NumericPageRank):
@@ -14,12 +16,14 @@ class NumericIterativePageRank(NumericPageRank):
                      self.v.assign(tf.matmul(self.v, self.T.get_tf))]
         self.run(tf.variables_initializer([self.v_last]))
 
-    def _pr_convergence_tf(self, convergence, personalized):
+    def _pr_convergence_tf(self, convergence, personalized,
+                           convergence_criterion=VectorConvergenceCriterion.ONE):
         if personalized is not None:
             warnings.warn('Personalized PageRank not implemented yet!')
-        diff = tf.reduce_max(tf.abs(tf.subtract(self.v_last, self.v)), 1)
+
         self.run(self.iter)
-        while self.run(diff > [convergence / self.G.n_tf]):
+        while self.run(convergence_criterion(self.v_last, self.v, convergence,
+                                             self.G.n_tf)):
             self.run(self.iter)
         return self.v
 
