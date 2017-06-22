@@ -31,9 +31,13 @@ class PageRank(TensorFlowObject):
         else:
             return self._pr_exact_tf(personalized=personalized)
 
-    def ranks(self, convergence=1.0, steps=0, personalized=None):
+    def ranks_by_rank(self, convergence=1.0, steps=0, personalized=None):
         raise NotImplementedError(
-            'subclasses must override ranks()!')
+            'subclasses must override ranks_by_rank()!')
+
+    def ranks_by_id(self, convergence=1.0, steps=0, personalized=None):
+        raise NotImplementedError(
+            'subclasses must override ranks_by_id()!')
 
     def _pr_convergence_tf(self, convergence, personalized,
                            convergence_criterion):
