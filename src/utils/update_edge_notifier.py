@@ -10,4 +10,4 @@ class UpdateEdgeNotifier:
 
     def _notify(self, edge, change):
         for observer in self._listeners:
-            observer.update(edge, change)
+            observer.update_edge(edge, change)

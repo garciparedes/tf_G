@@ -1,10 +1,9 @@
-import warnings
-
 import tensorflow as tf
 import numpy as np
 
 from src.pagerank.pagerank import PageRank
 from src.utils.utils import Utils
+from src.utils.vector_norm import VectorNorm
 
 
 class NumericPageRank(PageRank):
@@ -29,5 +28,6 @@ class NumericPageRank(PageRank):
             dtype=[tf.int64, tf.float32])
         return np.concatenate(self.run(ranks), axis=1)
 
-    def update(self, edge, change):
-        warnings.warn('PageRank auto-update not implemented yet!')
+    def error_compare_tf(self, other_pr):
+        return tf.reshape(
+            VectorNorm.ONE(tf.subtract(self.v, other_pr.v)), [])

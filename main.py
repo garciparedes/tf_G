@@ -1,10 +1,12 @@
 import tensorflow as tf
 import numpy as np
+import timeit
+
 from src.graph.graph_constructor import GraphConstructor
 from src.pagerank.numeric_algebraic_pagerank import NumericAlgebraicPageRank
 from src.pagerank.numeric_iterative_pagerank import NumericIterativePageRank
+from src.pagerank.numeric_pagerank import NumericPageRank
 from src.utils.datasets import DataSets
-import timeit
 
 
 def main():
@@ -18,9 +20,12 @@ def main():
         writer = tf.summary.FileWriter('logs/.')
 
         g_followers = GraphConstructor.from_edges(sess, "Gfollowers",
-                                                  followers_edges_np, writer)
-        pr_followers = NumericIterativePageRank(sess, "PR1",g_followers, beta)
-        
+                                                  wiki_vote_edges_np, writer)
+        pr_followers_iter = NumericIterativePageRank(sess, "PR1", g_followers,
+                                                     beta)
+        pr_followers_alge = NumericAlgebraicPageRank(sess, "PR1", g_followers,
+                                                     beta)
+
         '''
         g_followers_updateable = GraphConstructor.empty(sess, "Gfollowers",
                                                   7, writer)
@@ -35,10 +40,10 @@ def main():
         g_followers_updateable.remove(followers_edges_np[0,0], followers_edges_np[0,1])
         g_followers_updateable.append(followers_edges_np[0,0], followers_edges_np[0,1])
         '''
-        
-        print(g_followers)
-        print(pr_followers.ranks(convergence=convergence))
-        print(g_followers.m)
+
+        print(pr_followers_alge.ranks())
+        print(pr_followers_iter.ranks(convergence=convergence))
+        print((pr_followers_alge.error_compare_np(pr_followers_iter)))
 
         '''
         g_sparse = GraphConstructor.as_other_sparsifier(sess, g_followers, 0.9)
