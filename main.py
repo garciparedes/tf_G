@@ -19,13 +19,14 @@ def main():
 
         g_followers = GraphConstructor.empty(sess, "Gfollowers",
                                                   7, writer)
-        pr_followers = NumericAlgebraicPageRank(sess, "PRfollowers",
+        pr_followers = NumericIterativePageRank(sess, "PRfollowers",
                                                 g_followers, beta)
 
         for r in followers_edges_np:
             start_time = timeit.default_timer()
             g_followers.append(r[0],r[1])
             print(timeit.default_timer() - start_time)
+            print()
             writer.add_graph(sess.graph)
         g_followers.remove(followers_edges_np[0,0], followers_edges_np[0,1])
         g_followers.append(followers_edges_np[0,0], followers_edges_np[0,1])

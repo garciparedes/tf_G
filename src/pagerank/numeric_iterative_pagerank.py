@@ -16,7 +16,7 @@ class NumericIterativePageRank(NumericPageRank):
                      self.v.assign(tf.matmul(self.v, self.T.get_tf))]
         self.run(tf.variables_initializer([self.v_last]))
 
-    def _pr_convergence_tf(self, convergence, personalized,
+    def _pr_convergence_tf(self, convergence, personalized=None,
                            convergence_criterion=VectorConvergenceCriterion.ONE):
         if personalized is not None:
             warnings.warn('Personalized PageRank not implemented yet!')
@@ -46,3 +46,4 @@ class NumericIterativePageRank(NumericPageRank):
         warnings.warn('PageRank auto-update not implemented yet!')
 
         print("Edge: " + str(edge) + "\tChange: " + str(change))
+        self.run(self._pr_convergence_tf(convergence=0.01))
