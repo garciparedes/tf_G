@@ -1,5 +1,4 @@
 import tensorflow as tf
-import warnings
 
 from src.utils.tensorflow_object import TensorFlowObject
 from src.utils.update_edge_notifier import UpdateEdgeNotifier
@@ -23,7 +22,7 @@ class TransitionMatrix(TensorFlowObject, UpdateEdgeNotifier):
     def get_tf(self):
         return self.transition
 
-    def update(self, edge, change):
+    def update_edge(self, edge, change):
 
         # print("Edge: " + str(edge) + "\tChange: " + str(change))
 
