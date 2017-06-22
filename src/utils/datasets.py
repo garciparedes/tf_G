@@ -1,6 +1,7 @@
 import pandas as pd
 import numpy as np
 
+
 class DataSets:
     @staticmethod
     def _get_path():
@@ -11,11 +12,15 @@ class DataSets:
         return DataSets._get_path() + '/' + name + '/' + name + ".csv"
 
     @staticmethod
+    def _permute_edges(edges_np):
+        return np.random.permutation(edges_np)
+
+    @staticmethod
     def _compose_from_path(path, index_decrement):
         data = pd.read_csv(path)
         if index_decrement:
             data -= 1
-        return data.as_matrix()
+        return DataSets._permute_edges(data.as_matrix())
 
     @staticmethod
     def _compose_from_name(name, index_decrement):
@@ -39,7 +44,7 @@ class DataSets:
         """
             url: http://www.math.cornell.edu/~mec/Winter2009/RalucaRemus/Lecture3/lecture3.html
         """
-        return np.array([
+        return DataSets._permute_edges(np.array([
             [0, 1],
             [0, 2],
             [0, 3],
@@ -47,14 +52,14 @@ class DataSets:
             [1, 3],
             [2, 0],
             [3, 0],
-            [3, 2]])
+            [3, 2]]))
 
     @staticmethod
     def naive_6():
         """
             url: https://www.mathworks.com/content/dam/mathworks/mathworks-dot-com/moler/exm/chapters/pagerank.pdf
         """
-        return np.array([
+        return DataSets._permute_edges(np.array([
             [1, 2],
             [1, 6],
             [2, 3],
@@ -63,4 +68,4 @@ class DataSets:
             [3, 5],
             [3, 6],
             [4, 1],
-            [6, 1]])-1
+            [6, 1]]) - 1)
