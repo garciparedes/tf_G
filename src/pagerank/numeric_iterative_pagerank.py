@@ -1,9 +1,10 @@
-import tensorflow as tf
 import warnings
+
+import tensorflow as tf
+
 from src.pagerank.numeric_pagerank import NumericPageRank
 from src.pagerank.transition_reset_matrix import TransitionResetMatrix
 from src.utils.vector_convergence import VectorConvergenceCriterion
-from src.utils.vector_norm import VectorNorm
 
 
 class NumericIterativePageRank(NumericPageRank):
@@ -42,7 +43,7 @@ class NumericIterativePageRank(NumericPageRank):
         raise NotImplementedError(
             'NumericIterativePageRank not implements exact PageRank')
 
-    def update(self, edge, change):
+    def update_edge(self, edge, change):
         warnings.warn('PageRank auto-update not implemented yet!')
 
         print("Edge: " + str(edge) + "\tChange: " + str(change))

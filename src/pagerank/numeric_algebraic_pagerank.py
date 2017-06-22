@@ -34,8 +34,3 @@ class NumericAlgebraicPageRank(NumericPageRank):
         warnings.warn('NumericPageRank not implements iterative PageRank! ' +
                       'Using exact algorithm.')
         return self._pr_exact_tf(personalized)
-
-    def update(self, edge, change):
-        warnings.warn('PageRank auto-update not implemented yet!')
-
-        print("Edge: " + str(edge) + "\tChange: " + str(change))
