@@ -50,20 +50,18 @@ class GraphConstructor:
         v = tf.Variable(graph.out_degrees_tf)
         sess.run(tf.variables_initializer([v]))
 
-        print(sess.run(distribution_tf))
+        # print(sess.run(distribution_tf))
         a = tf.reshape(tf.map_fn(
             lambda x: tf.gather(v, x),
             tf.slice(graph.edge_list_tf, [0, 0], [graph.m, 1]),
             dtype=tf.float32), [graph.m])
-        print(sess.run(a))
 
-        cond_tf = tf.reshape(
-            tf.map_fn(lambda x: (p / x if x is not 0 else p), a), [graph.m])
-        print(sess.run(cond_tf))
+        cond_tf = p / tf.div(tf.log(tf.sqrt(graph.n_tf) + a),
+                             tf.log(tf.sqrt(graph.n_tf)))
+
         edges_np = graph.edge_list_np[sess.run(
             tf.transpose(tf.less_equal(distribution_tf, cond_tf)))]
-        print(edges_np.shape)
-        '''
+        # print(edges_np.shape)
         return Graph(sess, graph.name + "_sparsifier", edges_np=edges_np)
-        '''
+
         pass

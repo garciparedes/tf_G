@@ -21,9 +21,9 @@ def main():
 
         g_followers = GraphConstructor.from_edges(sess, "Gfollowers",
                                                   wiki_vote_edges_np, writer)
-        pr_followers_iter = NumericIterativePageRank(sess, "PR1", g_followers,
+        pr_followers_iter = NumericIterativePageRank(sess, "PR1_iter", g_followers,
                                                      beta)
-        pr_followers_alge = NumericAlgebraicPageRank(sess, "PR1", g_followers,
+        pr_followers_alge = NumericAlgebraicPageRank(sess, "PR1_alge", g_followers,
                                                      beta)
 
         '''
@@ -40,13 +40,12 @@ def main():
         g_followers_updateable.remove(followers_edges_np[0,0], followers_edges_np[0,1])
         g_followers_updateable.append(followers_edges_np[0,0], followers_edges_np[0,1])
         '''
-
         print(pr_followers_alge.ranks())
         print(pr_followers_iter.ranks(convergence=convergence))
         print((pr_followers_alge.error_compare_np(pr_followers_iter)))
 
+        g_sparse = GraphConstructor.as_other_sparsifier(sess, g_followers, 0.90)
         '''
-        g_sparse = GraphConstructor.as_other_sparsifier(sess, g_followers, 0.9)
         pr_sparse = NumericIterativePageRank(sess, "PR2",
                                              g_sparse, beta)
         print(g_sparse.m)
