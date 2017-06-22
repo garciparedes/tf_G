@@ -1,4 +1,5 @@
 from src.utils.tensorflow_object import TensorFlowObject
+from src.utils.vector_convergence import VectorConvergenceCriterion
 
 
 class PageRank(TensorFlowObject):
@@ -9,10 +10,12 @@ class PageRank(TensorFlowObject):
         return self.run(
             self.pagerank_vector_tf(convergence, steps, personalized))
 
-    def pagerank_vector_tf(self, convergence=1.0, steps=0, personalized=None):
+    def pagerank_vector_tf(self, convergence=1.0, steps=0, personalized=None,
+                           convergence_criterion=VectorConvergenceCriterion.ONE):
         if 0.0 < convergence < 1.0:
             return self._pr_convergence_tf(convergence,
-                                           personalized=personalized)
+                                           personalized=personalized,
+                                           convergence_criterion=convergence_criterion)
         elif steps > 1:
             return self._pr_steps_tf(steps,
                                      personalized=personalized)
@@ -23,7 +26,8 @@ class PageRank(TensorFlowObject):
         raise NotImplementedError(
             'subclasses must override ranks()!')
 
-    def _pr_convergence_tf(self, convergence, personalized):
+    def _pr_convergence_tf(self, convergence, personalized,
+                           convergence_criterion):
         raise NotImplementedError(
             'subclasses must override page_rank_until_convergence()!')
 

@@ -20,7 +20,8 @@ class NumericAlgebraicPageRank(NumericPageRank):
         self.run(self.v.assign(tf.matmul(a, b)))
         return self.v
 
-    def _pr_convergence_tf(self, convergence, personalized):
+    def _pr_convergence_tf(self, convergence, personalized,
+                           convergence_criterion):
         if personalized is not None:
             warnings.warn('Personalized PageRank not implemented yet!')
         warnings.warn('NumericPageRank not implements iterative PageRank! ' +
@@ -33,3 +34,8 @@ class NumericAlgebraicPageRank(NumericPageRank):
         warnings.warn('NumericPageRank not implements iterative PageRank! ' +
                       'Using exact algorithm.')
         return self._pr_exact_tf(personalized)
+
+    def update(self, edge, change):
+        warnings.warn('PageRank auto-update not implemented yet!')
+
+        print("Edge: " + str(edge) + "\tChange: " + str(change))

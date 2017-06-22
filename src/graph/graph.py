@@ -26,23 +26,22 @@ class Graph(TensorFlowObject, UpdateEdgeNotifier):
                                 name=self.name + "_n")
         self.A_tf = tf.Variable(A_init, tf.float64,
                                 name=self.name + "_A")
+        self.out_degrees_tf = tf.Variable(
+            tf.reduce_sum(self.A_tf, 1, keep_dims=True),
+            name=self.name + "_d_out")
+        self.in_degrees_tf = tf.Variable(
+            tf.reduce_sum(self.A_tf, 0, keep_dims=True),
+            name=self.name + "_d_in")
         self.L_tf = tf.Variable(tf.diag(self.get_out_degrees_tf()) - self.A_tf,
                                 name=self.name + "_L")
-
         self.run(tf.variables_initializer([self.A_tf, self.n_tf]))
+        self.run(tf.variables_initializer([
+            self.out_degrees_tf, self.in_degrees_tf]))
         self.run(tf.variables_initializer([self.L_tf]))
 
     @property
     def is_not_sink_tf(self):
         return tf.not_equal(self.get_out_degrees_tf(), 0)
-
-    @property
-    def in_degrees_tf(self):
-        return self.get_in_degrees_tf(keep_dims=True)
-
-    @property
-    def out_degrees_tf(self):
-        return self.get_out_degrees_tf(keep_dims=True)
 
     @property
     def out_degrees_np(self):
@@ -60,11 +59,27 @@ class Graph(TensorFlowObject, UpdateEdgeNotifier):
     def L_pseudo_inverse_tf(self):
         return tf.py_func(np.linalg.pinv, [self.L_tf], tf.float32)
 
+    def A_tf_vertex(self, vertex):
+        return tf.gather(self.A_tf, [vertex])
+
+    def out_degrees_tf_vertex(self, vertex):
+        return tf.gather(self.out_degrees_tf, [vertex])
+
+    def is_not_sink_tf_vertex(self, vertex):
+        return tf.not_equal(
+            tf.reshape([self.out_degrees_tf_vertex(vertex)], [1]), 0)
+
     def get_in_degrees_tf(self, keep_dims=False):
-        return tf.reduce_sum(self.A_tf, 0, keep_dims=keep_dims)
+        if keep_dims is False:
+            return tf.reshape(self.in_degrees_tf, [self.n])
+        else:
+            return self.in_degrees_tf
 
     def get_out_degrees_tf(self, keep_dims=False):
-        return tf.reduce_sum(self.A_tf, 1, keep_dims=keep_dims)
+        if keep_dims is False:
+            return tf.reshape(self.out_degrees_tf, [self.n])
+        else:
+            return self.out_degrees_tf
 
     def __str__(self):
         return str(self.run(self.L_tf))
@@ -72,7 +87,9 @@ class Graph(TensorFlowObject, UpdateEdgeNotifier):
     def append(self, src, dst):
         if src and dst is None:
             raise ValueError("src and dst must not be None ")
-        self.run([tf.scatter_nd_update(self.A_tf, [[src, dst]], [1.0]),
+        self.run([tf.scatter_nd_add(self.A_tf, [[src, dst]], [1.0]),
+                  tf.scatter_nd_add(self.out_degrees_tf, [[src, 0]], [1.0]),
+                  tf.scatter_nd_add(self.in_degrees_tf, [[0, dst]], [1.0]),
                   tf.scatter_nd_add(self.L_tf, [[src, src], [src, dst]],
                                     [+1.0, -1.0])])
         self.m += 1
@@ -81,7 +98,9 @@ class Graph(TensorFlowObject, UpdateEdgeNotifier):
     def remove(self, src, dst):
         if src and dst is None:
             raise ValueError("src and dst must not be None ")
-        self.run([tf.scatter_nd_update(self.A_tf, [[src, dst]], [-1.0]),
+        self.run([tf.scatter_nd_add(self.A_tf, [[src, dst]], [-1.0]),
+                  tf.scatter_nd_add(self.out_degrees_tf, [[src, 0]], [-1.0]),
+                  tf.scatter_nd_add(self.in_degrees_tf, [[0, dst]], [-1.0]),
                   tf.scatter_nd_add(self.L_tf, [[src, src], [src, dst]],
                                     [-1.0, +1.0])])
         self.m -= 1
