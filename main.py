@@ -17,36 +17,39 @@ def main():
     with tf.Session() as sess:
         writer = tf.summary.FileWriter('logs/.')
 
-        g_followers = GraphConstructor.empty(sess, "Gfollowers",
+        g_followers = GraphConstructor.from_edges(sess, "Gfollowers",
+                                                  followers_edges_np, writer)
+        pr_followers = NumericIterativePageRank(sess, "PR1",g_followers, beta)
+        
+        '''
+        g_followers_updateable = GraphConstructor.empty(sess, "Gfollowers",
                                                   7, writer)
-        pr_followers = NumericIterativePageRank(sess, "PRfollowers",
-                                                g_followers, beta)
-
+        pr_followers_updateable = NumericIterativePageRank(sess, "PRfollowers",
+                                                           g_followers_updateable, beta)
         for r in followers_edges_np:
             start_time = timeit.default_timer()
-            g_followers.append(r[0],r[1])
+            g_followers_updateable.append(r[0],r[1])
             print(timeit.default_timer() - start_time)
             print()
             writer.add_graph(sess.graph)
-        g_followers.remove(followers_edges_np[0,0], followers_edges_np[0,1])
-        g_followers.append(followers_edges_np[0,0], followers_edges_np[0,1])
-
+        g_followers_updateable.remove(followers_edges_np[0,0], followers_edges_np[0,1])
+        g_followers_updateable.append(followers_edges_np[0,0], followers_edges_np[0,1])
+        '''
+        
         print(g_followers)
         print(pr_followers.ranks(convergence=convergence))
-        '''
-        # gs_followers = g_followers.sparsifier(alpha=0.9)
+        print(g_followers.m)
 
+        g_sparse = GraphConstructor.as_other_sparsifier(sess, g_followers, 0.9)
+        pr_sparse = NumericIterativePageRank(sess, "PR2",
+                                             g_sparse, beta)
+        print(g_sparse.m)
+        print(pr_sparse.ranks(convergence=convergence))
+
+        '''
         print(GraphConstructor.unweighted_random(sess, "GRandom", 10 ** 2,
-                                                 10 ** 3, writer=writer))
-     
-        g_wiki_vote = Graph(sess, "Gwikivote", edges_np=wiki_vote_edges_np,
-                            writer=writer)
-        pr_wiki_vote = NumericIterativePageRank(sess, "PRwikivote",
-                                                g_wiki_vote, beta)
-        print(g_wiki_vote)
-        print(pr_wiki_vote.ranks(convergence=convergence))
+                                                 10 ** 3, writer=writer)
         '''
-
         writer.add_graph(sess.graph)
 
 

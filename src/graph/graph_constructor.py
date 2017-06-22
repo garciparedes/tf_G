@@ -17,7 +17,6 @@ class GraphConstructor:
     def unweighted_random(sess, name, n, m, writer=None):
         if m > n * (n - 1):
             raise ValueError('m would be less than n * (n - 1)')
-
         edges_np = np.random.random_integers(0, n - 1, [m, 2])
 
         cond = True
@@ -43,3 +42,28 @@ class GraphConstructor:
         edges_np = graph.edge_list_np[sess.run(boolean_distribution)]
         return Graph(sess, graph.name + "_sparsifier",
                      edges_np=edges_np)
+
+    @classmethod
+    def as_other_sparsifier(cls, sess, graph, p):
+        distribution_tf = tf.random_uniform([graph.m], 0.0, 1.0)
+
+        v = tf.Variable(graph.out_degrees_tf)
+        sess.run(tf.variables_initializer([v]))
+
+        print(sess.run(distribution_tf))
+        a = tf.reshape(tf.map_fn(
+            lambda x: tf.gather(v, x),
+            tf.slice(graph.edge_list_tf, [0, 0], [graph.m, 1]),
+            dtype=tf.float32), [graph.m])
+        print(sess.run(a))
+
+        cond_tf = tf.reshape(
+            tf.map_fn(lambda x: (p / x if x is not 0 else p), a), [graph.m])
+        print(sess.run(cond_tf))
+        edges_np = graph.edge_list_np[sess.run(
+            tf.transpose(tf.less_equal(distribution_tf, cond_tf)))]
+        print(edges_np.shape)
+        '''
+        return Graph(sess, graph.name + "_sparsifier", edges_np=edges_np)
+        '''
+        pass
