@@ -1,4 +1,4 @@
-class Notifier:
+class UpdateEdgeNotifier:
     def __init__(self):
         self._listeners = set()
 
@@ -8,6 +8,6 @@ class Notifier:
     def detach(self, listener):
         self._listeners.discard(listener)
 
-    def _notify(self):
+    def _notify(self, edge, change):
         for observer in self._listeners:
-            observer.update()
+            observer.update(edge, change)
