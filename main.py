@@ -40,13 +40,13 @@ def main():
         print(pr_followers.ranks(convergence=convergence))
         print(g_followers.m)
 
+        '''
         g_sparse = GraphConstructor.as_other_sparsifier(sess, g_followers, 0.9)
         pr_sparse = NumericIterativePageRank(sess, "PR2",
                                              g_sparse, beta)
         print(g_sparse.m)
         print(pr_sparse.ranks(convergence=convergence))
 
-        '''
         print(GraphConstructor.unweighted_random(sess, "GRandom", 10 ** 2,
                                                  10 ** 3, writer=writer)
         '''
