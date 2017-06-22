@@ -44,7 +44,7 @@ def main():
         '''
         print(pr_followers_alge.ranks())
         print(pr_followers_iter.ranks(convergence=convergence))
-        print((pr_followers_alge.error_compare_np(pr_followers_iter)))
+        print((pr_followers_alge.error_vector_compare_np(pr_followers_iter)))
 
         g_sparse = GraphConstructor.as_other_sparsifier(sess, g_followers, 0.95)
 
@@ -52,7 +52,7 @@ def main():
                                              g_sparse, beta)
 
         print(pr_sparse.ranks(convergence=convergence))
-        print(pr_followers_alge.error_compare_np(pr_sparse))
+        print(pr_followers_alge.error_vector_compare_np(pr_sparse))
         print(g_followers.m)
         print(g_sparse.m)
         '''

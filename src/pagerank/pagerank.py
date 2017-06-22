@@ -8,12 +8,12 @@ class PageRank(TensorFlowObject):
     def __init__(self, sess, name):
         TensorFlowObject.__init__(self, sess, name)
 
-    def error_compare_tf(self, other_pr):
+    def error_vector_compare_tf(self, other_pr):
         raise NotImplementedError(
             'subclasses must override compare()!')
 
-    def error_compare_np(self, other_pr):
-        return self.run(self.error_compare_tf(other_pr))
+    def error_vector_compare_np(self, other_pr):
+        return self.run(self.error_vector_compare_tf(other_pr))
 
     def pagerank_vector_np(self, convergence=1.0, steps=0, personalized=None):
         return self.run(

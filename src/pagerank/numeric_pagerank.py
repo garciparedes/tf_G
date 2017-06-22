@@ -28,6 +28,6 @@ class NumericPageRank(PageRank):
             dtype=[tf.int64, tf.float32])
         return np.concatenate(self.run(ranks), axis=1)
 
-    def error_compare_tf(self, other_pr):
+    def error_vector_compare_tf(self, other_pr):
         return tf.reshape(
             VectorNorm.ONE(tf.subtract(self.v, other_pr.v)), [])
