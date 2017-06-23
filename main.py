@@ -15,7 +15,7 @@ def main():
     convergence = 0.001
 
     wiki_vote_edges_np = DataSets.wiki_vote()
-    followers_edges_np = DataSets.followers()
+    followers_edges_np = DataSets.naive_4()
 
     with tf.Session() as sess:
         writer = tf.summary.FileWriter('logs/.')
@@ -48,7 +48,7 @@ def main():
         '''
         # print(pr_followers_alge.ranks())
         # print(pr_followers_iter.ranks(convergence=convergence))
-        print(pr_followers_random.ranks(convergence=convergence))
+        print(pr_followers_random.ranks(steps=100))
         # print((pr_followers_alge.error_vector_compare_np(pr_followers_iter)))
         # print((pr_followers_alge.error_vector_compare_np(pr_followers_random)))
 
