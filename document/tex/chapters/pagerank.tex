@@ -158,16 +158,49 @@
     \label{sec:pagerank_algorithm}
 
       \paragraph{}
-      [TODO ]
+      En esta sección se describe el método para obtener el vector \emph{PageRank} sobre un determinado grafo $G$. Para ello, es necesario fijar 3 parámetros los cuales se indican a continuación:
+      \begin{itemize}
+        \item Matriz de Adjacencia $A$, que a partir de la cual se obtiene la estructura del grafo (Se habló de ella en la sección \ref{sec:adjacency_matrix}).
+        \item El valor de probabilidad $\beta$ de seguir el paseo aleatorio a partir de la distribución del vértice actual (el cual se comentó en la sección anterior).
+        \item El vector de personalización $v$ referido a la distribución de probabilidad de los saltos aleatorios entre vértices (también se habló en la sección anterior).
+      \end{itemize}
+
+
+
+      \paragraph{}
+      Para calcular el \emph{vector propio} $\lambda$ existen distintas estrategias matemáticas. En esta sección se habla de dos estrategias, la primera de ellas basada en la resolución de un sistema de ecuaciones lineales mientras que la segunda se basa en acercamiento a la solución de manera iterativa. Tal y como se verá a continuación, la estrategia algebraica conlleva un coste computacional muy elevado, por lo que no es admisible sobre grafos de tamaño masivo. En estos casos se utiliza la estrategia iterativa u otras alternativas aproximadas de las cuales se hablará en la sección \ref{sec:pagerank_algorithm_approximated}.
+
 
       \subsection{Estrategia Algebraica}
       \label{sec:pagerank_algorithm_algebraic}
 
         \paragraph{}
-        [TODO ]
+        La idea de la estrategia algebraica se refiere a la búsqueda del vector $\lambda$ que resuelva la ecuación $\lambda = \lambda * P'$ como un sistema de ecuaciones lineales. Esto se puede llevar a cabo siguiendo el desarrollo de la ecuación \eqref{eq:pagerank_algorithm_algebraic_1}. Nótese que para ello no se utiliza la \emph{matriz de transiciones modificada} $P'$ explicitamente. En su lugar, esta es representada implicitamente a partir de las operaciones de \eqref{eq:pagerank_algorithm_algebraic_2} y \eqref{eq:pagerank_algorithm_algebraic_3}.
+
+        \paragraph{}
+        Para entender estas ecuaciones, lo primero es indicar la notación que se ha utilizado así como la interpretación de algunas operaciones: Se utiliza el símbolo $\boldsymbol{1}$ para denotar el vector columna de tamaño $n$ formado por $1$'s en todas sus posiciones. El símbolo $\boldsymbol{I}$ representa la matriz identidad ($1$'s en la diagonal y $0$'s en el resto) de tamaño $n$. El símbolo $d^-$ representa un vector columna de tamaño $n$ que representa en su posición $j$ el cardinal de aristas cuyo origen es el vértice $j$. Esto puede ser visto de la siguiente manera: $\forall j \in [1,n] \ \sum_i A_{ij} = d^{-}_{j}$. A nivel de operaciones es necesario resaltar el caso de la división $\frac{A}{d^-}$ por su carácter matricial. Esta se lleva a cabo realizando la división elemento a elemento por columnas.
+
+        \begin{align}
+          \label{eq:pagerank_algorithm_algebraic_1}
+          \lambda =& \lambda * P' \\
+          \label{eq:pagerank_algorithm_algebraic_2}
+                  =& \beta * \lambda * \frac{A}{d^-} + \frac{1-\beta}{n}*\boldsymbol{1} \\
+          \label{eq:pagerank_algorithm_algebraic_3}
+                  =& \bigg(\boldsymbol{I} - \beta * \frac{A}{d^-}\bigg)^{-1} * \frac{1-\beta}{n}*\boldsymbol{1}
+        \end{align}
+
+        \paragraph{}
+        A partir de las operaciones descritas en la ecuación \eqref{eq:pagerank_algorithm_algebraic_3}, se obtiene por tanto el \emph{vector propio} $\lambda$, que en este caso se refiere a la \emph{distribución estacionaria} de la \emph{cadena de markov} descrita por la matriz de transiciones modificada $P'$, por lo que es equivalente al vector \emph{PageRank}. Sin embargo, el calculo del vector \emph{PageRank} siguiendo esta estrategia conlleva un elevado coste computacional derivado de la necesidad de invertir una matriz de tamaño $n*n$, algo inadmisible para grafos de tamaño masivo. 
 
       \subsection{Estrategia Iterativa}
       \label{sec:pagerank_algorithm_iterative}
+
+        \paragraph{}
+        [TODO]
+
+        \paragraph{}
+        A partir de los tres parámetros de entrada $(A, \beta, v)$ se calcula la \emph{matriz de transiciones modificada} $P'$ siguiendo la definición de la ecuación \eqref{eq:pagerank_transition_matrix} y una vez obtenida dicha matriz se está en condiciones de calcular el vector \emph{PageRank} siguiendo la idea del \emph{vector propio} único expuesta en la sección anterior.
+
 
         \paragraph{}
         [TODO ]
