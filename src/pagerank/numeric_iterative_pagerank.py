@@ -41,7 +41,7 @@ class NumericIterativePageRank(NumericPageRank):
             warnings.warn('Personalized PageRank not implemented yet!')
 
         raise NotImplementedError(
-            'NumericIterativePageRank not implements exact PageRank')
+            str(self.__name__) + ' not implements exact PageRank')
 
     def update_edge(self, edge, change):
         warnings.warn('PageRank auto-update not implemented yet!')
