@@ -125,25 +125,52 @@
       \end{equation}
 
       \paragraph{}
-      Tal y como se ha indicado anteriormente, el vector $v$ representa la distribución de probabilidad referida a los saltos que un usuario lleva a cabo entre sitios web sin tener en cuenta los enlaces. En el párrafo anterior se ha indicado que este vector es construido de manera uniforme, por tanto, esto puede ser visto de tal manera que la probabilidad de saltar de un sitio web a otro es la misma. Sin embargo, dicha acción podría seguir una distribución de probabilidad distinta dependiendo de cada usuario de la red. Por tanto, en \cite{page1999pagerank} se habla de \emph{PageRank Aproximado} cuando el vector $v$ sigue una determinada distribución de probabilidades referida a los sitios web a los que más accede el usuario.
+      Tal y como se ha indicado anteriormente, el vector $v$ representa la distribución de probabilidad referida a los saltos que un usuario lleva a cabo entre sitios web sin tener en cuenta los enlaces del sitio web actual. En el párrafo anterior se ha indicado que este vector es construido siguiendo una distribución uniforme, por tanto, esto puede ser visto de tal manera que la probabilidad de saltar de un sitio web a otro es la misma. Sin embargo, dicha acción podría seguir una distribución de probabilidad distinta dependiendo de cada usuario de la red. Por tanto, en \cite{page1999pagerank} se habla de \emph{PageRank Personalizado} cuando el vector $v$ sigue una distribución de probabilidad distinta de la uniforme (desviada hacia los sitios web a los que más accede el usuario).
 
       \paragraph{}
-      En el trabajo \emph{Topic-sensitive pagerank} \cite{haveliwala2002topic} \emph{Haveliwala} propone la generación de 16 \emph{distribución estacionarias} (\emph{PageRanks}) distintas mediante la personalización del vector $v$, para después realizar una combinación de estas y así conseguir que el ranking final sea personalizado.
+      En el trabajo \emph{Topic-sensitive pagerank} \cite{haveliwala2002topic} \emph{Haveliwala} propone la generación de 16 \emph{distribuciones estacionarias} (\emph{PageRanks}) distintas mediante la personalización del vector $v$, para después realizar una combinación de estas y así conseguir que el ranking final sea personalizado.
 
       \paragraph{}
-      Una vez descritas las transformaciones necesarias a realizar sobre la matriz de transiciones $P$ para que esta se adapte a la estructura de grafos con vértices \emph{sumidero}, y que además emule de manera más apropiada el comportamiento de un determinado usuario sobre el grafo de la web (\emph{Web Graph}), lo siguiente es explicar cómo se puede obtener la \emph{distribución estacionaria} o \emph{PageRank} del grafo. Para ello, a continuación se describe el \emph{Teorema de Perron–Frobenius}, que aporta una idea acerca de como calcularlo, así como la convergencia de la matriz de transiciones hacia dicho vector $\pi$.
+      Una vez descritas las transformaciones necesarias a realizar sobre la matriz de transiciones $P$ para que esta se adapte a la estructura de grafos con vértices \emph{sumidero}, y que además emule de manera más apropiada el comportamiento de un determinado usuario sobre el grafo de la web (\emph{Web Graph}), lo siguiente es explicar cómo se puede obtener la \emph{distribución estacionaria} o \emph{PageRank} del grafo. Para ello, a continuación se describe el \emph{Teorema de Perron–Frobenius}, que aporta una idea acerca de la manera en que se calcula, además de asegurar la convergencia de la matriz de transiciones hacia un estado estacionario del vector $\pi$.
 
       \subsection{Teorema de Perron–Frobenius}
       \label{sec:perron_frobenius_theorem}
 
         \paragraph{}
-        [TODO ]
+        El \emph{teorema de Perron–Frobenius} se refiere a la existencia de un \textbf{único} \emph{vector propio} (\emph{eigenvector}) para las matrices cuadradas reales positivas. Dicha descripción ha sido extraida del documento \emph{Notes on the perron-frobenius theory of nonnegative matrices} \cite{boyle2005notes} de \emph{Boyle} (profesor de matemáticas de la \emph{Universidad de Marylan}). En primer lugar es necesario describir los conceptos de \emph{vector propio} como de \emph{matriz cuadrada real positiva} para después ver que la \emph{distribución estacionaria} y la \emph{matriz de transiciones} referidos a una \emph{Cadena de Markov} $M$ pueden ser vistos de esta manera.
+
+        \paragraph{}
+        Una \emph{matriz cuadrada real positiva} $A$ es aquella formada por $n$ filas y $n$ columnas ($n*n$ celdas) para las cuales $\forall i,j \in [1,n]$ se cumple que $A_{ij} \in \mathbb{R} \geq 0$. Tal y como se puede apreciar, la \emph{matriz de transiciones modificada} $P'$ del grafo $G$ cumple esta propiedad ya que $\forall i,j \in [1,n] \ P'_{ij} \in [0,1]$.
+
+        \paragraph{}
+        En cuanto al concepto de \emph{vector propio} $\lambda$ de un matriz, se refiere a un vector de $n$ columnas ($1*n$) tal que cuando es multiplado por una determinada matriz $A$, el resultado sigue siendo el mismo. Es decir, se cumple que $\lambda = \lambda * A$. Notese por tanto, que esta idea es equivalente a la \emph{distribución estacionaria} desde el punto de vista de llegar a un estado estable.
+
+        \paragraph{}
+        El teorema de \emph{teorema de Perron–Frobenius} asegura por tanto, que para una \emph{matriz cuadrada real positiva} $A$ tan solo existe un único \emph{vector propio} $\lambda$ y el conjunto de valores de este se es estrictamente positivo, es decir, $\forall i \in [1,n] \ \lambda_i \geq 0$. La demostración de dicho teorema puede encontrarse en \cite{boyle2005notes}.
+
+        \paragraph{}
+        Además, en el caso de que la matriz $A$ haya sido normalizada por columna, es decir, se cumpla que $\forall i \in [1,n] \ \sum_j A_{ij} = 1$, entonces el autovector $\lambda$ también seguirá la propiedad de normalización ($\sum_i \lambda_i = 1$). Gracias a este resultado es posible calcular la \emph{distribución estacionaria} $\pi$ de una \emph{Cadena de Markov} como el \emph{vector propio} de su matriz de transiciones.
+
+      \paragraph{}
+      Una vez descrito el \emph{teorema de Perron–Frobenius} ya se está en condiciones suficientes para describir las distintas alternativas para calcular el \emph{PageRank} de un determinado grafo, el cual se calcula tal y como se ha indicado en esta sección, encontrando el \emph{vector propio} de la matriz de transición modificada de la cadena de markov. Las distintas estrategias para obtener este resultado se describen en la siguiente sección.
 
     \section{Algoritmo Básico}
     \label{sec:pagerank_algorithm}
 
       \paragraph{}
       [TODO ]
+
+      \subsection{Estrategia Algebraica}
+      \label{sec:pagerank_algorithm_algebraic}
+
+        \paragraph{}
+        [TODO ]
+
+      \subsection{Estrategia Iterativa}
+      \label{sec:pagerank_algorithm_iterative}
+
+        \paragraph{}
+        [TODO ]
 
     \section{Soluciones Aproximadas}
     \label{sec:pagerank_algorithm_approximated}
