@@ -12,7 +12,7 @@ from src.utils.datasets import DataSets
 
 def main():
     beta = 0.85
-    convergence = 0.1
+    convergence = 0.001
 
     wiki_vote_edges_np = DataSets.wiki_vote()
     followers_edges_np = DataSets.followers()

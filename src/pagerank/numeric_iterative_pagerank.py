@@ -36,7 +36,7 @@ class NumericIterativePageRank(NumericPageRank):
             self.v.assign(
                 tf.while_loop(lambda i, v: i < steps,
                               lambda i, v: (i + 1.0, self.iter(i, v)),
-                              [0.0, self.v])[1]))
+                              [0.0, self.v], name=self.name + "_while")[1]))
         return self.v
 
     def _pr_exact_tf(self, personalized):

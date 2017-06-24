@@ -16,4 +16,4 @@ class NumericRandomWalkPageRank(NumericIterativePageRank):
 
         self.iter = lambda t, v, n=self.G.n: tf.add(
             tf.divide((v * t), tf.add(t, n)),
-            self.random_T(n, t))
+            self.random_T(t))
