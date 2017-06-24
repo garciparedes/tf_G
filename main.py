@@ -47,8 +47,9 @@ def main():
         g_followers_updateable.append(followers_edges_np[0,0], followers_edges_np[0,1])
         '''
         # print(pr_followers_alge.ranks())
-        # print(pr_followers_iter.ranks(convergence=convergence))
-        print(pr_followers_random.ranks(steps=100))
+        print(pr_followers_iter.ranks(convergence=convergence))
+        print(pr_followers_random.ranks(convergence=convergence))
+        #print(pr_followers_random.ranks(steps=500))
         # print((pr_followers_alge.error_vector_compare_np(pr_followers_iter)))
         # print((pr_followers_alge.error_vector_compare_np(pr_followers_random)))
 

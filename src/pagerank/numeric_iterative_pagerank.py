@@ -11,7 +11,7 @@ class NumericIterativePageRank(NumericPageRank):
     def __init__(self, sess, name, graph, beta=None):
         T = TransitionResetMatrix(sess, name, graph, beta)
         NumericPageRank.__init__(self, sess, name, graph, beta, T)
-        self.iter = lambda a, b: tf.matmul(a, b)
+        self.iter = lambda i, a, b=self.T.get_tf: tf.matmul(a, b)
 
     def _pr_convergence_tf(self, convergence, personalized=None,
                            convergence_criterion=VectorConvergenceCriterion.ONE):
@@ -21,9 +21,9 @@ class NumericIterativePageRank(NumericPageRank):
         self.run(
             self.v.assign(
                 tf.while_loop(convergence_criterion,
-                              lambda a, b, c, d:
-                              (b, self.iter(b, self.T.get_tf), c, d),
-                              [tf.zeros([1, self.G.n]), self.v,
+                              lambda i, v, v_last, c, n:
+                              (i + 1, self.iter(i, v), v, c, n),
+                              [0.0, self.v, tf.zeros([1, self.G.n]),
                                convergence,
                                self.G.n_tf])[1]))
         return self.v
@@ -34,10 +34,9 @@ class NumericIterativePageRank(NumericPageRank):
 
         self.run(
             self.v.assign(
-                tf.while_loop(lambda a, b: a < steps,
-                              lambda a, b:
-                              (a + 1, self.iter(b, self.T.get_tf)),
-                              [0, self.v])[1]))
+                tf.while_loop(lambda i, v: i < steps,
+                              lambda i, v: (i + 1.0, self.iter(i, v)),
+                              [0.0, self.v])[1]))
         return self.v
 
     def _pr_exact_tf(self, personalized):
