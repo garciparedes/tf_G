@@ -8,7 +8,7 @@ from src.pagerank.transition_matrix import TransitionMatrix
 
 class NumericAlgebraicPageRank(NumericPageRank):
     def __init__(self, sess, name, graph, beta):
-        T = TransitionMatrix(sess, name, graph)
+        T = TransitionMatrix(sess, name + "_alge", graph)
         NumericPageRank.__init__(self, sess, name, graph, beta, T)
 
     def _pr_exact_tf(self, personalized=None):

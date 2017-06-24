@@ -6,7 +6,7 @@ from src.utils.update_edge_notifier import UpdateEdgeNotifier
 
 class TransitionResetMatrix(TensorFlowObject, UpdateEdgeNotifier):
     def __init__(self, sess, name, graph, beta):
-        TensorFlowObject.__init__(self, sess, name)
+        TensorFlowObject.__init__(self, sess, name + "_T")
         UpdateEdgeNotifier.__init__(self)
 
         self.G = graph
@@ -20,7 +20,7 @@ class TransitionResetMatrix(TensorFlowObject, UpdateEdgeNotifier):
                                                     self.G.out_degrees_tf)),
                          (1 - beta) / self.G.n_tf),
                      tf.fill([self.G.n, self.G.n], tf.pow(self.G.n_tf, -1))),
-            name=self.name + "_T")
+            name=self.name)
         self.run(tf.variables_initializer([self.transition]))
 
     @property

@@ -12,7 +12,7 @@ from src.utils.datasets import DataSets
 
 def main():
     beta = 0.85
-    convergence = 0.001
+    convergence = 0.1
 
     wiki_vote_edges_np = DataSets.wiki_vote()
     followers_edges_np = DataSets.followers()
@@ -22,14 +22,14 @@ def main():
 
         g_followers = GraphConstructor.from_edges(sess, "Gfollowers",
                                                   followers_edges_np, writer)
-        pr_followers_iter = NumericIterativePageRank(sess, "PR_iter",
+        pr_followers_iter = NumericIterativePageRank(sess, "PR1",
                                                      g_followers,
                                                      beta)
-        pr_followers_alge = NumericAlgebraicPageRank(sess, "PR_alge",
+        pr_followers_alge = NumericAlgebraicPageRank(sess, "PR1",
                                                      g_followers,
                                                      beta)
 
-        pr_followers_random = NumericRandomWalkPageRank(sess, "PR_random_walks",
+        pr_followers_random = NumericRandomWalkPageRank(sess, "P3",
                                                         g_followers,
                                                         beta)
         '''

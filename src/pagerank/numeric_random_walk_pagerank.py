@@ -10,10 +10,10 @@ from src.utils.vector_convergence import VectorConvergenceCriterion
 
 class NumericRandomWalkPageRank(NumericIterativePageRank):
     def __init__(self, sess, name, graph, beta=None):
-        NumericIterativePageRank.__init__(self, sess, name, graph, beta)
+        NumericIterativePageRank.__init__(self, sess, name + "_rw", graph, beta)
 
         self.random_T = TransitionRandom(sess, name, self.T)
 
-        self.iter = lambda t, v, n=self.G.n_tf: tf.add(
+        self.iter = lambda t, v, n=self.G.n: tf.add(
             tf.divide((v * t), tf.add(t, n)),
-            self.random_T.get_tf(n,t, self.G.n))
+            self.random_T.get_tf(n, t))
