@@ -16,7 +16,7 @@ class NumericAlgebraicPageRank(NumericPageRank):
             warnings.warn('Personalized PageRank not implemented yet!')
         a = tf.fill([1, self.G.n], (1 - self.beta) / self.G.n_tf)
         b = tf.matrix_inverse(
-            tf.eye(self.G.n, self.G.n) - self.beta * self.T.get_tf)
+            tf.eye(self.G.n, self.G.n) - self.beta * self.T())
         self.run(self.v.assign(tf.matmul(a, b)))
         return self.v
 

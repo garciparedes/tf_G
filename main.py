@@ -29,7 +29,7 @@ def main():
                                                      g_followers,
                                                      beta)
 
-        pr_followers_random = NumericRandomWalkPageRank(sess, "P3",
+        pr_followers_random = NumericRandomWalkPageRank(sess, "PR3",
                                                         g_followers,
                                                         beta)
         '''

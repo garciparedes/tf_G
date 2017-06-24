@@ -18,8 +18,7 @@ class TransitionMatrix(TensorFlowObject, UpdateEdgeNotifier):
             name=self.name)
         self.run(tf.variables_initializer([self.transition]))
 
-    @property
-    def get_tf(self):
+    def __call__(self, *args, **kwargs):
         return self.transition
 
     def update_edge(self, edge, change):

@@ -11,7 +11,7 @@ class NumericIterativePageRank(NumericPageRank):
     def __init__(self, sess, name, graph, beta=None):
         T = TransitionResetMatrix(sess, name + "_iter", graph, beta)
         NumericPageRank.__init__(self, sess, name, graph, beta, T)
-        self.iter = lambda i, a, b=self.T.get_tf: tf.matmul(a, b)
+        self.iter = lambda i, a, b=self.T(): tf.matmul(a, b)
 
     def _pr_convergence_tf(self, convergence, personalized=None,
                            convergence_criterion=VectorConvergenceCriterion.ONE):
