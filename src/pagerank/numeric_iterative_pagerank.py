@@ -11,29 +11,33 @@ class NumericIterativePageRank(NumericPageRank):
     def __init__(self, sess, name, graph, beta=None):
         T = TransitionResetMatrix(sess, name, graph, beta)
         NumericPageRank.__init__(self, sess, name, graph, beta, T)
-        self.v_last = tf.Variable(tf.zeros([1, self.G.n]),
-                                  name=self.G.name + "_" + self.name + "_Vi-1")
-        self.iter = [self.v_last.assign(self.v),
-                     self.v.assign(tf.matmul(self.v, self.T.get_tf))]
-        self.run(tf.variables_initializer([self.v_last]))
+        self.iter = lambda a, b: tf.matmul(a, b)
 
     def _pr_convergence_tf(self, convergence, personalized=None,
                            convergence_criterion=VectorConvergenceCriterion.ONE):
         if personalized is not None:
             warnings.warn('Personalized PageRank not implemented yet!')
 
-        self.run(self.iter)
-        while self.run(convergence_criterion(self.v_last, self.v, convergence,
-                                             self.G.n_tf)):
-            self.run(self.iter)
+        self.run(
+            self.v.assign(
+                tf.while_loop(convergence_criterion,
+                              lambda a, b, c, d:
+                              (b, self.iter(b, self.T.get_tf), c, d),
+                              [tf.zeros([1, self.G.n]), self.v,
+                               convergence,
+                               self.G.n_tf])[1]))
         return self.v
 
     def _pr_steps_tf(self, steps, personalized):
         if personalized is not None:
             warnings.warn('Personalized PageRank not implemented yet!')
 
-        for step in range(steps):
-            self.run(self.iter)
+        self.run(
+            self.v.assign(
+                tf.while_loop(lambda a, b: a < steps,
+                              lambda a, b:
+                              (a + 1, self.iter(b, self.T.get_tf)),
+                              [0, self.v])[1]))
         return self.v
 
     def _pr_exact_tf(self, personalized):
