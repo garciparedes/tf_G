@@ -25,7 +25,7 @@ class NumericIterativePageRank(NumericPageRank):
                               (i + 1, self.iter(i, v), v, c, n),
                               [0.0, self.v, tf.zeros([1, self.G.n]),
                                convergence,
-                               self.G.n_tf])[1]))
+                               self.G.n_tf], name=self.name + "_while_conv")[1]))
         return self.v
 
     def _pr_steps_tf(self, steps, personalized):
@@ -36,7 +36,7 @@ class NumericIterativePageRank(NumericPageRank):
             self.v.assign(
                 tf.while_loop(lambda i, v: i < steps,
                               lambda i, v: (i + 1.0, self.iter(i, v)),
-                              [0.0, self.v], name=self.name + "_while")[1]))
+                              [0.0, self.v], name=self.name + "_while_steps")[1]))
         return self.v
 
     def _pr_exact_tf(self, personalized):
