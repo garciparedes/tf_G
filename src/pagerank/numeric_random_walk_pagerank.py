@@ -16,15 +16,4 @@ class NumericRandomWalkPageRank(NumericIterativePageRank):
 
         self.iter = lambda t, v, n=self.G.n_tf: tf.add(
             tf.divide((v * t), tf.add(t, n)),
-            tf.reshape(tf.py_func(self.proof, [n, t], tf.float32), shape=[1, 4])
-        )
-
-    def proof(self, n, t):
-        v = np.zeros(shape=[1, 4], dtype='float32')
-        selected = np.array([np.random.choice([1, 2, 3]),
-                             np.random.choice([2, 3]),
-                             np.random.choice([0]),
-                             np.random.choice([0, 2])])
-        for i in selected:
-            v[0, i] += 1 / (n + t)
-        return v
+            self.random_T.get_tf(n,t, self.G.n))
