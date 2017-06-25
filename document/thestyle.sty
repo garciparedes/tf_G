@@ -2,7 +2,11 @@
 
 \ProvidesPackage{thestyle}
 \usepackage[utf8]{inputenc}
-\usepackage[spanish, es-tabla]{babel}
+\usepackage[
+  spanish,
+  es-tabla,
+  es-nodecimaldot
+]{babel}
 \usepackage{subfiles}
 \usepackage{geometry}
 \geometry{top=1.5cm, bottom=1.5cm, inner=2cm, outer=1.5cm}
@@ -23,7 +27,8 @@
   \fancyhf{}
   \fancyhf[lef,rof]{\thepage}
 }
-\usepackage[ruled]{algorithm2e}
+\usepackage[linesnumbered,ruled]{algorithm2e}
+\SetKwRepeat{Do}{do}{while}%
 \usepackage{graphicx}
 \graphicspath{{./img/}}
 \usepackage{fancyvrb}
