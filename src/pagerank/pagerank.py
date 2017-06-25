@@ -8,12 +8,19 @@ class PageRank(TensorFlowObject):
     def __init__(self, sess, name):
         TensorFlowObject.__init__(self, sess, name)
 
-    def error_vector_compare_tf(self, other_pr):
+    def error_vector_compare_tf(self, other_pr, k=-1):
         raise NotImplementedError(
             'subclasses must override compare()!')
 
-    def error_vector_compare_np(self, other_pr):
-        return self.run(self.error_vector_compare_tf(other_pr))
+    def error_vector_compare_np(self, other_pr, k=-1):
+        return self.run(self.error_vector_compare_tf(other_pr, k))
+
+    def error_ranks_compare_tf(self, other_pr, k=-1):
+        raise NotImplementedError(
+            'subclasses must override compare()!')
+
+    def error_ranks_compare_np(self, other_pr, k=-1):
+        return self.run(self.error_ranks_compare_tf(other_pr, k=k))
 
     def pagerank_vector_np(self, convergence=1.0, steps=0, personalized=None):
         return self.run(
@@ -33,7 +40,11 @@ class PageRank(TensorFlowObject):
 
     def ranks(self, convergence=1.0, steps=0, personalized=None):
         raise NotImplementedError(
-            'subclasses must override ranks()!')
+            'subclasses must override ranks_by_rank()!')
+
+    def ranks_by_id(self, convergence=1.0, steps=0, personalized=None):
+        raise NotImplementedError(
+            'subclasses must override ranks_by_id()!')
 
     def _pr_convergence_tf(self, convergence, personalized,
                            convergence_criterion):

@@ -1,3 +1,5 @@
+import warnings
+
 import tensorflow as tf
 import numpy as np
 
@@ -28,6 +30,23 @@ class NumericPageRank(PageRank):
             dtype=[tf.int64, tf.float32])
         return np.concatenate(self.run(ranks), axis=1)
 
-    def error_vector_compare_tf(self, other_pr):
+    def error_vector_compare_tf(self, other_pr, k=-1):
+        if 0 < k < self.G.n - 1:
+            if 0 < k < self.G.n - 1:
+                warnings.warn('k-best error comparison not implemented yed')
+
         return tf.reshape(
             VectorNorm.ONE(tf.subtract(self.v, other_pr.v)), [])
+
+    def error_ranks_compare_tf(self, other_pr, k=-1):
+        if 0 < k < self.G.n - 1:
+            warnings.warn('k-best error comparison not implemented yed')
+
+        return tf.div(tf.cast(tf.reduce_sum(tf.abs(
+            tf.py_func(Utils.ranked, [
+                tf.py_func(Utils.ranked, [tf.scalar_mul(-1, self.v)],
+                           tf.int64)], tf.int64) -
+            tf.py_func(Utils.ranked, [
+                tf.py_func(Utils.ranked, [tf.scalar_mul(-1, other_pr.v)],
+                           tf.int64)], tf.int64))), tf.float32),
+            (self.G.n_tf * (self.G.n_tf - 1)))
