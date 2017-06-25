@@ -13,7 +13,7 @@ from src.utils.utils import Utils
 
 def main():
     beta = 0.85
-    convergence = 0.001
+    convergence = 0.01
 
     wiki_vote_edges_np = DataSets.wiki_vote()
     followers_edges_np = DataSets.followers()
@@ -55,7 +55,7 @@ def main():
         elapsed = timeit.default_timer() - start_time
         print(elapsed)
         start_time = timeit.default_timer()
-        c = (pr_followers_random.ranks(steps=50))
+        c = (pr_followers_random.ranks(convergence=convergence))
         elapsed = timeit.default_timer() - start_time
         print(elapsed)
         # print(a)
