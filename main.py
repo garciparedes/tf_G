@@ -23,14 +23,15 @@ def main():
 
         g_followers = GraphConstructor.from_edges(sess, "Gfollowers",
                                                   followers_edges_np, writer)
-        
+        '''
         pr_followers_alge = NumericAlgebraicPageRank(sess, "PR1",
                                                      g_followers,
                                                      beta)
-
+        '''
         pr_followers_iter = NumericIterativePageRank(sess, "PR1",
                                                      g_followers,
                                                      beta)
+
         pr_followers_random = NumericRandomWalkPageRank(sess, "PR3",
                                                         g_followers,
                                                         beta)
@@ -48,19 +49,25 @@ def main():
         g_followers_updateable.remove(followers_edges_np[0,0], followers_edges_np[0,1])
         g_followers_updateable.append(followers_edges_np[0,0], followers_edges_np[0,1])
         '''
-        a = (pr_followers_alge.ranks())
+        # a = (pr_followers_alge.ranks())
+        start_time = timeit.default_timer()
         b = (pr_followers_iter.ranks(convergence=convergence))
-        c = (pr_followers_random.ranks(steps=500))
-        print(a)
+        elapsed = timeit.default_timer() - start_time
+        print(elapsed)
+        start_time = timeit.default_timer()
+        c = (pr_followers_random.ranks(steps=50))
+        elapsed = timeit.default_timer() - start_time
+        print(elapsed)
+        # print(a)
         print(b)
         print(c)
-        print((pr_followers_alge.error_vector_compare_np(pr_followers_iter)))
-        print((pr_followers_alge.error_vector_compare_np(pr_followers_random)))
-        #print(pr_followers_iter.error_vector_compare_np(pr_followers_random))
+        # print((pr_followers_alge.error_vector_compare_np(pr_followers_iter)))
+        # print((pr_followers_alge.error_vector_compare_np(pr_followers_random)))
+        print(pr_followers_iter.error_vector_compare_np(pr_followers_random))
 
-        #Utils.save_ranks("logs/csv/alge.csv",a)
-        #Utils.save_ranks("logs/csv/iter.csv",b)
-        #Utils.save_ranks("logs/csv/random.csv",c)
+        # Utils.save_ranks("logs/csv/alge.csv",a)
+        # Utils.save_ranks("logs/csv/iter.csv",b)
+        # Utils.save_ranks("logs/csv/random.csv",c)
         '''
         g_sparse = GraphConstructor.as_other_sparsifier(sess, g_followers, 0.95)
 

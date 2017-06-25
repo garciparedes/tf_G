@@ -2,7 +2,7 @@ import warnings
 
 import tensorflow as tf
 import numpy as np
-
+import math
 from src.pagerank.numeric_iterative_pagerank import NumericIterativePageRank
 from src.pagerank.transition_random import TransitionRandom
 from src.utils.vector_convergence import VectorConvergenceCriterion
@@ -28,10 +28,11 @@ class NumericRandomWalkPageRank(NumericIterativePageRank):
             lambda i, v, v_last, c, n, dist: (
                 i + 1,
                 tf.add(
-                    tf.divide(i * v, i + n),
+                    tf.divide(i * v, i + int(math.sqrt(self.G.n))),
                     tf.scatter_nd(
-                        tf.reshape(dist, shape=[self.G.n, 1]),
-                        tf.fill([self.G.n], 1 / (n + i)),
+                        tf.reshape(dist, shape=[int(math.sqrt(self.G.n)), 1]),
+                        tf.fill([int(math.sqrt(self.G.n))],
+                                1 / (int(math.sqrt(self.G.n)) + i)),
                         [self.G.n])),
                 v,
                 c,
@@ -46,18 +47,11 @@ class NumericRandomWalkPageRank(NumericIterativePageRank):
                 tf.zeros([1, self.G.n]),
                 convergence,
                 self.G.n_tf,
-                tf.cast(tf.squeeze(tf.multinomial(
-                    tf.nn.embedding_lookup(self.random_T.T_log,
-                                           tf.range(0, self.G.n)),
-                    num_samples=1)), tf.int32)
+                tf.random_uniform([int(math.sqrt(self.G.n))], minval=0,
+                                  maxval=self.G.n,
+                                  dtype=tf.int32)
             ], name=self.name + "_while_conv")
-
-        a_np = self.run(a)
-
-        for array in a_np:
-            print(array)
-        print()
-        self.run(self.v.assign(a_np[1]))
+        self.run(self.v.assign(a[1]))
         return self.v
 
     def _pr_steps_tf(self, steps, personalized):
@@ -69,10 +63,11 @@ class NumericRandomWalkPageRank(NumericIterativePageRank):
             lambda i, v, dist: (
                 i + 1.0,
                 tf.add(
-                    tf.divide(i * v, i + self.G.n),
+                    tf.divide(i * v, i + int(math.sqrt(self.G.n))),
                     tf.scatter_nd(
-                        tf.reshape(dist, shape=[self.G.n, 1]),
-                        tf.fill([self.G.n], 1 / (self.G.n + i)),
+                        tf.reshape(dist, shape=[int(math.sqrt(self.G.n)), 1]),
+                        tf.fill([int(math.sqrt(self.G.n))],
+                                1 / (int(math.sqrt(self.G.n)) + i)),
                         [self.G.n])),
                 tf.cast(tf.squeeze(tf.multinomial(
                     tf.nn.embedding_lookup(self.random_T.T_log, dist),
@@ -81,16 +76,9 @@ class NumericRandomWalkPageRank(NumericIterativePageRank):
             [
                 0.0,
                 self.v,
-                tf.cast(tf.squeeze(tf.multinomial(
-                    tf.nn.embedding_lookup(self.random_T.T_log,
-                                           tf.range(0, self.G.n)),
-                    num_samples=1)), tf.int32)
+                tf.random_uniform([int(math.sqrt(self.G.n))], minval=0,
+                                  maxval=self.G.n, dtype=tf.int32)
             ],
             name=self.name + "_while_steps")
-        a_np = self.run(a)
-
-        for array in a_np:
-            print(array)
-        print()
-        self.run(self.v.assign(a_np[1]))
+        self.run(self.v.assign(a[1]))
         return self.v

@@ -10,7 +10,7 @@ from src.utils.vector_convergence import VectorConvergenceCriterion
 class NumericIterativePageRank(NumericPageRank):
     def __init__(self, sess, name, graph, beta=None):
         T = TransitionResetMatrix(sess, name + "_iter", graph, beta)
-        NumericPageRank.__init__(self, sess, name, graph, beta, T)
+        NumericPageRank.__init__(self, sess, name + "_iter", graph, beta, T)
         self.iter = lambda i, a, b=self.T(): tf.matmul(a, b)
 
     def _pr_convergence_tf(self, convergence, personalized=None,
