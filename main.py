@@ -1,6 +1,7 @@
 import tensorflow as tf
 import numpy as np
 import timeit
+from pprint import pprint
 
 from src.graph.graph_constructor import GraphConstructor
 from src.pagerank.numeric_algebraic_pagerank import NumericAlgebraicPageRank
@@ -64,6 +65,9 @@ def main():
         # print((pr_followers_alge.error_vector_compare_np(pr_followers_iter)))
         # print((pr_followers_alge.error_vector_compare_np(pr_followers_random)))
         print(pr_followers_iter.error_vector_compare_np(pr_followers_random))
+        # print(pr_followers_iter.ranks(convergence=convergence))
+        # print(pr_followers_alge.error_rank_compare_np(pr_followers_iter))
+
 
         # Utils.save_ranks("logs/csv/alge.csv",a)
         # Utils.save_ranks("logs/csv/iter.csv",b)
@@ -71,14 +75,17 @@ def main():
         '''
         g_sparse = GraphConstructor.as_other_sparsifier(sess, g_followers, 0.95)
 
-        pr_sparse = NumericIterativePageRank(sess, "PR_sparse",
+        pr_sparse = NumericAlgebraicPageRank(sess, "PR_sparse",
                                              g_sparse, beta)
 
-        print(pr_sparse.ranks(convergence=convergence))
-        print(pr_followers_alge.error_vector_compare_np(pr_sparse))
+        pprint(pr_sparse.ranks().tolist())
+
+        # pprint(pr_sparse.ranks_by_rank(convergence=convergence).tolist())
+        print(pr_followers_alge.error_ranks_compare_np(pr_sparse, k=128))
         print(g_followers.m)
         print(g_sparse.m)
-        
+
+        '''
         print(GraphConstructor.unweighted_random(sess, "GRandom", 10 ** 2,
                                                  10 ** 3, writer=writer)
         '''
