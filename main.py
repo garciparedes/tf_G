@@ -7,28 +7,35 @@ from src.graph.graph_constructor import GraphConstructor
 from src.pagerank.numeric_algebraic_pagerank import NumericAlgebraicPageRank
 from src.pagerank.numeric_iterative_pagerank import NumericIterativePageRank
 from src.pagerank.numeric_pagerank import NumericPageRank
+from src.pagerank.numeric_random_walk_pagerank import NumericRandomWalkPageRank
 from src.utils.datasets import DataSets
+from src.utils.utils import Utils
 
 
 def main():
     beta = 0.85
-    convergence = 0.001
+    convergence = 0.01
 
     wiki_vote_edges_np = DataSets.wiki_vote()
     followers_edges_np = DataSets.followers()
 
     with tf.Session() as sess:
-        writer = tf.summary.FileWriter('logs/.')
+        writer = tf.summary.FileWriter('logs/tensorflow/.')
 
         g_followers = GraphConstructor.from_edges(sess, "Gfollowers",
                                                   followers_edges_np, writer)
-        pr_followers_iter = NumericIterativePageRank(sess, "PR_iter",
+        '''
+        pr_followers_alge = NumericAlgebraicPageRank(sess, "PR1",
                                                      g_followers,
                                                      beta)
-        pr_followers_alge = NumericAlgebraicPageRank(sess, "PR_alge",
+        '''
+        pr_followers_iter = NumericIterativePageRank(sess, "PR1",
                                                      g_followers,
                                                      beta)
 
+        pr_followers_random = NumericRandomWalkPageRank(sess, "PR3",
+                                                        g_followers,
+                                                        beta)
         '''
         g_followers_updateable = GraphConstructor.empty(sess, "Gfollowers",
                                                   7, writer)
@@ -43,12 +50,29 @@ def main():
         g_followers_updateable.remove(followers_edges_np[0,0], followers_edges_np[0,1])
         g_followers_updateable.append(followers_edges_np[0,0], followers_edges_np[0,1])
         '''
-        pprint(pr_followers_alge.ranks().tolist())
-        # pprint(pr_followers_alge.ranks_by_id().tolist())
+        # a = (pr_followers_alge.ranks())
+        start_time = timeit.default_timer()
+        b = (pr_followers_iter.ranks(convergence=convergence))
+        elapsed = timeit.default_timer() - start_time
+        print(elapsed)
+        start_time = timeit.default_timer()
+        c = (pr_followers_random.ranks(convergence=convergence))
+        elapsed = timeit.default_timer() - start_time
+        print(elapsed)
+        # print(a)
+        print(b)
+        print(c)
+        # print((pr_followers_alge.error_vector_compare_np(pr_followers_iter)))
+        # print((pr_followers_alge.error_vector_compare_np(pr_followers_random)))
+        print(pr_followers_iter.error_vector_compare_np(pr_followers_random))
         # print(pr_followers_iter.ranks(convergence=convergence))
         # print(pr_followers_alge.error_rank_compare_np(pr_followers_iter))
 
 
+        # Utils.save_ranks("logs/csv/alge.csv",a)
+        # Utils.save_ranks("logs/csv/iter.csv",b)
+        # Utils.save_ranks("logs/csv/random.csv",c)
+        '''
         g_sparse = GraphConstructor.as_other_sparsifier(sess, g_followers, 0.95)
 
         pr_sparse = NumericAlgebraicPageRank(sess, "PR_sparse",

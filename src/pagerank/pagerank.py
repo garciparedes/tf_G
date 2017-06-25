@@ -32,7 +32,7 @@ class PageRank(TensorFlowObject):
             return self._pr_convergence_tf(convergence,
                                            personalized=personalized,
                                            convergence_criterion=convergence_criterion)
-        elif steps > 1:
+        elif steps > 0:
             return self._pr_steps_tf(steps,
                                      personalized=personalized)
         else:

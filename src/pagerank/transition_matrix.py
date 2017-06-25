@@ -6,7 +6,7 @@ from src.utils.update_edge_notifier import UpdateEdgeNotifier
 
 class TransitionMatrix(TensorFlowObject, UpdateEdgeNotifier):
     def __init__(self, sess, name, graph):
-        TensorFlowObject.__init__(self, sess, name)
+        TensorFlowObject.__init__(self, sess, name + "_T")
         UpdateEdgeNotifier.__init__(self)
 
         self.G = graph
@@ -15,11 +15,10 @@ class TransitionMatrix(TensorFlowObject, UpdateEdgeNotifier):
             tf.where(self.G.is_not_sink_tf,
                      tf.div(self.G.A_tf, self.G.out_degrees_tf),
                      tf.fill([self.G.n, self.G.n], 1 / self.G.n)),
-            name=self.name + "_T")
+            name=self.name)
         self.run(tf.variables_initializer([self.transition]))
 
-    @property
-    def get_tf(self):
+    def __call__(self, *args, **kwargs):
         return self.transition
 
     def update_edge(self, edge, change):
