@@ -6,8 +6,9 @@ from src.utils.tensorflow_object import TensorFlowObject
 
 
 class Graph(TensorFlowObject, UpdateEdgeNotifier):
-    def __init__(self, sess, name, writer=None, edges_np=None, n=None):
-        TensorFlowObject.__init__(self, sess, name, writer)
+    def __init__(self, sess, name, writer=None, edges_np=None, n=None,
+                 is_sparse=False):
+        TensorFlowObject.__init__(self, sess, name, writer, is_sparse)
         UpdateEdgeNotifier.__init__(self)
 
         if edges_np is not None:
@@ -57,7 +58,7 @@ class Graph(TensorFlowObject, UpdateEdgeNotifier):
 
     @property
     def edge_list_tf(self):
-        return tf.cast(tf.where(tf.not_equal(self.A_tf, 0)),tf.int64)
+        return tf.cast(tf.where(tf.not_equal(self.A_tf, 0)), tf.int64)
 
     @property
     def L_pseudo_inverse_tf(self):
