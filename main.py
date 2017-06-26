@@ -85,7 +85,7 @@ def main():
         print(g_followers.m)
         print(g_sparse.m)
 
-        '''
+  
         print(GraphConstructor.unweighted_random(sess, "GRandom", 10 ** 2,
                                                  10 ** 3, writer=writer)
         '''
