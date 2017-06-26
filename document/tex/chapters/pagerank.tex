@@ -113,19 +113,19 @@
       Por estas razones, obtener la \emph{distribución estacionaria} de un grafo $G$, este no debe contener vértices \emph{sumideros}. La solución que proponen \emph{Page} y \emph{Brin} en \cite{page1999pagerank} para encontrar la \emph{distribución estacionaria} o \emph{PageRank} del grafo generado por los enlaces de la web (\emph{Web Graph}) es añadir un determinado índice de probabilidad sobre el cual los usuarios dejan de seguir los enlaces entre páginas web para acceder a otra distinta introducciendo la URL directamente. El apoyo en esta estrategia soluciona por tanto el problema de los vértices \emph{sumidero}, además de asemejarse en un mayor grado al comportamiento real de un usario que navega por internet.
 
       \paragraph{}
-      En \cite{page1999pagerank} \emph{Page} y \emph{Brin} proponen la modificación de la matriz de transiciones $P$ para la adaptación descrita en el párrafo superior, la cual se indica en la ecuación \eqref{eq:pagerank_transition_matrix}. De esta manera, se representa la situación en la cual un determinado usuario que llega a una página web sin enlaces hacia otras (\emph{sumidero}), accede a otra seleccionada de manera uniforme (esto se modeliza mediante el vector $v$ construido de tal manera que  $v_{i} = \frac{1}{n}, \ \forall i \in [1,n]$). Además, se añade un determinado índice $\beta$, que se corresponde con la probabilidad de que el usuario continue seleccionando enlaces en la página actual o ,por contra, acceda a otra seleccionandola de manera uniforme. Típicamente el valor $\beta$ se fija a $0.85$, sin embargo, admite cualquier valor contenido en el intervalo $[0,1]$.
+      En \cite{page1999pagerank} \emph{Page} y \emph{Brin} proponen la modificación de la matriz de transiciones $P$ para la adaptación descrita en el párrafo superior, la cual se indica en la ecuación \eqref{eq:pagerank_transition_matrix}. De esta manera, se representa la situación en la cual un determinado usuario que llega a una página web sin enlaces hacia otras (\emph{sumidero}), accede a otra seleccionada de manera uniforme (esto se modeliza mediante el vector $p$ construido de tal manera que  $p_{i} = \frac{1}{n}, \ \forall i \in [1,n]$). Además, se añade un determinado índice $\beta$, que se corresponde con la probabilidad de que el usuario continue seleccionando enlaces en la página actual o ,por contra, acceda a otra seleccionandola de manera uniforme. Típicamente el valor $\beta$ se fija a $0.85$, sin embargo, admite cualquier valor contenido en el intervalo $[0,1]$.
 
       \begin{equation}
       \label{eq:pagerank_transition_matrix}
         p'_{ij} =
         \begin{cases}
-          \beta * \frac{A_{ij}}{d^-(i)} + (1- \beta) * v_{i} & \mbox{if} \ d^-(i) \neq 0 \\
-          v_{i}&\mbox{otherwise}
+          \beta * \frac{A_{ij}}{d^-(i)} + (1- \beta) * p_{i} & \mbox{if} \ d^-(i) \neq 0 \\
+          p_{i}&\mbox{otherwise}
         \end{cases}
       \end{equation}
 
       \paragraph{}
-      Tal y como se ha indicado anteriormente, el vector $v$ representa la distribución de probabilidad referida a los saltos que un usuario lleva a cabo entre sitios web sin tener en cuenta los enlaces del sitio web actual. En el párrafo anterior se ha indicado que este vector es construido siguiendo una distribución uniforme, por tanto, esto puede ser visto de tal manera que la probabilidad de saltar de un sitio web a otro es la misma. Sin embargo, dicha acción podría seguir una distribución de probabilidad distinta dependiendo de cada usuario de la red. Por tanto, en \cite{page1999pagerank} se habla de \emph{PageRank Personalizado} cuando el vector $v$ sigue una distribución de probabilidad distinta de la uniforme (desviada hacia los sitios web a los que más accede el usuario).
+      Tal y como se ha indicado anteriormente, el vector $p$ representa la distribución de probabilidad referida a los saltos que un usuario lleva a cabo entre sitios web sin tener en cuenta los enlaces del sitio web actual. En el párrafo anterior se ha indicado que este vector es construido siguiendo una distribución uniforme, por tanto, esto puede ser visto de tal manera que la probabilidad de saltar de un sitio web a otro es la misma. Sin embargo, dicha acción podría seguir una distribución de probabilidad distinta dependiendo de cada usuario de la red. Por tanto, en \cite{page1999pagerank} se habla de \emph{PageRank Personalizado} cuando el vector $p$ sigue una distribución de probabilidad distinta de la uniforme (desviada hacia los sitios web a los que más accede el usuario).
 
       \paragraph{}
       En el trabajo \emph{Topic-sensitive pagerank} \cite{haveliwala2002topic} \emph{Haveliwala} propone la generación de 16 \emph{distribuciones estacionarias} (\emph{PageRanks}) distintas mediante la personalización del vector $v$, para después realizar una combinación de estas y así conseguir que el ranking final sea personalizado.
@@ -162,7 +162,7 @@
       \begin{itemize}
         \item Matriz de Adjacencia $A$, que a partir de la cual se obtiene la estructura del grafo (Se habló de ella en la sección \ref{sec:adjacency_matrix}).
         \item El valor de probabilidad $\beta$ de seguir el paseo aleatorio a partir de la distribución del vértice actual (el cual se comentó en la sección anterior).
-        \item El vector de personalización $v$ referido a la distribución de probabilidad de los saltos aleatorios entre vértices (también se habló en la sección anterior).
+        \item El vector de personalización $p$ referido a la distribución de probabilidad de los saltos aleatorios entre vértices (también se habló en la sección anterior).
       \end{itemize}
 
 
@@ -184,9 +184,9 @@
           \label{eq:pagerank_algorithm_algebraic_1}
           \lambda =& \lambda * P' \\
           \label{eq:pagerank_algorithm_algebraic_2}
-                  =& \lambda * \beta * \frac{A}{d^-} + (1-\beta)*v \\
+                  =& \lambda * \beta * \frac{A}{d^-} + (1-\beta)*p \\
           \label{eq:pagerank_algorithm_algebraic_3}
-                  =& \bigg(\boldsymbol{I} - \beta * \frac{A}{d^-}\bigg)^{-1} * (1-\beta)*v
+                  =& \bigg(\boldsymbol{I} - \beta * \frac{A}{d^-}\bigg)^{-1} * (1-\beta)*p
         \end{align}
 
         \paragraph{}
@@ -222,7 +222,7 @@
         \end{algorithm}
 
         \paragraph{}
-        En cuanto al vector \emph{PageRank} $\pi$, este debe ser inicializado antes de comenzar el bucle de iteracciones. La única restriccione que se pide es que la suma de las posiciones del mismo sea $1$, es decir, que la norma 1 del sea igual a 1 ($||\pi||_1 = \sum_i pi_i = 1$) para mantener la propiedad de distribucción de probabilidad. Existen distintas heurísticas destinadas a reducir el número de iteraciones del algoritmo mediante la inicialización de este vector, sin embargo, en este caso se ha preferido inicializarlo siguiendo una distribucción uniforme. Esta inicialización no determina el resultado, tan solo el tiempo de convergencia hacia este.
+        En cuanto al vector \emph{PageRank} $\pi$, este debe ser inicializado antes de comenzar el bucle de iteracciones. La única restriccione que se pide es que la suma de las posiciones del mismo sea $1$, es decir, que la norma 1 del sea igual a 1 ($||\pi||_1 = \sum_i \pi_i = 1$) para mantener la propiedad de distribucción de probabilidad. Existen distintas heurísticas destinadas a reducir el número de iteraciones del algoritmo mediante la inicialización de este vector, sin embargo, en este caso se ha preferido inicializarlo siguiendo una distribucción uniforme. Esta inicialización no determina el resultado, tan solo el tiempo de convergencia hacia este.
 
         \paragraph{}
         Tal y como se puede apreciar, el bucle de iteraciones consiste únicamente en la multiplicación del vector \emph{PageRank} por la matriz $P'$ junto con la actualización del índice referido a la iteracción. El siguiente punto a discutir es el criterio de convergencia del resultado. Para ello existen distintas normas vectoriales, entre ellas la norma uno (descrita en el párrafo anterior) o la norma infinito ($||\pi||_{\infty}=max_i\{\pi_i\}$). En este caso se ha creido más conveniente la utilización de la \emph{norma 1} para el criterio de convergencia puesto que se pretenden reducir todos los valores del vector y no únicamente el máximo de todos ellos, por lo que de esta manera se consigue una aproximación más homogenea respecto  del \emph{PageRank Exacto}.
@@ -269,6 +269,21 @@
 
     \section{PageRank Personalizado}
     \label{sec:pagerank_algorithm_personalized}
+
+      \paragraph{}
+      Tal y como se ha indicado a lo largo del capítulo, el algoritmo \emph{PageRank} genera un ranking referido al ratio de importancia de cada vértice perteneciente a un determinado grafo dirigido no ponderado $G$. Dicha medida para el vértice $v$ se calcula como la probabilidad de que tras un paseo aleatorio por los vértices del grafo siguiendo las aristas del mismo, el vértice final del camino sea $v$.
+
+      \paragraph{}
+      Para hacer frente a aquellos casos en los cuales se llega a un vértice que no contiene aristas (\emph{vértice sumidero}) sobre las cuales acceder a otros vértices entonces es necesario realizar un salto hacia otro vértice del grafo sin tener en cuenta las aristas. Tal y como se ha indicado, este proceso se lleva a cabo tanto en los \emph{vértices sumidero}, para los cuales es necesario para poder calcular el ranking, como en el resto de vértices con probabilidad $1-\beta$.
+
+      \paragraph{}
+      En esta sección se habla de la distribución de probabilidad que sigue el proceso de \emph{saltar} de un vértice a otro. Dicha distribución se codifica mediante el vector $p = [ p_1, p_2,...,p_i,...,p_n ]$, cuya única restricción se refiere a la suma de valores, que debe ser 1, es decir, $p$ debe estar normalizado ($||p||_1 = 1$).
+
+      \paragraph{}
+      El caso básico se refiere a la distribucción uniforme, para la cual todas las posiciones del vector toman el mismo valor, es decir, $\forall i \in [1,n], \ p_i = \frac{1}{n}$. De esta manera se modeliza la situación en la cual cuando se lleva a cabo un salto, todos los vértices tienen la misma probabilidad de ser el vértice de destino. Nótese por tanto, que en este caso no existe no existe ningún grado de personalización sobre el resultado, por lo que se conoce como \emph{PageRank General} ya que aporta una estimación acerca de la importancia de los vértices del grafo desde una perspectiva generalizada, lo cual es interesante desde el punto de vista de la obtención de analíticas del grafo.
+
+      \paragraph{}
+      La situación descrita en el párrafo anterior, sin embargo, no se asemeja al comportamiento real de un usuario que navega por la red. La razón se debe a que cuando alguien accede directamente a un sitio web escribiendo la url del mismo en su navegador favorito, este no selecciona una al acceder de entre los millones de páginas posibles, sino que la escoge de entre un reducido subconjunto de ellas, que además no es uniforme, dado que los usuarios no visitan las páginas web el mismo número de veces.
 
       \paragraph{}
       [TODO ]
