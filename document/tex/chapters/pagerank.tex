@@ -309,7 +309,16 @@
       Ahora supongamos que un determinado usuario desea calcular su propio ranking personalizado. La tarea se reduce a realizar una media ponderada sobre los vectores $\pi_i$ escogiendo los pesos según el vector $p$ de personalización para dicho usuario. A pesar de ello, esta tarea continua siendo compleja, tanto a nivel temporal como espacial, puesto que se incrementa el coste respecto del \emph{PageRank General} en un orden de $n$.
 
       \paragraph{}
-      [TODO hablar acerca de distintan alternativas para reducir el espacio]
+      Debido al tamaño de grafos como el de la web (\emph{Web Graph}), cuyo número de vértices es tan elevado que no es posible mantener un vector \emph{PageRank} para cada uno de ellos en memoria. Esta razón fificulta la tarea de calcular el ranking personalizado para un determinado usuario en tiempo de consulta. Por tanto, se ha se han propuesto distintas soluciones para este problema.
+
+      \paragraph{}
+      Una de las primeras es la descrita en \cite{haveliwala2002topic}, que se basa en el mantenimiento de \emph{16} vectores \emph{PageRank} de referidos a temas distintos entre si, que despues se combinan en tiempo de consulta para generar un ranking personalizado. En \cite{kamvar2003exploiting} los autores proponen el cálculo de vectores \emph{PageRank} teniendo en cuenta la estructura de bloques que se genera entre vértices cuyo ranking es similar. Esto se lleva a cabo a partir de un algoritmo de 3 fases (búsqueda de vértices similares, cálculo del vector \emph{PageRank} para los conjuntos resultantes y, en tiempo de consulta, combinación de los mismos para obtener el ranking personalizado).
+
+      \paragraph{}
+      En \cite{jeh2003scaling} se explica una técnica que permite calcular el vector \emph{PageRank} personalizado utilizando una técnica incrementa o jerarquica basada en \emph{Programación Dinámica}, lo cual permite hacer calcular el ranking basado en la combinación de cien mil vectores en tiempo de consulta. En \cite{sarlos2006randomize} se propone una solución semejante en un espacio menor mediante la utilización del \emph{Count-Min Sketch} (Sección \ref{sec:count_min_sketch}).
+
+      \paragraph{}
+      [TODO hablar de \cite{sarma2011estimating}]
 
     \section{Variantes}
     \label{sec:pagerank_variants}
