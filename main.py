@@ -6,7 +6,6 @@ from pprint import pprint
 from src.graph.graph_constructor import GraphConstructor
 from src.pagerank.numeric_algebraic_pagerank import NumericAlgebraicPageRank
 from src.pagerank.numeric_iterative_pagerank import NumericIterativePageRank
-from src.pagerank.numeric_pagerank import NumericPageRank
 from src.pagerank.numeric_random_walk_pagerank import NumericRandomWalkPageRank
 from src.utils.datasets import DataSets
 from src.utils.utils import Utils
@@ -22,9 +21,12 @@ def main():
     with tf.Session() as sess:
         writer = tf.summary.FileWriter('logs/tensorflow/.')
 
+        start_time = timeit.default_timer()
         g_followers = GraphConstructor.from_edges(sess, "Gfollowers",
                                                   wiki_vote_edges_np, writer,
                                                   is_sparse=False)
+        elapsed = timeit.default_timer() - start_time
+        print("G_time: " + str(elapsed))
         '''
         pr_followers_alge = NumericAlgebraicPageRank(sess, "PR1",
                                                      g_followers,
@@ -53,9 +55,9 @@ def main():
         '''
         # a = (pr_followers_alge.ranks())
         start_time = timeit.default_timer()
-        b = (pr_followers_iter.ranks(convergence=convergence))
+        b = pr_followers_iter.ranks(convergence=convergence)
         elapsed = timeit.default_timer() - start_time
-        print(elapsed)
+        print("PR_graph_time: " + str(elapsed))
         '''
         start_time = timeit.default_timer()
         c = (pr_followers_random.ranks(convergence=convergence))
@@ -73,21 +75,28 @@ def main():
 
 
         # Utils.save_ranks("logs/csv/alge.csv",a)
-        # Utils.save_ranks("logs/csv/iter.csv",b)
+        Utils.save_ranks("logs/csv/iter.csv",b)
         # Utils.save_ranks("logs/csv/random.csv",c)
-        '''
-        g_sparse = GraphConstructor.as_other_sparsifier(sess, g_followers, 0.95)
 
-        pr_sparse = NumericAlgebraicPageRank(sess, "PR_sparse",
+        start_time = timeit.default_timer()
+        g_sparse = GraphConstructor.as_other_sparsifier(sess, g_followers, 0.75)
+        elapsed = timeit.default_timer() - start_time
+        print("G_sparse_time: " + str(elapsed))
+
+        pr_sparse = NumericIterativePageRank(sess, "PR_sparse",
                                              g_sparse, beta)
 
-        pprint(pr_sparse.ranks().tolist())
-
+        start_time = timeit.default_timer()
+        d = pr_followers_iter.ranks(convergence=convergence)
+        elapsed = timeit.default_timer() - start_time
+        print("PR_sparse_time: " + str(elapsed))
+        print(d)
         # pprint(pr_sparse.ranks_by_rank(convergence=convergence).tolist())
-        print(pr_followers_alge.error_ranks_compare_np(pr_sparse, k=128))
+        print(pr_followers_iter.error_ranks_compare_np(pr_sparse))
+        Utils.save_ranks("logs/csv/sparse.csv",d)
         print(g_followers.m)
         print(g_sparse.m)
-
+        '''
   
         print(GraphConstructor.unweighted_random(sess, "GRandom", 10 ** 2,
                                                  10 ** 3, writer=writer)
