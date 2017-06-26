@@ -283,10 +283,33 @@
       El caso básico se refiere a la distribucción uniforme, para la cual todas las posiciones del vector toman el mismo valor, es decir, $\forall i \in [1,n], \ p_i = \frac{1}{n}$. De esta manera se modeliza la situación en la cual cuando se lleva a cabo un salto, todos los vértices tienen la misma probabilidad de ser el vértice de destino. Nótese por tanto, que en este caso no existe no existe ningún grado de personalización sobre el resultado, por lo que se conoce como \emph{PageRank General} ya que aporta una estimación acerca de la importancia de los vértices del grafo desde una perspectiva generalizada, lo cual es interesante desde el punto de vista de la obtención de analíticas del grafo.
 
       \paragraph{}
-      La situación descrita en el párrafo anterior, sin embargo, no se asemeja al comportamiento real de un usuario que navega por la red. La razón se debe a que cuando alguien accede directamente a un sitio web escribiendo la url del mismo en su navegador favorito, este no selecciona una al acceder de entre los millones de páginas posibles, sino que la escoge de entre un reducido subconjunto de ellas, que además no es uniforme, dado que los usuarios no visitan las páginas web el mismo número de veces.
+      La situación descrita en el párrafo anterior, sin embargo, no se asemeja al comportamiento real de un usuario que navega por la red. La razón se debe a que cuando alguien accede directamente a un sitio web escribiendo la url del mismo en su navegador favorito, este no selecciona una al azar de entre los millones de páginas posibles, sino que la escoge de entre un reducido subconjunto de ellas, que además no es uniforme, dado que los usuarios no visitan las páginas web el mismo número de veces.
 
       \paragraph{}
-      [TODO ]
+      A través de dicha idea, el resultado del algoritmo \emph{PageRank} cambia y en lugar de generar un ranking general del grafo $G$, ahora realiza un ranking sesgado otorgando una mayor puntuación a los vértices cercanos a los vértices de destino de los saltos, lo cual altera en gran medida el resultado anterior.
+
+
+      \paragraph{}
+      Para comprender esta idea se ha incluido en la figura \ref{img:directed_graph_example} un ejemplo de \emph{grafo dirigido no ponderado}. Supongase que se calcula el \emph{PageRank} seleccionando el vector $p$ de tal manera que $p_3 =1$ y $\forall i \in [1,7] - [3], \ p_i = 0$. Mediante esta situación se consigue que todos los saltos (los referidos a vértices sumidero y los relizados con probabilidad $1-\beta$) tengan como vértice destino el $3$. Por esta razón con total seguridad el vértice $3$ tendrá la mejor puntuación \emph{PageRank} del grafo. Además, la puntuación del resto de vértices también se habrá modificado, con altas probabilidades de que el vértice $6$ se encuentre en segunda posición.
+
+      \begin{figure}
+        \centering
+        \includegraphics[width=0.4\textwidth]{graph-directed}
+        \caption{Ejemplo de \emph{Grafo Dirigido No Ponderado}. (Extraido de \cite{freedman2010graphs})}
+        \label{img:directed_graph_example}
+      \end{figure}
+
+      \paragraph{}
+      A través de la modificación de la distribución de probabilidad del vector $p$ se consigue por tanto la adaptación del ranking \emph{PageRank} desde una perspectiva de localidad, lo cual se convierte en una clasificación mucho más interesante desde el punto de vista del usuario, que en el caso del grafo de la web, conoce de manera mucho más fiel las páginas web que son importantes desde su perspectiva individual.
+
+      \paragraph{}
+      Sin embargo, la personalización del ranking \emph{PageRank} conlleva distintos problemas a nivel computacional. Esto se debe a que en este caso en lugar de tener que mantener un único ranking para todo el grafo es necesario mantener un ranking para cada usuario que pretenda consultar el pagerank del grafo. Este problema no es tan grave como parede puesto que el vector de la distribución estacionaria $\pi$ posee la propiedad de linealidad, lo cual simplifica dicha problematica, reduciendo el problema a la necesidad de mantener un vector $\pi$ para cada vértice del grafo, es decir, hay que generar $n$ vectores \emph{PageRank}.
+
+      \paragraph{}
+      Ahora supongamos que un determinado usuario desea calcular su propio ranking personalizado. La tarea se reduce a realizar una media ponderada sobre los vectores $\pi_i$ escogiendo los pesos según el vector $p$ de personalización para dicho usuario. A pesar de ello, esta tarea continua siendo compleja, tanto a nivel temporal como espacial, puesto que se incrementa el coste respecto del \emph{PageRank General} en un orden de $n$.
+
+      \paragraph{}
+      [TODO hablar acerca de distintan alternativas para reducir el espacio]
 
     \section{Variantes}
     \label{sec:pagerank_variants}
