@@ -23,8 +23,8 @@ def main():
         writer = tf.summary.FileWriter('logs/tensorflow/.')
 
         g_followers = GraphConstructor.from_edges(sess, "Gfollowers",
-                                                  followers_edges_np, writer,
-                                                  is_sparse=True)
+                                                  wiki_vote_edges_np, writer,
+                                                  is_sparse=False)
         '''
         pr_followers_alge = NumericAlgebraicPageRank(sess, "PR1",
                                                      g_followers,
@@ -33,11 +33,11 @@ def main():
         pr_followers_iter = NumericIterativePageRank(sess, "PR1",
                                                      g_followers,
                                                      beta)
-
+        '''
         pr_followers_random = NumericRandomWalkPageRank(sess, "PR3",
                                                         g_followers,
                                                         beta)
-        '''
+        
         g_followers_updateable = GraphConstructor.empty(sess, "Gfollowers",
                                                   7, writer)
         pr_followers_updateable = NumericIterativePageRank(sess, "PRfollowers",
@@ -56,16 +56,18 @@ def main():
         b = (pr_followers_iter.ranks(convergence=convergence))
         elapsed = timeit.default_timer() - start_time
         print(elapsed)
+        '''
         start_time = timeit.default_timer()
         c = (pr_followers_random.ranks(convergence=convergence))
         elapsed = timeit.default_timer() - start_time
         print(elapsed)
+        '''
         # print(a)
         print(b)
-        print(c)
+        # print(c)
         # print((pr_followers_alge.error_vector_compare_np(pr_followers_iter)))
         # print((pr_followers_alge.error_vector_compare_np(pr_followers_random)))
-        print(pr_followers_iter.error_vector_compare_np(pr_followers_random))
+        # print(pr_followers_iter.error_vector_compare_np(pr_followers_random))
         # print(pr_followers_iter.ranks(convergence=convergence))
         # print(pr_followers_alge.error_rank_compare_np(pr_followers_iter))
 

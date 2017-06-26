@@ -10,6 +10,9 @@ from src.utils.vector_convergence import VectorConvergenceCriterion
 
 class NumericRandomWalkPageRank(NumericIterativePageRank):
     def __init__(self, sess, name, graph, beta=None):
+        warnings.warn('This implementation is in alpha. ' +
+                      'Use NumericIterativePageRank Implementation!')
+
         NumericIterativePageRank.__init__(self, sess, name + "_rw", graph, beta)
 
         self.random_T = TransitionRandom(sess, self.name, self.T)
