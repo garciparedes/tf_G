@@ -23,7 +23,8 @@ def main():
         writer = tf.summary.FileWriter('logs/tensorflow/.')
 
         g_followers = GraphConstructor.from_edges(sess, "Gfollowers",
-                                                  followers_edges_np, writer)
+                                                  followers_edges_np, writer,
+                                                  is_sparse=True)
         '''
         pr_followers_alge = NumericAlgebraicPageRank(sess, "PR1",
                                                      g_followers,
