@@ -1,0 +1,27 @@
+% !TEX root = ../document.tex
+
+\documentclass{subfiles}
+
+
+\newenvironment{abstractpage}
+  {\cleardoublepage\vspace*{\fill}\thispagestyle{empty}}
+  {\vfill\cleardoublepage}
+\newenvironment{abstract-lang}[1]
+  {\bigskip\selectlanguage{#1}%
+   \begin{center}\bfseries\abstractname\end{center}}
+  {\par\bigskip}
+
+
+\begin{document}
+
+  \begin{abstractpage}
+    \addcontentsline{toc}{chapter}{\protect\numberline{}Resumen}
+    \begin{abstract-lang}{english}
+      [TODO ]
+    \end{abstract-lang}
+    \begin{abstract-lang}{spanish}
+      [TODO ]
+    \end{abstract-lang}
+  \end{abstractpage}
+
+\end{document}
