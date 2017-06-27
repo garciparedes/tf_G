@@ -190,9 +190,6 @@
         \paragraph{}
         A partir de las operaciones descritas en la ecuación \eqref{eq:pagerank_algorithm_algebraic_3}, se obtiene por tanto el \emph{vector propio} $\lambda$, que en este caso se refiere a la \emph{distribución estacionaria} de la \emph{cadena de markov} descrita por la matriz de transiciones modificada $P'$, por lo que es equivalente al vector \emph{PageRank}. Sin embargo, el calculo del vector \emph{PageRank} siguiendo esta estrategia conlleva un elevado coste computacional derivado de la necesidad de invertir una matriz de tamaño $n*n$, algo inadmisible para grafos de tamaño masivo.
 
-        \paragraph{}
-        [TODO hablar de complejidad del algoritmo]
-
       \subsection{Estrategia Iterativa}
       \label{sec:pagerank_algorithm_iterative}
 
@@ -225,9 +222,6 @@
         \paragraph{}
         Tal y como se puede apreciar, el bucle de iteraciones consiste únicamente en la multiplicación del vector \emph{PageRank} por la matriz $P'$ junto con la actualización del índice referido a la iteracción. El siguiente punto a discutir es el criterio de convergencia del resultado. Para ello existen distintas normas vectoriales, entre ellas la norma uno (descrita en el párrafo anterior) o la norma infinito ($||\pi||_{\infty}=max_i\{\pi_i\}$). En este caso se ha creido más conveniente la utilización de la \emph{norma 1} para el criterio de convergencia puesto que se pretenden reducir todos los valores del vector y no únicamente el máximo de todos ellos, por lo que de esta manera se consigue una aproximación más homogenea respecto  del \emph{PageRank Exacto}.
 
-        \paragraph{}
-        [TODO hablar de complejidad del algoritmo]
-
       \subsection{Estrategia Basada en Paseos Aleatorios}
       \label{sec:pagerank_algorithm_random_walks}
 
@@ -257,9 +251,6 @@
           \caption{Random Walks PageRank}
           \label{code:random_walks_pagerank}
         \end{algorithm}
-
-        \paragraph{}
-        [TODO hablar de complejidad del algoritmo]
 
       \paragraph{}
       Las estrategias descritas en este capítulo para la obtención de la distribución estacionaria $\pi$ sobre la matriz de transiciones modificada $P'$ del grafo $G$ se han hecho desde una perspectiva básica. Existen gran cantidad de trabajos sobre disintas variaciones de estos métodos para tratar de reducir el tiempo de convergencia.
@@ -313,10 +304,7 @@
       Una de las primeras es la descrita en \cite{haveliwala2002topic}, que se basa en el mantenimiento de \emph{16} vectores \emph{PageRank} de referidos a temas distintos entre si, que despues se combinan en tiempo de consulta para generar un ranking personalizado. En \cite{kamvar2003exploiting} los autores proponen el cálculo de vectores \emph{PageRank} teniendo en cuenta la estructura de bloques que se genera entre vértices cuyo ranking es similar. Esto se lleva a cabo a partir de un algoritmo de 3 fases (búsqueda de vértices similares, cálculo del vector \emph{PageRank} para los conjuntos resultantes y, en tiempo de consulta, combinación de los mismos para obtener el ranking personalizado).
 
       \paragraph{}
-      En \cite{jeh2003scaling} se explica una técnica que permite calcular el vector \emph{PageRank} personalizado utilizando una técnica incrementa o jerarquica basada en \emph{Programación Dinámica}, lo cual permite hacer calcular el ranking basado en la combinación de cien mil vectores en tiempo de consulta. En \cite{sarlos2006randomize} se propone una solución semejante en un espacio menor mediante la utilización del \emph{Count-Min Sketch} (Sección \ref{sec:count_min_sketch}).
-
-      \paragraph{}
-      [TODO hablar de \cite{sarma2011estimating}]
+      En \cite{jeh2003scaling} se explica una técnica que permite calcular el vector \emph{PageRank} personalizado utilizando una técnica incrementa o jerarquica basada en \emph{Programación Dinámica}, lo cual permite hacer calcular el ranking basado en la combinación de cien mil vectores en tiempo de consulta. En \cite{sarlos2006randomize} se propone una solución semejante en un espacio menor mediante la utilización del \emph{Count-Min Sketch} (Sección \ref{sec:count_min_sketch}).En el trabajo \emph{Estimating pagerank on graph streams} \cite{sarma2011estimating} \emph{Sarma y otros} proponen un algoritmo basado en la generación de paseos aleatorios para estimar el ranking \emph{PageRank} sobre las restricciones que impone el \emph{modelo en semi-streaming}.
 
     \section{Alternativas a PageRank}
     \label{sec:pagerank_alternativas}
