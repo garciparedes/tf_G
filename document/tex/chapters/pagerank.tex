@@ -42,7 +42,7 @@
 
 
       \paragraph{}
-      [TODO hablar acerca de cómo se va a organizar el resto del capítulo]
+      El resto del capítulo se organiza como sigue: Lo primero será hablar de \emph{Paseos Aleatorios} en la sección \ref{sec:random_walks}, lo cual permitirá comprender en mayor medida las idea sobre las cuales se basa el ranking \emph{PageRank}. A continuación se realizará una definición formal acerca del problema y lo que se pretende resolver en la sección \ref{sec:pagerank_formal_definition}. Una vez entendido el problema sobre el que se está tratando, en la sección \ref{sec:pagerank_algorithm} se describen las formulaciones para resolver el problema desde un punto de vista \emph{Algebraico} (sección \ref{sec:pagerank_algorithm_algebraic}), \emph{Iterativo} (sección \ref{sec:pagerank_algorithm_iterative}) y \emph{basado en Paseos Aleatorios} (sección \ref{sec:pagerank_algorithm_random_walks}). El siguiente paso es discutir cómo se puede añadir personalización al ranking, lo cual se lleva a cabo en la sección \ref{sec:pagerank_algorithm_personalized}. Por último, se presentan distintas alternativas al algoritmo \emph{PageRank} en la sección \ref{sec:pagerank_alternativas}, en la cual se habla de \emph{HITS} (sección \ref{sec:hits}), \emph{SALSA} (sección \ref{sec:salsa}) y \emph{SimRank} (sección \ref{sec:simrank}). Finalmente se realiza un breve resumen del capítulo en la sección \ref{sec:pagerank_conclusions}.
 
 
     \section{Paseos Aleatorios}
@@ -113,19 +113,19 @@
       Por estas razones, obtener la \emph{distribución estacionaria} de un grafo $G$, este no debe contener vértices \emph{sumideros}. La solución que proponen \emph{Page} y \emph{Brin} en \cite{page1999pagerank} para encontrar la \emph{distribución estacionaria} o \emph{PageRank} del grafo generado por los enlaces de la web (\emph{Web Graph}) es añadir un determinado índice de probabilidad sobre el cual los usuarios dejan de seguir los enlaces entre páginas web para acceder a otra distinta introducciendo la URL directamente. El apoyo en esta estrategia soluciona por tanto el problema de los vértices \emph{sumidero}, además de asemejarse en un mayor grado al comportamiento real de un usario que navega por internet.
 
       \paragraph{}
-      En \cite{page1999pagerank} \emph{Page} y \emph{Brin} proponen la modificación de la matriz de transiciones $P$ para la adaptación descrita en el párrafo superior, la cual se indica en la ecuación \eqref{eq:pagerank_transition_matrix}. De esta manera, se representa la situación en la cual un determinado usuario que llega a una página web sin enlaces hacia otras (\emph{sumidero}), accede a otra seleccionada de manera uniforme (esto se modeliza mediante el vector $v$ construido de tal manera que  $v_{i} = \frac{1}{n}, \ \forall i \in [1,n]$). Además, se añade un determinado índice $\beta$, que se corresponde con la probabilidad de que el usuario continue seleccionando enlaces en la página actual o ,por contra, acceda a otra seleccionandola de manera uniforme. Típicamente el valor $\beta$ se fija a $0.85$, sin embargo, admite cualquier valor contenido en el intervalo $[0,1]$.
+      En \cite{page1999pagerank} \emph{Page} y \emph{Brin} proponen la modificación de la matriz de transiciones $P$ para la adaptación descrita en el párrafo superior, la cual se indica en la ecuación \eqref{eq:pagerank_transition_matrix}. De esta manera, se representa la situación en la cual un determinado usuario que llega a una página web sin enlaces hacia otras (\emph{sumidero}), accede a otra seleccionada de manera uniforme (esto se modeliza mediante el vector $p$ construido de tal manera que  $p_{i} = \frac{1}{n}, \ \forall i \in [1,n]$). Además, se añade un determinado índice $\beta$, que se corresponde con la probabilidad de que el usuario continue seleccionando enlaces en la página actual o ,por contra, acceda a otra seleccionandola de manera uniforme. Típicamente el valor $\beta$ se fija a $0.85$, sin embargo, admite cualquier valor contenido en el intervalo $[0,1]$.
 
       \begin{equation}
       \label{eq:pagerank_transition_matrix}
         p'_{ij} =
         \begin{cases}
-          \beta * \frac{A_{ij}}{d^-(i)} + (1- \beta) * v_{i} & \mbox{if} \ d^-(i) \neq 0 \\
-          v_{i}&\mbox{otherwise}
+          \beta * \frac{A_{ij}}{d^-(i)} + (1- \beta) * p_{i} & \mbox{if} \ d^-(i) \neq 0 \\
+          p_{i}&\mbox{otherwise}
         \end{cases}
       \end{equation}
 
       \paragraph{}
-      Tal y como se ha indicado anteriormente, el vector $v$ representa la distribución de probabilidad referida a los saltos que un usuario lleva a cabo entre sitios web sin tener en cuenta los enlaces del sitio web actual. En el párrafo anterior se ha indicado que este vector es construido siguiendo una distribución uniforme, por tanto, esto puede ser visto de tal manera que la probabilidad de saltar de un sitio web a otro es la misma. Sin embargo, dicha acción podría seguir una distribución de probabilidad distinta dependiendo de cada usuario de la red. Por tanto, en \cite{page1999pagerank} se habla de \emph{PageRank Personalizado} cuando el vector $v$ sigue una distribución de probabilidad distinta de la uniforme (desviada hacia los sitios web a los que más accede el usuario).
+      Tal y como se ha indicado anteriormente, el vector $p$ representa la distribución de probabilidad referida a los saltos que un usuario lleva a cabo entre sitios web sin tener en cuenta los enlaces del sitio web actual. En el párrafo anterior se ha indicado que este vector es construido siguiendo una distribución uniforme, por tanto, esto puede ser visto de tal manera que la probabilidad de saltar de un sitio web a otro es la misma. Sin embargo, dicha acción podría seguir una distribución de probabilidad distinta dependiendo de cada usuario de la red. Por tanto, en \cite{page1999pagerank} se habla de \emph{PageRank Personalizado} cuando el vector $p$ sigue una distribución de probabilidad distinta de la uniforme (desviada hacia los sitios web a los que más accede el usuario).
 
       \paragraph{}
       En el trabajo \emph{Topic-sensitive pagerank} \cite{haveliwala2002topic} \emph{Haveliwala} propone la generación de 16 \emph{distribuciones estacionarias} (\emph{PageRanks}) distintas mediante la personalización del vector $v$, para después realizar una combinación de estas y así conseguir que el ranking final sea personalizado.
@@ -162,10 +162,8 @@
       \begin{itemize}
         \item Matriz de Adjacencia $A$, que a partir de la cual se obtiene la estructura del grafo (Se habló de ella en la sección \ref{sec:adjacency_matrix}).
         \item El valor de probabilidad $\beta$ de seguir el paseo aleatorio a partir de la distribución del vértice actual (el cual se comentó en la sección anterior).
-        \item El vector de personalización $v$ referido a la distribución de probabilidad de los saltos aleatorios entre vértices (también se habló en la sección anterior).
+        \item El vector de personalización $p$ referido a la distribución de probabilidad de los saltos aleatorios entre vértices (también se habló en la sección anterior).
       \end{itemize}
-
-
 
       \paragraph{}
       Para calcular el \emph{vector propio} $\lambda$ existen distintas estrategias matemáticas. En esta sección se habla de dos estrategias, la primera de ellas basada en la resolución de un sistema de ecuaciones lineales mientras que la segunda se basa en acercamiento a la solución de manera iterativa. Tal y como se verá a continuación, la estrategia algebraica conlleva un coste computacional muy elevado, por lo que no es admisible sobre grafos de tamaño masivo. En estos casos se utiliza la estrategia iterativa u otras alternativas basadas en la generación de \emph{Paseos Aleatorios}.
@@ -184,16 +182,13 @@
           \label{eq:pagerank_algorithm_algebraic_1}
           \lambda =& \lambda * P' \\
           \label{eq:pagerank_algorithm_algebraic_2}
-                  =& \lambda * \beta * \frac{A}{d^-} + (1-\beta)*v \\
+                  =& \lambda * \beta * \frac{A}{d^-} + (1-\beta)*p \\
           \label{eq:pagerank_algorithm_algebraic_3}
-                  =& \bigg(\boldsymbol{I} - \beta * \frac{A}{d^-}\bigg)^{-1} * (1-\beta)*v
+                  =& \bigg(\boldsymbol{I} - \beta * \frac{A}{d^-}\bigg)^{-1} * (1-\beta)*p
         \end{align}
 
         \paragraph{}
         A partir de las operaciones descritas en la ecuación \eqref{eq:pagerank_algorithm_algebraic_3}, se obtiene por tanto el \emph{vector propio} $\lambda$, que en este caso se refiere a la \emph{distribución estacionaria} de la \emph{cadena de markov} descrita por la matriz de transiciones modificada $P'$, por lo que es equivalente al vector \emph{PageRank}. Sin embargo, el calculo del vector \emph{PageRank} siguiendo esta estrategia conlleva un elevado coste computacional derivado de la necesidad de invertir una matriz de tamaño $n*n$, algo inadmisible para grafos de tamaño masivo.
-
-        \paragraph{}
-        [TODO hablar de complejidad del algoritmo]
 
       \subsection{Estrategia Iterativa}
       \label{sec:pagerank_algorithm_iterative}
@@ -222,13 +217,10 @@
         \end{algorithm}
 
         \paragraph{}
-        En cuanto al vector \emph{PageRank} $\pi$, este debe ser inicializado antes de comenzar el bucle de iteracciones. La única restriccione que se pide es que la suma de las posiciones del mismo sea $1$, es decir, que la norma 1 del sea igual a 1 ($||\pi||_1 = \sum_i pi_i = 1$) para mantener la propiedad de distribucción de probabilidad. Existen distintas heurísticas destinadas a reducir el número de iteraciones del algoritmo mediante la inicialización de este vector, sin embargo, en este caso se ha preferido inicializarlo siguiendo una distribucción uniforme. Esta inicialización no determina el resultado, tan solo el tiempo de convergencia hacia este.
+        En cuanto al vector \emph{PageRank} $\pi$, este debe ser inicializado antes de comenzar el bucle de iteracciones. La única restriccione que se pide es que la suma de las posiciones del mismo sea $1$, es decir, que la norma 1 del sea igual a 1 ($||\pi||_1 = \sum_i \pi_i = 1$) para mantener la propiedad de distribucción de probabilidad. Existen distintas heurísticas destinadas a reducir el número de iteraciones del algoritmo mediante la inicialización de este vector, sin embargo, en este caso se ha preferido inicializarlo siguiendo una distribucción uniforme. Esta inicialización no determina el resultado, tan solo el tiempo de convergencia hacia este.
 
         \paragraph{}
         Tal y como se puede apreciar, el bucle de iteraciones consiste únicamente en la multiplicación del vector \emph{PageRank} por la matriz $P'$ junto con la actualización del índice referido a la iteracción. El siguiente punto a discutir es el criterio de convergencia del resultado. Para ello existen distintas normas vectoriales, entre ellas la norma uno (descrita en el párrafo anterior) o la norma infinito ($||\pi||_{\infty}=max_i\{\pi_i\}$). En este caso se ha creido más conveniente la utilización de la \emph{norma 1} para el criterio de convergencia puesto que se pretenden reducir todos los valores del vector y no únicamente el máximo de todos ellos, por lo que de esta manera se consigue una aproximación más homogenea respecto  del \emph{PageRank Exacto}.
-
-        \paragraph{}
-        [TODO hablar de complejidad del algoritmo]
 
       \subsection{Estrategia Basada en Paseos Aleatorios}
       \label{sec:pagerank_algorithm_random_walks}
@@ -260,9 +252,6 @@
           \label{code:random_walks_pagerank}
         \end{algorithm}
 
-        \paragraph{}
-        [TODO hablar de complejidad del algoritmo]
-
       \paragraph{}
       Las estrategias descritas en este capítulo para la obtención de la distribución estacionaria $\pi$ sobre la matriz de transiciones modificada $P'$ del grafo $G$ se han hecho desde una perspectiva básica. Existen gran cantidad de trabajos sobre disintas variaciones de estos métodos para tratar de reducir el tiempo de convergencia.
 
@@ -271,36 +260,122 @@
     \label{sec:pagerank_algorithm_personalized}
 
       \paragraph{}
-      [TODO ]
-
-    \section{Variantes}
-    \label{sec:pagerank_variants}
+      Tal y como se ha indicado a lo largo del capítulo, el algoritmo \emph{PageRank} genera un ranking referido al ratio de importancia de cada vértice perteneciente a un determinado grafo dirigido no ponderado $G$. Dicha medida para el vértice $v$ se calcula como la probabilidad de que tras un paseo aleatorio por los vértices del grafo siguiendo las aristas del mismo, el vértice final del camino sea $v$.
 
       \paragraph{}
-      [TODO ]
+      Para hacer frente a aquellos casos en los cuales se llega a un vértice que no contiene aristas (\emph{vértice sumidero}) sobre las cuales acceder a otros vértices entonces es necesario realizar un salto hacia otro vértice del grafo sin tener en cuenta las aristas. Tal y como se ha indicado, este proceso se lleva a cabo tanto en los \emph{vértices sumidero}, para los cuales es necesario para poder calcular el ranking, como en el resto de vértices con probabilidad $1-\beta$.
 
-      \subsection{SymRank}
-      \label{sec:symrank}
+      \paragraph{}
+      En esta sección se habla de la distribución de probabilidad que sigue el proceso de \emph{saltar} de un vértice a otro. Dicha distribución se codifica mediante el vector $p = [ p_1, p_2,...,p_i,...,p_n ]$, cuya única restricción se refiere a la suma de valores, que debe ser 1, es decir, $p$ debe estar normalizado ($||p||_1 = 1$).
 
-        \paragraph{}
-        [TODO]
+      \paragraph{}
+      El caso básico se refiere a la distribucción uniforme, para la cual todas las posiciones del vector toman el mismo valor, es decir, $\forall i \in [1,n], \ p_i = \frac{1}{n}$. De esta manera se modeliza la situación en la cual cuando se lleva a cabo un salto, todos los vértices tienen la misma probabilidad de ser el vértice de destino. Nótese por tanto, que en este caso no existe no existe ningún grado de personalización sobre el resultado, por lo que se conoce como \emph{PageRank General} ya que aporta una estimación acerca de la importancia de los vértices del grafo desde una perspectiva generalizada, lo cual es interesante desde el punto de vista de la obtención de analíticas del grafo.
+
+      \paragraph{}
+      La situación descrita en el párrafo anterior, sin embargo, no se asemeja al comportamiento real de un usuario que navega por la red. La razón se debe a que cuando alguien accede directamente a un sitio web escribiendo la url del mismo en su navegador favorito, este no selecciona una al azar de entre los millones de páginas posibles, sino que la escoge de entre un reducido subconjunto de ellas, que además no es uniforme, dado que los usuarios no visitan las páginas web el mismo número de veces.
+
+      \paragraph{}
+      A través de dicha idea, el resultado del algoritmo \emph{PageRank} cambia y en lugar de generar un ranking general del grafo $G$, ahora realiza un ranking sesgado otorgando una mayor puntuación a los vértices cercanos a los vértices de destino de los saltos, lo cual altera en gran medida el resultado anterior.
+
+
+      \paragraph{}
+      Para comprender esta idea se ha incluido en la figura \ref{img:directed_graph_example} un ejemplo de \emph{grafo dirigido no ponderado}. Supongase que se calcula el \emph{PageRank} seleccionando el vector $p$ de tal manera que $p_3 =1$ y $\forall i \in [1,7] - [3], \ p_i = 0$. Mediante esta situación se consigue que todos los saltos (los referidos a vértices sumidero y los relizados con probabilidad $1-\beta$) tengan como vértice destino el $3$. Por esta razón con total seguridad el vértice $3$ tendrá la mejor puntuación \emph{PageRank} del grafo. Además, la puntuación del resto de vértices también se habrá modificado, con altas probabilidades de que el vértice $6$ se encuentre en segunda posición.
+
+      \begin{figure}
+        \centering
+        \includegraphics[width=0.4\textwidth]{graph-directed}
+        \caption{Ejemplo de \emph{Grafo Dirigido No Ponderado}. (Extraido de \cite{freedman2010graphs})}
+        \label{img:directed_graph_example}
+      \end{figure}
+
+      \paragraph{}
+      A través de la modificación de la distribución de probabilidad del vector $p$ se consigue por tanto la adaptación del ranking \emph{PageRank} desde una perspectiva de localidad, lo cual se convierte en una clasificación mucho más interesante desde el punto de vista del usuario, que en el caso del grafo de la web, conoce de manera mucho más fiel las páginas web que son importantes desde su perspectiva individual.
+
+      \paragraph{}
+      Sin embargo, la personalización del ranking \emph{PageRank} conlleva distintos problemas a nivel computacional. Esto se debe a que en este caso en lugar de tener que mantener un único ranking para todo el grafo es necesario mantener un ranking para cada usuario que pretenda consultar el pagerank del grafo. Este problema no es tan grave como parede puesto que el vector de la distribución estacionaria $\pi$ posee la propiedad de linealidad, lo cual simplifica dicha problematica, reduciendo el problema a la necesidad de mantener un vector $\pi$ para cada vértice del grafo, es decir, hay que generar $n$ vectores \emph{PageRank}.
+
+      \paragraph{}
+      Ahora supongamos que un determinado usuario desea calcular su propio ranking personalizado. La tarea se reduce a realizar una media ponderada sobre los vectores $\pi_i$ escogiendo los pesos según el vector $p$ de personalización para dicho usuario. A pesar de ello, esta tarea continua siendo compleja, tanto a nivel temporal como espacial, puesto que se incrementa el coste respecto del \emph{PageRank General} en un orden de $n$.
+
+      \paragraph{}
+      Debido al tamaño de grafos como el de la web (\emph{Web Graph}), cuyo número de vértices es tan elevado que no es posible mantener un vector \emph{PageRank} para cada uno de ellos en memoria. Esta razón fificulta la tarea de calcular el ranking personalizado para un determinado usuario en tiempo de consulta. Por tanto, se ha se han propuesto distintas soluciones para este problema.
+
+      \paragraph{}
+      Una de las primeras es la descrita en \cite{haveliwala2002topic}, que se basa en el mantenimiento de \emph{16} vectores \emph{PageRank} de referidos a temas distintos entre si, que despues se combinan en tiempo de consulta para generar un ranking personalizado. En \cite{kamvar2003exploiting} los autores proponen el cálculo de vectores \emph{PageRank} teniendo en cuenta la estructura de bloques que se genera entre vértices cuyo ranking es similar. Esto se lleva a cabo a partir de un algoritmo de 3 fases (búsqueda de vértices similares, cálculo del vector \emph{PageRank} para los conjuntos resultantes y, en tiempo de consulta, combinación de los mismos para obtener el ranking personalizado).
+
+      \paragraph{}
+      En \cite{jeh2003scaling} se explica una técnica que permite calcular el vector \emph{PageRank} personalizado utilizando una técnica incrementa o jerarquica basada en \emph{Programación Dinámica}, lo cual permite hacer calcular el ranking basado en la combinación de cien mil vectores en tiempo de consulta. En \cite{sarlos2006randomize} se propone una solución semejante en un espacio menor mediante la utilización del \emph{Count-Min Sketch} (Sección \ref{sec:count_min_sketch}).En el trabajo \emph{Estimating pagerank on graph streams} \cite{sarma2011estimating} \emph{Sarma y otros} proponen un algoritmo basado en la generación de paseos aleatorios para estimar el ranking \emph{PageRank} sobre las restricciones que impone el \emph{modelo en semi-streaming}.
+
+    \section{Alternativas a PageRank}
+    \label{sec:pagerank_alternativas}
+
+      \paragraph{}
+      El algoritmo \emph{PageRank} se ha convertido en la alternativa más usada para el cálculo del ránking de vértices sobre un grafo basandose únicamente en la estructura del mismo (relaciones a partir de aristas). Su popularidad se debe en gran medida tanto a su sencillez desde el punto de vista algorítmico (a pesar de que su coste computacional es elevado), como a la gran fama del motor de búsquedas \emph{Google}, que desde sus comienzos otorgaba resultados muy buenos apoyandose en la utilización de dicho ranking.
+
+      \paragraph{}
+      Sin embargo, \emph{PageRank} no es la única alternativa sobre la que se ha trabajado en el ámbito del cálculo de importancia para los vértices de grafos. En esta sección se describen brevemente distintos algoritmos cuya finalidad es semejante. Además se hablará de una extensión del \emph{PageRank} conocida como \emph{SimRank} que obtiene el grado de similitud entre los vértices del grafo desde un punto de vista estructural. En la sección \ref{sec:hits} se describe \emph{HITS}, posteriormente en la sección \ref{sec:salsa} se describe \emph{SALSA} (una mejora respecto del anterior), y finalmente, en la sección \ref{sec:simrank} se hablará de \emph{SimRank}.
 
       \subsection{HITS}
       \label{sec:hits}
 
         \paragraph{}
-        [TODO]
+        El algoritmo \emph{HITS} surge en paralelo junto con \emph{PageRank}, puesto que los artículos en los que se habla de dichos algoritmos fueron publicados en \emph{1999}. \emph{HITS} fue descrito por primera vez en el trabajo \emph{Authoritative sources in a hyperlinked environment} \cite{kleinberg1999authoritative} de \emph{Kleinberg}.
+
+        \paragraph{}
+        Este algoritmo, a diferencia del \emph{PageRank}, se basa en la generación del ranking en tiempo de consulta. Para ello utiliza un subconjunto de vértices inicial obtenido a partir del ranking del ranking de similitud basada en texto respecto de la consulta en cuestión. A partir del subgrafo generado por este subconjunto. Las iteraciones del algoritmo se basan la generación de dos puntuaciones para cada vértice. Estas puntuaciones se conocen como \emph{Autority score} y \emph{Hub score}. Las cuales se construyen como la suma de \emph{Hub scores} de los vértices que apuntan hacia el vértice para el caso del \emph{Autority score} y la suma de \emph{Autority scores} de los vértices hacia los que apunta el vértice para el \emph{Hub score}. Dichos valores son normalizados en cada iteración. Este proceso se repite hasta llegar a un determinado grado de convergencia.
+
+        \paragraph{}
+        Las diferencias respecto del \emph{PageRank} por tanto se basan en la generación del ranking en tiempo de consulta en lugar de en tiempo de indexación o estático, por tanto este ranking varía respecto de cada búsqueda. En este caso, en lugar de obtener un único ranking se obtienen dos, indicando los vértices más importantes y indicando los vértices que más importancia generan. Además, en lugar de generar el ranking sobre el grafo completo, \emph{HITS} lo lleva a cabo sobre un subgrafo del mismo (obtenido mediante búsqueda textual tal y como se ha indicado anteriormente).
 
       \subsection{SALSA}
       \label{sec:salsa}
 
         \paragraph{}
-        [TODO]
+        El algoritmo \emph{SALSA} se refiere a una combinación de \emph{PageRank} y \emph{HITS} (descrito en la anterior sección), por tanto, tiene características semejantes de ambas alternativas. La descripción del mismo fue llevada a cabo en el documento \emph{SALSA: the stochastic approach for link-structure analysis}\cite{lempel2001salsa} de \emph{Lempel y Moran}.
+
+        \paragraph{}
+        Debido a que este algoritmo consiste en una combinación de los citados previamente, a continuación se indican las semejanzas que tiene respecto de estos. \emph{SALSA} se basa en la misma idea que \emph{HITS}, en el sentido de que genera dos ranking, referidos a autoridades y generadores de autoridad (\emph{Autority} y \emph{Hub}). Además, también realiza dicho ranking en tiempo de consulta utilizando un subgrafo generado a partir del ranking de similitud textual. La diferencia respecto de \emph{HITS} se basa en la estrategia utilizada para calcular dichos ranking. En este caso utiliza el mismo enfoque de \emph{paseos aleatorios} del \emph{PageRank} (por eso se dice que es una combinación de ambos).
+
+        \paragraph{}
+        La generación de rankings a través de paseos aleatorios le otorgo una ventaja significativa a nivel de coste computacional respecto de \emph{HITS}, además de ofrecer resultados en tiempo de consulta, lo cual le diferencia de \emph{PageRank}. En el documento \emph{WTF: The Who to Follow Service at Twitter} \cite{gupta2013wtf} los autores describen cómo la red social \emph{Twitter} ha desarrollado una variación de este algoritmo para su sistema de recomendación de usuarios a los que comenzar a seguir.
+
+      \subsection{SimRank}
+      \label{sec:simrank}
+
+        \paragraph{}
+        El algoritmo \emph{SimRank} tiene un propósito distinto respecto de los descritos anteriormente. En este caso, en lugar de tratar de conocer el grado de importancia de un determinado vértice del grafo, lo que se pretende es obtener un ranking de simitud del resto de vértices del grafo respecto de uno concreto. En el trabajo \emph{SimRank: a measure of structural-context similarity} \cite{jeh2002simrank} de \emph{Jeh y Widom} se describe de manera el completa el modo de funcionamiento del algoritmo, así como la demostración acerca de la corrección del mismo. A continuación se realiza una breve descripción acerca de dicho modo de funcionamiento.
+
+        \paragraph{}
+        Al igual que el \emph{PageRank}, en este caso el algoritmo también se basa en el cálculo iterativo del ranking hasta llegar a un determinado índice de convergencia. La primera iteración se basa en el cálculo de un \emph{PageRank Personalizado} desde el vértice sobre el cual se pretende basar la comparación. Tras esta inicialización, el resto del algoritmo se basa en la repetición de la ecuación \eqref{eq:simrank_iteration} hasta llegar a un índice de convergencia.
+
+        \begin{equation}
+        \label{eq:simrank_iteration}
+          Sim^{(k)}_{u_1}({u_2}) =
+          \begin{cases}
+            (1-c) * \frac{\sum_{\{(u_1,v_1),(u_2,v_2)\} \in E} Sim^{(k-1)}_{v_1}({v_2})}{d^-({u_1})*d^-({u_2})}, & \text{if} \ u_1 \neq u_2 \\
+            1, & \text{if} \ u_1 = u_2
+          \end{cases}
+        \end{equation}
+
+        \paragraph{}
+        La ecuación \eqref{eq:simrank_iteration} calcula por tanto el grado de similitud del vértice $u_2$ respecto del vértice $u_1$ en la iteración $k$, lo cual se puede denotar como $Sim^{(k)}_{u_1}({u_2})$. Tal y como se ha indicado anteriormente, dicho valor se incrementa conforme los vértices $u_1$ y $u_2$ se relacionan con conjuntos similares de vértices desde el punto de vista de que estos sean los mismos. Esto no debe confuncirse con otros problemas como el de \emph{Matchings} (referido a encontrar subestructuras con la misma forma dentro de un grafo).
+
+        \paragraph{}
+        Existen numerosas aplicaciones prácticas para este algoritmo como sistema de recomendaciones sobre conjuntos de datos con estructura de grafo. Algunos ejemplos donde podría ser utilizado es en problemas como la generación de anuncios de sitios web en un buscador, la generación de listas de reproducción de video a partir de un determinado video teniendo en cuenta la navegación que los usuarios han llevado a cabo previamente entre estos, o un sistema de recomendación de compras en una tienda virtual basandose en la misma idea.
 
     \section{Conclusiones}
     \label{sec:pagerank_conclusions}
 
       \paragraph{}
-      [TODO]
+      Tal y como se ha visto a lo largo del capítulo, el cálculo de importancia sobre los vértices grafos es una tarea compleja, cuya dificultad se incrementa en gran medida cuando el tamaño del grafo es de tamaño masivo, lo cual dificulta la tarea de contenerlo de manera completa en memoria. Sin embargo, en este capítulo no se han discutido soluciones para dicho problema, sino que se ha realizado un estudio acerca del algoritmo \emph{PageRank}, el cual goza de gran popularidad gracias a motor de búsquedas \emph{Google}.
+
+      \paragraph{}
+      A partir de la descripción de este algoritmo se ha podido comprender la perspectiva algebraica para la resolución de un problema sobre grafos, que puede entenderse como uno problema de matrices. Además, se ha ilustrado la cercania de este ranking respecto de las \emph{Cadenas de Markov} y los paseos aleatorios, que convergen hacia la \emph{distribución estacionaria}. Después se ha indicado cómo calcularla a partir de distintas estrategias (\emph{Algebraica}, \emph{Iterativa} o \emph{basada en paseos aleatorios})
+
+      \paragraph{}
+      Posteriormente también se habló del \emph{PageRank Personalizado} y la problematica referida a la cantidad de rankings que sería necesario mantener para llevar a cabo una solución exacta para dicho problema. Por último se ha hablado de estrategias similares para el ranking de vértices así como el algoritmo \emph{SimRank}, que indica el grado de similitud de vértices respecto de un determinado vértice.
+
+      \paragraph{}
+      Gracias a este algoritmo se puede obtener un indicador acerca de la importancia de los vértices de un determinado grafo, lo cual es una tarea interesante y aplicable sobre un gran conjunto de ámbitos para los cuales el problema puede ser modelizado como una red. La observación acerca de la importancia de los vértices desde el punto de vista estructural es un factor interesante que puede mejorar la toma de desisiones en un gran número de casos.
 
 \end{document}
