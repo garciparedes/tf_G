@@ -42,7 +42,7 @@
 
 
       \paragraph{}
-      [TODO hablar acerca de cómo se va a organizar el resto del capítulo]
+      El resto del capítulo se organiza como sigue: Lo primero será hablar de \emph{Paseos Aleatorios} en la sección \ref{sec:random_walks}, lo cual permitirá comprender en mayor medida las idea sobre las cuales se basa el ranking \emph{PageRank}. A continuación se realizará una definición formal acerca del problema y lo que se pretende resolver en la sección \ref{sec:pagerank_formal_definition}. Una vez entendido el problema sobre el que se está tratando, en la sección \ref{sec:pagerank_algorithm} se describen las formulaciones para resolver el problema desde un punto de vista \emph{Algebraico} (sección \ref{sec:pagerank_algorithm_algebraic}), \emph{Iterativo} (sección \ref{sec:pagerank_algorithm_iterative}) y \emph{basado en Paseos Aleatorios} (sección \ref{sec:pagerank_algorithm_random_walks}). El siguiente paso es discutir cómo se puede añadir personalización al ranking, lo cual se lleva a cabo en la sección \ref{sec:pagerank_algorithm_personalized}. Por último, se presentan distintas alternativas al algoritmo \emph{PageRank} en la sección \ref{sec:pagerank_alternativas}, en la cual se habla de \emph{HITS} (sección \ref{sec:hits}), \emph{SALSA} (sección \ref{sec:salsa}) y \emph{SimRank} (sección \ref{sec:simrank}). Finalmente se realiza un breve resumen del capítulo en la sección \ref{sec:pagerank_conclusions}.
 
 
     \section{Paseos Aleatorios}
@@ -164,8 +164,6 @@
         \item El valor de probabilidad $\beta$ de seguir el paseo aleatorio a partir de la distribución del vértice actual (el cual se comentó en la sección anterior).
         \item El vector de personalización $p$ referido a la distribución de probabilidad de los saltos aleatorios entre vértices (también se habló en la sección anterior).
       \end{itemize}
-
-
 
       \paragraph{}
       Para calcular el \emph{vector propio} $\lambda$ existen distintas estrategias matemáticas. En esta sección se habla de dos estrategias, la primera de ellas basada en la resolución de un sistema de ecuaciones lineales mientras que la segunda se basa en acercamiento a la solución de manera iterativa. Tal y como se verá a continuación, la estrategia algebraica conlleva un coste computacional muy elevado, por lo que no es admisible sobre grafos de tamaño masivo. En estos casos se utiliza la estrategia iterativa u otras alternativas basadas en la generación de \emph{Paseos Aleatorios}.
@@ -381,6 +379,15 @@
     \label{sec:pagerank_conclusions}
 
       \paragraph{}
-      [TODO ]
+      Tal y como se ha visto a lo largo del capítulo, el cálculo de importancia sobre los vértices grafos es una tarea compleja, cuya dificultad se incrementa en gran medida cuando el tamaño del grafo es de tamaño masivo, lo cual dificulta la tarea de contenerlo de manera completa en memoria. Sin embargo, en este capítulo no se han discutido soluciones para dicho problema, sino que se ha realizado un estudio acerca del algoritmo \emph{PageRank}, el cual goza de gran popularidad gracias a motor de búsquedas \emph{Google}.
+
+      \paragraph{}
+      A partir de la descripción de este algoritmo se ha podido comprender la perspectiva algebraica para la resolución de un problema sobre grafos, que puede entenderse como uno problema de matrices. Además, se ha ilustrado la cercania de este ranking respecto de las \emph{Cadenas de Markov} y los paseos aleatorios, que convergen hacia la \emph{distribución estacionaria}. Después se ha indicado cómo calcularla a partir de distintas estrategias (\emph{Algebraica}, \emph{Iterativa} o \emph{basada en paseos aleatorios})
+
+      \paragraph{}
+      Posteriormente también se habló del \emph{PageRank Personalizado} y la problematica referida a la cantidad de rankings que sería necesario mantener para llevar a cabo una solución exacta para dicho problema. Por último se ha hablado de estrategias similares para el ranking de vértices así como el algoritmo \emph{SimRank}, que indica el grado de similitud de vértices respecto de un determinado vértice.
+
+      \paragraph{}
+      Gracias a este algoritmo se puede obtener un indicador acerca de la importancia de los vértices de un determinado grafo, lo cual es una tarea interesante y aplicable sobre un gran conjunto de ámbitos para los cuales el problema puede ser modelizado como una red. La observación acerca de la importancia de los vértices desde el punto de vista estructural es un factor interesante que puede mejorar la toma de desisiones en un gran número de casos.
 
 \end{document}
