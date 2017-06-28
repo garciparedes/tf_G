@@ -17,7 +17,7 @@ setup(
         "tfg", "bigdata", "tensorflow",
         "graph theory", "pagerank", "university of valladolid",
     ],
-    python_requires=">=3.6",
+    python_requires=">=3.5",
     install_requires=[
         "numpy",
         "pandas",
