@@ -1,6 +1,10 @@
 import warnings
+from typing import TypeVar
 
 import tensorflow as tf
+
+
+TF_type = TypeVar('TF_type', tf.Variable, tf.Tensor)
 
 
 class TensorFlowObject(object):
