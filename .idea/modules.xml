@@ -2,7 +2,7 @@
 <project version="4">
   <component name="ProjectModuleManager">
     <modules>
-      <module fileurl="file://$PROJECT_DIR$/.idea/implementation.iml" filepath="$PROJECT_DIR$/.idea/implementation.iml" />
+      <module fileurl="file://$PROJECT_DIR$/.idea/tfg-big-data-algorithms.iml" filepath="$PROJECT_DIR$/.idea/tfg-big-data-algorithms.iml" />
     </modules>
   </component>
 </project>
