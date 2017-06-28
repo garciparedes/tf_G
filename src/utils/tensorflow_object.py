@@ -7,9 +7,9 @@ class TensorFlowObject(object):
     def __init__(self, sess: tf.Session, name: str,
                  writer: tf.summary.FileWriter = None,
                  is_sparse: bool = False) -> None:
-        self.sess: tf.Session = sess
-        self.name: str = name
-        self.writer: tf.summary.FileWriter = writer
+        self.sess = sess
+        self.name = name
+        self.writer = writer
         if is_sparse:
             warnings.warn('TensorFlow not implements Sparse Variables yet!')
             # self.is_sparse = is_sparse

@@ -1,10 +1,10 @@
+import math
 import warnings
 
 import tensorflow as tf
-import numpy as np
-import math
+
+from pagerank.transition.transition_random import TransitionRandom
 from src.pagerank.numeric_iterative_pagerank import NumericIterativePageRank
-from src.pagerank.transition_random import TransitionRandom
 from src.utils.vector_convergence import ConvergenceCriterion
 
 

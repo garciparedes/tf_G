@@ -18,3 +18,7 @@ class TransitionRandom(TensorFlowObject):
             tf.reshape(tf.multinomial(self.T_log, num_samples=1), [self.n, 1]),
             tf.fill([self.n], 1 / (self.n + t)),
             [self.n]))
+
+    def update_edge(self, edge, change):
+        # TODO
+        pass

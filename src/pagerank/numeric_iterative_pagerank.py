@@ -2,8 +2,8 @@ import warnings
 
 import tensorflow as tf
 
+from pagerank.transition.transition_reset_matrix import TransitionResetMatrix
 from src.pagerank.numeric_pagerank import NumericPageRank
-from src.pagerank.transition_reset_matrix import TransitionResetMatrix
 from src.utils.vector_convergence import ConvergenceCriterion
 
 

@@ -1,16 +1,13 @@
 import tensorflow as tf
 
+from pagerank.transition.transition import Transition
 from src.utils.tensorflow_object import TensorFlowObject
 from src.utils.update_edge_notifier import UpdateEdgeNotifier
 
 
-class TransitionResetMatrix(TensorFlowObject, UpdateEdgeNotifier):
+class TransitionResetMatrix(Transition):
     def __init__(self, sess, name, graph, beta):
-        TensorFlowObject.__init__(self, sess, name + "_T")
-        UpdateEdgeNotifier.__init__(self)
-
-        self.G = graph
-        self.G.attach(self)
+        Transition.__init__(self, sess, name, graph)
 
         self.beta = beta
         self.transition = tf.Variable(

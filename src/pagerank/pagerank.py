@@ -12,20 +12,22 @@ class PageRank(TensorFlowObject):
     def __init__(self, sess: tf.Session, name: str) -> None:
         TensorFlowObject.__init__(self, sess, name)
 
-    def error_vector_compare_tf(self, other_pr, k: int = -1) -> tf.Tensor:
-        # TODO Add types for the same class
-
+    def error_vector_compare_tf(self, other_pr: 'PageRank',
+                                k: int = -1) -> tf.Tensor:
         raise NotImplementedError(
             'subclasses must override compare()!')
 
-    def error_vector_compare_np(self, other_pr, k: int = -1) -> np.ndarray:
+    def error_vector_compare_np(self, other_pr: 'PageRank',
+                                k: int = -1) -> np.ndarray:
         return self.run(self.error_vector_compare_tf(other_pr, k))
 
-    def error_ranks_compare_tf(self, other_pr, k: int = -1) -> np.ndarray:
+    def error_ranks_compare_tf(self, other_pr: 'PageRank',
+                               k: int = -1) -> np.ndarray:
         raise NotImplementedError(
             'subclasses must override compare()!')
 
-    def error_ranks_compare_np(self, other_pr, k: int = -1) -> np.ndarray:
+    def error_ranks_compare_np(self, other_pr: 'PageRank',
+                               k: int = -1) -> np.ndarray:
         return self.run(self.error_ranks_compare_tf(other_pr, k=k))
 
     def pagerank_vector_np(self, convergence: float = 1.0, steps: int = 0,
