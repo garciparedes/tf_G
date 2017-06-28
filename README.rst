@@ -8,7 +8,7 @@ Trabajo de Fin de Grado: Algoritmos para Big Data
 :Version: 0.1
 
 .. |docs| image:: https://img.shields.io/badge/docs-latest-brightgreen.svg?style=flat-square
-   :target: http://pyfme.readthedocs.io/en/latest/?badge=latest
+   :target: http://tfg-big-data-algorithms.readthedocs.io/en/latest/?badge=latest
 
 |docs|
 
