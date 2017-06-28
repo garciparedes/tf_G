@@ -3,7 +3,7 @@
 
 # You can set these variables from the command line.
 SPHINXOPTS    =
-SPHINXBUILD   = python -msphinx
+SPHINXBUILD   = python3 -msphinx
 SPHINXPROJ    = tfg_big_data_algorithms
 SOURCEDIR     = source
 BUILDDIR      = build

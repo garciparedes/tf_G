@@ -4,7 +4,7 @@
    contain the root `toctree` directive.
 
 Welcome to tfg_big_data_algorithms's documentation!
-===================================================
+================================================================================
 
 .. toctree::
    :maxdepth: 2
@@ -12,10 +12,15 @@ Welcome to tfg_big_data_algorithms's documentation!
 
    readme
 
+   tfg_big_data_algorithms
+   graph
+   pagerank
+   pagerank_transition
+   utils
 
 
 Indices and tables
-==================
+================================================================================
 
 * :ref:`genindex`
 * :ref:`modindex`
