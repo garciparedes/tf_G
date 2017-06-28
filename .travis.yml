@@ -6,6 +6,7 @@ python:
 branches:
   only:
     - master
+    - develop
 
 before_install:
   # http://conda.pydata.org/docs/travis.html
