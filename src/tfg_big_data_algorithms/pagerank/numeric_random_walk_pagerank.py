@@ -4,10 +4,13 @@ from typing import List
 
 import tensorflow as tf
 
-from src.pagerank.transition.transition_random import TransitionRandom
-from src.pagerank.numeric_iterative_pagerank import NumericIterativePageRank
-from src.utils.vector_convergence import ConvergenceCriterion
-from src.graph.graph import Graph
+from tfg_big_data_algorithms.pagerank.transition.transition_random import \
+    TransitionRandom
+from tfg_big_data_algorithms.pagerank.numeric_iterative_pagerank import \
+    NumericIterativePageRank
+from tfg_big_data_algorithms.utils.vector_convergence import \
+    ConvergenceCriterion
+from tfg_big_data_algorithms.graph.graph import Graph
 
 
 class NumericRandomWalkPageRank(NumericIterativePageRank):

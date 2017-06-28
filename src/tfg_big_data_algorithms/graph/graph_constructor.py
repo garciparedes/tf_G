@@ -1,7 +1,7 @@
 import tensorflow as tf
 import numpy as np
 
-from src.graph.graph import Graph
+from tfg_big_data_algorithms.graph.graph import Graph
 
 
 class GraphConstructor:
