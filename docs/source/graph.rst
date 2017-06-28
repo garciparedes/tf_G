@@ -14,3 +14,8 @@ GraphConstructor
 --------------------------------------------------------------------------------
 .. autoclass:: tfg_big_data_algorithms.graph.graph_constructor.GraphConstructor
     :members:
+
+GraphSparsifier
+--------------------------------------------------------------------------------
+.. autoclass:: tfg_big_data_algorithms.graph.graph_sparsifier.GraphSparsifier
+    :members:
