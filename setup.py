@@ -27,8 +27,8 @@ setup(
     tests_require=[
         "pytest"
     ],
-    packages=find_packages('tfg_big_data_algorithms'),
-    package_dir={'': 'tfg_big_data_algorithms'},
+    packages=find_packages('src'),
+    package_dir={'': 'src'},
     classifiers=[
         "Development Status :: 2 - Pre-Alpha",
         "Intended Audience :: Education",
