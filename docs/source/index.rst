@@ -10,6 +10,8 @@ Welcome to tfg_big_data_algorithms's documentation!
    :maxdepth: 2
    :caption: Contents:
 
+   readme
+
 
 
 Indices and tables
