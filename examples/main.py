@@ -2,7 +2,7 @@ import tensorflow as tf
 import numpy as np
 import timeit
 
-from tfg_big_data_algorithms.graph.graph import  Graph
+from tfg_big_data_algorithms.graph.graph import Graph
 from tfg_big_data_algorithms.graph.graph_constructor import GraphConstructor
 from tfg_big_data_algorithms.pagerank.numeric_iterative_pagerank import \
     NumericIterativePageRank
@@ -19,7 +19,7 @@ def main():
 
     with tf.Session() as sess:
         writer: tf.summary.FileWriter = tf.summary.FileWriter(
-            'examples/logs/tensorflow/.')
+            'logs/tensorflow/.')
 
         g_followers: Graph = GraphConstructor.from_edges(sess, "Gfollowers",
                                                          followers_edges_np,

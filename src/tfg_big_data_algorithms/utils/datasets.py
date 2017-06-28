@@ -5,7 +5,7 @@ import numpy as np
 class DataSets:
     @staticmethod
     def _get_path() -> str:
-        return "./datasets"
+        return "./../datasets"
 
     @staticmethod
     def _name_to_default_path(name: str) -> str:
