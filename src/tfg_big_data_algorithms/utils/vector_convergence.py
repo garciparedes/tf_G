@@ -1,10 +1,10 @@
 from enum import Enum
 import tensorflow as tf
 
-from src.utils.vector_norm import VectorNorm
+from tfg_big_data_algorithms.utils.vector_norm import VectorNorm
 
 
-class VectorConvergenceCriterion(Enum):
+class ConvergenceCriterion(Enum):
     ONE = lambda i, x, y, c, n, dist=None: tf.reshape(
         VectorNorm.ONE(tf.subtract(x, y)) > [c], [])
 

@@ -1,30 +1,39 @@
+import math
 import warnings
+from typing import List
 
 import tensorflow as tf
-import numpy as np
-import math
-from src.pagerank.numeric_iterative_pagerank import NumericIterativePageRank
-from src.pagerank.transition_random import TransitionRandom
-from src.utils.vector_convergence import VectorConvergenceCriterion
+
+from tfg_big_data_algorithms.pagerank.transition.transition_random import \
+    TransitionRandom
+from tfg_big_data_algorithms.pagerank.numeric_iterative_pagerank import \
+    NumericIterativePageRank
+from tfg_big_data_algorithms.utils.vector_convergence import \
+    ConvergenceCriterion
+from tfg_big_data_algorithms.graph.graph import Graph
 
 
 class NumericRandomWalkPageRank(NumericIterativePageRank):
-    def __init__(self, sess, name, graph, beta=None):
+    def __init__(self, sess: tf.Session, name: str, graph: Graph,
+                 beta: float) -> None:
+        warnings.warn('This implementation is in alpha. ' +
+                      'Use NumericIterativePageRank Implementation!')
+
         NumericIterativePageRank.__init__(self, sess, name + "_rw", graph, beta)
 
-        self.random_T = TransitionRandom(sess, self.name, self.T)
+        self.random_T = TransitionRandom(sess, self.name, self.G, self.beta)
 
         self.iter = lambda t, v, n=self.G.n: tf.add(
             tf.divide((v * t), tf.add(t, n)),
             self.random_T(t))
 
-    def _pr_convergence_tf(self, convergence, personalized=None,
-                           convergence_criterion=VectorConvergenceCriterion.ONE):
-        if personalized is not None:
+    def _pr_convergence_tf(self, convergence: float, topics: List[int] = None,
+                           c_criterion=ConvergenceCriterion.ONE) -> tf.Tensor:
+        if topics is not None:
             warnings.warn('Personalized PageRank not implemented yet!')
 
         a = tf.while_loop(
-            convergence_criterion,
+            c_criterion,
             lambda i, v, v_last, c, n, dist: (
                 i + 1,
                 tf.add(
@@ -38,7 +47,7 @@ class NumericRandomWalkPageRank(NumericIterativePageRank):
                 c,
                 n,
                 tf.cast(tf.squeeze(tf.multinomial(
-                    tf.nn.embedding_lookup(self.random_T.T_log, dist),
+                    tf.nn.embedding_lookup(self.random_T.transition, dist),
                     num_samples=1)), tf.int32)
             ),
             [
@@ -54,8 +63,8 @@ class NumericRandomWalkPageRank(NumericIterativePageRank):
         self.run(self.v.assign(a[1]))
         return self.v
 
-    def _pr_steps_tf(self, steps, personalized):
-        if personalized is not None:
+    def _pr_steps_tf(self, steps: int, topics: List[int] = None) -> tf.Tensor:
+        if topics is not None:
             warnings.warn('Personalized PageRank not implemented yet!')
 
         a = tf.while_loop(
@@ -70,7 +79,7 @@ class NumericRandomWalkPageRank(NumericIterativePageRank):
                                 1 / (int(math.sqrt(self.G.n)) + i)),
                         [self.G.n])),
                 tf.cast(tf.squeeze(tf.multinomial(
-                    tf.nn.embedding_lookup(self.random_T.T_log, dist),
+                    tf.nn.embedding_lookup(self.random_T.transition, dist),
                     num_samples=1)), tf.int32)
             ),
             [

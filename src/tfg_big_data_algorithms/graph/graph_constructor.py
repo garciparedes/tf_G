@@ -1,20 +1,27 @@
 import tensorflow as tf
 import numpy as np
 
-from src.graph.graph import Graph
+from tfg_big_data_algorithms.graph.graph import Graph
 
 
 class GraphConstructor:
     @staticmethod
-    def from_edges(sess, name, edges_np, writer=None):
-        return Graph(sess, name, edges_np=edges_np, writer=writer)
+    def from_edges(sess: tf.Session, name: str, edges_np: np.ndarray,
+                   writer: tf.summary.FileWriter = None,
+                   is_sparse: bool = False) -> Graph:
+        return Graph(sess, name, edges_np=edges_np, writer=writer,
+                     is_sparse=is_sparse)
 
     @staticmethod
-    def empty(sess, name, n, writer=None):
-        return Graph(sess, name, n=n, writer=writer)
+    def empty(sess: tf.Session, name: str, n: int,
+              writer: tf.summary.FileWriter = None,
+              sparse: bool = False) -> Graph:
+        return Graph(sess, name, n=n, writer=writer, is_sparse=sparse)
 
     @staticmethod
-    def unweighted_random(sess, name, n, m, writer=None):
+    def unweighted_random(sess: tf.Session, name: str, n: int, m: int,
+                          writer: tf.summary.FileWriter = None,
+                          sparse: bool = False) -> Graph:
         if m > n * (n - 1):
             raise ValueError('m would be less than n * (n - 1)')
         edges_np = np.random.random_integers(0, n - 1, [m, 2])
@@ -33,18 +40,21 @@ class GraphConstructor:
             edges_np = edges_np[edges_np[:, 0] != edges_np[:, 1]]
             cond = len(edges_np) != m
 
-        return Graph(sess, name, edges_np=edges_np, writer=writer)
+        return Graph(sess, name, edges_np=edges_np, writer=writer,
+                     is_sparse=sparse)
 
     @staticmethod
-    def as_naive_sparsifier(sess, graph, p):
+    def as_naive_sparsifier(sess: tf.Session, graph: Graph, p: float,
+                            sparse: bool = False) -> Graph:
         boolean_distribution = tf.less_equal(
             tf.random_uniform([graph.m], 0.0, 1.0), p)
         edges_np = graph.edge_list_np[sess.run(boolean_distribution)]
         return Graph(sess, graph.name + "_sparsifier",
-                     edges_np=edges_np)
+                     edges_np=edges_np, is_sparse=sparse)
 
-    @classmethod
-    def as_other_sparsifier(cls, sess, graph, p):
+    @staticmethod
+    def as_other_sparsifier(sess: tf.Session, graph: Graph, p: float,
+                            sparse: bool = False) -> Graph:
         distribution_tf = tf.random_uniform([graph.m], 0.0, 1.0)
 
         v = tf.Variable(graph.out_degrees_tf)
@@ -62,6 +72,7 @@ class GraphConstructor:
         edges_np = graph.edge_list_np[sess.run(
             tf.transpose(tf.less_equal(distribution_tf, cond_tf)))]
         # print(edges_np.shape)
-        return Graph(sess, graph.name + "_sparsifier", edges_np=edges_np)
+        return Graph(sess, graph.name + "_sparsifier", edges_np=edges_np,
+                     is_sparse=sparse)
 
         pass

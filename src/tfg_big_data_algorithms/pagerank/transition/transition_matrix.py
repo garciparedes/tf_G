@@ -1,16 +1,14 @@
 import tensorflow as tf
+import numpy as np
 
-from src.utils.tensorflow_object import TensorFlowObject
-from src.utils.update_edge_notifier import UpdateEdgeNotifier
+from tfg_big_data_algorithms.pagerank.transition.transition import Transition
+from tfg_big_data_algorithms.graph.graph import Graph
 
 
-class TransitionMatrix(TensorFlowObject, UpdateEdgeNotifier):
-    def __init__(self, sess, name, graph):
-        TensorFlowObject.__init__(self, sess, name + "_T")
-        UpdateEdgeNotifier.__init__(self)
+class TransitionMatrix(Transition):
+    def __init__(self, sess: tf.Session, name: str, graph: Graph) -> None:
+        Transition.__init__(self, sess, name, graph)
 
-        self.G = graph
-        self.G.attach(self)
         self.transition = tf.Variable(
             tf.where(self.G.is_not_sink_tf,
                      tf.div(self.G.A_tf, self.G.out_degrees_tf),
@@ -21,7 +19,7 @@ class TransitionMatrix(TensorFlowObject, UpdateEdgeNotifier):
     def __call__(self, *args, **kwargs):
         return self.transition
 
-    def update_edge(self, edge, change):
+    def update_edge(self, edge: np.ndarray, change: float) -> None:
 
         # print("Edge: " + str(edge) + "\tChange: " + str(change))
 
