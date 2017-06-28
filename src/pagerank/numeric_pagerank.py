@@ -4,7 +4,7 @@ from typing import List
 import numpy as np
 import tensorflow as tf
 
-from pagerank.transition.transition import Transition
+from src.pagerank.transition.transition import Transition
 from src.graph.graph import Graph
 from src.pagerank.pagerank import PageRank
 from src.utils.utils import Utils

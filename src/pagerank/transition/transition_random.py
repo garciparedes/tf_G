@@ -1,24 +1,26 @@
 import tensorflow as tf
+import numpy as np
 
-from src.utils.tensorflow_object import TensorFlowObject
+from pagerank.transition.transition_reset_matrix import TransitionResetMatrix
+from src.graph.graph import Graph
 
 
-class TransitionRandom(TensorFlowObject):
-    def __init__(self, sess, name, T, writer=None):
-        TensorFlowObject.__init__(self, sess, name + "_T_log", writer=writer)
-        self.T_log = tf.Variable(tf.log(T()), name=self.name)
-        self.n = T.G.n
-        self.run(tf.variables_initializer([self.T_log]))
+class TransitionRandom(TransitionResetMatrix):
+    def __init__(self, sess: tf.Session, name: str, graph: Graph,
+                 beta: float) -> None:
+        TransitionResetMatrix.__init__(self, sess, name + "_log", graph, beta)
+
+        self.run(self.transition.assign(tf.log(self.transition)))
 
     def __call__(self, *args, **kwargs):
         return self.get_tf(*args)
 
-    def get_tf(self, t):
+    def get_tf(self, t: int):
         return (tf.scatter_nd(
-            tf.reshape(tf.multinomial(self.T_log, num_samples=1), [self.n, 1]),
-            tf.fill([self.n], 1 / (self.n + t)),
-            [self.n]))
+            tf.reshape(tf.multinomial(self.transition, num_samples=1),
+                       [self.G.n, 1]),
+            tf.fill([self.G.n], 1 / (self.G.n + t)), [self.G.n]))
 
-    def update_edge(self, edge, change):
+    def update_edge(self, edge: np.ndarray, change: float) -> None:
         # TODO
         pass
