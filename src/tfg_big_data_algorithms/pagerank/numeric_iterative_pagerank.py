@@ -4,11 +4,12 @@ from typing import List
 import tensorflow as tf
 import numpy as np
 
-from src.pagerank.transition.transition_reset_matrix import \
+from tfg_big_data_algorithms.pagerank.transition.transition_reset_matrix import \
     TransitionResetMatrix
-from src.pagerank.numeric_pagerank import NumericPageRank
-from src.utils.vector_convergence import ConvergenceCriterion
-from src.graph.graph import Graph
+from tfg_big_data_algorithms.pagerank.numeric_pagerank import NumericPageRank
+from tfg_big_data_algorithms.utils.vector_convergence import \
+    ConvergenceCriterion
+from tfg_big_data_algorithms.graph.graph import Graph
 
 
 class NumericIterativePageRank(NumericPageRank):

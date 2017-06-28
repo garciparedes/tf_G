@@ -1,7 +1,7 @@
 from enum import Enum
 import tensorflow as tf
 
-from src.utils.vector_norm import VectorNorm
+from tfg_big_data_algorithms.utils.vector_norm import VectorNorm
 
 
 class ConvergenceCriterion(Enum):

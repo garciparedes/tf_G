@@ -1,8 +1,9 @@
 import tensorflow as tf
 import numpy as np
 
-from pagerank.transition.transition_reset_matrix import TransitionResetMatrix
-from src.graph.graph import Graph
+from tfg_big_data_algorithms.pagerank.transition.transition_reset_matrix import \
+    TransitionResetMatrix
+from tfg_big_data_algorithms.graph.graph import Graph
 
 
 class TransitionRandom(TransitionResetMatrix):

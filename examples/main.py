@@ -1,18 +1,13 @@
 import tensorflow as tf
 import numpy as np
 import timeit
-from pprint import pprint
-import typing
 
-from pagerank.pagerank import PageRank
-from src.graph.graph_constructor import GraphConstructor
-from src.graph.graph import Graph
-from src.pagerank.numeric_algebraic_pagerank import NumericAlgebraicPageRank
-from src.pagerank.numeric_iterative_pagerank import NumericIterativePageRank
-from src.pagerank.numeric_pagerank import NumericPageRank
-from src.pagerank.numeric_random_walk_pagerank import NumericRandomWalkPageRank
-from src.utils.datasets import DataSets
-from src.utils.utils import Utils
+from tfg_big_data_algorithms.graph.graph import  Graph
+from tfg_big_data_algorithms.graph.graph_constructor import GraphConstructor
+from tfg_big_data_algorithms.pagerank.numeric_iterative_pagerank import \
+    NumericIterativePageRank
+from tfg_big_data_algorithms.pagerank.pagerank import PageRank
+from tfg_big_data_algorithms.utils.datasets import DataSets
 
 
 def main():
@@ -23,7 +18,8 @@ def main():
     followers_edges_np: np.ndarray = DataSets.followers()
 
     with tf.Session() as sess:
-        writer: tf.summary.FileWriter = tf.summary.FileWriter('logs/tensorflow/.')
+        writer: tf.summary.FileWriter = tf.summary.FileWriter(
+            'examples/logs/tensorflow/.')
 
         g_followers: Graph = GraphConstructor.from_edges(sess, "Gfollowers",
                                                          followers_edges_np,
