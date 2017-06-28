@@ -1,7 +1,3 @@
-
-## Contenido
-
-
 Trabajo de Fin de Grado: Algoritmos para Big Data
 =====
 
@@ -23,9 +19,9 @@ TODO: Write description
 
 Contenido
 ---------
-* [Documento](document/document.pdf)
-* [Implementación](src/)
-* [Resumen](summary/summary.pdf)
+* `Documento <document/document.pdf>`
+* `Implementación <src/tfg_big_data_algorithms>`
+* `Resumen <summary/summary.pdf>`
 
 License
 -------
