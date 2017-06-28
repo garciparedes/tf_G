@@ -18,7 +18,7 @@ class NumericRandomWalkPageRank(NumericIterativePageRank):
 
         NumericIterativePageRank.__init__(self, sess, name + "_rw", graph, beta)
 
-        self.random_T = TransitionRandom(sess, self.name, self.T)
+        self.random_T = TransitionRandom(sess, self.name, self.G, self.beta)
 
         self.iter = lambda t, v, n=self.G.n: tf.add(
             tf.divide((v * t), tf.add(t, n)),
