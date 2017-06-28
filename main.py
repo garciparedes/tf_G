@@ -2,8 +2,11 @@ import tensorflow as tf
 import numpy as np
 import timeit
 from pprint import pprint
+import typing
 
+from pagerank.pagerank import PageRank
 from src.graph.graph_constructor import GraphConstructor
+from src.graph.graph import Graph
 from src.pagerank.numeric_algebraic_pagerank import NumericAlgebraicPageRank
 from src.pagerank.numeric_iterative_pagerank import NumericIterativePageRank
 from src.pagerank.numeric_pagerank import NumericPageRank
@@ -16,23 +19,24 @@ def main():
     beta = 0.85
     convergence = 0.01
 
-    wiki_vote_edges_np = DataSets.wiki_vote()
-    followers_edges_np = DataSets.followers()
+    wiki_vote_edges_np: np.ndarray = DataSets.wiki_vote()
+    followers_edges_np: np.ndarray = DataSets.followers()
 
     with tf.Session() as sess:
-        writer = tf.summary.FileWriter('logs/tensorflow/.')
+        writer: tf.summary.FileWriter = tf.summary.FileWriter('logs/tensorflow/.')
 
-        g_followers = GraphConstructor.from_edges(sess, "Gfollowers",
-                                                  wiki_vote_edges_np, writer,
-                                                  is_sparse=False)
+        g_followers: Graph = GraphConstructor.from_edges(sess, "Gfollowers",
+                                                         followers_edges_np,
+                                                         writer,
+                                                         is_sparse=False)
         '''
         pr_followers_alge = NumericAlgebraicPageRank(sess, "PR1",
                                                      g_followers,
                                                      beta)
         '''
-        pr_followers_iter = NumericIterativePageRank(sess, "PR1",
-                                                     g_followers,
-                                                     beta)
+        pr_followers_iter: PageRank = NumericIterativePageRank(sess, "PR1",
+                                                               g_followers,
+                                                               beta)
         '''
         pr_followers_random = NumericRandomWalkPageRank(sess, "PR3",
                                                         g_followers,
@@ -52,9 +56,9 @@ def main():
         g_followers_updateable.append(followers_edges_np[0,0], followers_edges_np[0,1])
         '''
         # a = (pr_followers_alge.ranks())
-        start_time = timeit.default_timer()
-        b = (pr_followers_iter.ranks(convergence=convergence))
-        elapsed = timeit.default_timer() - start_time
+        start_time: float = timeit.default_timer()
+        b: np.ndarray = (pr_followers_iter.ranks(convergence=convergence))
+        elapsed: float = timeit.default_timer() - start_time
         print(elapsed)
         '''
         start_time = timeit.default_timer()
