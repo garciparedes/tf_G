@@ -4,3 +4,4 @@ dependencies:
   - pandas
   - tensorflow
   - pytest
+  - mkdocs
