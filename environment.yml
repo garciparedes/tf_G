@@ -1,0 +1,6 @@
+name: tfg_big_data_algorithms
+dependencies:
+  - numpy
+  - pandas
+  - tensorflow
+  - pytest
