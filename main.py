@@ -16,8 +16,8 @@ from src.utils.utils import Utils
 
 
 def main():
-    beta = 0.85
-    convergence = 0.01
+    beta: float = 0.85
+    convergence: float = 0.01
 
     wiki_vote_edges_np: np.ndarray = DataSets.wiki_vote()
     followers_edges_np: np.ndarray = DataSets.followers()
@@ -57,7 +57,7 @@ def main():
         '''
         # a = (pr_followers_alge.ranks())
         start_time: float = timeit.default_timer()
-        b: np.ndarray = (pr_followers_iter.ranks(convergence=convergence))
+        b: np.ndarray = (pr_followers_iter.ranks_np(convergence=convergence))
         elapsed: float = timeit.default_timer() - start_time
         print(elapsed)
         '''

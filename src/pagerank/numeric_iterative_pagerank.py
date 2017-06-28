@@ -4,7 +4,7 @@ import tensorflow as tf
 
 from src.pagerank.numeric_pagerank import NumericPageRank
 from src.pagerank.transition_reset_matrix import TransitionResetMatrix
-from src.utils.vector_convergence import VectorConvergenceCriterion
+from src.utils.vector_convergence import ConvergenceCriterion
 
 
 class NumericIterativePageRank(NumericPageRank):
@@ -13,14 +13,14 @@ class NumericIterativePageRank(NumericPageRank):
         NumericPageRank.__init__(self, sess, name + "_iter", graph, beta, T)
         self.iter = lambda i, a, b=self.T(): tf.matmul(a, b)
 
-    def _pr_convergence_tf(self, convergence, personalized=None,
-                           convergence_criterion=VectorConvergenceCriterion.ONE):
-        if personalized is not None:
+    def _pr_convergence_tf(self, convergence, topics=None,
+                           c_criterion=ConvergenceCriterion.ONE):
+        if topics is not None:
             warnings.warn('Personalized PageRank not implemented yet!')
 
         self.run(
             self.v.assign(
-                tf.while_loop(convergence_criterion,
+                tf.while_loop(c_criterion,
                               lambda i, v, v_last, c, n:
                               (i + 1, self.iter(i, v), v, c, n),
                               [0.0, self.v, tf.zeros([1, self.G.n]),
@@ -28,8 +28,8 @@ class NumericIterativePageRank(NumericPageRank):
                                self.G.n_tf], name=self.name + "_while_conv")[1]))
         return self.v
 
-    def _pr_steps_tf(self, steps, personalized):
-        if personalized is not None:
+    def _pr_steps_tf(self, steps, topics):
+        if topics is not None:
             warnings.warn('Personalized PageRank not implemented yet!')
 
         self.run(
@@ -39,8 +39,8 @@ class NumericIterativePageRank(NumericPageRank):
                               [0.0, self.v], name=self.name + "_while_steps")[1]))
         return self.v
 
-    def _pr_exact_tf(self, personalized):
-        if personalized is not None:
+    def _pr_exact_tf(self, topics):
+        if topics is not None:
             warnings.warn('Personalized PageRank not implemented yet!')
 
         raise NotImplementedError(

@@ -20,8 +20,8 @@ class NumericPageRank(PageRank):
                              name=self.G.name + "_" + self.name + "_v")
         self.run(tf.variables_initializer([self.v]))
 
-    def ranks(self, convergence=1.0, steps=0, personalized=None):
-        self.pagerank_vector_tf(convergence, steps, personalized)
+    def ranks_np(self, convergence=1.0, steps=0, topics=None):
+        self.pagerank_vector_tf(convergence, steps, topics)
         ranks = tf.map_fn(
             lambda x: [x, tf.gather(tf.reshape(self.v, [self.G.n]), x)],
             tf.transpose(
