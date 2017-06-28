@@ -4,7 +4,8 @@ from tfg_big_data_algorithms.graph.graph import Graph
 
 
 class GraphSparsifier(Graph):
-    def __init__(self, sess, graph, p, is_sparse=False):
+    def __init__(self, sess: tf.Session, graph: Graph, p: float,
+                 is_sparse: bool = False) -> None:
         distribution_tf = tf.random_uniform([graph.m], 0.0, 1.0)
 
         v = tf.Variable(graph.out_degrees_tf)

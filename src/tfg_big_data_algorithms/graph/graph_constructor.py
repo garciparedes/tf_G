@@ -22,7 +22,7 @@ class GraphConstructor:
     @staticmethod
     def unweighted_random(sess: tf.Session, name: str, n: int, m: int,
                           writer: tf.summary.FileWriter = None,
-                          sparse: bool = False) -> Graph:
+                          is_sparse: bool = False) -> Graph:
         if m > n * (n - 1):
             raise ValueError('m would be less than n * (n - 1)')
         edges_np = np.random.random_integers(0, n - 1, [m, 2])
@@ -46,7 +46,7 @@ class GraphConstructor:
 
     @staticmethod
     def as_naive_sparsifier(sess: tf.Session, graph: Graph, p: float,
-                            sparse: bool = False) -> Graph:
+                            is_sparse: bool = False) -> Graph:
         boolean_distribution = tf.less_equal(
             tf.random_uniform([graph.m], 0.0, 1.0), p)
         edges_np = graph.edge_list_np[sess.run(boolean_distribution)]
