@@ -19,9 +19,9 @@ TODO: Write description
 
 Contenido
 ---------
-* `Documento <document/document.pdf>`
-* `Implementación <src/tfg_big_data_algorithms>`
-* `Resumen <summary/summary.pdf>`
+* `Documento <document/document.pdf>`__
+* `Implementación <src/tfg_big_data_algorithms>`__
+* `Resumen <summary/summary.pdf>`__
 
 License
 -------
