@@ -512,7 +512,13 @@
       Esto es sencillo cuando solo están permitidas adicciones, ya que una vez aparecido el elemento este no desaparecerá. Sin embargo, en el caso de las eliminaciones la tarea se vuelve más complicada ya que tal y como se ha indicado en el párrafo anterior, es necesario mantener la cuenta de ocurrencias para saber si el elemento a desaparecido o únicamente ha decrementado su cuenta.
 
       \paragraph{}
-      A continuación se describe el algoritmo desarrollado por \emph{Cormode y Fermain} en su trabajo \emph{On unifying the space of L0-sampling algorithms}  \cite{cormode2013unifying}.
+      A continuación se describe la estructura básica de estos algoritmos siguiendo el trabajo desarrollado por \emph{Cormode y Fermain} en \emph{On unifying the space of L0-sampling algorithms} \cite{cormode2013unifying}. Estos indican que todas las propuestas de \emph{$L_0$-Samplers} se basan en tres fases:
+
+      \begin{itemize}
+        \item \emph{Sampling}: Se mantiene el conteo de ocurrencias en una estructura de datos auxiliar con ideas similares a las del \emph{Count-Sketch}.
+        \item \emph{Recovery}: Se realizan peticiones a la estructura de datos auxiliar para recuperar el conteo de ocurrencias de cada elemento en el stream (saber si ha apararecido en el mismo).
+        \item \emph{Selection}: Se realiza una selección de entre los elementos aparecidos en el stream siguiendo una distribución uniforme de probabilidad.
+      \end{itemize} 
 
 
     \section{Conclusiones}
