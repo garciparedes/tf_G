@@ -17,12 +17,11 @@ setup(
         "tfg", "bigdata", "tensorflow",
         "graph theory", "pagerank", "university of valladolid",
     ],
-    python_requires=">=3.6",
+    python_requires=">=3.5",
     install_requires=[
-        "numpy",
-        "pandas",
-        "tensorflow",
-        "matplotlib",
+        "numpy>=1.11",
+        "pandas>=0.20",
+        "tensorflow>=1.1",
     ],
     tests_require=[
         "pytest"
@@ -36,7 +35,7 @@ setup(
         "Operating System :: OS Independent",
         "Programming Language :: Python",
         "Programming Language :: Python :: 3",
-        "Programming Language :: Python :: 3.6",
+        "Programming Language :: Python :: 3.5",
         "Programming Language :: Python :: Implementation :: CPython",
         "Topic :: Scientific/Engineering",
         "Topic :: Scientific/Engineering :: Mathematics",

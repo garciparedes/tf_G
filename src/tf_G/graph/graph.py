@@ -1,10 +1,8 @@
 import tensorflow as tf
 import numpy as np
 
-from tf_G.utils.tensorflow_object import TensorFlowObject, \
-    TF_type
-from tf_G.utils.update_edge_notifier import \
-    UpdateEdgeNotifier
+from tf_G.utils.tensorflow_object import TensorFlowObject, TF_type
+from tf_G.utils.update_edge_notifier import UpdateEdgeNotifier
 
 
 class Graph(TensorFlowObject, UpdateEdgeNotifier):
@@ -27,17 +25,17 @@ class Graph(TensorFlowObject, UpdateEdgeNotifier):
         else:
             raise ValueError('Graph constructor must be have edges or n')
 
-        self.n_tf: TF_type = tf.Variable(float(self.n), tf.float32,
-                                         name=self.name + "_n")
-        self.A_tf: TF_type = tf.Variable(A_init, tf.float64,
-                                         name=self.name + "_A")
-        self.out_degrees_tf: TF_type = tf.Variable(
+        self.n_tf = tf.Variable(float(self.n), tf.float32,
+                                name=self.name + "_n")
+        self.A_tf = tf.Variable(A_init, tf.float64,
+                                name=self.name + "_A")
+        self.out_degrees_tf = tf.Variable(
             tf.reduce_sum(self.A_tf, 1, keep_dims=True),
             name=self.name + "_d_out")
-        self.in_degrees_tf: TF_type = tf.Variable(
+        self.in_degrees_tf = tf.Variable(
             tf.reduce_sum(self.A_tf, 0, keep_dims=True),
             name=self.name + "_d_in")
-        self.L_tf: TF_type = tf.Variable(
+        self.L_tf = tf.Variable(
             tf.diag(self.get_out_degrees_tf()) - self.A_tf,
             name=self.name + "_L")
         self.run(tf.variables_initializer([self.A_tf, self.n_tf]))
@@ -79,13 +77,13 @@ class Graph(TensorFlowObject, UpdateEdgeNotifier):
         return tf.not_equal(
             tf.reshape([self.out_degrees_tf_vertex(vertex)], [1]), 0)
 
-    def get_in_degrees_tf(self, keep_dims=False) -> TF_type:
+    def get_in_degrees_tf(self, keep_dims=False):
         if keep_dims is False:
             return tf.reshape(self.in_degrees_tf, [self.n])
         else:
             return self.in_degrees_tf
 
-    def get_out_degrees_tf(self, keep_dims=False) -> TF_type:
+    def get_out_degrees_tf(self, keep_dims=False):
         if keep_dims is False:
             return tf.reshape(self.out_degrees_tf, [self.n])
         else:
