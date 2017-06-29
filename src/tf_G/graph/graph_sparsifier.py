@@ -1,6 +1,6 @@
 import tensorflow as tf
 
-from tfg_big_data_algorithms.graph.graph import Graph
+from tf_G.graph.graph import Graph
 
 
 class GraphSparsifier(Graph):

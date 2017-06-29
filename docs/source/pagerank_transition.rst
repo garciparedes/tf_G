@@ -1,26 +1,26 @@
 
-`tfg_big_data_algorithms.pagerank.transition`
-================================================================================
+`tf_G.pagerank.transition`
+==========================
 
-.. automodule:: tfg_big_data_algorithms.pagerank.transition
+.. automodule:: tf_G.pagerank.transition
     :members:
 
 Transition
---------------------------------------------------------------------------------
-.. autoclass:: tfg_big_data_algorithms.pagerank.transition.transition.Transition
+----------
+.. autoclass:: tf_G.pagerank.transition.transition.Transition
     :members:
 
 TransitionMatrix
---------------------------------------------------------------------------------
-.. autoclass:: tfg_big_data_algorithms.pagerank.transition.transition_matrix.TransitionMatrix
+----------------
+.. autoclass:: tf_G.pagerank.transition.transition_matrix.TransitionMatrix
     :members:
 
 TransitionResetMatrix
---------------------------------------------------------------------------------
-.. autoclass:: tfg_big_data_algorithms.pagerank.transition.transition_reset_matrix.TransitionResetMatrix
+---------------------
+.. autoclass:: tf_G.pagerank.transition.transition_reset_matrix.TransitionResetMatrix
     :members:
 
 TransitionRandom
---------------------------------------------------------------------------------
-.. autoclass:: tfg_big_data_algorithms.pagerank.transition.transition_random.TransitionRandom
+----------------
+.. autoclass:: tf_G.pagerank.transition.transition_random.TransitionRandom
     :members:

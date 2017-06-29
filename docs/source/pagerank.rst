@@ -1,31 +1,31 @@
 
-`tfg_big_data_algorithms.pagerank`
-================================================================================
+`tf_G.pagerank`
+===============
 
-.. automodule:: tfg_big_data_algorithms.pagerank
+.. automodule:: tf_G.pagerank
     :members:
 
 PageRank
---------------------------------------------------------------------------------
-.. autoclass:: tfg_big_data_algorithms.pagerank.pagerank.PageRank
+--------
+.. autoclass:: tf_G.pagerank.pagerank.PageRank
     :members:
 
-NumericPageRank
---------------------------------------------------------------------------------
-.. autoclass:: tfg_big_data_algorithms.pagerank.numeric_pagerank.NumericPageRank
+PageRank
+--------
+.. autoclass:: tf_G.pagerank.pagerank.PageRank
     :members:
 
-NumericAlgebraicPageRank
---------------------------------------------------------------------------------
-.. autoclass:: tfg_big_data_algorithms.pagerank.numeric_algebraic_pagerank.NumericAlgebraicPageRank
+AlgebraicPageRank
+-----------------
+.. autoclass:: tf_G.pagerank.algebraic_pagerank.AlgebraicPageRank
     :members:
 
-NumericIterativePageRank
---------------------------------------------------------------------------------
-.. autoclass:: tfg_big_data_algorithms.pagerank.numeric_iterative_pagerank.NumericIterativePageRank
+IterativePageRank
+-----------------
+.. autoclass:: tf_G.pagerank.iterative_pagerank.IterativePageRank
     :members:
 
-NumericRandomWalkPageRank
---------------------------------------------------------------------------------
-.. autoclass:: tfg_big_data_algorithms.pagerank.numeric_random_walk_pagerank.NumericRandomWalkPageRank
+RandomWalkPageRank
+------------------
+.. autoclass:: tf_G.pagerank.random_walk_pagerank.RandomWalkPageRank
     :members:
