@@ -1,6 +1,6 @@
 name: tf_G
 dependencies:
-  - python=3.5
+  - python=3.6
   - numpy=1.13.*
   - pandas=0.20.*
   - tensorflow=1.1.*
