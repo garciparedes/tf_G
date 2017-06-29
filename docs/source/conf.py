@@ -20,8 +20,6 @@ import os
 import sys
 sys.path.insert(0, os.path.abspath('./../../src/.'))
 
-from unittest.mock import MagicMock
-
 import mock
 
 MOCK_MODULES = ['numpy', 'tensorflow', 'pandas']
