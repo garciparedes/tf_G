@@ -3,5 +3,5 @@ dependencies:
   - python=3.5
   - numpy=1.13.*
   - pandas=0.20.*
-  - tensorflow=1.2.*
+  - tensorflow=1.1.*
   - pytest
