@@ -4,7 +4,7 @@
    contain the root `toctree` directive.
 
 Welcome to tf_G's documentation!
-================================================================================
+================================
 
 .. toctree::
    :maxdepth: 2
@@ -20,7 +20,7 @@ Welcome to tf_G's documentation!
 
 
 Indices and tables
-================================================================================
+==================
 
 * :ref:`genindex`
 * :ref:`modindex`
