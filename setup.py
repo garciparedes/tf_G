@@ -19,10 +19,9 @@ setup(
     ],
     python_requires=">=3.6",
     install_requires=[
-        "numpy",
-        "pandas",
-        "tensorflow",
-        "matplotlib",
+        "numpy>=1.13",
+        "pandas>=0.20",
+        "tensorflow>=1.2.0",
     ],
     tests_require=[
         "pytest"
