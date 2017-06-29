@@ -21,7 +21,7 @@ setup(
     install_requires=[
         "numpy>=1.13",
         "pandas>=0.20",
-        "tensorflow",
+        "tensorflow>=1.2.0",
     ],
     tests_require=[
         "pytest"
