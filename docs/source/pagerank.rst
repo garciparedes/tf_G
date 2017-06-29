@@ -10,11 +10,6 @@ PageRank
 .. autoclass:: tf_G.pagerank.pagerank.PageRank
     :members:
 
-PageRank
---------
-.. autoclass:: tf_G.pagerank.pagerank.PageRank
-    :members:
-
 AlgebraicPageRank
 -----------------
 .. autoclass:: tf_G.pagerank.algebraic_pagerank.AlgebraicPageRank
