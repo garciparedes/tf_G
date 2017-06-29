@@ -39,7 +39,7 @@ setup(
         "Programming Language :: Python :: 3.5",
         "Programming Language :: Python :: Implementation :: CPython",
         "Topic :: Scientific/Engineering",
-        "Topic :: Scientific/Engineering :: Physics",
+        "Topic :: Scientific/Engineering :: Mathematics",
     ],
     long_description=io.open('README.rst', encoding='utf-8').read(),
     include_package_data=True,
