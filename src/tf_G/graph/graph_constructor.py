@@ -1,8 +1,8 @@
 import tensorflow as tf
 import numpy as np
 
-from tfg_big_data_algorithms.graph.graph import Graph
-from tfg_big_data_algorithms.graph.graph_sparsifier import GraphSparsifier
+from tf_G.graph.graph import Graph
+from tf_G.graph.graph_sparsifier import GraphSparsifier
 
 
 class GraphConstructor:

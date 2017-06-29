@@ -1,21 +1,21 @@
 
-`tfg_big_data_algorithms.graph`
+`tf_G.graph`
 ================================================================================
 
-.. automodule:: tfg_big_data_algorithms.graph
+.. automodule:: tf_G.graph
     :members:
 
 Graph
 --------------------------------------------------------------------------------
-.. autoclass:: tfg_big_data_algorithms.graph.graph.Graph
+.. autoclass:: tf_G.graph.graph.Graph
     :members:
 
 GraphConstructor
 --------------------------------------------------------------------------------
-.. autoclass:: tfg_big_data_algorithms.graph.graph_constructor.GraphConstructor
+.. autoclass:: tf_G.graph.graph_constructor.GraphConstructor
     :members:
 
 GraphSparsifier
 --------------------------------------------------------------------------------
-.. autoclass:: tfg_big_data_algorithms.graph.graph_sparsifier.GraphSparsifier
+.. autoclass:: tf_G.graph.graph_sparsifier.GraphSparsifier
     :members:

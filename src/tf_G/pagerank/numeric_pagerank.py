@@ -4,11 +4,11 @@ from typing import List
 import numpy as np
 import tensorflow as tf
 
-from tfg_big_data_algorithms.pagerank.transition.transition import Transition
-from tfg_big_data_algorithms.graph.graph import Graph
-from tfg_big_data_algorithms.pagerank.pagerank import PageRank
-from tfg_big_data_algorithms.utils.utils import Utils
-from tfg_big_data_algorithms.utils.vector_norm import VectorNorm
+from tf_G.pagerank.transition.transition import Transition
+from tf_G.graph.graph import Graph
+from tf_G.pagerank.pagerank import PageRank
+from tf_G.utils.utils import Utils
+from tf_G.utils.vector_norm import VectorNorm
 
 
 class NumericPageRank(PageRank):

@@ -2,7 +2,7 @@ import tensorflow as tf
 import numpy as np
 import timeit
 
-import tfg_big_data_algorithms as tf_G
+import tf_G
 
 
 def main():

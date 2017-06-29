@@ -1,6 +1,6 @@
 
-`tfg_big_data_algorithms`
+`tf_G`
 ================================================================================
 
-.. automodule:: tfg_big_data_algorithms
+.. automodule:: tf_G
     :members:

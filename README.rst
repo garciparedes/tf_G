@@ -1,7 +1,7 @@
 Trabajo de Fin de Grado: Algoritmos para Big Data
 ================================================================================
 
-:Name: tfg_big_data_algorithms
+:Name: tf_G
 :Description: Python's Tensorflow Graph Library
 :Website: https://github.com/garciparedes/tfg-big-data-algorithms
 :Author: `@garciparedes <http://garciparedes.me>`__
@@ -22,9 +22,9 @@ TODO: Write description
 
 Contenido
 --------------------------------------------------------------------------------
-* `Documento <https://github.com/garciparedes/tfg-big-data-algorithms/document/document.pdf>`__
-* `Implementación <https://github.com/garciparedes/tfg-big-data-algorithms/src/tfg_big_data_algorithms>`__
-* `Resumen <https://github.com/garciparedes/tfg-big-data-algorithms/summary/summary.pdf>`__
+* `Documento <https://github.com/garciparedes/tfg-big-data-algorithms/blob/master/document/document.pdf>`__
+* `Implementación <https://github.com/garciparedes/tfg-big-data-algorithms/blob/master/src/tf_G>`__
+* `Resumen <https://github.com/garciparedes/tfg-big-data-algorithms/blob/master/summary/summary.pdf>`__
 
 License
 --------------------------------------------------------------------------------

@@ -1,5 +1,5 @@
 """
-tfg_big_data_algorithms.pagerank Module
+tf_G.pagerank Module
 [TODO]
 """
 

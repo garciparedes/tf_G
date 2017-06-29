@@ -4,8 +4,8 @@ import tensorflow as tf
 import numpy as np
 
 from typing import List
-from tfg_big_data_algorithms.utils.tensorflow_object import TensorFlowObject
-from tfg_big_data_algorithms.utils.vector_convergence import \
+from tf_G.utils.tensorflow_object import TensorFlowObject
+from tf_G.utils.vector_convergence import \
     ConvergenceCriterion
 
 

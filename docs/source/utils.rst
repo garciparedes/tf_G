@@ -1,36 +1,36 @@
 
-`tfg_big_data_algorithms.utils`
+`tf_G.utils`
 ================================================================================
 
-.. automodule:: tfg_big_data_algorithms.utils
+.. automodule:: tf_G.utils
     :members:
 
 DataSets
 --------------------------------------------------------------------------------
-.. autoclass:: tfg_big_data_algorithms.utils.datasets.DataSets
+.. autoclass:: tf_G.utils.datasets.DataSets
     :members:
 
 TensorFlowObject
 --------------------------------------------------------------------------------
-.. autoclass:: tfg_big_data_algorithms.utils.tensorflow_object.TensorFlowObject
+.. autoclass:: tf_G.utils.tensorflow_object.TensorFlowObject
     :members:
 
 UpdateEdgeNotifier
 --------------------------------------------------------------------------------
-.. autoclass:: tfg_big_data_algorithms.utils.update_edge_notifier.UpdateEdgeNotifier
+.. autoclass:: tf_G.utils.update_edge_notifier.UpdateEdgeNotifier
     :members:
 
 Utils
 --------------------------------------------------------------------------------
-.. autoclass:: tfg_big_data_algorithms.utils.utils.Utils
+.. autoclass:: tf_G.utils.utils.Utils
     :members:
 
 ConvergenceCriterion
 --------------------------------------------------------------------------------
-.. autoclass:: tfg_big_data_algorithms.utils.vector_convergence.ConvergenceCriterion
+.. autoclass:: tf_G.utils.vector_convergence.ConvergenceCriterion
     :members:
 
 VectorNorm
 --------------------------------------------------------------------------------
-.. autoclass:: tfg_big_data_algorithms.utils.vector_norm.VectorNorm
+.. autoclass:: tf_G.utils.vector_norm.VectorNorm
     :members:
