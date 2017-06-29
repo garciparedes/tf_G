@@ -4,22 +4,19 @@ from typing import List
 
 import tensorflow as tf
 
-from tfg_big_data_algorithms.pagerank.transition.transition_random import \
-    TransitionRandom
-from tfg_big_data_algorithms.pagerank.numeric_iterative_pagerank import \
-    NumericIterativePageRank
-from tfg_big_data_algorithms.utils.vector_convergence import \
-    ConvergenceCriterion
-from tfg_big_data_algorithms.graph.graph import Graph
+from tf_G.pagerank.transition.transition_random import TransitionRandom
+from tf_G.pagerank.iterative_pagerank import IterativePageRank
+from tf_G.utils.vector_convergence import ConvergenceCriterion
+from tf_G.graph.graph import Graph
 
 
-class NumericRandomWalkPageRank(NumericIterativePageRank):
+class RandomWalkPageRank(IterativePageRank):
     def __init__(self, sess: tf.Session, name: str, graph: Graph,
                  beta: float) -> None:
         warnings.warn('This implementation is in alpha. ' +
-                      'Use NumericIterativePageRank Implementation!')
+                      'Use IterativePageRank Implementation!')
 
-        NumericIterativePageRank.__init__(self, sess, name + "_rw", graph, beta)
+        IterativePageRank.__init__(self, sess, name + "_rw", graph, beta)
 
         self.random_T = TransitionRandom(sess, self.name, self.G, self.beta)
 

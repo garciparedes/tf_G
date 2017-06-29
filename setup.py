@@ -6,13 +6,13 @@ from setuptools import setup, find_packages
 
 # http://blog.ionelmc.ro/2014/05/25/python-packaging/
 setup(
-    name="tfg_big_data_algorithms",
+    name="tf_G",
     version="0.1",
     description="Python's Tensorflow Graph Library",
     author="garciparedes",
     author_email="sergio@garciparedes.me",
-    url="http://tfg_big_data_algorithms.readthedocs.io/en/latest/",
-    download_url="https://github.com/garciparedes/tfg_big_data_algorithms",
+    url="http://tf_G.readthedocs.io/en/latest/",
+    download_url="https://github.com/garciparedes/tf_G",
     keywords=[
         "tfg", "bigdata", "tensorflow",
         "graph theory", "pagerank", "university of valladolid",

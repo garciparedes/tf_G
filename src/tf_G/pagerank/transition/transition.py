@@ -1,9 +1,9 @@
 import tensorflow as tf
 
-from tfg_big_data_algorithms.utils.tensorflow_object import TensorFlowObject
-from tfg_big_data_algorithms.utils.update_edge_notifier import \
+from tf_G.utils.tensorflow_object import TensorFlowObject
+from tf_G.utils.update_edge_notifier import \
     UpdateEdgeNotifier
-from tfg_big_data_algorithms.graph.graph import Graph
+from tf_G.graph.graph import Graph
 
 
 class Transition(TensorFlowObject, UpdateEdgeNotifier):

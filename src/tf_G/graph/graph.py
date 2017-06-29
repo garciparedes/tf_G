@@ -1,9 +1,9 @@
 import tensorflow as tf
 import numpy as np
 
-from tfg_big_data_algorithms.utils.tensorflow_object import TensorFlowObject, \
+from tf_G.utils.tensorflow_object import TensorFlowObject, \
     TF_type
-from tfg_big_data_algorithms.utils.update_edge_notifier import \
+from tf_G.utils.update_edge_notifier import \
     UpdateEdgeNotifier
 
 
@@ -97,7 +97,7 @@ class Graph(TensorFlowObject, UpdateEdgeNotifier):
     def append(self, src: int, dst: int) -> None:
         if src and dst is None:
             raise ValueError(
-                "tfg_big_data_algorithms and dst must not be None ")
+                "tf_G and dst must not be None ")
         self.run([tf.scatter_nd_add(self.A_tf, [[src, dst]], [1.0]),
                   tf.scatter_nd_add(self.out_degrees_tf, [[src, 0]], [1.0]),
                   tf.scatter_nd_add(self.in_degrees_tf, [[0, dst]], [1.0]),
@@ -109,7 +109,7 @@ class Graph(TensorFlowObject, UpdateEdgeNotifier):
     def remove(self, src: int, dst: int) -> None:
         if src and dst is None:
             raise ValueError(
-                "tfg_big_data_algorithms and dst must not be None ")
+                "tf_G and dst must not be None ")
         self.run([tf.scatter_nd_add(self.A_tf, [[src, dst]], [-1.0]),
                   tf.scatter_nd_add(self.out_degrees_tf, [[src, 0]], [-1.0]),
                   tf.scatter_nd_add(self.in_degrees_tf, [[0, dst]], [-1.0]),

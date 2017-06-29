@@ -1,5 +1,5 @@
 """
-tfg_big_data_algorithms.graph Module
+tf_G.graph Module
 [TODO]
 """
 

@@ -1,6 +1,6 @@
 # -*- coding: utf-8 -*-
 #
-# tfg_big_data_algorithms documentation build configuration file, created by
+# tf_G documentation build configuration file, created by
 # sphinx-quickstart on Wed Jun 28 15:09:59 2017.
 #
 # This file is execfile()d with the current directory set to its
@@ -57,7 +57,7 @@ source_suffix = '.rst'
 master_doc = 'index'
 
 # General information about the project.
-project = u'tfg_big_data_algorithms'
+project = u'tf_G'
 copyright = u'2017, garciparedes'
 author = u'garciparedes'
 
@@ -111,7 +111,7 @@ html_static_path = ['_static']
 # -- Options for HTMLHelp output ------------------------------------------
 
 # Output file base name for HTML help builder.
-htmlhelp_basename = 'tfg_big_data_algorithmsdoc'
+htmlhelp_basename = 'tf_Gdoc'
 
 
 # -- Options for LaTeX output ---------------------------------------------
@@ -138,7 +138,7 @@ latex_elements = {
 # (source start file, target name, title,
 #  author, documentclass [howto, manual, or own class]).
 latex_documents = [
-    (master_doc, 'tfg_big_data_algorithms.tex', u'tfg\\_big\\_data\\_algorithms Documentation',
+    (master_doc, 'tf_G.tex', u'tfg\\_big\\_data\\_algorithms Documentation',
      u'garciparedes', 'manual'),
 ]
 
@@ -148,7 +148,7 @@ latex_documents = [
 # One entry per manual page. List of tuples
 # (source start file, name, description, authors, manual section).
 man_pages = [
-    (master_doc, 'tfg_big_data_algorithms', u'tfg_big_data_algorithms Documentation',
+    (master_doc, 'tf_G', u'tf_G Documentation',
      [author], 1)
 ]
 
@@ -159,8 +159,8 @@ man_pages = [
 # (source start file, target name, title, author,
 #  dir menu entry, description, category)
 texinfo_documents = [
-    (master_doc, 'tfg_big_data_algorithms', u'tfg_big_data_algorithms Documentation',
-     author, 'tfg_big_data_algorithms', 'One line description of project.',
+    (master_doc, 'tf_G', u'tf_G Documentation',
+     author, 'tf_G', 'One line description of project.',
      'Miscellaneous'),
 ]
 
