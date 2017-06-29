@@ -6,17 +6,16 @@ import numpy as np
 
 from tf_G.pagerank.transition.transition_reset_matrix import \
     TransitionResetMatrix
-from tf_G.pagerank.numeric_pagerank import NumericPageRank
-from tf_G.utils.vector_convergence import \
-    ConvergenceCriterion
+from tf_G.pagerank.pagerank import PageRank
+from tf_G.utils.vector_convergence import ConvergenceCriterion
 from tf_G.graph.graph import Graph
 
 
-class NumericIterativePageRank(NumericPageRank):
+class IterativePageRank(PageRank):
     def __init__(self, sess: tf.Session, name: str, graph: Graph,
                  beta: float) -> None:
         T = TransitionResetMatrix(sess, name + "_iter", graph, beta)
-        NumericPageRank.__init__(self, sess, name + "_iter", graph, beta, T)
+        PageRank.__init__(self, sess, name + "_iter", graph, beta, T)
         self.iter = lambda i, a, b=self.T(): tf.matmul(a, b)
 
     def _pr_convergence_tf(self, convergence: float, topics: List[int] = None,

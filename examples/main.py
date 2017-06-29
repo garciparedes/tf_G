@@ -22,26 +22,26 @@ def main():
                                                              writer,
                                                              is_sparse=False)
         '''
-        pr_alge: tf_G.PageRank = tf_G.NumericAlgebraicPageRank(sess, "PR1",
+        pr_alge: tf_G.PageRank = tf_G.AlgebraicPageRank(sess, "PR1",
                                                      graph,
                                                      beta)
         '''
-        pr_iter: tf_G.PageRank = tf_G.NumericIterativePageRank(sess,
-                                                               "PR1",
-                                                               graph,
-                                                               beta)
+        pr_iter: tf_G.PageRank = tf_G.IterativePageRank(sess,
+                                                        "PR1",
+                                                        graph,
+                                                        beta)
         '''
-        pr_random: tf_G.PageRank = tf_G.NumericRandomWalkPageRank(sess, "PR3",
+        pr_random: tf_G.PageRank = tf_G.RandomWalkPageRank(sess, "PR3",
                                                         graph,
                                                         beta)
         '''
         g_updateable: tf_G.Graph = tf_G.GraphConstructor.empty(sess,
                                                                "Gfollowers",
                                                                7, writer)
-        pr_updateable: tf_G.PageRank = tf_G.NumericIterativePageRank(sess,
-                                                                     "PRfollowers",
-                                                                     g_updateable,
-                                                                     beta)
+        pr_updateable: tf_G.PageRank = tf_G.IterativePageRank(sess,
+                                                              "PRfollowers",
+                                                              g_updateable,
+                                                              beta)
 
         '''
         for r in followers_np:
@@ -80,7 +80,7 @@ def main():
         '''
         g_sparse = GraphConstructor.as_other_sparsifier(sess, graph, 0.95)
 
-        pr_sparse = NumericAlgebraicPageRank(sess, "PR_sparse",
+        pr_sparse = AlgebraicPageRank(sess, "PR_sparse",
                                              g_sparse, beta)
 
         pprint(pr_sparse.ranks_np().tolist())

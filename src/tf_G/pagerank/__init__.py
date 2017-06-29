@@ -5,7 +5,6 @@ tf_G.pagerank Module
 
 from .transition import *
 from .pagerank import PageRank
-from .numeric_pagerank import NumericPageRank
-from .numeric_algebraic_pagerank import NumericAlgebraicPageRank
-from .numeric_iterative_pagerank import NumericIterativePageRank
-from .numeric_random_walk_pagerank import NumericRandomWalkPageRank
+from .algebraic_pagerank import AlgebraicPageRank
+from .iterative_pagerank import IterativePageRank
+from .random_walk_pagerank import RandomWalkPageRank

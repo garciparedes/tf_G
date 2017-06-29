@@ -10,22 +10,22 @@ PageRank
 .. autoclass:: tf_G.pagerank.pagerank.PageRank
     :members:
 
-NumericPageRank
----------------
-.. autoclass:: tf_G.pagerank.numeric_pagerank.NumericPageRank
+PageRank
+--------
+.. autoclass:: tf_G.pagerank.pagerank.PageRank
     :members:
 
-NumericAlgebraicPageRank
-------------------------
-.. autoclass:: tf_G.pagerank.numeric_algebraic_pagerank.NumericAlgebraicPageRank
+AlgebraicPageRank
+-----------------
+.. autoclass:: tf_G.pagerank.algebraic_pagerank.AlgebraicPageRank
     :members:
 
-NumericIterativePageRank
-------------------------
-.. autoclass:: tf_G.pagerank.numeric_iterative_pagerank.NumericIterativePageRank
+IterativePageRank
+-----------------
+.. autoclass:: tf_G.pagerank.iterative_pagerank.IterativePageRank
     :members:
 
-NumericRandomWalkPageRank
--------------------------
-.. autoclass:: tf_G.pagerank.numeric_random_walk_pagerank.NumericRandomWalkPageRank
+RandomWalkPageRank
+------------------
+.. autoclass:: tf_G.pagerank.random_walk_pagerank.RandomWalkPageRank
     :members:
