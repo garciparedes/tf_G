@@ -26,9 +26,6 @@ MOCK_MODULES = ['numpy', 'tensorflow', 'pandas']
 for mod_name in MOCK_MODULES:
    sys.modules[mod_name] = mock.Mock()
 
-MOCK_MODULES = ['numpy', 'tensorflow', 'pandas']
-sys.modules.update((mod_name, Mock()) for mod_name in MOCK_MODULES)
-
 
 # -- General configuration ------------------------------------------------
 
