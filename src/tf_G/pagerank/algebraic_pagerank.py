@@ -3,17 +3,16 @@ from typing import List
 
 import tensorflow as tf
 
-from tfg_big_data_algorithms.pagerank.transition.transition_matrix import \
-    TransitionMatrix
-from tfg_big_data_algorithms.pagerank.numeric_pagerank import NumericPageRank
-from tfg_big_data_algorithms.graph.graph import Graph
+from tf_G.pagerank.transition.transition_matrix import TransitionMatrix
+from tf_G.pagerank.pagerank import PageRank
+from tf_G.graph.graph import Graph
 
 
-class NumericAlgebraicPageRank(NumericPageRank):
+class AlgebraicPageRank(PageRank):
     def __init__(self, sess: tf.Session, name: str, graph: Graph,
                  beta: float) -> None:
         T = TransitionMatrix(sess, name + "_alge", graph)
-        NumericPageRank.__init__(self, sess, name, graph, beta, T)
+        PageRank.__init__(self, sess, name, graph, beta, T)
 
     def _pr_exact_tf(self, topics: List[int] = None) -> tf.Tensor:
         if topics is not None:
@@ -28,13 +27,13 @@ class NumericAlgebraicPageRank(NumericPageRank):
                            c_criterion=None) -> tf.Tensor:
         if topics is not None:
             warnings.warn('Personalized PageRank not implemented yet!')
-        warnings.warn('NumericPageRank not implements iterative PageRank! ' +
+        warnings.warn('PageRank not implements iterative PageRank! ' +
                       'Using exact algorithm.')
         return self._pr_exact_tf(topics)
 
     def _pr_steps_tf(self, steps: int, topics: List[int]) -> tf.Tensor:
         if topics is not None:
             warnings.warn('Personalized PageRank not implemented yet!')
-        warnings.warn('NumericPageRank not implements iterative PageRank! ' +
+        warnings.warn('PageRank not implements iterative PageRank! ' +
                       'Using exact algorithm.')
         return self._pr_exact_tf(topics)

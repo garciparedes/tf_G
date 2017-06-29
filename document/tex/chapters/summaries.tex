@@ -487,11 +487,39 @@
       \paragraph{}
       En cuanto a las mejoras propuestas en \cite{heule2013hyperloglog} sobre el \emph{HyperLogLog} original, estas se basan en la utilización de una función hash de \emph{64 bits} (en lugar de 32 como la propuesta original), la utilización de un estimador diferente cuando se cumple que $card(S) < \frac{5}{2}m$ y una estrategia de representación dispersa que trata de aprovechar en mayor medida el espacio en memoria.
 
-    \section{$L_p$ Samplers}
+    \section{$L_p$-Samplers}
     \label{sec:lp_samplers}
 
       \paragraph{}
-      [TODO ] \emph{Tight bounds for lp samplers, finding duplicates in streams, and related problems} \cite{jowhari2011tight} de \emph{Jowhari y otros}. 
+      En esta sección se describe el concepto de \emph{$L_p$-Sampler}, para lo que se han seguido las ideas expuestas en \emph{Tight bounds for Lp samplers, finding duplicates in streams, and related problems} \cite{jowhari2011tight} de \emph{Jowhari y otros}. \emph{$L_p$-Samplers} se basan en estructuras de datos que procesan un stream de elementos definidos sobre el conjunto $N= \{1, 2, ...,i, ...n\}$ sobre el cual están permitidas tanto addiciones como eliminaciones, es decir, se enmarcan dentro del modelo en molinete (\emph{turnstile model}). Denotaremos por $x_i \in x$ al número de ocurrencias del elemento $i$-ésimo sobre el stream.
+
+      \paragraph{}
+      Los \emph{$L_p$-Samplers} devuelven un subconjunto de elementos $N'$ extraido del conjunto global $N$ de tal manera que cada elemento es seleccionado con probabilidad $\frac{|x_i|^p}{||x||_p^p}$ siendo $p\geq0$. De esta manera, se obtienen una muestra del conjunto global que mantiene la misma proporción de elementos con respecto del global pero en un espacio menor utilizando como medida de estimación para el muestreo la norma $p$.
+
+      \paragraph{}
+      La dificultad del problema se basa en el mantenimiento de la muestra teniendo en cuenta que los elementos pueden ser tanto añadidos como eliminados de la misma según varía su cuenta $x_i$ conforme se procesa el stream.
+
+      \paragraph{}
+      De esta manera, cuando escogemos $p =1$ se seleccionarán los elementos pertenecientes a la muestra con una probabilidad proporcional al número de ocurrencias de los mismos en el stream. En \cite{jowhari2011tight} se describe un algoritmo para \emph{$L_p$-Sampler} con $p \in [0,2]$, ajustandose a las restricciones de espacio del modelo en streaming. Para ello se apoyan en la utilización del \emph{Count-Sketch} (sección \ref{sec:count_sketch}). A continuación se describe en más detalle el caso de los \emph{$L_0$-Samplers}.
+
+      \subsection{$L_0$-Samplers}
+      \label{sec:l0_samplers}
+
+      \paragraph{}
+      Los \emph{$L_0$-Samplers} siguen la misma idea de muestreo descrita en esta sección. En este caso utilizan la norma $0$, por lo tanto, seleccionan los elementos pertenecientes a la muestra con probabilidad uniforme de entre los que han aparecido en el stream. Este es por tanto el caso más básico del problema debido a que tan solo es necesario mantener un contador que indique si el elemento está presente. Los \emph{$L_0$-Samplers} son de gran utilidad en el contexto de grafos, ya que encajan de manera adecuada en dicho modelo, permitiendo mantener un subconjunto de aristas del grafo basandose únicamente en si estas han aparecido o no en el stream.
+
+      \paragraph{}
+      Esto es sencillo cuando solo están permitidas adicciones, ya que una vez aparecido el elemento este no desaparecerá. Sin embargo, en el caso de las eliminaciones la tarea se vuelve más complicada ya que tal y como se ha indicado en el párrafo anterior, es necesario mantener la cuenta de ocurrencias para saber si el elemento a desaparecido o únicamente ha decrementado su cuenta.
+
+      \paragraph{}
+      A continuación se describe la estructura básica de estos algoritmos siguiendo el trabajo desarrollado por \emph{Cormode y Fermain} en \emph{On unifying the space of L0-sampling algorithms} \cite{cormode2013unifying}. Estos indican que todas las propuestas de \emph{$L_0$-Samplers} se basan en tres fases:
+
+      \begin{itemize}
+        \item \emph{Sampling}: Se mantiene el conteo de ocurrencias en una estructura de datos auxiliar con ideas similares a las del \emph{Count-Sketch}.
+        \item \emph{Recovery}: Se realizan peticiones a la estructura de datos auxiliar para recuperar el conteo de ocurrencias de cada elemento en el stream (saber si ha apararecido en el mismo).
+        \item \emph{Selection}: Se realiza una selección de entre los elementos aparecidos en el stream siguiendo una distribución uniforme de probabilidad.
+      \end{itemize} 
+
 
     \section{Conclusiones}
     \label{sec:summaries_conclusions}

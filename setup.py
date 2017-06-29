@@ -6,18 +6,18 @@ from setuptools import setup, find_packages
 
 # http://blog.ionelmc.ro/2014/05/25/python-packaging/
 setup(
-    name="tfg_big_data_algorithms",
+    name="tf_G",
     version="0.1",
     description="Python's Tensorflow Graph Library",
     author="garciparedes",
     author_email="sergio@garciparedes.me",
-    url="http://tfg_big_data_algorithms.readthedocs.io/en/latest/",
-    download_url="https://github.com/garciparedes/tfg_big_data_algorithms",
+    url="http://tf_G.readthedocs.io/en/latest/",
+    download_url="https://github.com/garciparedes/tf_G",
     keywords=[
         "tfg", "bigdata", "tensorflow",
         "graph theory", "pagerank", "university of valladolid",
     ],
-    python_requires=">=3.5",
+    python_requires=">=3.6",
     install_requires=[
         "numpy",
         "pandas",
@@ -36,7 +36,7 @@ setup(
         "Operating System :: OS Independent",
         "Programming Language :: Python",
         "Programming Language :: Python :: 3",
-        "Programming Language :: Python :: 3.5",
+        "Programming Language :: Python :: 3.6",
         "Programming Language :: Python :: Implementation :: CPython",
         "Topic :: Scientific/Engineering",
         "Topic :: Scientific/Engineering :: Mathematics",

@@ -4,19 +4,18 @@ from typing import List
 import tensorflow as tf
 import numpy as np
 
-from tfg_big_data_algorithms.pagerank.transition.transition_reset_matrix import \
+from tf_G.pagerank.transition.transition_reset_matrix import \
     TransitionResetMatrix
-from tfg_big_data_algorithms.pagerank.numeric_pagerank import NumericPageRank
-from tfg_big_data_algorithms.utils.vector_convergence import \
-    ConvergenceCriterion
-from tfg_big_data_algorithms.graph.graph import Graph
+from tf_G.pagerank.pagerank import PageRank
+from tf_G.utils.vector_convergence import ConvergenceCriterion
+from tf_G.graph.graph import Graph
 
 
-class NumericIterativePageRank(NumericPageRank):
+class IterativePageRank(PageRank):
     def __init__(self, sess: tf.Session, name: str, graph: Graph,
                  beta: float) -> None:
         T = TransitionResetMatrix(sess, name + "_iter", graph, beta)
-        NumericPageRank.__init__(self, sess, name + "_iter", graph, beta, T)
+        PageRank.__init__(self, sess, name + "_iter", graph, beta, T)
         self.iter = lambda i, a, b=self.T(): tf.matmul(a, b)
 
     def _pr_convergence_tf(self, convergence: float, topics: List[int] = None,

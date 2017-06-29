@@ -1,5 +1,5 @@
 """
-tfg_big_data_algorithms.pagerank.transition Module
+tf_G.pagerank.transition Module
 [TODO]
 """
 

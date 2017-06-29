@@ -1,8 +1,8 @@
 import tensorflow as tf
 import numpy as np
 
-from tfg_big_data_algorithms.pagerank.transition.transition import Transition
-from tfg_big_data_algorithms.graph.graph import Graph
+from tf_G.pagerank.transition.transition import Transition
+from tf_G.graph.graph import Graph
 
 
 class TransitionResetMatrix(Transition):

@@ -1,4 +1,4 @@
-name: tfg_big_data_algorithms
+name: tf_G
 dependencies:
   - numpy
   - pandas
