@@ -20,11 +20,15 @@ import os
 import sys
 sys.path.insert(0, os.path.abspath('./../../src/.'))
 
-import mock
+from unittest.mock import MagicMock
+
+class Mock(MagicMock):
+    @classmethod
+    def __getattr__(cls, name):
+            return MagicMock()
 
 MOCK_MODULES = ['numpy', 'tensorflow', 'pandas']
-for mod_name in MOCK_MODULES:
-   sys.modules[mod_name] = mock.Mock()
+sys.modules.update((mod_name, Mock()) for mod_name in MOCK_MODULES)
 
 
 # -- General configuration ------------------------------------------------
