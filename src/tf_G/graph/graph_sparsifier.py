@@ -25,5 +25,11 @@ class GraphSparsifier(Graph):
         # print(edges_np.shape)
 
         Graph.__init__(self, sess, graph.name + "_sparsifier",
-                       edges_np=edges_np,
+                       edges_np=edges_np, n=graph.n,
                        is_sparse=is_sparse)
+
+    def append(self, src: int, dst: int):
+        Graph.append(self, src, dst)
+
+    def remove(self, src: int, dst: int):
+        Graph.remove(self, src, dst)

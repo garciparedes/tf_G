@@ -14,7 +14,10 @@ class Graph(TensorFlowObject, UpdateEdgeNotifier):
         UpdateEdgeNotifier.__init__(self)
 
         if edges_np is not None:
-            self.n = int(edges_np.max(axis=0).max() + 1)
+            if n is not None:
+                self.n = max(n, int(edges_np.max(axis=0).max() + 1))
+            else:
+                self.n = int(edges_np.max(axis=0).max() + 1)
             self.m = int(edges_np.shape[0])
             A_init = tf.scatter_nd(edges_np.tolist(), self.m * [1.0],
                                    [self.n, self.n])
