@@ -6,33 +6,33 @@ from tf_G.graph.graph import Graph
 
 
 class TransitionMatrix(Transition):
-    def __init__(self, sess: tf.Session, name: str, graph: Graph) -> None:
-        Transition.__init__(self, sess, name, graph)
+  def __init__(self, sess: tf.Session, name: str, graph: Graph) -> None:
+    Transition.__init__(self, sess, name, graph)
 
-        self.transition = tf.Variable(
-            tf.where(self.G.is_not_sink_tf,
-                     tf.div(self.G.A_tf, self.G.out_degrees_tf),
-                     tf.fill([self.G.n, self.G.n], 1 / self.G.n)),
-            name=self.name)
-        self.run_tf(tf.variables_initializer([self.transition]))
+    self.transition = tf.Variable(
+      tf.where(self.G.is_not_sink_tf,
+               tf.div(self.G.A_tf, self.G.out_degrees_tf),
+               tf.fill([self.G.n, self.G.n], 1 / self.G.n)),
+      name=self.name)
+    self.run_tf(tf.variables_initializer([self.transition]))
 
-    def __call__(self, *args, **kwargs):
-        return self.transition
+  def __call__(self, *args, **kwargs):
+    return self.transition
 
-    def update_edge(self, edge: np.array, change: float) -> None:
+  def update_edge(self, edge: np.array, change: float) -> None:
 
-        # print("Edge: " + str(edge) + "\tChange: " + str(change))
+    # print("Edge: " + str(edge) + "\tChange: " + str(change))
 
-        if change > 0.0:
-            self.run_tf(tf.scatter_nd_update(
-                self.transition, [[edge[0]]],
-                tf.div(self.G.A_tf_vertex(edge[0]),
-                       self.G.out_degrees_tf_vertex(edge[0]))))
-        else:
-            self.run_tf(tf.scatter_nd_update(
-                self.transition, [[edge[0]]],
-                tf.where(self.G.is_not_sink_tf_vertex(edge[0]),
-                         tf.div(self.G.A_tf_vertex(edge[0]),
-                                self.G.out_degrees_tf_vertex(edge[0])),
-                         tf.fill([1, self.G.n], tf.pow(self.G.n_tf, -1)))))
-        self._notify(edge, change)
+    if change > 0.0:
+      self.run_tf(tf.scatter_nd_update(
+        self.transition, [[edge[0]]],
+        tf.div(self.G.A_tf_vertex(edge[0]),
+               self.G.out_degrees_tf_vertex(edge[0]))))
+    else:
+      self.run_tf(tf.scatter_nd_update(
+        self.transition, [[edge[0]]],
+        tf.where(self.G.is_not_sink_tf_vertex(edge[0]),
+                 tf.div(self.G.A_tf_vertex(edge[0]),
+                        self.G.out_degrees_tf_vertex(edge[0])),
+                 tf.fill([1, self.G.n], tf.pow(self.G.n_tf, -1)))))
+    self._notify(edge, change)

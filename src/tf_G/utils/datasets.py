@@ -3,244 +3,244 @@ import numpy as np
 
 
 class DataSets:
+  """
+  DataSets class represents some data sets included in the package.
+
+  Many of this sets are imported from SNAP project of Stanford University.
+  The class also provides `generate_from_path` method to import personal sets.
+  """
+
+  @staticmethod
+  def _get_path() -> str:
+    """ Private method to get the path of provided data sets.
+
+    Returns:
+
+      str: The relative path that points to data sets directory.
+
     """
-    DataSets class represents some data sets included in the package.
+    return "./../datasets"
 
-    Many of this sets are imported from SNAP project of Stanford University.
-    The class also provides `generate_from_path` method to import personal sets.
+  @staticmethod
+  def _name_to_default_path(name: str) -> str:
+    """ Private method that returns the path of a set from it's name.
+
+    Args:
+
+      name (str): The name of data set.
+
+    Returns:
+
+      str: The relative path that points to the csv file that contains
+        the data set.
+
     """
+    return DataSets._get_path() + '/' + name + '/' + name + ".csv"
 
-    @staticmethod
-    def _get_path() -> str:
-        """ Private method to get the path of provided data sets.
+  @staticmethod
+  def _permute_edges(edges_np: np.array) -> np.array:
+    """ Private method that permutes the rows order of given the input set.
 
-        Returns:
+    Args:
 
-            str: The relative path that points to data sets directory.
+      edges_np (:obj:`np.array`): The input data set.
 
-        """
-        return "./../datasets"
+    Returns:
 
-    @staticmethod
-    def _name_to_default_path(name: str) -> str:
-        """ Private method that returns the path of a set from it's name.
+      (:obj:`np.array`): The input data set permuted in rows
 
-        Args:
+    """
+    return np.random.permutation(edges_np)
 
-            name (str): The name of data set.
+  @staticmethod
+  def _compose_from_path(path: str, index_decrement: bool) -> np.array:
+    """ Private method that composes a data set from a given path.
 
-        Returns:
+    The method obtains the data from the given path, then decrements its
+    values if is necessary and permutes the resulting data set.
 
-            str: The relative path that points to the csv file that contains
-                the data set.
+    The decrement option is offered because of in some cases the data set
+    treats the initial node as 1 but many data structures in python are
+    0-indexed, so decrementing the values improves space performance.
 
-        """
-        return DataSets._get_path() + '/' + name + '/' + name + ".csv"
+    Args:
 
-    @staticmethod
-    def _permute_edges(edges_np: np.array) -> np.array:
-        """ Private method that permutes the rows order of given the input set.
+      path (str): The path of the file of data set csv.
 
-        Args:
+      index_decrement (bool): Decrements all valus by one if True, do
+        nothing otherwise.
 
-            edges_np (:obj:`np.array`): The input data set.
+    Returns:
 
-        Returns:
+        (:obj:`np.array`): The data set that represents the Graph.
 
-            (:obj:`np.array`): The input data set permuted in rows
+    """
+    data = pd.read_csv(path)
+    if index_decrement:
+      data -= 1
+    return DataSets._permute_edges(data.as_matrix())
 
-        """
-        return np.random.permutation(edges_np)
+  @staticmethod
+  def _compose_from_name(name: str, index_decrement: bool) -> np.array:
+    """ Private method that composes a data set from its name.
 
-    @staticmethod
-    def _compose_from_path(path: str, index_decrement: bool) -> np.array:
-        """ Private method that composes a data set from a given path.
+    This method uses `_name_to_default_path` to obtain the path and
+    generates the data set using `_compose_from_path`.
 
-        The method obtains the data from the given path, then decrements its
-        values if is necessary and permutes the resulting data set.
+    Args:
 
-        The decrement option is offered because of in some cases the data set
-        treats the initial node as 1 but many data structures in python are
-        0-indexed, so decrementing the values improves space performance.
+      name (str): The name of the data set.
 
-        Args:
+      index_decrement (bool): Decrements all valus by one if True, do
+        nothing otherwise.
 
-            path (str): The path of the file of data set csv.
+    Returns:
 
-            index_decrement (bool): Decrements all valus by one if True, do
-                nothing otherwise.
+      (:obj:`np.array`): The data set that represents the Graph.
 
-        Returns:
+    """
+    return DataSets._compose_from_path(DataSets._name_to_default_path(name),
+                                       index_decrement)
 
-            (:obj:`np.array`): The data set that represents the Graph.
+  @staticmethod
+  def followers(index_decrement: bool = True) -> np.array:
+    """ This method returns the followers data set.
 
-        """
-        data = pd.read_csv(path)
-        if index_decrement:
-            data -= 1
-        return DataSets._permute_edges(data.as_matrix())
+    The data set is obtained from a example of GraphX, a graph library
+    developed on the top of Apache Spark.
 
-    @staticmethod
-    def _compose_from_name(name: str, index_decrement: bool) -> np.array:
-        """ Private method that composes a data set from its name.
+    This graph contains 7 vertex and 8 edges.
 
-        This method uses `_name_to_default_path` to obtain the path and
-        generates the data set using `_compose_from_path`.
+    Args:
 
-        Args:
+      index_decrement (bool): Decrements all valus by one if True, do
+        nothing otherwise.
 
-            name (str): The name of the data set.
+    Returns:
 
-            index_decrement (bool): Decrements all valus by one if True, do
-                nothing otherwise.
+      (:obj:`np.array`): The data set that represents the followers
+        Graph.
 
-        Returns:
+    """
+    return DataSets._compose_from_name('followers', index_decrement)
 
-            (:obj:`np.array`): The data set that represents the Graph.
+  @staticmethod
+  def wiki_vote(index_decrement: bool = True) -> np.array:
+    """ This method returns the wiki-Vote data set.
 
-        """
-        return DataSets._compose_from_path(DataSets._name_to_default_path(name),
-                                           index_decrement)
+    The data set is obtained from the Stanford's University SNAP project,
+    that is based on the study of massive graphs.
 
-    @staticmethod
-    def followers(index_decrement: bool = True) -> np.array:
-        """ This method returns the followers data set.
+    This graph contains 7115 vertices and 103689 edges.
 
-        The data set is obtained from a example of GraphX, a graph library
-        developed on the top of Apache Spark.
+    Url:
+      https://snap.stanford.edu/data/wiki-Vote.html
 
-        This graph contains 7 vertex and 8 edges.
+    Args:
 
-        Args:
+      index_decrement (bool): Decrements all valus by one if True, do
+        nothing otherwise.
 
-            index_decrement (bool): Decrements all valus by one if True, do
-                nothing otherwise.
+    Returns:
 
-        Returns:
+      (:obj:`np.array`): The data set that represents the wiki_vote
+        Graph.
 
-            (:obj:`np.array`): The data set that represents the followers
-                Graph.
+    """
+    return DataSets._compose_from_name('wiki-Vote', index_decrement)
 
-        """
-        return DataSets._compose_from_name('followers', index_decrement)
+  @staticmethod
+  def p2p_gnutella08(index_decrement: bool = False) -> np.array:
+    """ This method returns the p2p-gnutella08 data set.
 
-    @staticmethod
-    def wiki_vote(index_decrement: bool = True) -> np.array:
-        """ This method returns the wiki-Vote data set.
+    The data set is obtained from the Stanford's University SNAP project,
+    that is based on the study of massive graphs.
 
-        The data set is obtained from the Stanford's University SNAP project,
-        that is based on the study of massive graphs.
+    This graph contains 6301 vertices and 20777 edges.
 
-        This graph contains 7115 vertices and 103689 edges.
+    Url:
 
-        Url:
-           https://snap.stanford.edu/data/wiki-Vote.html
+      https://snap.stanford.edu/data/p2p-Gnutella08.html
 
-        Args:
+    Args:
 
-            index_decrement (bool): Decrements all valus by one if True, do
-                nothing otherwise.
+      index_decrement (bool): Decrements all valus by one if True, do
+        nothing otherwise.
 
-        Returns:
+    Returns:
 
-            (:obj:`np.array`): The data set that represents the wiki_vote
-                Graph.
+      (:obj:`np.array`): The data set that represents the p2p_gnutella08
+        Graph.
 
-        """
-        return DataSets._compose_from_name('wiki-Vote', index_decrement)
+    """
+    return DataSets._compose_from_name('p2p-gnutella08', index_decrement)
 
-    @staticmethod
-    def p2p_gnutella08(index_decrement: bool = False) -> np.array:
-        """ This method returns the p2p-gnutella08 data set.
+  @staticmethod
+  def generate_from_path(path: str, index_increment=True) -> np.array:
+    """ This method generates a data set from a given path.
 
-        The data set is obtained from the Stanford's University SNAP project,
-        that is based on the study of massive graphs.
+    The method obtains the data from the given path, then decrements its
+    values if is necessary and permutes the resulting data set.
 
-        This graph contains 6301 vertices and 20777 edges.
+    The decrement option is offered because of in some cases the data set
+    treats the initial node as 1 but many data structures in python are
+    0-indexed, so decrementing the values improves space performance.
 
-        Url:
+    It acts as interface to use the `_compose_from_path` method.
 
-            https://snap.stanford.edu/data/p2p-Gnutella08.html
+    Args:
 
-        Args:
+      path (str): The path of the file of data set csv.
 
-            index_decrement (bool): Decrements all valus by one if True, do
-                nothing otherwise.
+      index_decrement (bool): Decrements all valus by one if True, do
+        nothing otherwise
 
-        Returns:
+    Returns:
 
-            (:obj:`np.array`): The data set that represents the p2p_gnutella08
-                Graph.
+      (:obj:`np.array`): The data set that represents the Graph.
 
-        """
-        return DataSets._compose_from_name('p2p-gnutella08', index_decrement)
+    """
+    return DataSets._compose_from_path(path, index_increment)
 
-    @staticmethod
-    def generate_from_path(path: str, index_increment=True) -> np.array:
-        """ This method generates a data set from a given path.
+  @staticmethod
+  def naive_4() -> np.array:
+    """ This method returns the naive_4 data set.
 
-        The method obtains the data from the given path, then decrements its
-        values if is necessary and permutes the resulting data set.
+    The data set is obtained from Cornell University guide lecture of
+    PageRank algorithm.
 
-        The decrement option is offered because of in some cases the data set
-        treats the initial node as 1 but many data structures in python are
-        0-indexed, so decrementing the values improves space performance.
 
-        It acts as interface to use the `_compose_from_path` method.
+    This graph contains 4 vertices and 8 edges.
 
-        Args:
+    Url:
 
-            path (str): The path of the file of data set csv.
+      http://www.math.cornell.edu/~mec/Winter2009/RalucaRemus/Lecture3/lecture3.html
 
-            index_decrement (bool): Decrements all valus by one if True, do
-                nothing otherwise
+    Returns:
 
-        Returns:
+      (:obj:`np.array`): The data set that represents the Graph.
 
-            (:obj:`np.array`): The data set that represents the Graph.
+    """
+    return DataSets._permute_edges(np.array([
+      [0, 1], [0, 2], [0, 3], [1, 2], [1, 3], [2, 0], [3, 0], [3, 2]]))
 
-        """
-        return DataSets._compose_from_path(path, index_increment)
+  @staticmethod
+  def naive_6() -> np.array:
+    """ This method returns the naive_6 data set.
 
-    @staticmethod
-    def naive_4() -> np.array:
-        """ This method returns the naive_4 data set.
+    The data set is obtained from mathworks study of PageRank algorithm.
 
-        The data set is obtained from Cornell University guide lecture of
-        PageRank algorithm.
+    This graph contains 6 vertices and 9 edges.
 
+    Url:
 
-        This graph contains 4 vertices and 8 edges.
+      https://www.mathworks.com/content/dam/mathworks/mathworks-dot-com/moler/exm/chapters/pagerank.pdf
 
-        Url:
+    Returns:
 
-            http://www.math.cornell.edu/~mec/Winter2009/RalucaRemus/Lecture3/lecture3.html
+      (:obj:`np.array`): The data set that represents the Graph.
 
-        Returns:
-
-            (:obj:`np.array`): The data set that represents the Graph.
-
-        """
-        return DataSets._permute_edges(np.array([
-            [0, 1], [0, 2], [0, 3], [1, 2], [1, 3], [2, 0], [3, 0], [3, 2]]))
-
-    @staticmethod
-    def naive_6() -> np.array:
-        """ This method returns the naive_6 data set.
-
-        The data set is obtained from mathworks study of PageRank algorithm.
-
-        This graph contains 6 vertices and 9 edges.
-
-        Url:
-
-            https://www.mathworks.com/content/dam/mathworks/mathworks-dot-com/moler/exm/chapters/pagerank.pdf
-
-        Returns:
-
-            (:obj:`np.array`): The data set that represents the Graph.
-
-        """
-        return DataSets._permute_edges(np.array([
-            [1, 2], [1, 6], [2, 3], [2, 4], [3, 4], [3, 5], [3, 6], [4, 1],
-            [6, 1]]) - 1)
+    """
+    return DataSets._permute_edges(np.array([
+      [1, 2], [1, 6], [2, 3], [2, 4], [3, 4], [3, 5], [3, 6], [4, 1],
+      [6, 1]]) - 1)

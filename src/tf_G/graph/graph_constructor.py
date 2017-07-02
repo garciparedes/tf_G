@@ -6,239 +6,245 @@ from tf_G.graph.graph_sparsifier import GraphSparsifier
 
 
 class GraphConstructor:
-    """ Class that helps to construct a Graph object.
+  """ Class that helps to construct a Graph object.
 
-    This class contains a set of static methods that helps in the task of graph
-    construction and initialization. It provides the generation of a Graph from
-    an edge list, and allows to generate empty Graphs, sparsifier Graphs an also
-    random Graphs.
+  This class contains a set of static methods that helps in the task of graph
+  construction and initialization. It provides the generation of a Graph from
+  an edge list, and allows to generate empty Graphs, sparsifier Graphs an also
+  random Graphs.
+
+  """
+
+  @staticmethod
+  def from_edges(sess: tf.Session, name: str, edges_np: np.array,
+                 writer: tf.summary.FileWriter = None,
+                 is_sparse: bool = False) -> Graph:
+    """ Generates a graph from a set of edges.
+
+    This method acts as interface between the Graph constructor and the rest
+    exterior.
+
+    Args:
+
+      sess (:obj:`tf.Session`): This attribute represents the session
+        that runs the TensorFlow operations.
+
+      name (str): This attribute represents the name of the object in
+        TensorFlow's op Graph.
+
+      edges_np (:obj: `np.array`): The edge set of the graph
+        codifies as `edges_np[:,0]` represents the sources and
+        `edges_np[:,1]` the destinations of the edges.
+
+      writer (:obj:`tf.summary.FileWriter`, optional): This attribute
+        represents a TensorFlow's Writer, that is used to obtain stats.
+        The default value is `None`.
+
+      is_sparse (bool, optional): Use sparse Tensors if it's set to True.
+        Not implemented yet. Show the Todo. The default value is `False`.
+
+    Returns:
+
+      (:obj: `tf_G.Graph`): A graph containing all the edges passed as
+        input in `edges_np`.
 
     """
-    @staticmethod
-    def from_edges(sess: tf.Session, name: str, edges_np: np.array,
-                   writer: tf.summary.FileWriter = None,
-                   is_sparse: bool = False) -> Graph:
-        """ Generates a graph from a set of edges.
+    return Graph(sess, name, edges_np=edges_np, writer=writer,
+                 is_sparse=is_sparse)
 
-        This method acts as interface between the Graph constructor and the rest
-        exterior.
+  @staticmethod
+  def empty(sess: tf.Session, name: str, n: int,
+            writer: tf.summary.FileWriter = None,
+            sparse: bool = False) -> Graph:
 
-        Args:
+    """ Generates an empty Graph.
 
-            sess (:obj:`tf.Session`): This attribute represents the session
-                that runs the TensorFlow operations.
+    This method generates an empty graph with the number of vertex fixed at
+    the construction. The graph allows addition and deletion of edges.
 
-            name (str): This attribute represents the name of the object in
-                TensorFlow's op Graph.
+    Args:
 
-            edges_np (:obj: `np.array`): The edge set of the graph
-                codifies as `edges_np[:,0]` represents the sources and
-                `edges_np[:,1]` the destinations of the edges.
+      sess (:obj:`tf.Session`): This attribute represents the session
+        that runs the TensorFlow operations.
 
-            writer (:obj:`tf.summary.FileWriter`, optional): This attribute
-                represents a TensorFlow's Writer, that is used to obtain stats.
-                The default value is `None`.
+      name (str): This attribute represents the name of the object in
+        TensorFlow's op Graph.
 
-            is_sparse (bool, optional): Use sparse Tensors if it's set to True.
-                Not implemented yet. Show the Todo. The default value is `False`.
+      n (int): The cardinality of vertex set of the empty graph.
 
-        Returns:
-            (:obj: `tf_G.Graph`): A graph containing all the edges passed as
-                input in `edges_np`.
+      writer (:obj:`tf.summary.FileWriter`, optional): This attribute
+        represents a TensorFlow's Writer, that is used to obtain stats.
+        The default value is `None`.
 
-        """
-        return Graph(sess, name, edges_np=edges_np, writer=writer,
-                     is_sparse=is_sparse)
-
-    @staticmethod
-    def empty(sess: tf.Session, name: str, n: int,
-              writer: tf.summary.FileWriter = None,
-              sparse: bool = False) -> Graph:
-
-        """ Generates an empty Graph.
-
-        This method generates an empty graph with the number of vertex fixed at
-        the construction. The graph allows addition and deletion of edges.
-
-        Args:
-
-            sess (:obj:`tf.Session`): This attribute represents the session
-                that runs the TensorFlow operations.
-
-            name (str): This attribute represents the name of the object in
-                TensorFlow's op Graph.
-
-            n (int): The cardinality of vertex set of the empty graph.
-
-            writer (:obj:`tf.summary.FileWriter`, optional): This attribute
-                represents a TensorFlow's Writer, that is used to obtain stats.
-                The default value is `None`.
-
-            is_sparse (bool, optional): Use sparse Tensors if it's set to True.
-                Not implemented yet. Show the Todo. The default value is `False`.
+      is_sparse (bool, optional): Use sparse Tensors if it's set to True.
+        Not implemented yet. Show the Todo. The default value is `False`.
 
 
-        Returns:
-            (:obj: `tf_G.Graph`): A empty graph that allows additions and
-                deletions of edges from vertex in the interval [0,n].
+    Returns:
 
-        """
-        return Graph(sess, name, n=n, writer=writer, is_sparse=sparse)
+      (:obj: `tf_G.Graph`): A empty graph that allows additions and
+        deletions of edges from vertex in the interval [0,n].
 
-    @staticmethod
-    def empty_sparsifier(sess: tf.Session,
-                         name: str,
-                         n: int,
-                         p: float,
-                         writer: tf.summary.FileWriter = None,
-                         is_sparse: bool = False) -> GraphSparsifier:
-        """ Generates an empty Sparsifier Graph.
+    """
+    return Graph(sess, name, n=n, writer=writer, is_sparse=sparse)
 
-        This method generates an empty sparsifier graph with the number of
-        vertex fixed at the construction. The graph allows addition and deletion
-        of edges. The sparsifier means that the graph will not add all edges.
-        Only a subset of it to improve the performance of the algorithms.
+  @staticmethod
+  def empty_sparsifier(sess: tf.Session,
+                       name: str,
+                       n: int,
+                       p: float,
+                       writer: tf.summary.FileWriter = None,
+                       is_sparse: bool = False) -> GraphSparsifier:
+    """ Generates an empty Sparsifier Graph.
 
-        Args:
+    This method generates an empty sparsifier graph with the number of
+    vertex fixed at the construction. The graph allows addition and deletion
+    of edges. The sparsifier means that the graph will not add all edges.
+    Only a subset of it to improve the performance of the algorithms.
 
-            sess (:obj:`tf.Session`): This attribute represents the session
-                that runs the TensorFlow operations.
+    Args:
 
-            name (str): This attribute represents the name of the object in
-                TensorFlow's op Graph.
+      sess (:obj:`tf.Session`): This attribute represents the session
+        that runs the TensorFlow operations.
 
-            n (int): The cardinality of vertex set of the empty graph.
+      name (str): This attribute represents the name of the object in
+        TensorFlow's op Graph.
 
-            writer (:obj:`tf.summary.FileWriter`, optional): This attribute
-                represents a TensorFlow's Writer, that is used to obtain stats.
-                The default value is `None`.
+      n (int): The cardinality of vertex set of the empty graph.
 
-            is_sparse (bool, optional): Use sparse Tensors if it's set to True.
-                Not implemented yet. Show the Todo. The default value is `False`.
+      writer (:obj:`tf.summary.FileWriter`, optional): This attribute
+        represents a TensorFlow's Writer, that is used to obtain stats.
+        The default value is `None`.
+
+      is_sparse (bool, optional): Use sparse Tensors if it's set to True.
+          Not implemented yet. Show the Todo. The default value is `False`.
 
 
-        Returns:
-            (:obj: `tf_G.GraphSparsifier`): A empty graph that allows additions and
-                deletions of edges from vertex in the interval [0,n].
+    Returns:
 
-        """
-        return GraphSparsifier(sess=sess, name=name, n=n, p=p, writer=writer,
-                               is_sparse=is_sparse)
+      (:obj: `tf_G.GraphSparsifier`): A empty graph that allows additions and
+        deletions of edges from vertex in the interval [0,n].
 
-    @staticmethod
-    def unweighted_random(sess: tf.Session, name: str, n: int, m: int,
-                          writer: tf.summary.FileWriter = None,
+    """
+    return GraphSparsifier(sess=sess, name=name, n=n, p=p, writer=writer,
+                           is_sparse=is_sparse)
+
+  @staticmethod
+  def unweighted_random(sess: tf.Session, name: str, n: int, m: int,
+                        writer: tf.summary.FileWriter = None,
+                        is_sparse: bool = False) -> Graph:
+    """ Generates a random unweighted graph.
+
+    This method generates a random unweighted graph with `n` vertex and `m`
+    edges. The edge set is generated using a uniform distribution.
+
+    Args:
+
+      sess (:obj:`tf.Session`): This attribute represents the session
+        that runs the TensorFlow operations.
+
+      name (str): This attribute represents the name of the object in
+        TensorFlow's op Graph.
+
+      n (int): The cardinality of vertex set of the random graph.
+
+      m (int): The cardinality of edge set of the random graph.
+
+      writer (:obj:`tf.summary.FileWriter`, optional): This attribute
+        represents a TensorFlow's Writer, that is used to obtain stats.
+        The default value is `None`.
+
+      is_sparse (bool, optional): Use sparse Tensors if it's set to True.
+        Not implemented yet. Show the Todo. The default value is `False`.
+
+
+    Returns:
+
+      (:obj: `tf_G.GraphSparsifier`): A empty graph that allows additions and
+        deletions of edges from vertex in the interval [0,n].
+
+    """
+    if m > n * (n - 1):
+      raise ValueError('m would be less than n * (n - 1)')
+    edges_np = np.random.random_integers(0, n - 1, [m, 2])
+
+    cond = True
+    while cond:
+      # remove uniques from: https://stackoverflow.com/a/16973510/3921457
+      edges_np = np.concatenate((edges_np,
+                                 np.random.random_integers(0, n - 1, [
+                                   m - len(edges_np), 2])), axis=0)
+      _, unique_idx = np.unique(np.ascontiguousarray(edges_np).view(
+        np.dtype(
+          (np.void, edges_np.dtype.itemsize * edges_np.shape[1]))),
+        return_index=True)
+      edges_np = edges_np[unique_idx]
+      edges_np = edges_np[edges_np[:, 0] != edges_np[:, 1]]
+      cond = len(edges_np) != m
+
+    return Graph(sess, name, edges_np=edges_np, writer=writer,
+                 is_sparse=is_sparse)
+
+  @staticmethod
+  def as_naive_sparsifier(sess: tf.Session, graph: Graph, p: float,
                           is_sparse: bool = False) -> Graph:
-        """ Generates a random unweighted graph.
+    """ Generates a sparsifier graph of the given graph.
 
-        This method generates a random unweighted graph with `n` vertex and `m`
-        edges. The edge set is generated using a uniform distribution.
+    The method picks the edges with probability uniform probability `p` from
+    edge set of the graph given as parameter. This does not provide any
+    guarantee at the structure betweeen the original graph.
 
-        Args:
+    Args:
 
-            sess (:obj:`tf.Session`): This attribute represents the session
-                that runs the TensorFlow operations.
+      sess (:obj:`tf.Session`): This attribute represents the session
+        that runs the TensorFlow operations.
 
-            name (str): This attribute represents the name of the object in
-                TensorFlow's op Graph.
+      graph (:obj:`tf_G.Graph`): The input graph to pick the edges
 
-            n (int): The cardinality of vertex set of the random graph.
+      p (float): The picking probability value. It must be in the [0,1]
+        interval.
 
-            m (int): The cardinality of edge set of the random graph.
+      is_sparse (bool): Use sparse Tensors if it's set to True. Not
+        implemented yet.
 
-            writer (:obj:`tf.summary.FileWriter`, optional): This attribute
-                represents a TensorFlow's Writer, that is used to obtain stats.
-                The default value is `None`.
+    Returns:
 
-            is_sparse (bool, optional): Use sparse Tensors if it's set to True.
-                Not implemented yet. Show the Todo. The default value is `False`.
+      (:obj:`tf_G.Graph`): The resulting graph with less edges than the
+        original graph.
 
+    """
+    boolean_distribution = tf.less_equal(
+      tf.random_uniform([graph.m], 0.0, 1.0), p)
+    edges_np = graph.edge_list_np[sess.run(boolean_distribution)]
+    return Graph(sess, graph.name + "_sparsifier",
+                 edges_np=edges_np, is_sparse=is_sparse)
 
-        Returns:
-            (:obj: `tf_G.GraphSparsifier`): A empty graph that allows additions and
-                deletions of edges from vertex in the interval [0,n].
+  @classmethod
+  def as_sparsifier(cls, sess, graph, p, is_sparse=False):
+    """ Generates a sparsifier graph from the given graph.
 
-        """
-        if m > n * (n - 1):
-            raise ValueError('m would be less than n * (n - 1)')
-        edges_np = np.random.random_integers(0, n - 1, [m, 2])
+    The method picks the edges with probability uniform probability `p` from
+    edge set of the graph given as parameter. The sparsifier uses an
+    heuristic to picks the more edges from the vertices with big out_degree
+    to try to maintain the structure of the graph.
 
-        cond = True
-        while cond:
-            # remove uniques from: https://stackoverflow.com/a/16973510/3921457
-            edges_np = np.concatenate((edges_np,
-                                       np.random.random_integers(0, n - 1, [
-                                           m - len(edges_np), 2])), axis=0)
-            _, unique_idx = np.unique(np.ascontiguousarray(edges_np).view(
-                np.dtype(
-                    (np.void, edges_np.dtype.itemsize * edges_np.shape[1]))),
-                return_index=True)
-            edges_np = edges_np[unique_idx]
-            edges_np = edges_np[edges_np[:, 0] != edges_np[:, 1]]
-            cond = len(edges_np) != m
+    Args:
 
-        return Graph(sess, name, edges_np=edges_np, writer=writer,
-                     is_sparse=is_sparse)
+      sess (:obj:`tf.Session`): This attribute represents the session
+        that runs the TensorFlow operations.
 
-    @staticmethod
-    def as_naive_sparsifier(sess: tf.Session, graph: Graph, p: float,
-                            is_sparse: bool = False) -> Graph:
-        """ Generates a sparsifier graph of the given graph.
+      graph (:obj:`tf_G.Graph`):
 
-        The method picks the edges with probability uniform probability `p` from
-        edge set of the graph given as parameter. This does not provide any
-        guarantee at the structure betweeen the original graph.
+      p (float): The picking probability value. It must be in the [0,1]
+        interval.
 
-        Args:
+      is_sparse (bool): Use sparse Tensors if it's set to True. Not
+        implemented yet.
 
-            sess (:obj:`tf.Session`): This attribute represents the session
-                that runs the TensorFlow operations.
+    Returns:
 
-            graph (:obj:`tf_G.Graph`): The input graph to pick the edges
+     (:obj:`tf_G.Graph`): The resulting graph sparsifier with less edges
+        than the original graph.
 
-            p (float): The picking probability value. It must be in the [0,1]
-                interval.
-
-            is_sparse (bool): Use sparse Tensors if it's set to True. Not
-                implemented yet.
-
-        Returns:
-
-            (:obj:`tf_G.Graph`): The resulting graph with less edges than the
-                original graph.
-
-        """
-        boolean_distribution = tf.less_equal(
-            tf.random_uniform([graph.m], 0.0, 1.0), p)
-        edges_np = graph.edge_list_np[sess.run(boolean_distribution)]
-        return Graph(sess, graph.name + "_sparsifier",
-                     edges_np=edges_np, is_sparse=is_sparse)
-
-    @classmethod
-    def as_sparsifier(cls, sess, graph, p, is_sparse=False):
-        """ Generates a sparsifier graph from the given graph.
-
-        The method picks the edges with probability uniform probability `p` from
-        edge set of the graph given as parameter. The sparsifier uses an
-        heuristic to picks the more edges from the vertices with big out_degree
-        to try to maintain the structure of the graph.
-
-        Args:
-
-            sess (:obj:`tf.Session`): This attribute represents the session
-                that runs the TensorFlow operations.
-
-            graph (:obj:`tf_G.Graph`):
-
-            p (float): The picking probability value. It must be in the [0,1]
-                interval.
-
-            is_sparse (bool): Use sparse Tensors if it's set to True. Not
-                implemented yet.
-
-        Returns:
-             (:obj:`tf_G.Graph`): The resulting graph sparsifier with less edges
-                than the original graph.
-
-        """
-        return GraphSparsifier(sess=sess, graph=graph, p=p, is_sparse=is_sparse)
+    """
+    return GraphSparsifier(sess=sess, graph=graph, p=p, is_sparse=is_sparse)

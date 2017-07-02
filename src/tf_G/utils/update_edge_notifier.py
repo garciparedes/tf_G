@@ -2,73 +2,74 @@ import numpy as np
 
 
 class UpdateEdgeNotifier:
-    """ This class is used to notify another classes that a change in graph edges.
+  """ This class is used to notify another classes that a change in graph edges.
 
-    The graph (or another class that wants to notify an edge change) inherits
-    this class and when an edge changes it will notify this change to all the
-    attached objects.
+  The graph (or another class that wants to notify an edge change) inherits
+  this class and when an edge changes it will notify this change to all the
+  attached objects.
 
-    The objects attached to this class need to implement
-    `update_edge(edge,change)` method.
+  The objects attached to this class need to implement
+  `update_edge(edge,change)` method.
+
+  """
+
+  def __init__(self):
+    """ Constructor of UpdateEdgeNotifier
+
+    The set of listeners is initialised.
 
     """
+    self._listeners = set()
 
-    def __init__(self):
-        """ Constructor of UpdateEdgeNotifier
+  def attach(self, listener):
+    """ Method to attach objects from this class notifications.
 
-        The set of listeners is initialised.
+    Args:
 
-        """
-        self._listeners = set()
+      listener: An object that will start being notified when the graph
+        changes its edge set.
 
-    def attach(self, listener):
-        """ Method to attach objects from this class notifications.
+    Returns:
 
-        Args:
+      This method returns nothing.
 
-            listener: An object that will start being notified when the graph
-                changes its edge set.
+    """
+    self._listeners.add(listener)
 
-        Returns:
+  def detach(self, listener):
+    """ Method to detach objects from this clas notifications.
 
-            This method returns nothing.
+    Args:
 
-        """
-        self._listeners.add(listener)
+      listener: An object that will stop being notified when the graph
+        changes its edge set.
 
-    def detach(self, listener):
-        """ Method to detach objects from this clas notifications.
+    Returns:
 
-        Args:
-            listener: An object that will stop being notified when the graph
-                changes its edge set.
+      This method returns nothing.
 
-        Returns:
+    """
+    self._listeners.discard(listener)
 
-            This method returns nothing.
+  def _notify(self, edge: np.array, change: float):
+    """ The private method that is used internally to notify the changes to
+        attached classes.
 
-        """
-        self._listeners.discard(listener)
+    This method will broadcast the `change` of the `edge` to all the objects
+    attached to this class.
 
-    def _notify(self, edge: np.array, change: float):
-        """ The private method that is used internally to notify the changes to
-            attached classes.
+    Args:
 
-        This method will broadcast the `change` of the `edge` to all the objects
-        attached to this class.
+      edge (:obj:`np.array`): The vector of shape [2] that represent and
+        edge being edge[0] the source vertex and edge[1] the destination
+        vertex.
 
-        Args:
+      change (float): The variation in the edge weight.
 
-            edge (:obj:`np.array`): The vector of shape [2] that represent and
-                edge being edge[0] the source vertex and edge[1] the destination
-                vertex.
+    Returns:
 
-            change (float): The variation in the edge weight.
+      This method returns nothing.
 
-        Returns:
-
-            This method returns nothing.
-
-        """
-        for observer in self._listeners:
-            observer.update_edge(edge, change)
+    """
+    for observer in self._listeners:
+      observer.update_edge(edge, change)
