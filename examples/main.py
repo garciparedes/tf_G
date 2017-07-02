@@ -57,7 +57,7 @@ def main():
         # print(pr_iter.ranks_np(convergence=convergence))
         # print(pr_alge.error_ranks_compare_np(pr_iter))
         '''
-        g_sparse = tf_G.GraphConstructor.as_other_sparsifier(sess, graph, 0.75)
+        g_sparse = tf_G.GraphConstructor.as_sparsifier(sess, graph, 0.75)
 
         pr_sparse = tf_G.IterativePageRank(sess, "PR_sparse", g_sparse, beta)
 
@@ -72,18 +72,21 @@ def main():
         '''
         g_sparse_updateable = tf_G.GraphConstructor.empty_sparsifier(
             sess=sess, name="G_su", n=6301, p=0.5)
+        pr_iter: tf_G.PageRank = tf_G.IterativePageRank(
+            sess, "PR_su", g_sparse_updateable, beta, convergence=convergence)
 
+        e = pr_iter.ranks_np(convergence=convergence)
         for r in edges_np:
-            start_time = timeit.default_timer()
             g_sparse_updateable.append(r[0], r[1])
-            print(timeit.default_timer() - start_time)
-            print()
-            writer.add_graph(sess.graph)
+            e = pr_iter.ranks_np(convergence=convergence)
+            tf_G.Utils.save_ranks("logs/csv/sparse_update.csv", e)
 
+        print(e)
         # tf_G.Utils.save_ranks("logs/csv/alge.csv",a)
-        #tf_G.Utils.save_ranks("logs/csv/iter.csv", b)
+        # tf_G.Utils.save_ranks("logs/csv/iter.csv", b)
         # Utils.save_ranks("logs/csv/random.csv",c)
-        #tf_G.Utils.save_ranks("logs/csv/sparse.csv", d)
+        # tf_G.Utils.save_ranks("logs/csv/sparse.csv", d)
+        tf_G.Utils.save_ranks("logs/csv/sparse_update.csv", e)
         '''
         print(GraphConstructor.unweighted_random(sess, "GRandom", 10 ** 2,
                                                  10 ** 3, writer=writer))

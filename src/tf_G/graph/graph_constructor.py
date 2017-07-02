@@ -64,5 +64,5 @@ class GraphConstructor:
                      edges_np=edges_np, is_sparse=is_sparse)
 
     @classmethod
-    def as_other_sparsifier(cls, sess, graph, p, is_sparse=False):
+    def as_sparsifier(cls, sess, graph, p, is_sparse=False):
         return GraphSparsifier(sess=sess, graph=graph, p=p, is_sparse=is_sparse)

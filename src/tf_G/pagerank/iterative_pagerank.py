@@ -54,7 +54,4 @@ class IterativePageRank(PageRank):
             str(self.__class__.__name__) + ' not implements exact PageRank')
 
     def update_edge(self, edge: np.ndarray, change: float) -> None:
-        warnings.warn('PageRank auto-update not implemented yet!')
-
-        print("Edge: " + str(edge) + "\tChange: " + str(change))
         self.run(self._pr_convergence_tf(convergence=0.01))
