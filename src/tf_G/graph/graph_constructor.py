@@ -20,10 +20,14 @@ class GraphConstructor:
         return Graph(sess, name, n=n, writer=writer, is_sparse=sparse)
 
     @staticmethod
-    def empty_sparsifier(sess: tf.Session, name: str, n: int, p: int,
-              writer: tf.summary.FileWriter = None,
-              sparse: bool = False) -> Graph:
-        return GraphSparsifier(sess, name=name, n=n, p=p, writer=writer, is_sparse=sparse)
+    def empty_sparsifier(sess: tf.Session,
+                         name: str,
+                         n: int,
+                         p: float,
+                         writer: tf.summary.FileWriter = None,
+                         is_sparse: bool = False) -> Graph:
+        return GraphSparsifier(sess=sess, name=name, n=n, p=p, writer=writer,
+                               is_sparse=is_sparse)
 
     @staticmethod
     def unweighted_random(sess: tf.Session, name: str, n: int, m: int,
