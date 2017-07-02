@@ -99,7 +99,7 @@ class DataSets:
         This graph contains 7 vertex and 8 edges.
 
         Args:
-            index_decrement: (bool): Decrements all valus by one if True, do
+            index_decrement (bool): Decrements all valus by one if True, do
                 nothing otherwise.
         Returns:
             (:obj:`np.ndarray`): The data set that represents the followers
@@ -120,7 +120,7 @@ class DataSets:
         The url of the data set is:
             https://snap.stanford.edu/data/wiki-Vote.html
         Args:
-            index_decrement: (bool): Decrements all valus by one if True, do
+            index_decrement (bool): Decrements all valus by one if True, do
                 nothing otherwise.
         Returns:
             (:obj:`np.ndarray`): The data set that represents the wiki_vote
@@ -138,10 +138,10 @@ class DataSets:
 
         This graph contains 6301 vertices and 20777 edges.
 
-        The url of the data set is:
+        Url:
             https://snap.stanford.edu/data/p2p-Gnutella08.html
         Args:
-            index_decrement: (bool): Decrements all valus by one if True, do
+            index_decrement (bool): Decrements all valus by one if True, do
                 nothing otherwise.
         Returns:
             (:obj:`np.ndarray`): The data set that represents the p2p_gnutella08
@@ -184,7 +184,7 @@ class DataSets:
 
         This graph contains 4 vertices and 8 edges.
 
-        The url of the data set is:
+        Url:
             http://www.math.cornell.edu/~mec/Winter2009/RalucaRemus/Lecture3/lecture3.html
 
         Returns:
@@ -202,7 +202,7 @@ class DataSets:
 
         This graph contains 6 vertices and 9 edges.
 
-        The url of the data set is:
+        Url:
             https://www.mathworks.com/content/dam/mathworks/mathworks-dot-com/moler/exm/chapters/pagerank.pdf
         Returns:
             (:obj:`np.ndarray`): The data set that represents the Graph.
