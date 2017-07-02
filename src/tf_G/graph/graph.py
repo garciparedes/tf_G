@@ -121,7 +121,7 @@ class Graph(TensorFlowObject, UpdateEdgeNotifier):
             tf.reduce_sum(self.A_tf, 0, keep_dims=True),
             name=self.name + "_d_in")
         self.L_tf = tf.Variable(
-            tf.diag(self.out_degrees_tf_vector()) - self.A_tf,
+            tf.diag(self.out_degrees_tf_vector) - self.A_tf,
             name=self.name + "_L")
         self.run_tf(tf.variables_initializer([self.A_tf, self.n_tf]))
         self.run_tf(tf.variables_initializer([
@@ -153,7 +153,7 @@ class Graph(TensorFlowObject, UpdateEdgeNotifier):
                 of the vertex set.
 
         """
-        return tf.not_equal(self.out_degrees_tf_vector(), 0)
+        return tf.not_equal(self.out_degrees_tf_vector, 0)
 
     def is_not_sink_tf_vertex(self, vertex: int) -> TF_type:
         """ This method returns if a vertex is a sink vertex as vector.
@@ -277,6 +277,7 @@ class Graph(TensorFlowObject, UpdateEdgeNotifier):
         """
         return tf.gather(self.A_tf, [vertex])
 
+    @property
     def in_degrees_tf_vector(self):
         """ The in-degrees of the vertices of the graph
 
@@ -289,6 +290,7 @@ class Graph(TensorFlowObject, UpdateEdgeNotifier):
         """
         return tf.reshape(self.in_degrees_tf, [self.n])
 
+    @property
     def out_degrees_tf_vector(self):
         """ The out-degrees of the vertices of the graph
 
