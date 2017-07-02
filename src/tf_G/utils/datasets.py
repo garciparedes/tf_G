@@ -36,6 +36,10 @@ class DataSets:
         return DataSets._compose_from_name('wiki-Vote', index_decrement)
 
     @staticmethod
+    def p2p_gnutella08(index_decrement: bool = False) -> np.ndarray:
+        return DataSets._compose_from_name('p2p-gnutella08', index_decrement)
+
+    @staticmethod
     def generate_from_path(path: str, index_increment=True) -> np.ndarray:
         return DataSets._compose_from_path(path, index_increment)
 
@@ -45,14 +49,7 @@ class DataSets:
             url: http://www.math.cornell.edu/~mec/Winter2009/RalucaRemus/Lecture3/lecture3.html
         """
         return DataSets._permute_edges(np.array([
-            [0, 1],
-            [0, 2],
-            [0, 3],
-            [1, 2],
-            [1, 3],
-            [2, 0],
-            [3, 0],
-            [3, 2]]))
+            [0, 1], [0, 2], [0, 3], [1, 2], [1, 3], [2, 0], [3, 0], [3, 2]]))
 
     @staticmethod
     def naive_6() -> np.ndarray:
@@ -60,12 +57,5 @@ class DataSets:
             url: https://www.mathworks.com/content/dam/mathworks/mathworks-dot-com/moler/exm/chapters/pagerank.pdf
         """
         return DataSets._permute_edges(np.array([
-            [1, 2],
-            [1, 6],
-            [2, 3],
-            [2, 4],
-            [3, 4],
-            [3, 5],
-            [3, 6],
-            [4, 1],
+            [1, 2], [1, 6], [2, 3], [2, 4], [3, 4], [3, 5], [3, 6], [4, 1],
             [6, 1]]) - 1)
