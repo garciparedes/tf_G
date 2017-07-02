@@ -73,7 +73,7 @@ def main():
         g_sparse_updateable = tf_G.GraphConstructor.empty_sparsifier(
             sess=sess, name="G_su", n=6301, p=0.5)
         pr_iter: tf_G.PageRank = tf_G.IterativePageRank(
-            sess, "PR_su", g_sparse_updateable, beta, convergence=convergence)
+            sess, "PR_su", g_sparse_updateable, beta)
 
         e = pr_iter.ranks_np(convergence=convergence)
         for r in edges_np:
