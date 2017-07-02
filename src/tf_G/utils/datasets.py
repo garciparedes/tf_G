@@ -15,7 +15,9 @@ class DataSets:
         """ Private method to get the path of provided data sets.
 
         Returns:
+
             str: The relative path that points to data sets directory.
+
         """
         return "./../datasets"
 
@@ -24,9 +26,11 @@ class DataSets:
         """ Private method that returns the path of a set from it's name.
 
         Args:
+
             name (str): The name of data set.
 
         Returns:
+
             str: The relative path that points to the csv file that contains
                 the data set.
 
@@ -38,10 +42,13 @@ class DataSets:
         """ Private method that permutes the rows order of given the input set.
 
         Args:
+
             edges_np (:obj:`np.ndarray`): The input data set.
 
         Returns:
+
             (:obj:`np.ndarray`): The input data set permuted in rows
+
         """
         return np.random.permutation(edges_np)
 
@@ -57,11 +64,14 @@ class DataSets:
         0-indexed, so decrementing the values improves space performance.
 
         Args:
+
             path (str): The path of the file of data set csv.
+
             index_decrement (bool): Decrements all valus by one if True, do
-                nothing otherwise
+                nothing otherwise.
 
         Returns:
+
             (:obj:`np.ndarray`): The data set that represents the Graph.
 
         """
@@ -78,11 +88,14 @@ class DataSets:
         generates the data set using `_compose_from_path`.
 
         Args:
+
             name (str): The name of the data set.
-            index_decrement: (bool): Decrements all valus by one if True, do
+
+            index_decrement (bool): Decrements all valus by one if True, do
                 nothing otherwise.
 
         Returns:
+
             (:obj:`np.ndarray`): The data set that represents the Graph.
 
         """
@@ -99,9 +112,12 @@ class DataSets:
         This graph contains 7 vertex and 8 edges.
 
         Args:
+
             index_decrement (bool): Decrements all valus by one if True, do
                 nothing otherwise.
+
         Returns:
+
             (:obj:`np.ndarray`): The data set that represents the followers
                 Graph.
 
@@ -117,12 +133,16 @@ class DataSets:
 
         This graph contains 7115 vertices and 103689 edges.
 
-        The url of the data set is:
-            https://snap.stanford.edu/data/wiki-Vote.html
+        Url:
+           https://snap.stanford.edu/data/wiki-Vote.html
+
         Args:
+
             index_decrement (bool): Decrements all valus by one if True, do
                 nothing otherwise.
+
         Returns:
+
             (:obj:`np.ndarray`): The data set that represents the wiki_vote
                 Graph.
 
@@ -139,11 +159,16 @@ class DataSets:
         This graph contains 6301 vertices and 20777 edges.
 
         Url:
+
             https://snap.stanford.edu/data/p2p-Gnutella08.html
+
         Args:
+
             index_decrement (bool): Decrements all valus by one if True, do
                 nothing otherwise.
+
         Returns:
+
             (:obj:`np.ndarray`): The data set that represents the p2p_gnutella08
                 Graph.
 
@@ -164,11 +189,14 @@ class DataSets:
         It acts as interface to use the `_compose_from_path` method.
 
         Args:
+
             path (str): The path of the file of data set csv.
+
             index_decrement (bool): Decrements all valus by one if True, do
                 nothing otherwise
 
         Returns:
+
             (:obj:`np.ndarray`): The data set that represents the Graph.
 
         """
@@ -185,9 +213,11 @@ class DataSets:
         This graph contains 4 vertices and 8 edges.
 
         Url:
+
             http://www.math.cornell.edu/~mec/Winter2009/RalucaRemus/Lecture3/lecture3.html
 
         Returns:
+
             (:obj:`np.ndarray`): The data set that represents the Graph.
 
         """
@@ -203,8 +233,11 @@ class DataSets:
         This graph contains 6 vertices and 9 edges.
 
         Url:
+
             https://www.mathworks.com/content/dam/mathworks/mathworks-dot-com/moler/exm/chapters/pagerank.pdf
+
         Returns:
+
             (:obj:`np.ndarray`): The data set that represents the Graph.
 
         """

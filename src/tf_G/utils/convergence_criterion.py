@@ -24,8 +24,8 @@ class ConvergenceCriterion(Enum):
     Returns:
     
         (:obj:`tf.Tensor`): Tensor that returns True if the difference of the 
-            vectors is inside the convergence criterion interval, and False 
-            otherwise.        
+        vectors is inside the convergence criterion interval, and False 
+        otherwise.        
     
     """
 
@@ -39,8 +39,8 @@ class ConvergenceCriterion(Enum):
     Returns:
         
         (:obj:`tf.Tensor`): Tensor that returns True if the difference of the 
-            vectors is inside the convergence criterion interval, and False 
-            otherwise.        
+        vectors is inside the convergence criterion interval, and False 
+        otherwise.        
     
     """
 
@@ -57,6 +57,8 @@ class ConvergenceCriterion(Enum):
             **kwargs: The kwargs to the enum.
 
         Returns:
+
             The result of the corresponding enum's lambda function.
+
         """
         return self.value[0](*args, **kwargs)

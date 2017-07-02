@@ -27,7 +27,7 @@ Utils
 
 ConvergenceCriterion
 --------------------
-.. autoclass:: tf_G.utils.vector_convergence.ConvergenceCriterion
+.. autoclass:: tf_G.utils.convergence_criterion.ConvergenceCriterion
     :members:
 
 VectorNorm

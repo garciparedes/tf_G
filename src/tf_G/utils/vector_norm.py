@@ -71,6 +71,8 @@ class VectorNorm(Enum):
             **kwargs: The kwargs to the enum.
 
         Returns:
+
             The result of the corresponding enum's lambda function.
+
         """
         return self.value[0](*args, **kwargs)

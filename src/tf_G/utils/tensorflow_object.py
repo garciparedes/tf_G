@@ -23,18 +23,24 @@ class TensorFlowObject(object):
         It assign the input parameters to the class objects and no more.
 
         Args:
+
             sess (:obj:`tf.Session`): This attribute represents the session of
                 that runs the TensorFlow operations
+
             name (str): This attribute represents the name of the object in
                 TensorFlow's op Graph
+
             writer (:obj:`tf.summary.FileWriter`): This attribute represents a
                 TensorFlow's Writer, that is used to obtain stats.
+
             is_sparse (bool): Use sparse Tensors if it's set to True. Not
                 implemented yet. Show the Todo.
 
         Todo:
-            * implement variables as sparse when it's possible. Waiting to
+
+            * Implement variables as sparse when it's possible. Waiting to
                 TensorFlow for it.
+
         """
         self.sess = sess
         self.name = name
@@ -47,9 +53,12 @@ class TensorFlowObject(object):
         """ Run method to execute TensorFlow operations
 
         Args:
+
             input_to_run: This parameter represents a TensorFlow operation.
 
         Returns:
+
             The result of the operation as numpy array
+
         """
         return self.sess.run(input_to_run)

@@ -6,6 +6,12 @@ from tf_G.utils.update_edge_notifier import UpdateEdgeNotifier
 
 
 class Graph(TensorFlowObject, UpdateEdgeNotifier):
+    """ Graph class implemented with TensorFlow
+
+    The class codifies the graph using an square matrix of 2-D shape and provides
+    functionality operating with this matrix.
+
+    """
     def __init__(self, sess: tf.Session, name: str,
                  writer: tf.summary.FileWriter = None,
                  edges_np: np.ndarray = None, n: int = None,
@@ -105,7 +111,7 @@ class Graph(TensorFlowObject, UpdateEdgeNotifier):
                      tf.scatter_nd_add(self.L_tf, [[src, src], [src, dst]],
                                     [+1.0, -1.0])])
         self.m += 1
-        self._notify([src, dst], 1)
+        self._notify(np.ndarray([src, dst]), 1)
 
     def remove(self, src: int, dst: int) -> None:
         if src and dst is None:
@@ -117,4 +123,4 @@ class Graph(TensorFlowObject, UpdateEdgeNotifier):
                      tf.scatter_nd_add(self.L_tf, [[src, src], [src, dst]],
                                     [-1.0, +1.0])])
         self.m -= 1
-        self._notify([src, dst], -1)
+        self._notify(np.ndarray([src, dst]), -1)
