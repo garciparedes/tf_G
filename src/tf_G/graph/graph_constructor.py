@@ -7,7 +7,7 @@ from tf_G.graph.graph_sparsifier import GraphSparsifier
 
 class GraphConstructor:
     @staticmethod
-    def from_edges(sess: tf.Session, name: str, edges_np: np.ndarray,
+    def from_edges(sess: tf.Session, name: str, edges_np: np.array,
                    writer: tf.summary.FileWriter = None,
                    is_sparse: bool = False) -> Graph:
         return Graph(sess, name, edges_np=edges_np, writer=writer,

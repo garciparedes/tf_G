@@ -22,6 +22,6 @@ class TransitionRandom(TransitionResetMatrix):
                        [self.G.n, 1]),
             tf.fill([self.G.n], 1 / (self.G.n + t)), [self.G.n]))
 
-    def update_edge(self, edge: np.ndarray, change: float) -> None:
+    def update_edge(self, edge: np.array, change: float) -> None:
         # TODO
         pass

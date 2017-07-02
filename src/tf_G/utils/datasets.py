@@ -38,22 +38,22 @@ class DataSets:
         return DataSets._get_path() + '/' + name + '/' + name + ".csv"
 
     @staticmethod
-    def _permute_edges(edges_np: np.ndarray) -> np.ndarray:
+    def _permute_edges(edges_np: np.array) -> np.array:
         """ Private method that permutes the rows order of given the input set.
 
         Args:
 
-            edges_np (:obj:`np.ndarray`): The input data set.
+            edges_np (:obj:`np.array`): The input data set.
 
         Returns:
 
-            (:obj:`np.ndarray`): The input data set permuted in rows
+            (:obj:`np.array`): The input data set permuted in rows
 
         """
         return np.random.permutation(edges_np)
 
     @staticmethod
-    def _compose_from_path(path: str, index_decrement: bool) -> np.ndarray:
+    def _compose_from_path(path: str, index_decrement: bool) -> np.array:
         """ Private method that composes a data set from a given path.
 
         The method obtains the data from the given path, then decrements its
@@ -72,7 +72,7 @@ class DataSets:
 
         Returns:
 
-            (:obj:`np.ndarray`): The data set that represents the Graph.
+            (:obj:`np.array`): The data set that represents the Graph.
 
         """
         data = pd.read_csv(path)
@@ -81,7 +81,7 @@ class DataSets:
         return DataSets._permute_edges(data.as_matrix())
 
     @staticmethod
-    def _compose_from_name(name: str, index_decrement: bool) -> np.ndarray:
+    def _compose_from_name(name: str, index_decrement: bool) -> np.array:
         """ Private method that composes a data set from its name.
 
         This method uses `_name_to_default_path` to obtain the path and
@@ -96,14 +96,14 @@ class DataSets:
 
         Returns:
 
-            (:obj:`np.ndarray`): The data set that represents the Graph.
+            (:obj:`np.array`): The data set that represents the Graph.
 
         """
         return DataSets._compose_from_path(DataSets._name_to_default_path(name),
                                            index_decrement)
 
     @staticmethod
-    def followers(index_decrement: bool = True) -> np.ndarray:
+    def followers(index_decrement: bool = True) -> np.array:
         """ This method returns the followers data set.
 
         The data set is obtained from a example of GraphX, a graph library
@@ -118,14 +118,14 @@ class DataSets:
 
         Returns:
 
-            (:obj:`np.ndarray`): The data set that represents the followers
+            (:obj:`np.array`): The data set that represents the followers
                 Graph.
 
         """
         return DataSets._compose_from_name('followers', index_decrement)
 
     @staticmethod
-    def wiki_vote(index_decrement: bool = True) -> np.ndarray:
+    def wiki_vote(index_decrement: bool = True) -> np.array:
         """ This method returns the wiki-Vote data set.
 
         The data set is obtained from the Stanford's University SNAP project,
@@ -143,14 +143,14 @@ class DataSets:
 
         Returns:
 
-            (:obj:`np.ndarray`): The data set that represents the wiki_vote
+            (:obj:`np.array`): The data set that represents the wiki_vote
                 Graph.
 
         """
         return DataSets._compose_from_name('wiki-Vote', index_decrement)
 
     @staticmethod
-    def p2p_gnutella08(index_decrement: bool = False) -> np.ndarray:
+    def p2p_gnutella08(index_decrement: bool = False) -> np.array:
         """ This method returns the p2p-gnutella08 data set.
 
         The data set is obtained from the Stanford's University SNAP project,
@@ -169,14 +169,14 @@ class DataSets:
 
         Returns:
 
-            (:obj:`np.ndarray`): The data set that represents the p2p_gnutella08
+            (:obj:`np.array`): The data set that represents the p2p_gnutella08
                 Graph.
 
         """
         return DataSets._compose_from_name('p2p-gnutella08', index_decrement)
 
     @staticmethod
-    def generate_from_path(path: str, index_increment=True) -> np.ndarray:
+    def generate_from_path(path: str, index_increment=True) -> np.array:
         """ This method generates a data set from a given path.
 
         The method obtains the data from the given path, then decrements its
@@ -197,13 +197,13 @@ class DataSets:
 
         Returns:
 
-            (:obj:`np.ndarray`): The data set that represents the Graph.
+            (:obj:`np.array`): The data set that represents the Graph.
 
         """
         return DataSets._compose_from_path(path, index_increment)
 
     @staticmethod
-    def naive_4() -> np.ndarray:
+    def naive_4() -> np.array:
         """ This method returns the naive_4 data set.
 
         The data set is obtained from Cornell University guide lecture of
@@ -218,14 +218,14 @@ class DataSets:
 
         Returns:
 
-            (:obj:`np.ndarray`): The data set that represents the Graph.
+            (:obj:`np.array`): The data set that represents the Graph.
 
         """
         return DataSets._permute_edges(np.array([
             [0, 1], [0, 2], [0, 3], [1, 2], [1, 3], [2, 0], [3, 0], [3, 2]]))
 
     @staticmethod
-    def naive_6() -> np.ndarray:
+    def naive_6() -> np.array:
         """ This method returns the naive_6 data set.
 
         The data set is obtained from mathworks study of PageRank algorithm.
@@ -238,7 +238,7 @@ class DataSets:
 
         Returns:
 
-            (:obj:`np.ndarray`): The data set that represents the Graph.
+            (:obj:`np.array`): The data set that represents the Graph.
 
         """
         return DataSets._permute_edges(np.array([

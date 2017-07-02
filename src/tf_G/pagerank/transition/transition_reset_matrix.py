@@ -24,9 +24,9 @@ class TransitionResetMatrix(Transition):
     def __call__(self, *args, **kwargs):
         return self.transition
 
-    def update_edge(self, edge: np.ndarray, change: float) -> None:
+    def update_edge(self, edge: np.array, change: float) -> None:
 
-        # print("Edge: " + str(edge) + "\tChange: " + str(change))
+        print("Edge: " + str(edge[0])+ ",  "+ str(edge[1])+ "\tChange: " + str(change))
 
         if change > 0.0:
             self.run_tf(tf.scatter_nd_update(

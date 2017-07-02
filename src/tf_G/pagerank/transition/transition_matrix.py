@@ -19,7 +19,7 @@ class TransitionMatrix(Transition):
     def __call__(self, *args, **kwargs):
         return self.transition
 
-    def update_edge(self, edge: np.ndarray, change: float) -> None:
+    def update_edge(self, edge: np.array, change: float) -> None:
 
         # print("Edge: " + str(edge) + "\tChange: " + str(change))
 

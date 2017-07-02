@@ -9,7 +9,7 @@ def main():
     beta: float = 0.85
     convergence: float = 0.01
 
-    edges_np: np.ndarray = tf_G.DataSets.p2p_gnutella08()
+    edges_np: np.array = tf_G.DataSets.p2p_gnutella08()
 
     with tf.Session() as sess:
         writer: tf.summary.FileWriter = tf.summary.FileWriter(
@@ -40,7 +40,7 @@ def main():
         '''
         # a = pr_alge.ranks_np()
         start_time: float = timeit.default_timer()
-        b: np.ndarray = pr_iter.ranks_np(convergence=convergence)
+        b: np.array = pr_iter.ranks_np(convergence=convergence)
         elapsed: float = timeit.default_timer() - start_time
         print(elapsed)
         start_time = timeit.default_timer()
@@ -62,7 +62,7 @@ def main():
         pr_sparse = tf_G.IterativePageRank(sess, "PR_sparse", g_sparse, beta)
 
         start_time: float = timeit.default_timer()
-        d: np.ndarray = pr_sparse.ranks_np(convergence=convergence)
+        d: np.array = pr_sparse.ranks_np(convergence=convergence)
         elapsed: float = timeit.default_timer() - start_time
         print(elapsed)
 

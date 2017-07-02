@@ -25,10 +25,10 @@ class TensorFlowObject(object):
         Args:
 
             sess (:obj:`tf.Session`): This attribute represents the session of
-                that runs the TensorFlow operations
+                that runs the TensorFlow operations.
 
             name (str): This attribute represents the name of the object in
-                TensorFlow's op Graph
+                TensorFlow's op Graph.
 
             writer (:obj:`tf.summary.FileWriter`): This attribute represents a
                 TensorFlow's Writer, that is used to obtain stats.

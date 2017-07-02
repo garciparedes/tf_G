@@ -35,7 +35,7 @@ class PageRank(TensorFlowObject):
             VectorNorm.ONE(tf.subtract(self.v, other_pr.v)), [])
 
     def error_vector_compare_np(self, other_pr: 'PageRank',
-                                k: int = -1) -> np.ndarray:
+                                k: int = -1) -> np.array:
         return self.run_tf(self.error_vector_compare_tf(other_pr, k))
 
     def error_ranks_compare_tf(self, other_pr: 'PageRank',
@@ -53,12 +53,12 @@ class PageRank(TensorFlowObject):
             (self.G.n_tf * (self.G.n_tf - 1)))
 
     def error_ranks_compare_np(self, other_pr: 'PageRank',
-                               k: int = -1) -> np.ndarray:
+                               k: int = -1) -> np.array:
         return self.run_tf(self.error_ranks_compare_tf(other_pr, k=k))
 
     def pagerank_vector_np(self, convergence: float = 1.0, steps: int = 0,
                            topics: List[int] = None,
-                           c_criterion=ConvergenceCriterion.ONE) -> np.ndarray:
+                           c_criterion=ConvergenceCriterion.ONE) -> np.array:
         return self.run_tf(
             self.pagerank_vector_tf(convergence, steps, topics,
                                     c_criterion))
@@ -75,7 +75,7 @@ class PageRank(TensorFlowObject):
             return self._pr_exact_tf(topics=topics)
 
     def ranks_np(self, convergence: float = 1.0, steps: int = 0,
-                 topics: List[int] = None) -> np.ndarray:
+                 topics: List[int] = None) -> np.array:
         self.pagerank_vector_tf(convergence, steps, topics)
         ranks = tf.map_fn(
             lambda x: [x, tf.gather(tf.reshape(self.v, [self.G.n]), x)],
