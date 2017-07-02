@@ -10,14 +10,14 @@ def __str__(self) -> str:
 
 
 class Graph(TensorFlowObject, UpdateEdgeNotifier):
-    """ Graph class implemented with TensorFlow
+    """ Graph class implemented in the top of TensorFlow.
 
     The class codifies the graph using an square matrix of 2-D shape and
     provides functionality operating with this matrix.
 
     Attributes:
 
-        sess (:obj:`tf.Session`): This attribute represents the session of
+        sess (:obj:`tf.Session`): This attribute represents the session
                 that runs the TensorFlow operations.
 
         name (str): This attribute represents the name of the object in
@@ -64,7 +64,7 @@ class Graph(TensorFlowObject, UpdateEdgeNotifier):
 
         Args:
 
-            sess (:obj:`tf.Session`): This attribute represents the session of
+            sess (:obj:`tf.Session`): This attribute represents the session
                 that runs the TensorFlow operations.
 
             name (str): This attribute represents the name of the object in
@@ -139,7 +139,7 @@ class Graph(TensorFlowObject, UpdateEdgeNotifier):
 
         """
         return str(self.run_tf(self.L_tf))
-    
+
     @property
     def is_not_sink_tf(self) -> tf.Tensor:
         """ This method returns if a vertex is a sink vertex as vector.

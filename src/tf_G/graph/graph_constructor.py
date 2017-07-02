@@ -25,7 +25,7 @@ class GraphConstructor:
 
         Args:
 
-            sess (:obj:`tf.Session`): This attribute represents the session of
+            sess (:obj:`tf.Session`): This attribute represents the session
                 that runs the TensorFlow operations.
 
             name (str): This attribute represents the name of the object in
@@ -62,7 +62,7 @@ class GraphConstructor:
 
         Args:
 
-            sess (:obj:`tf.Session`): This attribute represents the session of
+            sess (:obj:`tf.Session`): This attribute represents the session
                 that runs the TensorFlow operations.
 
             name (str): This attribute represents the name of the object in
@@ -101,7 +101,7 @@ class GraphConstructor:
 
         Args:
 
-            sess (:obj:`tf.Session`): This attribute represents the session of
+            sess (:obj:`tf.Session`): This attribute represents the session
                 that runs the TensorFlow operations.
 
             name (str): This attribute represents the name of the object in
@@ -136,7 +136,7 @@ class GraphConstructor:
 
         Args:
 
-            sess (:obj:`tf.Session`): This attribute represents the session of
+            sess (:obj:`tf.Session`): This attribute represents the session
                 that runs the TensorFlow operations.
 
             name (str): This attribute represents the name of the object in
@@ -191,7 +191,7 @@ class GraphConstructor:
 
         Args:
 
-            sess (:obj:`tf.Session`): This attribute represents the session of
+            sess (:obj:`tf.Session`): This attribute represents the session
                 that runs the TensorFlow operations.
 
             graph (:obj:`tf_G.Graph`): The input graph to pick the edges
@@ -225,7 +225,7 @@ class GraphConstructor:
 
         Args:
 
-            sess (:obj:`tf.Session`): This attribute represents the session of
+            sess (:obj:`tf.Session`): This attribute represents the session
                 that runs the TensorFlow operations.
 
             graph (:obj:`tf_G.Graph`):

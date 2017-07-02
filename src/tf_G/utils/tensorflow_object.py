@@ -24,7 +24,7 @@ class TensorFlowObject(object):
 
         Args:
 
-            sess (:obj:`tf.Session`): This attribute represents the session of
+            sess (:obj:`tf.Session`): This attribute represents the session
                 that runs the TensorFlow operations.
 
             name (str): This attribute represents the name of the object in
