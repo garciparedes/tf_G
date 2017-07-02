@@ -7,7 +7,7 @@ import numpy as np
 from tf_G.pagerank.transition.transition_reset_matrix import \
     TransitionResetMatrix
 from tf_G.pagerank.pagerank import PageRank
-from tf_G.utils.vector_convergence import ConvergenceCriterion
+from tf_G.utils.convergence_criterion import ConvergenceCriterion
 from tf_G.graph.graph import Graph
 
 
@@ -23,7 +23,7 @@ class IterativePageRank(PageRank):
         if topics is not None:
             warnings.warn('Personalized PageRank not implemented yet!')
 
-        self.run(
+        self.run_tf(
             self.v.assign(
                 tf.while_loop(c_criterion,
                               lambda i, v, v_last, c, n:
@@ -38,7 +38,7 @@ class IterativePageRank(PageRank):
         if topics is not None:
             warnings.warn('Personalized PageRank not implemented yet!')
 
-        self.run(
+        self.run_tf(
             self.v.assign(
                 tf.while_loop(lambda i, v: i < steps,
                               lambda i, v: (i + 1.0, self.iter(i, v)),
@@ -54,4 +54,4 @@ class IterativePageRank(PageRank):
             str(self.__class__.__name__) + ' not implements exact PageRank')
 
     def update_edge(self, edge: np.ndarray, change: float) -> None:
-        self.run(self._pr_convergence_tf(convergence=0.01))
+        self.run_tf(self._pr_convergence_tf(convergence=0.01))

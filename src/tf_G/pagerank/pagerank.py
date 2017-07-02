@@ -10,7 +10,7 @@ from tf_G.utils.utils import Utils
 from tf_G.utils.vector_norm import VectorNorm
 from tf_G.pagerank.transition import Transition
 from tf_G.utils.tensorflow_object import TensorFlowObject
-from tf_G.utils.vector_convergence import ConvergenceCriterion
+from tf_G.utils.convergence_criterion import ConvergenceCriterion
 
 
 class PageRank(TensorFlowObject):
@@ -23,7 +23,7 @@ class PageRank(TensorFlowObject):
         self.T.attach(self)
         self.v = tf.Variable(tf.fill([1, self.G.n], tf.pow(self.G.n_tf, -1)),
                              name=self.G.name + "_" + self.name + "_v")
-        self.run(tf.variables_initializer([self.v]))
+        self.run_tf(tf.variables_initializer([self.v]))
 
     def error_vector_compare_tf(self, other_pr: 'PageRank',
                                 k: int = -1) -> tf.Tensor:
@@ -36,7 +36,7 @@ class PageRank(TensorFlowObject):
 
     def error_vector_compare_np(self, other_pr: 'PageRank',
                                 k: int = -1) -> np.ndarray:
-        return self.run(self.error_vector_compare_tf(other_pr, k))
+        return self.run_tf(self.error_vector_compare_tf(other_pr, k))
 
     def error_ranks_compare_tf(self, other_pr: 'PageRank',
                                k: int = -1) -> tf.Tensor:
@@ -54,12 +54,12 @@ class PageRank(TensorFlowObject):
 
     def error_ranks_compare_np(self, other_pr: 'PageRank',
                                k: int = -1) -> np.ndarray:
-        return self.run(self.error_ranks_compare_tf(other_pr, k=k))
+        return self.run_tf(self.error_ranks_compare_tf(other_pr, k=k))
 
     def pagerank_vector_np(self, convergence: float = 1.0, steps: int = 0,
                            topics: List[int] = None,
                            c_criterion=ConvergenceCriterion.ONE) -> np.ndarray:
-        return self.run(
+        return self.run_tf(
             self.pagerank_vector_tf(convergence, steps, topics,
                                     c_criterion))
 
@@ -83,7 +83,7 @@ class PageRank(TensorFlowObject):
                 tf.py_func(Utils.ranked,
                            [tf.scalar_mul(-1, self.v)], tf.int64)),
             dtype=[tf.int64, tf.float32])
-        return np.concatenate(self.run(ranks), axis=1)
+        return np.concatenate(self.run_tf(ranks), axis=1)
 
     def _pr_convergence_tf(self, convergence: float, topics: List[int],
                            c_criterion) -> tf.Tensor:

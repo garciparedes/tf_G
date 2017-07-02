@@ -43,13 +43,13 @@ class TensorFlowObject(object):
             warnings.warn('TensorFlow not implements Sparse Variables yet!')
             # self.is_sparse = is_sparse
 
-    def run(self, input_to_run):
-        """
+    def run_tf(self, input_to_run):
+        """ Run method to execute TensorFlow operations
 
         Args:
-            input_to_run:
+            input_to_run: This parameter represents a TensorFlow operation.
 
         Returns:
-
+            The result of the operation as numpy array
         """
         return self.sess.run(input_to_run)

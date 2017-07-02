@@ -11,7 +11,7 @@ class TransitionRandom(TransitionResetMatrix):
                  beta: float) -> None:
         TransitionResetMatrix.__init__(self, sess, name + "_log", graph, beta)
 
-        self.run(self.transition.assign(tf.log(self.transition)))
+        self.run_tf(self.transition.assign(tf.log(self.transition)))
 
     def __call__(self, *args, **kwargs):
         return self.get_tf(*args)

@@ -6,7 +6,7 @@ import tensorflow as tf
 
 from tf_G.pagerank.transition.transition_random import TransitionRandom
 from tf_G.pagerank.iterative_pagerank import IterativePageRank
-from tf_G.utils.vector_convergence import ConvergenceCriterion
+from tf_G.utils.convergence_criterion import ConvergenceCriterion
 from tf_G.graph.graph import Graph
 
 
@@ -57,7 +57,7 @@ class RandomWalkPageRank(IterativePageRank):
                                   maxval=self.G.n,
                                   dtype=tf.int32)
             ], name=self.name + "_while_conv")
-        self.run(self.v.assign(a[1]))
+        self.run_tf(self.v.assign(a[1]))
         return self.v
 
     def _pr_steps_tf(self, steps: int, topics: List[int] = None) -> tf.Tensor:
@@ -86,5 +86,5 @@ class RandomWalkPageRank(IterativePageRank):
                                   maxval=self.G.n, dtype=tf.int32)
             ],
             name=self.name + "_while_steps")
-        self.run(self.v.assign(a[1]))
+        self.run_tf(self.v.assign(a[1]))
         return self.v

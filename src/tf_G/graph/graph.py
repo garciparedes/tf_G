@@ -41,10 +41,10 @@ class Graph(TensorFlowObject, UpdateEdgeNotifier):
         self.L_tf = tf.Variable(
             tf.diag(self.get_out_degrees_tf()) - self.A_tf,
             name=self.name + "_L")
-        self.run(tf.variables_initializer([self.A_tf, self.n_tf]))
-        self.run(tf.variables_initializer([
+        self.run_tf(tf.variables_initializer([self.A_tf, self.n_tf]))
+        self.run_tf(tf.variables_initializer([
             self.out_degrees_tf, self.in_degrees_tf]))
-        self.run(tf.variables_initializer([self.L_tf]))
+        self.run_tf(tf.variables_initializer([self.L_tf]))
 
     @property
     def is_not_sink_tf(self) -> tf.Tensor:
@@ -52,15 +52,15 @@ class Graph(TensorFlowObject, UpdateEdgeNotifier):
 
     @property
     def out_degrees_np(self) -> np.ndarray:
-        return self.run(self.get_out_degrees_tf())
+        return self.run_tf(self.get_out_degrees_tf())
 
     @property
     def out_degrees_np(self) -> np.ndarray:
-        return self.run(self.out_degrees_tf)
+        return self.run_tf(self.out_degrees_tf)
 
     @property
     def edge_list_np(self) -> np.ndarray:
-        return self.run(self.edge_list_tf)
+        return self.run_tf(self.edge_list_tf)
 
     @property
     def edge_list_tf(self) -> tf.Tensor:
@@ -93,16 +93,16 @@ class Graph(TensorFlowObject, UpdateEdgeNotifier):
             return self.out_degrees_tf
 
     def __str__(self) -> str:
-        return str(self.run(self.L_tf))
+        return str(self.run_tf(self.L_tf))
 
     def append(self, src: int, dst: int) -> None:
         if src and dst is None:
             raise ValueError(
                 "tf_G and dst must not be None ")
-        self.run([tf.scatter_nd_add(self.A_tf, [[src, dst]], [1.0]),
-                  tf.scatter_nd_add(self.out_degrees_tf, [[src, 0]], [1.0]),
-                  tf.scatter_nd_add(self.in_degrees_tf, [[0, dst]], [1.0]),
-                  tf.scatter_nd_add(self.L_tf, [[src, src], [src, dst]],
+        self.run_tf([tf.scatter_nd_add(self.A_tf, [[src, dst]], [1.0]),
+                     tf.scatter_nd_add(self.out_degrees_tf, [[src, 0]], [1.0]),
+                     tf.scatter_nd_add(self.in_degrees_tf, [[0, dst]], [1.0]),
+                     tf.scatter_nd_add(self.L_tf, [[src, src], [src, dst]],
                                     [+1.0, -1.0])])
         self.m += 1
         self._notify([src, dst], 1)
@@ -111,10 +111,10 @@ class Graph(TensorFlowObject, UpdateEdgeNotifier):
         if src and dst is None:
             raise ValueError(
                 "tf_G and dst must not be None ")
-        self.run([tf.scatter_nd_add(self.A_tf, [[src, dst]], [-1.0]),
-                  tf.scatter_nd_add(self.out_degrees_tf, [[src, 0]], [-1.0]),
-                  tf.scatter_nd_add(self.in_degrees_tf, [[0, dst]], [-1.0]),
-                  tf.scatter_nd_add(self.L_tf, [[src, src], [src, dst]],
+        self.run_tf([tf.scatter_nd_add(self.A_tf, [[src, dst]], [-1.0]),
+                     tf.scatter_nd_add(self.out_degrees_tf, [[src, 0]], [-1.0]),
+                     tf.scatter_nd_add(self.in_degrees_tf, [[0, dst]], [-1.0]),
+                     tf.scatter_nd_add(self.L_tf, [[src, src], [src, dst]],
                                     [-1.0, +1.0])])
         self.m -= 1
         self._notify([src, dst], -1)

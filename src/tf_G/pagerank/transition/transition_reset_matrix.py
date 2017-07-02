@@ -19,7 +19,7 @@ class TransitionResetMatrix(Transition):
                          (1 - beta) / self.G.n_tf),
                      tf.fill([self.G.n, self.G.n], tf.pow(self.G.n_tf, -1))),
             name=self.name)
-        self.run(tf.variables_initializer([self.transition]))
+        self.run_tf(tf.variables_initializer([self.transition]))
 
     def __call__(self, *args, **kwargs):
         return self.transition
@@ -29,7 +29,7 @@ class TransitionResetMatrix(Transition):
         # print("Edge: " + str(edge) + "\tChange: " + str(change))
 
         if change > 0.0:
-            self.run(tf.scatter_nd_update(
+            self.run_tf(tf.scatter_nd_update(
                 self.transition, [[edge[0]]],
                 tf.add(
                     tf.scalar_mul(
@@ -39,7 +39,7 @@ class TransitionResetMatrix(Transition):
                             self.G.out_degrees_tf_vertex(edge[0]))),
                     (1 - self.beta) / self.G.n_tf)))
         else:
-            self.run(tf.scatter_nd_update(
+            self.run_tf(tf.scatter_nd_update(
                 self.transition, [[edge[0]]],
                 tf.where(self.G.is_not_sink_tf_vertex(edge[0]),
                          tf.add(

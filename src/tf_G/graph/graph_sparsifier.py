@@ -44,7 +44,7 @@ class GraphSparsifier(Graph):
             tf.log(tf.sqrt(self.n_tf) + self.out_degrees_tf_vertex(src)),
             tf.log(tf.sqrt(self.n_tf)))
 
-        if self.run(tf.less_equal(distribution_tf, cond_tf)):
+        if self.run_tf(tf.less_equal(distribution_tf, cond_tf)):
             Graph.append(self, src, dst)
         print(self.m)
 

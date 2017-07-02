@@ -20,7 +20,7 @@ class AlgebraicPageRank(PageRank):
         a = tf.fill([1, self.G.n], (1 - self.beta) / self.G.n_tf)
         b = tf.matrix_inverse(
             tf.eye(self.G.n, self.G.n) - self.beta * self.T())
-        self.run(self.v.assign(tf.matmul(a, b)))
+        self.run_tf(self.v.assign(tf.matmul(a, b)))
         return self.v
 
     def _pr_convergence_tf(self, convergence: float, topics: List[int] = None,

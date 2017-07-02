@@ -14,7 +14,7 @@ class TransitionMatrix(Transition):
                      tf.div(self.G.A_tf, self.G.out_degrees_tf),
                      tf.fill([self.G.n, self.G.n], 1 / self.G.n)),
             name=self.name)
-        self.run(tf.variables_initializer([self.transition]))
+        self.run_tf(tf.variables_initializer([self.transition]))
 
     def __call__(self, *args, **kwargs):
         return self.transition
@@ -24,12 +24,12 @@ class TransitionMatrix(Transition):
         # print("Edge: " + str(edge) + "\tChange: " + str(change))
 
         if change > 0.0:
-            self.run(tf.scatter_nd_update(
+            self.run_tf(tf.scatter_nd_update(
                 self.transition, [[edge[0]]],
                 tf.div(self.G.A_tf_vertex(edge[0]),
                        self.G.out_degrees_tf_vertex(edge[0]))))
         else:
-            self.run(tf.scatter_nd_update(
+            self.run_tf(tf.scatter_nd_update(
                 self.transition, [[edge[0]]],
                 tf.where(self.G.is_not_sink_tf_vertex(edge[0]),
                          tf.div(self.G.A_tf_vertex(edge[0]),
