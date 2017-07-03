@@ -18,7 +18,7 @@ class Utils:
 
     Args:
 
-      x (:obj:`np.array`): An array of rank 1.
+      x (:obj:`np.array`): A 2-D `np.array` to rank the results by rows.
 
     Returns:
 

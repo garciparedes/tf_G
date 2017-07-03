@@ -128,7 +128,7 @@ class Graph(TensorFlowObject, UpdateEdgeNotifier):
       name=self.name + "_L")
     self.run_tf(tf.variables_initializer([self.A_tf, self.n_tf]))
     self.run_tf(tf.variables_initializer([
-    self.out_degrees_tf, self.in_degrees_tf]))
+      self.out_degrees_tf, self.in_degrees_tf]))
     self.run_tf(tf.variables_initializer([self.L_tf]))
 
   def __str__(self) -> str:
@@ -280,6 +280,21 @@ class Graph(TensorFlowObject, UpdateEdgeNotifier):
 
     """
     return tf.gather(self.A_tf, [vertex])
+
+  @property
+  def in_degrees_np(self) -> np.array:
+    """ This method returns the in-degree of all vertex as vector.
+
+    The method generates a 1-D Array containing the in-degree of the vertex
+    `i` at position `i`
+
+    Returns:
+
+      (:obj:`np.array`): A 1-D Array with the same length as cardinality
+         of the vertex set.
+
+    """
+    return self.run_tf(self.in_degrees_tf)
 
   @property
   def in_degrees_tf_vector(self):
