@@ -3,6 +3,7 @@ from typing import List
 
 import tensorflow as tf
 
+from tf_G.utils.convergence_criterion import ConvergenceCriterion
 from tf_G.pagerank.transition.transition_matrix import TransitionMatrix
 from tf_G.pagerank.pagerank import PageRank
 from tf_G.graph.graph import Graph
@@ -24,14 +25,14 @@ class AlgebraicPageRank(PageRank):
     return self.v
 
   def _pr_convergence_tf(self, convergence: float, topics: List[int] = None,
-                         c_criterion=None) -> tf.Tensor:
+                         c_criterion=ConvergenceCriterion.ONE) -> tf.Tensor:
     if topics is not None:
       warnings.warn('Personalized PageRank not implemented yet!')
     warnings.warn('PageRank not implements iterative PageRank! ' +
                   'Using exact algorithm.')
     return self._pr_exact_tf(topics)
 
-  def _pr_steps_tf(self, steps: int, topics: List[int]) -> tf.Tensor:
+  def _pr_steps_tf(self, steps: int, topics: List[int] = None) -> tf.Tensor:
     if topics is not None:
       warnings.warn('Personalized PageRank not implemented yet!')
     warnings.warn('PageRank not implements iterative PageRank! ' +

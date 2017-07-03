@@ -34,7 +34,7 @@ class IterativePageRank(PageRank):
           1]))
     return self.v
 
-  def _pr_steps_tf(self, steps: int, topics: List[int]) -> tf.Tensor:
+  def _pr_steps_tf(self, steps: int, topics: List[int] = None) -> tf.Tensor:
     if topics is not None:
       warnings.warn('Personalized PageRank not implemented yet!')
 
@@ -46,7 +46,7 @@ class IterativePageRank(PageRank):
           1]))
     return self.v
 
-  def _pr_exact_tf(self, topics: List[int]) -> None:
+  def _pr_exact_tf(self, topics: List[int] = None) -> None:
     if topics is not None:
       warnings.warn('Personalized PageRank not implemented yet!')
 
