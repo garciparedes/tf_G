@@ -14,7 +14,7 @@ class ConvergenceCriterion(Enum):
 
   """
 
-  ONE = lambda i, x, y, c, n, dist=None: tf.reshape(
+  ONE = lambda i=None, x=None, y=None, c=None, n=None, dist=None: tf.reshape(
     VectorNorm.ONE(tf.subtract(x, y)) > [c], [])
   """ ONE convergence criterion.
   
@@ -29,7 +29,8 @@ class ConvergenceCriterion(Enum):
   
   """
 
-  INFINITY = lambda i, x, y, c, n, dist=None: tf.reshape(VectorNorm.INFINITY(
+  INFINITY = lambda i=None, x=None, y=None, c=None, n=None, dist=None: \
+    tf.reshape(VectorNorm.INFINITY(
     tf.subtract(x, y)) > [c / n], [])
   """ INFINITY convergence criterion.
 
