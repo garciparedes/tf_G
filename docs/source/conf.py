@@ -18,9 +18,8 @@
 #
 import os
 import sys
+
 sys.path.insert(0, os.path.abspath('./../../src/.'))
-
-
 
 # -- General configuration ------------------------------------------------
 
@@ -32,12 +31,12 @@ sys.path.insert(0, os.path.abspath('./../../src/.'))
 # extensions coming with Sphinx (named 'sphinx.ext.*') or your custom
 # ones.
 extensions = ['sphinx.ext.autodoc',
-    'sphinx.ext.doctest',
-    'sphinx.ext.intersphinx',
-    'sphinx.ext.todo',
-    'sphinx.ext.coverage',
-    'sphinx.ext.ifconfig',
-    'sphinx.ext.viewcode']
+              'sphinx.ext.doctest',
+              'sphinx.ext.intersphinx',
+              'sphinx.ext.todo',
+              'sphinx.ext.coverage',
+              'sphinx.ext.ifconfig',
+              'sphinx.ext.viewcode']
 
 # Add any paths that contain templates here, relative to this directory.
 templates_path = ['_templates']
@@ -83,7 +82,6 @@ pygments_style = 'sphinx'
 # If true, `todo` and `todoList` produce output, else they produce nothing.
 todo_include_todos = True
 
-
 # -- Options for HTML output ----------------------------------------------
 
 # The theme to use for HTML and HTML Help pages.  See the documentation for
@@ -102,51 +100,47 @@ html_theme = 'sphinx_rtd_theme'
 # so a file named "default.css" will overwrite the builtin "default.css".
 html_static_path = ['_static']
 
-
 # -- Options for HTMLHelp output ------------------------------------------
 
 # Output file base name for HTML help builder.
 htmlhelp_basename = 'tf_Gdoc'
 
-
 # -- Options for LaTeX output ---------------------------------------------
 
 latex_elements = {
-    # The paper size ('letterpaper' or 'a4paper').
-    #
-    # 'papersize': 'letterpaper',
+  # The paper size ('letterpaper' or 'a4paper').
+  #
+  # 'papersize': 'letterpaper',
 
-    # The font size ('10pt', '11pt' or '12pt').
-    #
-    # 'pointsize': '10pt',
+  # The font size ('10pt', '11pt' or '12pt').
+  #
+  # 'pointsize': '10pt',
 
-    # Additional stuff for the LaTeX preamble.
-    #
-    # 'preamble': '',
+  # Additional stuff for the LaTeX preamble.
+  #
+  # 'preamble': '',
 
-    # Latex figure (float) alignment
-    #
-    # 'figure_align': 'htbp',
+  # Latex figure (float) alignment
+  #
+  # 'figure_align': 'htbp',
 }
 
 # Grouping the document tree into LaTeX files. List of tuples
 # (source start file, target name, title,
 #  author, documentclass [howto, manual, or own class]).
 latex_documents = [
-    (master_doc, 'tf_G.tex', u'tfg\\_big\\_data\\_algorithms Documentation',
-     u'garciparedes', 'manual'),
+  (master_doc, 'tf_G.tex', u'tfg\\_big\\_data\\_algorithms Documentation',
+   u'garciparedes', 'manual'),
 ]
-
 
 # -- Options for manual page output ---------------------------------------
 
 # One entry per manual page. List of tuples
 # (source start file, name, description, authors, manual section).
 man_pages = [
-    (master_doc, 'tf_G', u'tf_G Documentation',
-     [author], 1)
+  (master_doc, 'tf_G', u'tf_G Documentation',
+   [author], 1)
 ]
-
 
 # -- Options for Texinfo output -------------------------------------------
 
@@ -154,13 +148,20 @@ man_pages = [
 # (source start file, target name, title, author,
 #  dir menu entry, description, category)
 texinfo_documents = [
-    (master_doc, 'tf_G', u'tf_G Documentation',
-     author, 'tf_G', 'One line description of project.',
-     'Miscellaneous'),
+  (master_doc, 'tf_G', u'tf_G Documentation',
+   author, 'tf_G', 'One line description of project.',
+   'Miscellaneous'),
 ]
-
-
-
 
 # Example configuration for intersphinx: refer to the Python standard library.
 intersphinx_mapping = {'https://docs.python.org/': None}
+
+
+def skip(app, what, name, obj, skip, options):
+  if name == "__init__":
+    return False
+  return skip
+
+
+def setup(app):
+  app.connect("autodoc-skip-member", skip)

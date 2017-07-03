@@ -15,7 +15,7 @@ before_install:
   - conda info -a
   - conda create -q -n test-environment python=$TRAVIS_PYTHON_VERSION
   - source activate test-environment
-  - conda install numpy scipy matplotlib
+  - conda install numpy scipy matplotlib tensorflow pandas
   - pip install coverage pytest pytest-cov codecov
 
 install:
@@ -26,7 +26,7 @@ script:
 
 after_success:
   # Uninstall to test coverage against sources
-  - pip uninstall pyfme -y
+  - pip uninstall tf_G -y
   - pip install --no-deps -e .
   - py.test --cov
   - codecov
