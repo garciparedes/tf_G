@@ -10,12 +10,106 @@ from tf_G.graph.graph import Graph
 
 
 class AlgebraicPageRank(PageRank):
+  """ The Algebraic PageRank implementation.
+
+  This class acts as the algebraic algorithm to obtain the PageRank ranking of
+  a graph.
+
+  The PageRank algorithm calculates the rank of each vertex in a graph based on
+  the relational structure from them and giving more importance to the vertices
+  that connects with edges to vertices with very high in-degree recursively.
+
+  This class depends on the TensorFlow library, so it's necessary to install it
+  to properly work.
+
+  Attributes:
+
+    sess (:obj:`tf.Session`): This attribute represents the session
+        that runs the TensorFlow operations.
+
+    name (str): This attribute represents the name of the object in
+      TensorFlow's op Graph.
+
+    G (:obj:`tf_G.Graph`): The graph on witch it will be calculated the
+      algorithm. It will be treated as Directed Weighted Graph.
+
+    beta (float): The reset probability of the random walks, i.e. the
+      probability that a user that surfs the graph an decides to jump to another
+      vertex not connected to the current.
+
+    T (:obj:`tf_G.Transition): The transition matrix that provides the
+      probability distribution relative to the walk to another node of the graph.
+
+    v (:obj:`tf.Variable`): The stationary distribution vector. It contains the
+      normalized probability to stay in each vertex of the graph. So represents
+      the PageRank ranking of the graph.
+
+    writer (:obj:`tf.summary.FileWriter`): This attribute represents a
+      TensorFlow's Writer, that is used to obtain stats.
+
+    is_sparse (bool): Use sparse Tensors if it's set to True. Not
+      implemented yet.
+  """
+
   def __init__(self, sess: tf.Session, name: str, graph: Graph,
-               beta: float) -> None:
+               beta: float, writer: tf.summary.FileWriter = None,
+               is_sparse: bool = False) -> None:
+    """ Constructor of the class.
+
+    This method initializes the attributes needed to run the Algebraic version
+    of PageRank algorithm. It uses the `tf_G.TransitionMatrix` as transition
+    matrix.
+
+    Args:
+
+      sess (:obj:`tf.Session`): This attribute represents the session
+          that runs the TensorFlow operations.
+
+      name (str): This attribute represents the name of the object in
+        TensorFlow's op Graph.
+
+      G (:obj:`tf_G.Graph`): The graph on witch it will be calculated the
+        algorithm. It will be treated as Directed Weighted Graph.
+
+      beta (float): The reset probability of the random walks, i.e. the
+        probability that a user that surfs the graph an decides to jump to
+        another vertex not connected to the current.
+
+      v (:obj:`tf.Variable`): The stationary distribution vector. It contains
+        the normalized probability to stay in each vertex of the graph. So
+        represents the PageRank ranking of the graph.
+
+      writer (:obj:`tf.summary.FileWriter`): This attribute represents a
+        TensorFlow's Writer, that is used to obtain stats.
+
+      is_sparse (bool): Use sparse Tensors if it's set to True. Not
+        implemented yet.
+    """
     T = TransitionMatrix(sess, name + "_alge", graph)
-    PageRank.__init__(self, sess, name, graph, beta, T)
+    PageRank.__init__(self, sess, name, graph, beta, T, writer, is_sparse)
 
   def _pr_exact_tf(self, topics: List[int] = None) -> tf.Tensor:
+    """ Method that implements a exact version of PageRank.
+
+    This method calculates the PageRank of the graph in exact mode.
+
+    [TODO describe the algorithm]
+
+    Args:
+
+      topics (:obj:`list` of :obj:`int`, optional): A list of integers that
+        represent the set of vertex where the random jumps arrives. If this
+        parameter is used, the uniform distribution over all vertices of the
+        random jumps will be modified to jump only to this vertex set. Default
+        to `None`. Not implemented yet.
+
+    Returns:
+
+      (:obj:`tf.Tensor`): A 1-D `tf.Tensor` of [n] shape, where `n` is the
+        cardinality of the graph vertex set. It contains the normalized rank of
+        vertex `i` at position `i`.
+
+    """
     if topics is not None:
       warnings.warn('Personalized PageRank not implemented yet!')
     a = tf.fill([1, self.G.n], (1 - self.beta) / self.G.n_tf)
@@ -26,6 +120,35 @@ class AlgebraicPageRank(PageRank):
 
   def _pr_convergence_tf(self, convergence: float, topics: List[int] = None,
                          c_criterion=ConvergenceCriterion.ONE) -> tf.Tensor:
+    """ Iterative version of PageRank. This class not implements it.
+
+    This method will call the exact version of PageRank because of the
+    implementation of this class only allows exact mode.
+
+    Args:
+
+      convergence (float): A float between 0 and 1 that represents
+        the convergence rate that allowed to finish the iterative
+        implementations of the algorithm to accept the solution. Default to
+        `1.0`.
+
+      topics (:obj:`list` of :obj:`int`, optional): A list of integers that
+        represent the set of vertex where the random jumps arrives. If this
+        parameter is used, the uniform distribution over all vertices of the
+        random jumps will be modified to jump only to this vertex set. Default
+        to `None`. Not implemented yet.
+
+      c_criterion (:obj:`function`, optional): The function used to calculate if
+        the Convergence Criterion of the iterative implementations is reached.
+        Default to `tf_G.ConvergenceCriterion.ONE`.
+
+    Returns:
+
+      (:obj:`tf.Tensor`): A 1-D `tf.Tensor` of [n] shape, where `n` is the
+        cardinality of the graph vertex set. It contains the normalized rank of
+        vertex `i` at position `i`.
+
+    """
     if topics is not None:
       warnings.warn('Personalized PageRank not implemented yet!')
     warnings.warn('PageRank not implements iterative PageRank! ' +
@@ -33,6 +156,30 @@ class AlgebraicPageRank(PageRank):
     return self._pr_exact_tf(topics)
 
   def _pr_steps_tf(self, steps: int, topics: List[int] = None) -> tf.Tensor:
+    """ Iterative version of PageRank. This class not implements it.
+
+    This method will call the exact version of PageRank because of the
+    implementation of this class only allows exact mode.
+
+    Args:
+
+      steps (int): A positive integer that sets the number of
+        iterations that the iterative implementations will run the algorithm
+        until finish. Default to `0`.
+
+      topics (:obj:`list` of :obj:`int`, optional): A list of integers that
+        represent the set of vertex where the random jumps arrives. If this
+        parameter is used, the uniform distribution over all vertices of the
+        random jumps will be modified to jump only to this vertex set. Default
+        to `None`. Not implemented yet.
+
+    Returns:
+
+      (:obj:`tf.Tensor`): A 1-D `tf.Tensor` of [n] shape, where `n` is the
+        cardinality of the graph vertex set. It contains the normalized rank of
+        vertex `i` at position `i`.
+
+    """
     if topics is not None:
       warnings.warn('Personalized PageRank not implemented yet!')
     warnings.warn('PageRank not implements iterative PageRank! ' +
