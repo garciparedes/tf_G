@@ -42,7 +42,7 @@ class PageRank(TensorFlowObject):
       probability that a user that surfs the graph an decides to jump to another
       vertex not connected to the current.
 
-    T (:obj:`tf_G.Transition): The transition matrix that provides the
+    T (:obj:`tf_G.Transition`): The transition matrix that provides the
       probability distribution relative to the walk to another node of the graph.
 
     v (:obj:`tf.Variable`): The stationary distribution vector. It contains the
@@ -81,7 +81,7 @@ class PageRank(TensorFlowObject):
         probability that a user that surfs the graph an decides to jump to
         another vertex not connected to the current.
   
-      T (:obj:`tf_G.Transition): The transition matrix that provides the
+      T (:obj:`tf_G.Transition`): The transition matrix that provides the
         probability distribution relative to the walk to another node of the
         graph.
   
@@ -394,7 +394,7 @@ class PageRank(TensorFlowObject):
     raise NotImplementedError(
       'subclasses must override page_rank_exact()!')
 
-  def update_edge(self, edge, change):
+  def update_edge(self, edge: np.array, change: float):
     """ The callback to receive notifications about edge changes in the graph.
 
     This method is called from the Graph when an addition or deletion is

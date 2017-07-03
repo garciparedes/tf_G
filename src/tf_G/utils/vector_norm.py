@@ -30,8 +30,7 @@ class VectorNorm(Enum):
 
   Returns:
 
-    (:obj:`tf.Tensor`): Tensor that contains the eucledian norm of the 
-      vector.       
+    (:obj:`tf.Tensor`): Tensor that contains the eucledian norm of the vector.       
 
   """
 
@@ -53,15 +52,14 @@ class VectorNorm(Enum):
 
   Returns:
 
-    (:obj:`tf.Tensor`): Tensor that contains the infinity norm of the 
-      vector.       
+    (:obj:`tf.Tensor`): Tensor that contains the infinity norm of the vector.       
 
   """
 
   def __call__(self, *args, **kwargs):
     """ Call method of the class.
 
-    It was overwriten because of by default the ENUM values not allows to
+    It was overwritten because of by default the ENUM values not allows to
     call him.
 
     Args:

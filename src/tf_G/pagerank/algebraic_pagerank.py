@@ -37,7 +37,7 @@ class AlgebraicPageRank(PageRank):
       probability that a user that surfs the graph an decides to jump to another
       vertex not connected to the current.
 
-    T (:obj:`tf_G.Transition): The transition matrix that provides the
+    T (:obj:`tf_G.Transition`): The transition matrix that provides the
       probability distribution relative to the walk to another node of the graph.
 
     v (:obj:`tf.Variable`): The stationary distribution vector. It contains the
