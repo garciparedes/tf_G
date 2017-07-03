@@ -28,33 +28,24 @@ class PageRank(TensorFlowObject):
   to properly work.
 
   Attributes:
-
-    sess (:obj:`tf.Session`): This attribute represents the session
-        that runs the TensorFlow operations.
-
-    name (str): This attribute represents the name of the object in
-      TensorFlow's op Graph.
-
+    sess (:obj:`tf.Session`): This attribute represents the session that runs
+      the TensorFlow operations.
+    name (str): This attribute represents the name of the object in TensorFlow's
+      op Graph.
     G (:obj:`tf_G.Graph`): The graph on witch it will be calculated the
       algorithm. It will be treated as Directed Weighted Graph.
-
     beta (float): The reset probability of the random walks, i.e. the
       probability that a user that surfs the graph an decides to jump to another
       vertex not connected to the current.
-
     T (:obj:`tf_G.Transition`): The transition matrix that provides the
       probability distribution relative to the walk to another node of the graph.
-
     v (:obj:`tf.Variable`): The stationary distribution vector. It contains the
       normalized probability to stay in each vertex of the graph. So represents
       the PageRank ranking of the graph.
-
     writer (:obj:`tf.summary.FileWriter`): This attribute represents a
       TensorFlow's Writer, that is used to obtain stats.
-
     is_sparse (bool): Use sparse Tensors if it's set to True. Not
       implemented yet.
-
 
   """
 
@@ -67,31 +58,23 @@ class PageRank(TensorFlowObject):
     of the graph.
 
     Args:
-
-      sess (:obj:`tf.Session`): This attribute represents the session
-          that runs the TensorFlow operations.
-  
+      sess (:obj:`tf.Session`): This attribute represents the session that runs
+        the TensorFlow operations.
       name (str): This attribute represents the name of the object in
         TensorFlow's op Graph.
-  
       G (:obj:`tf_G.Graph`): The graph on witch it will be calculated the
         algorithm. It will be treated as Directed Weighted Graph.
-  
       beta (float): The reset probability of the random walks, i.e. the
         probability that a user that surfs the graph an decides to jump to
         another vertex not connected to the current.
-  
       T (:obj:`tf_G.Transition`): The transition matrix that provides the
         probability distribution relative to the walk to another node of the
         graph.
-  
       v (:obj:`tf.Variable`): The stationary distribution vector. It contains
         the normalized probability to stay in each vertex of the graph. So
         represents the PageRank ranking of the graph.
-  
       writer (:obj:`tf.summary.FileWriter`): This attribute represents a
         TensorFlow's Writer, that is used to obtain stats.
-  
       is_sparse (bool): Use sparse Tensors if it's set to True. Not
         implemented yet.
 
@@ -118,17 +101,17 @@ class PageRank(TensorFlowObject):
     only the `k` better ranked vertices.
 
     Args:
-
       other_pr (:obj:`tf_G.PageRank`): Another PageRank object to compare the
         resulting ranking.
-
       k (int, optional): An additional parameter that allows to base the
         comparison only on the `k` better vertices. Not implemented yet.
 
     Returns:
-
       (:obj:`tf.Tensor`): A `tf.Tensor` with 0-D shape, that represents the
         difference between the two rankings using the Norm One.
+
+    Todo:
+      * Implement ranking based only on the `k` better ranked vertices.
 
     """
     if 0 < k < self.G.n - 1:
@@ -150,15 +133,12 @@ class PageRank(TensorFlowObject):
     only the `k` better ranked vertices.
 
     Args:
-
       other_pr (:obj:`tf_G.PageRank`): Another PageRank object to compare the
         resulting ranking.
-
       k (int, optional): An additional parameter that allows to base the
         comparison only on the `k` better vertices. Not implemented yet.
 
     Returns:
-
       (:obj:`np.Array`): A `np.Array` with 0-D shape, that represents the
         difference between the two rankings using the Norm One.
 
@@ -180,29 +160,24 @@ class PageRank(TensorFlowObject):
     optional for this reason.
 
     Args:
-
       convergence (float, optional): A float between 0 and 1 that represents
         the convergence rate that allowed to finish the iterative
         implementations of the algorithm to accept the solution. It has more
         preference than the `steps` parameter. Default to `1.0`.
-
       steps (int, optional): A positive integer that sets the number of
         iterations that the iterative implementations will run the algorithm
         until finish. It has less preference than the `convergence` parameter.
         Default to `0`.
-
       topics (:obj:`list` of :obj:`int`, optional): A list of integers that
         represent the set of vertex where the random jumps arrives. If this
         parameter is used, the uniform distribution over all vertices of the
         random jumps will be modified to jump only to this vertex set. Default
         to `None`. Not implemented yet.
-
       c_criterion (:obj:`function`, optional): The function used to calculate if
         the Convergence Criterion of the iterative implementations is reached.
         Default to `tf_G.ConvergenceCriterion.ONE`.
 
     Returns:
-
       (:obj:`tf.Tensor`): A 1-D `tf.Tensor` of [n] shape, where `n` is the
         cardinality of the graph vertex set. It contains the normalized rank of
         vertex `i` at position `i`.
@@ -230,29 +205,24 @@ class PageRank(TensorFlowObject):
     optional for this reason.
 
     Args:
-
       convergence (float, optional): A float between 0 and 1 that represents
         the convergence rate that allowed to finish the iterative
         implementations of the algorithm to accept the solution. It has more
         preference than the `steps` parameter. Default to `1.0`.
-
       steps (int, optional): A positive integer that sets the number of
         iterations that the iterative implementations will run the algorithm
         until finish. It has less preference than the `convergence` parameter.
         Default to `0`.
-
       topics (:obj:`list` of :obj:`int`, optional): A list of integers that
         represent the set of vertex where the random jumps arrives. If this
         parameter is used, the uniform distribution over all vertices of the
         random jumps will be modified to jump only to this vertex set. Default
         to `None`. Not implemented yet.
-
       c_criterion (:obj:`function`, optional): The function used to calculate if
         the Convergence Criterion of the iterative implementations is reached.
         Default to `tf_G.ConvergenceCriterion.ONE`.
 
     Returns:
-
       (:obj:`np.Array`): A 1-D `np.Array` of [n] shape, where `n` is the
         cardinality of the graph vertex set. It contains the normalized rank of
         vertex `i` at position `i`.
@@ -274,17 +244,14 @@ class PageRank(TensorFlowObject):
     the rank.
 
     Args:
-
       convergence (float, optional): A float between 0 and 1 that represents
         the convergence rate that allowed to finish the iterative
         implementations of the algorithm to accept the solution. It has more
         preference than the `steps` parameter. Default to `1.0`.
-
       steps (int, optional): A positive integer that sets the number of
         iterations that the iterative implementations will run the algorithm
         until finish. It has less preference than the `convergence` parameter.
         Default to `0`.
-
       topics (:obj:`list` of :obj:`int`, optional): A list of integers that
         represent the set of vertex where the random jumps arrives. If this
         parameter is used, the uniform distribution over all vertices of the
@@ -292,7 +259,6 @@ class PageRank(TensorFlowObject):
         to `None`. Not implemented yet.
 
     Returns:
-
       (:obj:`np.Array`): A 2-D `np.Array` than represents a sorted PageRank
         ranking of the graph.
 
@@ -316,24 +282,20 @@ class PageRank(TensorFlowObject):
     criterion.
 
     Args:
-
       convergence (float): A float between 0 and 1 that represents
         the convergence rate that allowed to finish the iterative
         implementations of the algorithm to accept the solution. Default to
         `1.0`.
-
       topics (:obj:`list` of :obj:`int`, optional): A list of integers that
         represent the set of vertex where the random jumps arrives. If this
         parameter is used, the uniform distribution over all vertices of the
         random jumps will be modified to jump only to this vertex set. Default
         to `None`. Not implemented yet.
-
       c_criterion (:obj:`function`, optional): The function used to calculate if
         the Convergence Criterion of the iterative implementations is reached.
         Default to `tf_G.ConvergenceCriterion.ONE`.
 
     Returns:
-
       (:obj:`tf.Tensor`): A 1-D `tf.Tensor` of [n] shape, where `n` is the
         cardinality of the graph vertex set. It contains the normalized rank of
         vertex `i` at position `i`.
@@ -350,11 +312,9 @@ class PageRank(TensorFlowObject):
     of times bounded by the `steps` parameter.
 
     Args:
-
       steps (int): A positive integer that sets the number of
         iterations that the iterative implementations will run the algorithm
         until finish. Default to `0`.
-
       topics (:obj:`list` of :obj:`int`, optional): A list of integers that
         represent the set of vertex where the random jumps arrives. If this
         parameter is used, the uniform distribution over all vertices of the
@@ -362,7 +322,6 @@ class PageRank(TensorFlowObject):
         to `None`. Not implemented yet.
 
     Returns:
-
       (:obj:`tf.Tensor`): A 1-D `tf.Tensor` of [n] shape, where `n` is the
         cardinality of the graph vertex set. It contains the normalized rank of
         vertex `i` at position `i`.
@@ -377,7 +336,6 @@ class PageRank(TensorFlowObject):
     This method calculates the PageRank of the graph in exact mode.
 
     Args:
-
       topics (:obj:`list` of :obj:`int`, optional): A list of integers that
         represent the set of vertex where the random jumps arrives. If this
         parameter is used, the uniform distribution over all vertices of the
@@ -385,7 +343,6 @@ class PageRank(TensorFlowObject):
         to `None`. Not implemented yet.
 
     Returns:
-
       (:obj:`tf.Tensor`): A 1-D `tf.Tensor` of [n] shape, where `n` is the
         cardinality of the graph vertex set. It contains the normalized rank of
         vertex `i` at position `i`.
@@ -403,16 +360,13 @@ class PageRank(TensorFlowObject):
 
 
     Args:
-
       edge (:obj:`np.Array`): A 1-D `np.Array` that represents the edge that
         changes in the graph, where `edge[0]` is the source vertex, and
         `edge[1]` the destination vertex.
-
       change (float): The variation of the edge weight. If the final value is
         0.0 then the edge is removed.
 
     Returns:
-
       This method returns nothing.
 
     """

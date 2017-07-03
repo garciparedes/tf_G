@@ -18,7 +18,6 @@ class VectorNorm(Enum):
   The one norm of the vector x.
 
   Returns:
-
     (:obj:`tf.Tensor`): Tensor that contains the one norm of the vector.       
 
   """
@@ -29,7 +28,6 @@ class VectorNorm(Enum):
   The euclidean norm of the vector x.
 
   Returns:
-
     (:obj:`tf.Tensor`): Tensor that contains the eucledian norm of the vector.       
 
   """
@@ -40,7 +38,6 @@ class VectorNorm(Enum):
   The p-norm of the vector x.
 
   Returns:
-
     (:obj:`tf.Tensor`): Tensor that contains the p-norm of the vector.       
 
   """
@@ -51,7 +48,6 @@ class VectorNorm(Enum):
   The infinity norm of the vector x.
 
   Returns:
-
     (:obj:`tf.Tensor`): Tensor that contains the infinity norm of the vector.       
 
   """
@@ -59,17 +55,14 @@ class VectorNorm(Enum):
   def __call__(self, *args, **kwargs):
     """ Call method of the class.
 
-    It was overwritten because of by default the ENUM values not allows to
-    call him.
+    It was overwritten because of by default the ENUM values not allows to call
+    him.
 
     Args:
-
       *args: The args to the enum.
-
       **kwargs: The kwargs to the enum.
 
     Returns:
-
       The result of the corresponding enum's lambda function.
 
     """
