@@ -12,25 +12,18 @@ class TransitionResetMatrix(Transition):
   probability distribution of walk between the vertices of the graph.
 
   Attributes:
-
-    sess (:obj:`tf.Session`): This attribute represents the session
-      that runs the TensorFlow operations.
-
-    name (str): This attribute represents the name of the object in
-      TensorFlow's op Graph.
-
+    sess (:obj:`tf.Session`): This attribute represents the session that runs
+      the TensorFlow operations.
+    name (str): This attribute represents the name of the object in TensorFlow's
+      op Graph.
     writer (:obj:`tf.summary.FileWriter`): This attribute represents a
       TensorFlow's Writer, that is used to obtain stats.
-
     is_sparse (bool): Use sparse Tensors if it's set to True. Not
       implemented yet. Show the Todo.
-
     G (:obj:`tf_G.Graph`):  The graph on which the transition is referred.
-
     transition (:obj:`tf.Variable`): The 2-D `tf.Tensor` with the same shape as
       adjacency matrix of the graph, that represents the probabilities to
       move from one vertex to another.
-
     beta (float): The reset probability of the random walks, i.e. the
       probability that a user that surfs the graph an decides to jump to another
       vertex not connected to the current.
@@ -45,24 +38,18 @@ class TransitionResetMatrix(Transition):
     This method is called to create a new instance of Transition class.
 
     Args:
-
-      sess (:obj:`tf.Session`): This attribute represents the session
-        that runs the TensorFlow operations.
-
+      sess (:obj:`tf.Session`): This attribute represents the session that runs
+        the TensorFlow operations.
       name (str): This attribute represents the name of the object in
         TensorFlow's op Graph.
-
       graph (:obj:`tf_G.Graph`):  The graph on which the transition is referred.
-
       beta (float): The reset probability of the random walks, i.e. the
         probability that a user that surfs the graph an decides to jump to
         another vertex not connected to the current.
-
       writer (:obj:`tf.summary.FileWriter`): This attribute represents a
         TensorFlow's Writer, that is used to obtain stats.
-
-      is_sparse (bool): Use sparse Tensors if it's set to True. Not
-        implemented yet. Show the Todo.
+      is_sparse (bool): Use sparse Tensors if it's set to True. Not implemented
+        yet. Show the Todo.
 
     """
     Transition.__init__(self, sess, name, graph, writer, is_sparse)
@@ -84,13 +71,10 @@ class TransitionResetMatrix(Transition):
     This method will return the transition matrix of the graph.
 
     Args:
-
       *args: The args of the `get_tf()` method.
-
       **kwargs: The kwargs of the `get_tf()` method.
 
     Returns:
-
       (:obj:`tf.Tensor`): A `tf.Tensor` that contains the distribution of
         transitions over vertices of the graph.
 
@@ -106,16 +90,13 @@ class TransitionResetMatrix(Transition):
 
 
      Args:
-
        edge (:obj:`np.Array`): A 1-D `np.Array` that represents the edge that
          changes in the graph, where `edge[0]` is the source vertex, and
          `edge[1]` the destination vertex.
-
        change (float): The variation of the edge weight. If the final value is
          0.0 then the edge is removed.
 
      Returns:
-
        This method returns nothing.
 
      """

@@ -17,13 +17,11 @@ class Utils:
     which the value represents the score and the index the object identifier.
 
     Args:
-
       x (:obj:`np.array`): A 2-D `np.array` to rank the results by rows.
 
     Returns:
-
-      (:obj:`np.array`): An array containing the indices of the input
-        array sorted in decremental order.
+      (:obj:`np.array`): An array containing the indices of the input array
+        sorted in decremental order.
 
     """
     return np.argsort(x, axis=1)
@@ -36,23 +34,19 @@ class Utils:
     The method creates a file in the filesystem with name `filename` and puts
     the array content inside it.
 
-    This method provides the `index_increment` that increments the first
-    column by one if True. The reason of this option is that the method is
-    created to store results of graph operations, and in some cases the graph
-    vertices is represented as 0-indexed and anothers as 1-indexed.
+    This method provides the `index_increment` that increments the first column
+    by one if True. The reason of this option is that the method is created to
+    store results of graph operations, and in some cases the graph vertices is
+    represented as 0-indexed and anothers as 1-indexed.
 
     Args:
-
       filename (str): The name of the file that will be created.
-
-      array (:obj:`np.array`): The array that contains the data that
-        will be saved.
-
-      index_increment (bool, optional): Increments the first column of the
-        array input if True, do nothing otherwise.
+      array (:obj:`np.array`): The array that contains the data that will be
+        saved.
+      index_increment (bool, optional): Increments the first column of the array
+        input if True, do nothing otherwise.
 
     Returns:
-
       This method returns nothing.
 
     """

@@ -16,38 +16,27 @@ class Graph(TensorFlowObject, UpdateEdgeNotifier):
   provides functionality operating with this matrix.
 
   Attributes:
-
-    sess (:obj:`tf.Session`): This attribute represents the session
-      that runs the TensorFlow operations.
-
-    name (str): This attribute represents the name of the object in
-      TensorFlow's op Graph.
-
+    sess (:obj:`tf.Session`): This attribute represents the session that runs
+      the TensorFlow operations.
+    name (str): This attribute represents the name of the object in TensorFlow's
+     op Graph.
     writer (:obj:`tf.summary.FileWriter`): This attribute represents a
-      TensorFlow's Writer, that is used to obtain stats. The default
-      value is `None`.
-
+      TensorFlow's Writer, that is used to obtain stats. The default value is
+      `None`.
     _listeners (:obj:`set`): The set of objects that will be notified when an
       edge modifies it weight.
-
     n (int): Represents the cardinality of the vertex set as Python `int`.
-
-    n_tf (:obj:`tf.Tensor`): Represents the cardinality of the vertex set as
-      0-D Tensor.
-
+    n_tf (:obj:`tf.Tensor`): Represents the cardinality of the vertex set as 0-D
+      Tensor.
     m (int): Represents the cardinality of the edge set as Python `int`.
-
     A_tf (:obj:`tf.Tensor`): Represents the Adjacency matrix of the graph as
       2-D Tensor with shape [n,n].
-
     out_degrees_tf (:obj:`tf.Tensor`): Represents the out-degrees of the
       vertices of the graph as 2-D Tensor with shape [n, 1]
-
-    in_degrees_tf (:obj:`tf.Tensor`): Represents the in-degrees of the
-      vertices of the graph as 2-D Tensor with shape [1, n]
-
-    L_tf (:obj:`tf.Tensor`): Represents the Laplacian matrix of the graph as
-      2-D Tensor with shape [n,n]
+    in_degrees_tf (:obj:`tf.Tensor`): Represents the in-degrees of the vertices
+      of the graph as 2-D Tensor with shape [1, n]
+    L_tf (:obj:`tf.Tensor`): Represents the Laplacian matrix of the graph as 2-D
+      Tensor with shape [n,n]
 
   """
 
@@ -58,39 +47,30 @@ class Graph(TensorFlowObject, UpdateEdgeNotifier):
     """ Class Constructor of the Graph
 
     This method is called to construct a Graph object. This block of code
-    initializes all the variables necessaries for this class to properly
-    works.
+    initializes all the variables necessaries for this class to properly works.
 
     This class can be initialized using an edge list, that fill the graph at
     this moment, or can be construct it from the cardinality of vertices set
     given by `n` parameter.
 
     Args:
-
-      sess (:obj:`tf.Session`): This attribute represents the session
-        that runs the TensorFlow operations.
-
+      sess (:obj:`tf.Session`): This attribute represents the session that runs
+        the TensorFlow operations.
       name (str): This attribute represents the name of the object in
         TensorFlow's op Graph.
-
-      writer (:obj:`tf.summary.FileWriter`, optional): This attribute
-        represents a TensorFlow's Writer, that is used to obtain stats.
-        The default value is `None`.
-
-      edges_np (:obj: `np.array`,optional): The edge set of the graph
-        codifies as `edges_np[:,0]` represents the sources and
-        `edges_np[:,1]` the destinations of the edges. The default value
+      writer (:obj:`tf.summary.FileWriter`, optional): This attribute represents
+        a TensorFlow's Writer, that is used to obtain stats. The default value
         is `None`.
-
+      edges_np (:obj:`np.array`, optional): The edge set of the graph codifies
+        as `edges_np[:,0]` represents the sources and `edges_np[:,1]` the
+        destinations of the edges. The default value is `None`.
       n (int, optional): Represents the cardinality of the vertex set. The
         default value is `None`.
-
-      is_sparse (bool, optional): Use sparse Tensors if it's set to
-        `True`. The default value is False` Not implemented yet. Show
-        the Todo for more information.
+      is_sparse (bool, optional): Use sparse Tensors if it's set to `True`. The
+        default value is False` Not implemented yet. Show the Todo for more
+        information.
 
     Todo:
-
       * Implement variables as sparse when it's possible. Waiting to
         TensorFlow for it.
 
@@ -134,8 +114,8 @@ class Graph(TensorFlowObject, UpdateEdgeNotifier):
   def __str__(self) -> str:
     """ Transforms the graph to a string.
 
-    This method is used to print the graph on the command line. It codifies
-    the laplacian matrix of the graph as string.
+    This method is used to print the graph on the command line. It codifies the
+    laplacian matrix of the graph as string.
 
     Returns:
       (str): representing the laplacian matrix to visualize it.
@@ -147,11 +127,10 @@ class Graph(TensorFlowObject, UpdateEdgeNotifier):
   def is_not_sink_tf(self) -> tf.Tensor:
     """ This method returns if a vertex is a sink vertex as vector.
 
-    The method generates a 1-D Tensor containing the boolean values
-    that indicates if the vertex at position `i` is a sink vertex.
+    The method generates a 1-D Tensor containing the boolean values that
+    indicates if the vertex at position `i` is a sink vertex.
 
     Returns:
-
       (:obj:`tf.Tensor`): A 1-D Tensor with the same length as cardinality
         of the vertex set.
 
@@ -161,17 +140,15 @@ class Graph(TensorFlowObject, UpdateEdgeNotifier):
   def is_not_sink_tf_vertex(self, vertex: int) -> TF_type:
     """ This method returns if a vertex is a sink vertex as vector.
 
-    The method generates a 1-D Tensor containing the boolean values
-    that indicates if the vertex at position `i` is a sink vertex.
+    The method generates a 1-D Tensor containing the boolean values that
+    indicates if the vertex at position `i` is a sink vertex.
 
     Args:
-
       vertex (int): The index of the vertex that wants to know if is sink.
 
     Returns:
-
-      (:obj:`tf.Tensor`): A 0-D Tensor that represents if a vertex is a
-        sink vertex
+      (:obj:`tf.Tensor`): A 0-D Tensor that represents if a vertex is a sink
+        vertex
 
     """
     return tf.not_equal(
@@ -181,13 +158,12 @@ class Graph(TensorFlowObject, UpdateEdgeNotifier):
   def out_degrees_np(self) -> np.array:
     """ This method returns the degree of all vertex as vector.
 
-    The method generates a 1-D Array containing the out-degree of the vertex
-    `i` at position `i`
+    The method generates a 1-D Array containing the out-degree of the vertex `i`
+    at position `i`
 
     Returns:
-
-      (:obj:`np.array`): A 1-D Array with the same length as cardinality
-         of the vertex set.
+      (:obj:`np.array`): A 1-D Array with the same length as cardinality of the
+        vertex set.
 
     """
     return self.run_tf(self.out_degrees_tf)
@@ -195,17 +171,14 @@ class Graph(TensorFlowObject, UpdateEdgeNotifier):
   def out_degrees_tf_vertex(self, vertex: int) -> tf.Tensor:
     """ This method returns the degree of all vertex as vector.
 
-    The method generates a 0-D Array containing the out-degree of the vertex
-    `i`.
+    The method generates a 0-D Array containing the out-degree of the vertex i.
 
     Args:
-
       vertex (int): The index of the vertex that wants the degree.
 
     Returns:
-
-      (:obj:`np.array`): A 1-D Array with the same length as cardinality
-        of the vertex set.
+      (:obj:`np.array`): A 1-D Array with the same length as cardinality of the
+        vertex set.
 
     """
     return tf.gather(self.out_degrees_tf, [vertex])
@@ -215,14 +188,12 @@ class Graph(TensorFlowObject, UpdateEdgeNotifier):
     """ Method that returns the edge set of the graph as list.
 
     This method return all the edges of the graph codified as 2-D matrix in
-    which the first dimension represents each edge and second dimension
-    the source and destination vertices of each edge.
+    which the first dimension represents each edge and second dimension the
+    source and destination vertices of each edge.
 
     Returns:
-
-      (:obj:`tf.Tensor`): A 2-D Tensor with the he same length as
-        cardinality of the edge set in the first dimension and 2 in the
-        second.
+      (:obj:`tf.Tensor`): A 2-D Tensor with the he same length as cardinality of
+       the edge set in the first dimension and 2 in the second.
 
     """
     return tf.cast(tf.where(tf.not_equal(self.A_tf, 0)), tf.int64)
@@ -232,14 +203,12 @@ class Graph(TensorFlowObject, UpdateEdgeNotifier):
     """ Method that returns the edge set of the graph as list.
 
     This method return all the edges of the graph codified as 2-D matrix in
-    which the first dimension represents each edge and second dimension
-    the source and destination vertices of each edge.
+    which the first dimension represents each edge and second dimension the
+    source and destination vertices of each edge.
 
     Returns:
-
-      (:obj:`np.array`): A 2-D Array with the he same length as
-        cardinality of the edge set in the first dimension and 2 in the
-        second.
+      (:obj:`np.array`): A 2-D Array with the he same length as cardinality of
+        the edge set in the first dimension and 2 in the second.
 
     """
     return self.run_tf(self.edge_list_tf)
@@ -249,14 +218,12 @@ class Graph(TensorFlowObject, UpdateEdgeNotifier):
     """ Method that returns the pseudo inverse of the Laplacian matrix.
 
     This method calculates the pseudo inverse matrix of the Laplacian of the
-    Graph. It generates a matrix of the same shape as the Laplacian matrix,
-    i.e. [n, n] where n is the cardinality of the vertex set.
+    Graph. It generates a matrix of the same shape as the Laplacian matrix, i.e.
+    [n, n] where n is the cardinality of the vertex set.
 
     Returns:
-
       (:obj:`tf.Tensor`): A 2-D square Tensor with the he same length as
-        cardinality of the vertex set representing the laplacian pseudo
-        inverse.
+        cardinality of the vertex set representing the laplacian pseudo inverse.
 
     """
     return tf.py_func(np.linalg.pinv, [self.L_tf], tf.float32)
@@ -264,19 +231,17 @@ class Graph(TensorFlowObject, UpdateEdgeNotifier):
   def A_tf_vertex(self, vertex: int) -> tf.Tensor:
     """ Method that returns the adjacency of an individual vertex.
 
-    This method extracts the corresponding row referred to the `vertex`
-    passed as parameter. It constructs a vector that contains the weight of
-    the edge between `vertex` (obtained as parameter) and the vertex at
-    position `i` in the vector.
+    This method extracts the corresponding row referred to the `vertex` passed
+    as parameter. It constructs a vector that contains the weight of the edge
+    between `vertex` (obtained as parameter) and the vertex at position `i` in
+    the vector.
 
     Args:
-
       vertex (int): The index of the vertex that wants the degree.
 
     Returns:
-
-      (:obj:`tf.Tensor`): A 1-D Tensor with the same length as the
-        cardinality of the vertex set.
+      (:obj:`tf.Tensor`): A 1-D Tensor with the same length as the cardinality
+        of the vertex set.
 
     """
     return tf.gather(self.A_tf, [vertex])
@@ -285,13 +250,12 @@ class Graph(TensorFlowObject, UpdateEdgeNotifier):
   def in_degrees_np(self) -> np.array:
     """ This method returns the in-degree of all vertex as vector.
 
-    The method generates a 1-D Array containing the in-degree of the vertex
-    `i` at position `i`
+    The method generates a 1-D Array containing the in-degree of the vertex `i`
+    at position `i`
 
     Returns:
-
-      (:obj:`np.array`): A 1-D Array with the same length as cardinality
-         of the vertex set.
+      (:obj:`np.array`): A 1-D Array with the same length as cardinality of the
+        vertex set.
 
     """
     return self.run_tf(self.in_degrees_tf)
@@ -304,9 +268,8 @@ class Graph(TensorFlowObject, UpdateEdgeNotifier):
     Tensor with shape [n]
 
     Returns:
-
-      (:obj:`tf.Tensor`): A 1-D Tensor with the same length as the
-        cardinality of the vertex set.
+      (:obj:`tf.Tensor`): A 1-D Tensor with the same length as the cardinality
+        of the vertex set.
 
     """
     return tf.reshape(self.in_degrees_tf, [self.n])
@@ -319,9 +282,8 @@ class Graph(TensorFlowObject, UpdateEdgeNotifier):
     Tensor with shape [n]
 
     Returns:
-
-      (:obj:`tf.Tensor`): A 1-D Tensor with the same length as the
-        cardinality of the vertex set.
+      (:obj:`tf.Tensor`): A 1-D Tensor with the same length as the cardinality
+      of the vertex set.
 
     """
     return tf.reshape(self.out_degrees_tf, [self.n])
@@ -329,17 +291,14 @@ class Graph(TensorFlowObject, UpdateEdgeNotifier):
   def append(self, src: int, dst: int) -> None:
     """ Append an edge to the graph.
 
-    This method process an input edge adding it to the graph updating all
-    the variables necessaries to maintain the graph in correct state.
+    This method process an input edge adding it to the graph updating all the
+    variables necessaries to maintain the graph in correct state.
 
     Args:
-
       src (int): The id of the source vertex of the edge.
-
       dst (int): The id of the destination vertex of the edge.
 
     Returns:
-
       This method returns nothing.
 
     """
@@ -357,17 +316,14 @@ class Graph(TensorFlowObject, UpdateEdgeNotifier):
   def remove(self, src: int, dst: int) -> None:
     """ Remove an edge to the graph.
 
-    This method process an input edge deleting it to the graph updating all
-    the variables necessaries to maintain the graph in correct state.
+    This method process an input edge deleting it to the graph updating all the
+    variables necessaries to maintain the graph in correct state.
 
     Args:
-
       src (int): The id of the source vertex of the edge.
-
       dst (int): The id of the destination vertex of the edge.
 
     Returns:
-
       This method returns nothing.
 
     """

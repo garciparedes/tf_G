@@ -30,12 +30,10 @@ class UpdateEdgeNotifier:
     """ Method to attach objects from this class notifications.
 
     Args:
-
-      listener: An object that will start being notified when the graph
-        changes its edge set.
+      listener: An object that will start being notified when the graph changes
+        its edge set.
 
     Returns:
-
       This method returns nothing.
 
     """
@@ -45,12 +43,10 @@ class UpdateEdgeNotifier:
     """ Method to detach objects from this clas notifications.
 
     Args:
-
-      listener: An object that will stop being notified when the graph
-        changes its edge set.
+      listener: An object that will stop being notified when the graph changes
+        its edge set.
 
     Returns:
-
       This method returns nothing.
 
     """
@@ -64,15 +60,11 @@ class UpdateEdgeNotifier:
     attached to this class.
 
     Args:
-
-      edge (:obj:`np.array`): The vector of shape [2] that represent and
-        edge being edge[0] the source vertex and edge[1] the destination
-        vertex.
-
+      edge (:obj:`np.array`): The vector of shape [2] that represent and edge
+        being edge[0] the source vertex and edge[1] the destination vertex.
       change (float): The variation in the edge weight.
 
     Returns:
-
       This method returns nothing.
 
     """

@@ -25,28 +25,22 @@ class GraphConstructor:
     exterior.
 
     Args:
-
-      sess (:obj:`tf.Session`): This attribute represents the session
-        that runs the TensorFlow operations.
-
+      sess (:obj:`tf.Session`): This attribute represents the session that runs
+        the TensorFlow operations.
       name (str): This attribute represents the name of the object in
         TensorFlow's op Graph.
-
-      edges_np (:obj: `np.array`): The edge set of the graph
-        codifies as `edges_np[:,0]` represents the sources and
-        `edges_np[:,1]` the destinations of the edges.
-
-      writer (:obj:`tf.summary.FileWriter`, optional): This attribute
-        represents a TensorFlow's Writer, that is used to obtain stats.
-        The default value is `None`.
-
-      is_sparse (bool, optional): Use sparse Tensors if it's set to True.
-        Not implemented yet. Show the Todo. The default value is `False`.
+      edges_np (:obj:`np.array`): The edge set of the graph codifies as
+        `edges_np[:,0]` represents the sources and `edges_np[:,1]` the
+        destinations of the edges.
+      writer (:obj:`tf.summary.FileWriter`, optional): This attribute represents
+        a TensorFlow's Writer, that is used to obtain stats. The default value
+        is `None`.
+      is_sparse (bool, optional): Use sparse Tensors if it's set to True. Not
+        implemented yet. Show the Todo. The default value is `False`.
 
     Returns:
-
-      (:obj: `tf_G.Graph`): A graph containing all the edges passed as
-        input in `edges_np`.
+      (:obj:`tf_G.Graph`): A graph containing all the edges passed as input in
+        `edges_np`.
 
     """
     return Graph(sess, name, edges_np=edges_np, writer=writer,
@@ -59,31 +53,24 @@ class GraphConstructor:
 
     """ Generates an empty Graph.
 
-    This method generates an empty graph with the number of vertex fixed at
-    the construction. The graph allows addition and deletion of edges.
+    This method generates an empty graph with the number of vertex fixed at the
+    construction. The graph allows addition and deletion of edges.
 
     Args:
-
-      sess (:obj:`tf.Session`): This attribute represents the session
-        that runs the TensorFlow operations.
-
+      sess (:obj:`tf.Session`): This attribute represents the session that runs
+        the TensorFlow operations.
       name (str): This attribute represents the name of the object in
         TensorFlow's op Graph.
-
       n (int): The cardinality of vertex set of the empty graph.
-
-      writer (:obj:`tf.summary.FileWriter`, optional): This attribute
-        represents a TensorFlow's Writer, that is used to obtain stats.
-        The default value is `None`.
-
-      is_sparse (bool, optional): Use sparse Tensors if it's set to True.
-        Not implemented yet. Show the Todo. The default value is `False`.
-
+      writer (:obj:`tf.summary.FileWriter`, optional): This attribute represents
+        a TensorFlow's Writer, that is used to obtain stats. The default value
+        is `None`.
+      is_sparse (bool, optional): Use sparse Tensors if it's set to True. Not
+        implemented yet. Show the Todo. The default value is `False`.
 
     Returns:
-
-      (:obj: `tf_G.Graph`): A empty graph that allows additions and
-        deletions of edges from vertex in the interval [0,n].
+      (:obj:`tf_G.Graph`): A empty graph that allows additions and deletions of
+        edges from vertex in the interval [0,n].
 
     """
     return Graph(sess, name, n=n, writer=writer, is_sparse=sparse)
@@ -97,32 +84,25 @@ class GraphConstructor:
                        is_sparse: bool = False) -> GraphSparsifier:
     """ Generates an empty Sparsifier Graph.
 
-    This method generates an empty sparsifier graph with the number of
-    vertex fixed at the construction. The graph allows addition and deletion
-    of edges. The sparsifier means that the graph will not add all edges.
-    Only a subset of it to improve the performance of the algorithms.
+    This method generates an empty sparsifier graph with the number of vertex
+    fixed at the construction. The graph allows addition and deletion of edges.
+    The sparsifier means that the graph will not add all edges. Only a subset of
+    it to improve the performance of the algorithms.
 
     Args:
-
-      sess (:obj:`tf.Session`): This attribute represents the session
-        that runs the TensorFlow operations.
-
+      sess (:obj:`tf.Session`): This attribute represents the session that runs
+        the TensorFlow operations.
       name (str): This attribute represents the name of the object in
         TensorFlow's op Graph.
-
       n (int): The cardinality of vertex set of the empty graph.
-
-      writer (:obj:`tf.summary.FileWriter`, optional): This attribute
-        represents a TensorFlow's Writer, that is used to obtain stats.
-        The default value is `None`.
-
-      is_sparse (bool, optional): Use sparse Tensors if it's set to True.
-          Not implemented yet. Show the Todo. The default value is `False`.
-
+      writer (:obj:`tf.summary.FileWriter`, optional): This attribute represents
+        a TensorFlow's Writer, that is used to obtain stats. The default value
+        is `None`.
+      is_sparse (bool, optional): Use sparse Tensors if it's set to True. Not
+        implemented yet. Show the Todo. The default value is `False`.
 
     Returns:
-
-      (:obj: `tf_G.GraphSparsifier`): A empty graph that allows additions and
+      (:obj:`tf_G.GraphSparsifier`): A empty graph that allows additions and
         deletions of edges from vertex in the interval [0,n].
 
     """
@@ -139,28 +119,20 @@ class GraphConstructor:
     edges. The edge set is generated using a uniform distribution.
 
     Args:
-
-      sess (:obj:`tf.Session`): This attribute represents the session
-        that runs the TensorFlow operations.
-
+      sess (:obj:`tf.Session`): This attribute represents the session that runs
+        the TensorFlow operations.
       name (str): This attribute represents the name of the object in
         TensorFlow's op Graph.
-
       n (int): The cardinality of vertex set of the random graph.
-
       m (int): The cardinality of edge set of the random graph.
-
-      writer (:obj:`tf.summary.FileWriter`, optional): This attribute
-        represents a TensorFlow's Writer, that is used to obtain stats.
-        The default value is `None`.
-
-      is_sparse (bool, optional): Use sparse Tensors if it's set to True.
-        Not implemented yet. Show the Todo. The default value is `False`.
-
+      writer (:obj:`tf.summary.FileWriter`, optional): This attribute represents
+        a TensorFlow's Writer, that is used to obtain stats. The default value
+        is `None`.
+      is_sparse (bool, optional): Use sparse Tensors if it's set to True. Not
+        implemented yet. Show the Todo. The default value is `False`.
 
     Returns:
-
-      (:obj: `tf_G.GraphSparsifier`): A empty graph that allows additions and
+      (:obj:`tf_G.GraphSparsifier`): A empty graph that allows additions and
         deletions of edges from vertex in the interval [0,n].
 
     """
@@ -192,25 +164,19 @@ class GraphConstructor:
 
     The method picks the edges with probability uniform probability `p` from
     edge set of the graph given as parameter. This does not provide any
-    guarantee at the structure betweeen the original graph.
+    guarantee from the structure of the original graph.
 
     Args:
-
-      sess (:obj:`tf.Session`): This attribute represents the session
-        that runs the TensorFlow operations.
-
+      sess (:obj:`tf.Session`): This attribute represents the session that runs
+        the TensorFlow operations.
       graph (:obj:`tf_G.Graph`): The input graph to pick the edges
-
       p (float): The picking probability value. It must be in the [0,1]
         interval.
-
-      is_sparse (bool): Use sparse Tensors if it's set to True. Not
-        implemented yet.
-
+      is_sparse (bool): Use sparse Tensors if it's set to True. Not implemented
+        yet.
     Returns:
-
-      (:obj:`tf_G.Graph`): The resulting graph with less edges than the
-        original graph.
+      (:obj:`tf_G.Graph`): The resulting graph with less edges than the original
+        graph.
 
     """
     boolean_distribution = tf.less_equal(
@@ -229,22 +195,16 @@ class GraphConstructor:
     to try to maintain the structure of the graph.
 
     Args:
-
-      sess (:obj:`tf.Session`): This attribute represents the session
-        that runs the TensorFlow operations.
-
-      graph (:obj:`tf_G.Graph`):
-
-      p (float): The picking probability value. It must be in the [0,1]
-        interval.
-
-      is_sparse (bool): Use sparse Tensors if it's set to True. Not
-        implemented yet.
+      sess (:obj:`tf.Session`): This attribute represents the session that runs
+        the TensorFlow operations.
+      graph (:obj:`tf_G.Graph`): The input graph to pick the edges.
+      p (float): The picking probability value. It must be in the [0,1] interval.
+      is_sparse (bool): Use sparse Tensors if it's set to True. Not implemented
+        yet.
 
     Returns:
-
-     (:obj:`tf_G.Graph`): The resulting graph sparsifier with less edges
-        than the original graph.
+      (:obj:`tf_G.Graph`): The resulting graph sparsifier with less edges than
+        the original graph.
 
     """
     return GraphSparsifier(sess=sess, p=p, graph=graph, is_sparse=is_sparse)

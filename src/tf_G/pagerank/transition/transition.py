@@ -18,22 +18,16 @@ class Transition(TensorFlowObject, UpdateEdgeNotifier):
   transitions.
 
   Attributes:
-
-    sess (:obj:`tf.Session`): This attribute represents the session
-        that runs the TensorFlow operations.
-
-    name (str): This attribute represents the name of the object in
-      TensorFlow's op Graph.
-
+    sess (:obj:`tf.Session`): This attribute represents the session that runs
+      the TensorFlow operations.
+    name (str): This attribute represents the name of the object in TensorFlow's
+      op Graph.
     writer (:obj:`tf.summary.FileWriter`): This attribute represents a
       TensorFlow's Writer, that is used to obtain stats.
-
     is_sparse (bool): Use sparse Tensors if it's set to True. Not
       implemented yet. Show the Todo.
-
     _listeners (:obj:`set`): The set of objects that will be notified when an
       edge modifies it weight.
-
     G (:obj:`tf_G.Graph`):  The graph on which the transition is referred.
 
   """
@@ -46,18 +40,13 @@ class Transition(TensorFlowObject, UpdateEdgeNotifier):
     This method is called to create a new instance of Transition class.
 
     Args:
-
-      sess (:obj:`tf.Session`): This attribute represents the session
-        that runs the TensorFlow operations.
-
+      sess (:obj:`tf.Session`): This attribute represents the session that runs
+        the TensorFlow operations.
       name (str): This attribute represents the name of the object in
         TensorFlow's op Graph.
-
       graph (:obj:`tf_G.Graph`):  The graph on which the transition is referred.
-
       writer (:obj:`tf.summary.FileWriter`): This attribute represents a
         TensorFlow's Writer, that is used to obtain stats.
-
       is_sparse (bool): Use sparse Tensors if it's set to True. Not
         implemented yet. Show the Todo.
 
@@ -76,13 +65,10 @@ class Transition(TensorFlowObject, UpdateEdgeNotifier):
     calls the `get_tf()` method that is implemented by inner classes.
 
     Args:
-
       *args: The args of the `get_tf()` method.
-
       **kwargs: The kwargs of the `get_tf()` method.
 
     Returns:
-
       (:obj:`tf.Tensor`): A `tf.Tensor` that contains the distribution of
         transitions over vertices of the graph.
 
@@ -95,13 +81,10 @@ class Transition(TensorFlowObject, UpdateEdgeNotifier):
     This method will return the transition matrix of the graph.
 
     Args:
-
       *args: The args of the `get_tf()` method.
-
       **kwargs: The kwargs of the `get_tf()` method.
 
     Returns:
-
       (:obj:`tf.Tensor`): A `tf.Tensor` that contains the distribution of
         transitions over vertices of the graph.
 
