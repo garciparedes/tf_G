@@ -11,6 +11,11 @@ class UpdateEdgeNotifier:
   The objects attached to this class need to implement
   `update_edge(edge,change)` method.
 
+  Attributes:
+
+    _listeners (:obj:`set`): The set of objects that will be notified when an
+      edge modifies it weight.
+
   """
 
   def __init__(self):

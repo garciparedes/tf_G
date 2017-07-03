@@ -13,15 +13,9 @@ class TransitionRandom(TransitionResetMatrix):
 
     self.run_tf(self.transition.assign(tf.log(self.transition)))
 
-  def __call__(self, *args, **kwargs):
-    return self.get_tf(*args)
-
-  def get_tf(self, t: int):
+  def get_tf(self, *args, **kwargs):
+    t = args[0]
     return (tf.scatter_nd(
       tf.reshape(tf.multinomial(self.transition, num_samples=1),
                  [self.G.n, 1]),
       tf.fill([self.G.n], 1 / (self.G.n + t)), [self.G.n]))
-
-  def update_edge(self, edge: np.array, change: float) -> None:
-    # TODO
-    pass

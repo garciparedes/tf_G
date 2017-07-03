@@ -394,7 +394,7 @@ class PageRank(TensorFlowObject):
     raise NotImplementedError(
       'subclasses must override page_rank_exact()!')
 
-  def update_edge(self, edge: np.array, change: float):
+  def update_edge(self, edge: np.array, change: float) -> None:
     """ The callback to receive notifications about edge changes in the graph.
 
     This method is called from the Graph when an addition or deletion is

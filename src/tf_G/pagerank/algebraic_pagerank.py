@@ -2,6 +2,7 @@ import warnings
 from typing import List
 
 import tensorflow as tf
+import numpy as np
 
 from tf_G.utils.convergence_criterion import ConvergenceCriterion
 from tf_G.pagerank.transition.transition_matrix import TransitionMatrix
@@ -185,3 +186,27 @@ class AlgebraicPageRank(PageRank):
     warnings.warn('PageRank not implements iterative PageRank! ' +
                   'Using exact algorithm.')
     return self._pr_exact_tf(topics)
+
+  def update_edge(self, edge: np.array, change: float) -> None:
+    """ The callback to receive notifications about edge changes in the graph.
+
+    This method is called from the Graph when an addition or deletion is
+    produced on the edge set. So probably is necessary to recompute the PageRank
+    ranking.
+
+
+    Args:
+
+      edge (:obj:`np.Array`): A 1-D `np.Array` that represents the edge that
+        changes in the graph, where `edge[0]` is the source vertex, and
+        `edge[1]` the destination vertex.
+
+      change (float): The variation of the edge weight. If the final value is
+        0.0 then the edge is removed.
+
+    Returns:
+
+      This method returns nothing.
+
+    """
+    self.run_tf(self._pr_exact_tf())

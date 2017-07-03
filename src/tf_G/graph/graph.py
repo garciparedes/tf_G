@@ -27,6 +27,9 @@ class Graph(TensorFlowObject, UpdateEdgeNotifier):
       TensorFlow's Writer, that is used to obtain stats. The default
       value is `None`.
 
+    _listeners (:obj:`set`): The set of objects that will be notified when an
+      edge modifies it weight.
+
     n (int): Represents the cardinality of the vertex set as Python `int`.
 
     n_tf (:obj:`tf.Tensor`): Represents the cardinality of the vertex set as
