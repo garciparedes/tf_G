@@ -220,7 +220,7 @@ class GraphConstructor:
                  edges_np=edges_np, is_sparse=is_sparse)
 
   @classmethod
-  def as_sparsifier(cls, sess, graph, p, is_sparse=False):
+  def as_sparsifier(cls, sess, graph: Graph, p: float, is_sparse=False):
     """ Generates a sparsifier graph from the given graph.
 
     The method picks the edges with probability uniform probability `p` from
@@ -247,4 +247,4 @@ class GraphConstructor:
         than the original graph.
 
     """
-    return GraphSparsifier(sess=sess, graph=graph, p=p, is_sparse=is_sparse)
+    return GraphSparsifier(sess=sess, p=p, graph=graph, is_sparse=is_sparse)
