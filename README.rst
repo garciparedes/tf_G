@@ -1,4 +1,4 @@
-Trabajo de Fin de Grado: Algoritmos para Big Data
+Trabajo de Fin de Grado: Algoritmos para Big Data: Grafos y PageRank
 =================================================
 
 :Name: tf_G
