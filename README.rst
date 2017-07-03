@@ -10,10 +10,13 @@ Trabajo de Fin de Grado: Algoritmos para Big Data: Grafos y PageRank
 .. |travisci| image:: https://img.shields.io/travis/AeroPython/PyFME/master.svg?style=flat-square
    :target: https://travis-ci.org/garciparedes/tfg-big-data-algorithms
 
+.. |codecov| image:: https://img.shields.io/codecov/c/github/garciparedes/tfg-big-data-algorithms.svg?style=flat-square
+   :target: https://codecov.io/gh/garciparedes/tfg-big-data-algorithms?branch=master
+   
 .. |docs| image:: https://img.shields.io/badge/docs-latest-brightgreen.svg?style=flat-square
    :target: http://tfg-big-data-algorithms.readthedocs.io/en/latest/?badge=latest
 
-|travisci| |docs|
+|travisci| |codecov| |docs|
 
 Descripción
 --------------------------------------------------------------------------------
