@@ -77,7 +77,7 @@ class Graph(TensorFlowObject, UpdateEdgeNotifier):
         represents a TensorFlow's Writer, that is used to obtain stats.
         The default value is `None`.
 
-      edges_np (:obj: `np.array`,optional): The edge set of the graph
+      edges_np (:obj:`np.array`, optional): The edge set of the graph
         codifies as `edges_np[:,0]` represents the sources and
         `edges_np[:,1]` the destinations of the edges. The default value
         is `None`.

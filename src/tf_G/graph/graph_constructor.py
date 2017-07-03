@@ -32,7 +32,7 @@ class GraphConstructor:
       name (str): This attribute represents the name of the object in
         TensorFlow's op Graph.
 
-      edges_np (:obj: `np.array`): The edge set of the graph
+      edges_np (:obj:`np.array`): The edge set of the graph
         codifies as `edges_np[:,0]` represents the sources and
         `edges_np[:,1]` the destinations of the edges.
 
@@ -45,7 +45,7 @@ class GraphConstructor:
 
     Returns:
 
-      (:obj: `tf_G.Graph`): A graph containing all the edges passed as
+      (:obj:`tf_G.Graph`): A graph containing all the edges passed as
         input in `edges_np`.
 
     """
@@ -82,7 +82,7 @@ class GraphConstructor:
 
     Returns:
 
-      (:obj: `tf_G.Graph`): A empty graph that allows additions and
+      (:obj:`tf_G.Graph`): A empty graph that allows additions and
         deletions of edges from vertex in the interval [0,n].
 
     """
@@ -122,7 +122,7 @@ class GraphConstructor:
 
     Returns:
 
-      (:obj: `tf_G.GraphSparsifier`): A empty graph that allows additions and
+      (:obj:`tf_G.GraphSparsifier`): A empty graph that allows additions and
         deletions of edges from vertex in the interval [0,n].
 
     """
@@ -160,7 +160,7 @@ class GraphConstructor:
 
     Returns:
 
-      (:obj: `tf_G.GraphSparsifier`): A empty graph that allows additions and
+      (:obj:`tf_G.GraphSparsifier`): A empty graph that allows additions and
         deletions of edges from vertex in the interval [0,n].
 
     """
@@ -209,8 +209,8 @@ class GraphConstructor:
 
     Returns:
 
-      (:obj:`tf_G.Graph`): The resulting graph with less edges than the
-        original graph.
+      (:obj:`tf_G.Graph`): The resulting graph with less edges than the original
+        graph.
 
     """
     boolean_distribution = tf.less_equal(
@@ -233,7 +233,7 @@ class GraphConstructor:
       sess (:obj:`tf.Session`): This attribute represents the session
         that runs the TensorFlow operations.
 
-      graph (:obj:`tf_G.Graph`):
+      graph (:obj:`tf_G.Graph`): The input graph to pick the edges.
 
       p (float): The picking probability value. It must be in the [0,1]
         interval.
@@ -243,7 +243,7 @@ class GraphConstructor:
 
     Returns:
 
-     (:obj:`tf_G.Graph`): The resulting graph sparsifier with less edges
+      (:obj:`tf_G.Graph`): The resulting graph sparsifier with less edges
         than the original graph.
 
     """
