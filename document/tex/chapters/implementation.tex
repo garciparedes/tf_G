@@ -31,6 +31,27 @@
       \paragraph{}
       Lo característico de \emph{GraphX} es que se ha desarrollado como una biblioteca para el tratamiento de grafos utilizando \emph{Spark} como plataforma base, pero tratando de mantener la independencia entre las mismas. Es decir, \emph{GraphX} ha sido desarrollado utilizando las utilidades que proporciona \emph{Spark}, pero en \emph{Spark} no existe ninguna dependencia hacia \emph{GraphX}. Por tanto, esto se puede entender como un sistema basado en capas, donde \emph{Spark} representa la capa inferior y \emph{GraphX} se coloca en una capa inmediatamente superior.
 
+      \paragraph{}
+      En este trabajo, se ha tratado de realizar una implementación semejante (a un nivel muy básico por las restricciones temporales en que se ha desarrollado), tratando de proporcionar igualmente una capa de abstracción que modeliza el concepto de grafo sobre otra plataforma de computación de alto rendimiento. En este caso se ha decidido utilizar la biblioteca de cálculo intensivo \emph{TensorFlow}, la cual se hizo pública en \emph{2016} en el trabajo \emph{Tensorflow: Large-scale machine learning on heterogeneous distributed systems} \cite{abadi2016tensorflow}, desarrollada por el departamente de investigación de \emph{Google} y actualmente publicada con licenciatura de código abierto.
+
+      \paragraph{}
+      \emph{TensorFlow} proporciona un \emph{framework} para la implementación de algoritmos cuyo funcionamiento se basa en el cálculo de operaciones sobre \emph{tensores} (una generalización del concepto de matriz). Se ha preferido posponer la descripción de esta plataforma hasta la sección \ref{sec:tensorflow}, ya que a continuación se describirá el conjunto de tecnologías utilizadas para la implementación realizada.
+
+      \paragraph{}
+      La motivación por la cual se ha decidido realizar la implementación de una biblioteca que simplifique el desarrollo de algoritmos sobre grafos utilizando una plataforma de cálculo matemático intensivo se debe a lo siguiente: una gran cantidad de analíticas sobre grafos pueden ser calculadas entendiendo dicho grafo como una estructura de datos matricial, a través de la \emph{matriz de adjacencia} (sección \ref{sec:adjacency_matrix}), u otras representaciones como la \emph{matriz laplaciana} (sección \ref{sec:laplacian_matrix}). Este marco conceptual conlleva el desarrollo de algoritmos con un alto grado de paralelización, que tal y como se verá posteriormete, satisface la plataforma \emph{TensorFlow}.
+
+      \paragraph{}
+      Sobre este contexto también se pueden desarrollar algoritmos de optimización, tales como planificación de rutas, recorridos de vehículos o cubrimiento de zonas mediante la modelización del grafo de manera conveniente y la utilización de distintas estrategias de programación lineal, lo cual se ha estudiado ampliamente en la literatura.
+
+      \paragraph{}
+      En este caso, la implementación realizada para este trabajo se encuentra en las primeras fases de su desarrollo. Por tanto, únicamente se ha basado en el conjunto de utilidades necesarias para llevar a cabo la implementación del \emph{Algoritmo PageRank} (capítulo \ref{chap:pagerank}), junto con un \emph{Sparsifier} (sección \ref{sec:sparsifiers}) que reduce el número de aristas del grafo para después comparar resultados a nivel de precisión.
+
+      \paragraph{}
+      Sin embargo, tal y como se indicará posteriormente, se pretende seguir trabajando en dicha biblioteca de grafos para ampliar su funcionalidad y desarrollar otras implementaciones que permitan obtener otras analíticas sobre el grafo.
+
+      \paragraph{}
+      El resto del capítulo se organiza de la siguiente manera: en la sección \ref{sec:implementation} se realiza una descripción acerca de las decisiones tomadas en la implementación de la biblioteca, indicando las tecnologías utilizadas (sección \ref{sec:used_technologies}), los servicios en que se ha apoyado el desarrollo (sección \ref{sec:used_services}) y el diseño que ha seguido dicha implementación (sección \ref{sec:implementation_design}). Posteriormente se realiza un comentario acerca de los resultados obtenidos en la sección \ref{sec:implementation_results}. A continuación se indican distintas vías a través de las cuales sería interesante seguir trabajando en la implementación en la sección \ref{sec:future_work} y, por último, se realiza una breve conclusión acerca del trabajo realizado en la sección \ref{sec:implementation_conclusions}
+
     \section{Implementación}
     \label{sec:implementation}
 
@@ -73,7 +94,7 @@
           \paragraph{}
           [TODO ]
 
-        \subsubsection{Git}
+        \subsubsection{git}
         \label{sec:git}
 
           \paragraph{}
@@ -119,7 +140,7 @@
       [TODO]
 
     \section{Resultados}
-    \label{sec:implmentation_results}
+    \label{sec:implementation_results}
 
       \paragraph{}
       [TODO]
