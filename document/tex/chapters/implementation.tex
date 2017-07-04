@@ -56,19 +56,25 @@
     \label{sec:implementation}
 
       \paragraph{}
-      [TODO]
+      En esta sección se exponen distintas explicaciones acerca de la implementación realizada, la cual pretende comportarse como una biblioteca de utilidades que permita modelizar de manera sencilla el concepto de grafo, utilizando como base una plataforma de cálculo matemático intensivo. Dicha implementación se ha realizado prestando especial atención en la reducción de dependencias hacia el exterior, de tal manera que sea posible la distribución de la misma como un paquete compacto que integrar en otros sistemas de mayor envergadura. Por tanto, se ha utilizado el sistema de distribución de paquetes del lenguaje \emph{Python}, el cual simplifica dicha tarea. Sin embargo, antes de comenzar a describir distintos detalles acerca de las decisiones tomadas, a continuación se describen brevemente las tecnologias utilizadas, ya que son influyentes respecto de dichas decisiones.
 
       \subsection{Tecnologías Utilizadas}
       \label{sec:used_technologies}
 
         \paragraph{}
-        [TODO ]
+        La implementación se ha desarrollado utilizando el lenguaje \emph{Python}, junto con distintas bibliotecas que extienden su comportamiento y le otorgan una mayor funcionalidad. Además, se ha utilizado el sistema de control de versiones \emph{git}, que permite trabajar de manera ordenada en distintas partes del trabajo.
 
         \subsubsection{Python}
         \label{sec:python}
 
           \paragraph{}
-          [TODO ]
+          \emph{Python} se define como un lenguaje de propósito general sobre un paradigma imperativo pero con utilidades de programación funcional como funciones lambda o tratamiento de funciones como un valor más. Es orientado a objetos y no tipado, lo cual simplifica el trabajo a la hora de escribir código, pero limita la seguridad del mismo ante entradas incorrectas. Python es un lenguaje interpretado en tiempo de ejecución, por lo cual no es requiere de la utilización de un compilador. Internamente existen implementaciones de \emph{Python} en distintos lenguajes de programación compilados, sin embargo, en este caso el desarrollo se ha realizado sobre \emph{cpython}, que se basa en un itérprete desarrollado en el lenguaje \emph{C}.
+
+          \paragraph{}
+          En la revisión del estándar \emph{PEP-484} \url{https://www.python.org/dev/peps/pep-0484/} se añade un sistema de marcado de tipos para el lenguaje, el cual aún no está operativo en tiempo de ejecución (a través del intérprete), pero permite la comprobación estática del mismo. En la implementación realizado se ha utilizado este este sistema de comprobación de tipos, el cual se introdujo en \emph{Python 3.5}, por tanto está ha sido la versión escogida como mínima.
+
+          \paragraph{}
+          \emph{Python} implementa como estructura de datos indexadas \emph{listas enlazadas}, lo cual proporciona una gran versatilidad ya que permite tanto agregrar como eliminar nuevos elementos de manera eficiente ($O(1)$). Sin embargo, el tiempo de acceso se ve altamente penalizado por dicha condición ($O(n)$). Por tanto, se han utilizado bibliotecas externas que mejoran dichos costes.
 
         \subsubsection{TensorFlow}
         \label{sec:tensorflow}
@@ -106,23 +112,14 @@
         \paragraph{}
         [TODO ]
 
-        \subsubsection{GitHub}
-        \label{sec:github}
+        \paragraph{GitHub}
+        [TODO ]
 
-          \paragraph{}
-          [TODO ]
+        \paragraph{Read the Docs}
+        [TODO ]
 
-        \subsubsection{Read the Docs}
-        \label{sec:readthedocs}
-
-          \paragraph{}
-          [TODO ]
-
-        \subsubsection{Travis CI}
-        \label{sec:travis}
-
-          \paragraph{}
-          [TODO ]
+        \paragraph{Travis CI}
+        [TODO ]
 
         \subsubsection{Codecov}
         \label{sec:codecov}
