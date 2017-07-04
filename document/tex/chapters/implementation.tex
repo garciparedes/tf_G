@@ -76,35 +76,38 @@
           \paragraph{}
           \emph{Python} implementa como estructura de datos indexadas \emph{listas enlazadas}, lo cual proporciona una gran versatilidad ya que permite tanto agregrar como eliminar nuevos elementos de manera eficiente ($O(1)$). Sin embargo, el tiempo de acceso se ve altamente penalizado por dicha condición ($O(n)$). Por tanto, se han utilizado bibliotecas externas que mejoran dichos costes.
 
+        \subsubsection{NumPy y Pandas}
+        \label{sec:numpy_pandas}
+
+          \paragraph{}
+          Para solventar la problemática de la eficiencia en tiempo de acceso de las estructuras de datos indexadas en \emph{Python} existe una biblioteca que permite implementa dichas estructuras de datos de manera contigua, lo cual elimina el problema. Dicha biblioteca se conoce como \emph{NumPy} \cite{walt2011numpy}, la cual proporciona además un gran conjunto de operaciones matemáticas sobre esta estructura de datos. De esta manera se permite desarrollar algoritmos con una elevada carga matemática de manera muy eficiente y a la vez sencilla, al estilo de lenguajes como \emph{MatLab} o \emph{R}.
+
+          \paragraph{}
+          Para algunas partes del código implementado, se ha utilizado la biblioteca \emph{Pandas} \cite{mckinney2010data}. Esta biblioteca consiste en una extensión respecto de \emph{NumPy}, que permite ver la estructura de datos desde una perspectiva de conjunto de datos en lugar de estructura matemática, lo cual simplifica el trabajo para tareas como la lectura y estructa de conjuntos de datos en el espacio de almacenamiento.
+
         \subsubsection{TensorFlow}
         \label{sec:tensorflow}
 
           \paragraph{}
-          [TODO ]
-
-        \subsubsection{Numpy y Pandas}
-        \label{sec:numpy_pandas}
-
-          \paragraph{}
-          [TODO ]
+          [TODO ] \emph{TensorFlow} \cite{abadi2016tensorflow}
 
         \subsubsection{pytest}
         \label{sec:tensorflow}
 
           \paragraph{}
-          [TODO ]
+          \emph{pytest} es una herramienta de generación de casos de prueba para el lenguaje \emph{Python}. Para ello se basa en la ejecución de distintas funciones definidas por el usuario, las cuales contienen un conjunto de asertos (palabra reservada \emph{assert} en \emph{Python}), los cuales deben superar satisfactoriamente para finalizar el test de manera satisfactoria. Para los casos de prueba, estos se han utilizado junto con los que proporciona \emph{NumPy} para comprobar la semejanza entre dichas estructuras de datos de manera eficiente.
 
         \subsubsection{sphinx}
         \label{sec:sphinx}
 
           \paragraph{}
-          [TODO ]
+          \emph{sphinx} consiste en una herramienta que permite extraer la documentación incorporada en el código a otras fuentes para facilitar su visualización, tales como un sitio web, documentos de \emph{PDF} y otras alternativas. Para ello se basa en la documentación interna del código. En el caso de \emph{Python}, esta documentación se denomina \emph{docstring} y permite añadir una breve explicación acerca de los bloques de código, así como las entradas y salidas de los métodos. En este caso se ha utilizado el estilo de documentación definido por \emph{Google} para tratar de asemejarse lo máximo posible a la documentación seguida por \emph{TensorFlow}
 
         \subsubsection{git}
         \label{sec:git}
 
           \paragraph{}
-          [TODO ]
+          \emph{git} se corresponde con un \emph{sistema de control de versiones} que permite el trabajo de manera colaborativa entre distintos usuarios, a través de distintas ramas de desarrollo, que después se combinan para llegar a un estado de desarrollo final. Además de esto, permite almacenar un historial de todos los cambios realizados, lo cual es de gran ayuda en puntos en los cuales es necesario entender la razón de cambios pasados así, como retroceder hasta un estado anterior si fuera conveniente. Otra de las ventajas de esta herramienta es la capacidad de sincronización entre distintos sistemas, así como la posibilidad de mantener una copia del repositorio en un servidor externo, lo cual previene de problemas relacionados con fallos del sistema local.
 
       \subsection{Servicios Utilizados}
       \label{sec:used_services}
@@ -121,11 +124,8 @@
         \paragraph{Travis CI}
         [TODO ]
 
-        \subsubsection{Codecov}
-        \label{sec:codecov}
-
-          \paragraph{}
-          [TODO ]
+        \paragraph{Codecov}
+        [TODO ]
 
       \subsection{Diseño de la implementación}
       \label{sec:implementation_design}
