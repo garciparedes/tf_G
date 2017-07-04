@@ -11,10 +11,109 @@
     \label{sec:implementation_intro}
 
       \paragraph{}
-      [TODO]
+      A lo largo de este documento se han descrito distintas ideas relacionadas con nuevas técnicas para tratar de hacer frente al problema de la complejidad derivada del tamaño de conjunto de datos de tamaño masivo, para el cual es necesario utilizar técnicas sofisticadas que agilicen dichos procedimientos. Dichos conceptos se han descrito desde una perspectiva teórica dejando de lado cuestiones de implementación u otros factores. Dicha abstracción ha permitido simplificar las descripciones teniendo en cuenta únicamente el enfoque algoritmico de las mismas.
+
+      \paragraph{}
+      Sin embargo, el enfoque que se seguirá en este capítulo pretende ser muy diferente, centrandose en los detalles de implementación y dejando de lado el contenido matemático. De esta manera, se pretende describir el código fuente desarrollado desde la perspectiva de su estructura y organización, ya que a pesar de basarse en una implementación que trata de ejemplificar conceptos descritos a lo largo del documento, se ha dedicado especial cuidado tratando de escribir código de calidad, mantenible y reutilizable.
+
+      \paragraph{}
+      Antes de profundizar en detalles relacionados con la implementación en si, es necesario realizar una explicación acerca de lo que se ha pretendido conseguir mediante el desarrollo de la misma, ya que debido al contexto en que se enmarca (\emph{Trabajo de Fin de Grado} de \emph{Ingeniería Informática}) y la metodología seguida para la realización  del mismo (\emph{Proyecto de Investigación}), esta implementación se encuentra en las primeras fases de su desarrollo, por lo cual aún no tiene el grado de madurez esperado para ser incluida en entornos de producción. A pesar de ello, se cree que la continuación en el desarrollo de la misma es una tarea interesante, que con las horas de trabajo necesarias, se podría convertir en una herramienta interesante frente a otras alternativas que existen actualmente.
+
+      \paragraph{}
+      Para entender lo que se ha pretendido conseguir con esta implementación, a continuación se ejemplifica un caso de una implementación similar que se ha llevado a cabo utilizando otras tecnologías en los últimos años. Dicha implementación (e ideas) se conoce como \emph{GraphX}, una biblioteca para el tratamiento de grafos masivos de manera distribuida presentada en \emph{2013} en el trabajo \emph{Graphx: A resilient distributed graph system on spark} \cite{xin2013graphx} desarrollado por \emph{Xin y otros}. Esta implementación se desarrolló inicialmente como un conjunto de utilidades y procedimientos sencillos para facilitar la representación de grafos y el desarrollo de algoritmos sobre estos.
+
+      \paragraph{}
+      \emph{GraphX} se ha desarrollado utilizando como base la plataforma de computación distribuida \emph{Spark} publicada en el trabajo \emph{Spark: Cluster computing with working sets} \cite{zaharia2010spark} de \emph{Zaharia y otros}. Esta plataforma se basa en el tratamiento de grandes conjuntos de datos mediante el procesamiento de los mismos en lotes, lo cual proporciona grandes mejoras respecto de otras soluciones como \emph{Hadoop}, presentado en el documento \emph{The hadoop distributed file system} \cite{shvachko2010hadoop} desarrollado por \emph{Shvachko y otros}.
+
+      \paragraph{}
+      Dichas plataformas tratan de abstraer la idea de procesamiento distribuido y hacerlo lo más transparente posible para el usuario, sin olvidar en ningún momento que los conjuntos de datos utilizados sobre los que se trabaja no se encuentran contenidos totalmente en una única máquina, lo cual implica distintas restricciones respecto de las estrategias de programación clásicas, como los procesos de acceso y escritura al sistema de almacenamiento. Sin embargo, en estos casos también existen soluciones que abstraen dichas tareas de almacenamiento distribuidas, algunas de ellas son \emph{Google File System} \cite{ghemawat2003google} o \emph{Hadoop File System} \cite{shvachko2010hadoop}.
+
+      \paragraph{}
+      Lo característico de \emph{GraphX} es que se ha desarrollado como una biblioteca para el tratamiento de grafos utilizando \emph{Spark} como plataforma base, pero tratando de mantener la independencia entre las mismas. Es decir, \emph{GraphX} ha sido desarrollado utilizando las utilidades que proporciona \emph{Spark}, pero en \emph{Spark} no existe ninguna dependencia hacia \emph{GraphX}. Por tanto, esto se puede entender como un sistema basado en capas, donde \emph{Spark} representa la capa inferior y \emph{GraphX} se coloca en una capa inmediatamente superior.
 
     \section{Implementación}
     \label{sec:implementation}
+
+      \paragraph{}
+      [TODO]
+
+      \subsection{Tecnologías Utilizadas}
+      \label{sec:used_technologies}
+
+        \paragraph{}
+        [TODO ]
+
+        \subsubsection{Python}
+        \label{sec:python}
+
+          \paragraph{}
+          [TODO ]
+
+        \subsubsection{TensorFlow}
+        \label{sec:tensorflow}
+
+          \paragraph{}
+          [TODO ]
+
+        \subsubsection{Numpy y Pandas}
+        \label{sec:numpy_pandas}
+
+          \paragraph{}
+          [TODO ]
+
+        \subsubsection{pytest}
+        \label{sec:tensorflow}
+
+          \paragraph{}
+          [TODO ]
+
+        \subsubsection{sphinx}
+        \label{sec:sphinx}
+
+          \paragraph{}
+          [TODO ]
+
+        \subsubsection{Git}
+        \label{sec:git}
+
+          \paragraph{}
+          [TODO ]
+
+      \subsection{Servicios Utilizados}
+      \label{sec:used_services}
+
+        \paragraph{}
+        [TODO ]
+
+        \subsubsection{GitHub}
+        \label{sec:github}
+
+          \paragraph{}
+          [TODO ]
+
+        \subsubsection{Read the Docs}
+        \label{sec:readthedocs}
+
+          \paragraph{}
+          [TODO ]
+
+        \subsubsection{Travis CI}
+        \label{sec:travis}
+
+          \paragraph{}
+          [TODO ]
+
+        \subsubsection{Codecov}
+        \label{sec:codecov}
+
+          \paragraph{}
+          [TODO ]
+
+      \subsection{Diseño de la implementación}
+      \label{sec:implementation_design}
+
+        \paragraph{}
+        [TODO ]
 
       \paragraph{}
       [TODO]
