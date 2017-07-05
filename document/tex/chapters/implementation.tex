@@ -128,25 +128,43 @@
       \label{sec:used_services}
 
         \paragraph{}
-        [TODO ]
+        Para el desarrollo de este trabajo se han utilizado distintos servicios de empresas externas que simplifican algunas de las tareas inherentes en la utilización de las tecnologías descritas anteriormente. Dichas tareas se pueden realizar de manera independiente a estos servicios, sin embargo, resulta interesante su utilización por el grado de mayor confiabilidad que proporcionan respecto del desarrollo completo utilizando únicamente una máquina local, que puede sufrir fallos perdiendo todo el trabajo. Todos los servicios externos utilizados han sido utilizados en su versión gratuita, que ofrece las funcionalidades suficientes para el correcto desarrollo del proyecto.
 
         \paragraph{GitHub}
-        [TODO ]
+        Proporciona un servidor \emph{git} externo sobre el cual se realizan copias del trabajo local de tal manera que se aumenta el grado de seguridad desde el punto de la aparición de pérdidas inesperadas. Además del servicio de control de versiones basado en \emph{git}, se proporcionan otra serie de funcionalidades como gestión de incidencias mediante el concepto de \emph{issue}, la fusión de ramas de manera segura a partir de \emph{pull request} o una gestión de proyectos mediante un tablero \emph{kanban} configurable según las necesidades especificas del mismo.
 
         \paragraph{Read the Docs}
-        [TODO ]
+        Ofrece un servicio de generación y publicación de sitios web basados en la documentación de proyectos sofware basada en \emph{sphinx} de manera sencilla, ya que únicamente requiere de la dirección de acceso al repositorio de trabajo \emph{git} junto con las opciones del entorno de desarrollo necesarias para utilizar \emph{sphinx} sobre dicho repositorio. Se cree conveniente la publicación de la documentación de código para que sea accesible fácilmente, por lo cual se decidió utilizar dicho servicio.
 
         \paragraph{Travis CI}
-        [TODO ]
+        Consiste en un entorno de realización de casos de prueba previamente configurados por el usuario a través de bibliotecas como \emph{pytest} u otras similares. El servicio ejecuta despliega un entorno de pruebas previamente configurado por el usuario para después ejecutar el conjunto de casos de prueba indicados. Este servicio indica tras cada cambio en el repositorio si las pruebas han sido superadas, o por contra han ocurrido fallos, indicando el punto de dichos fallos.
 
         \paragraph{Codecov}
-        [TODO ]
+        Es una utilidad interesante que determina el grado de covertura de los casos de prueba sobre la implementación realizada, lo cual proporciona una buena estimación acerca del conjunto de lineas de código que están siendo verificadas por los tests. Sin embargo, a pesar de que esta utilidad proporciona una buena estimación, su resultado tan solo puede ser orientativo, ya que únicamente tiene en cuenta si existe un caso de prueba que analice una determinada línea de código. Esto no tiene en cuenta casos específicos como divisiones entre cero, verificaciones de valores fuera de rango o casos similares.
+
+        \paragraph{WakaTime}
+        Es una utilidad destinada al seguimiento de horas de trabajo, que indica tanto la proporción de tiempo destinada a cada lenguaje como a cada proyecto. Esta se basa en la recolección de información sobre los editores de código. Por tanto, recoge el tiempo de trabajo destinado a dicha tarea. Esto es una métrica interesante, pero no tiene en cuenta la cantidad de tiempo destinado a tareas de aprendizaje e investigación leyendo artículos o leyendo documentación de bibliotecas utilizadas durante el desarrollo.
+
+        \paragraph{}
+        Todos estos servicios se han utilizados de manera relacionada entre si, en algunos casos de manera directa, mientras que en otros de manera indirecta. El punto de conexión entre todos ellos es el sistema de control de versiones \emph{git}, que estos utilizan para relacionar la tarea que realizan con un determinado proyecto. El sistema de documentación de \emph{Read the Docs} realiza una nueva ejecución tras cada cambio en el repositorio \emph{git} de \emph{GitHub}. De la misma manera \emph{Travis CI} y \emph{Codecov} realizan sus tareas correspondientes. Por último, \emph{WakaTime} realiza un seguimiento constante sobre el tiempo dedicado al repositorio. De esta manera se obtiene un entorno de trabajo que permite un desarrollo ágil permitiendo al desarrollador centrarse únicamente en las tareas de investigación y desarrollo, para posteriormente validar los resultados de ejecución de estos servicios, lo cual reduce tiempo y costes.
 
       \subsection{Diseño de la implementación}
       \label{sec:implementation_design}
 
         \paragraph{}
         [TODO ]
+
+        \subsubsection{Diagrama de Clases}
+        \label{sec:class_diagram}
+
+          \paragraph{}
+          [TODO ]
+
+        \subsubsection{Diagrama de Componentes}
+        \label{sec:components_diagram}
+
+          \paragraph{}
+          [TODO ]
 
       \paragraph{}
       [TODO]
