@@ -89,7 +89,22 @@
         \label{sec:tensorflow}
 
           \paragraph{}
-          [TODO ] \emph{TensorFlow} \cite{abadi2016tensorflow}
+          \emph{TensorFlow} \cite{abadi2016tensorflow} es una biblioteca inicialmente desarrollada por \emph{Google}. La idea principal por la cual fue desarrollada es la simplificación de tareas para la implementación de algoritmos para aprendizaje automático y \emph{deep learning}, cuya carga computacional es altamente paralelizable y puede ser entendida como operaciones entre \emph{tensores}. Esta biblioteca proporciona interfaces para ser utilizada junto con los lenguajes \emph{Python}, \emph{C++}, \emph{Java} o \emph{Go}.
+
+          \paragraph{}
+          Un \emph{tensor} es una generalización del concepto de matriz, permitiendo que estas sean de cualquier número de dimensiones. Esto puede entenderse fácilmente diciendo que un tensor de grado 0 se corresponde con el concepto de escalar, uno de grado 1 puede ser visto como un vector, el grado 2 se corresponde con las matrices y así sucesivamente. A partir del conjunto de operaciones aplicable a dichos \emph{tensores} se crea un flujo de estas, que puede ser visto como un grafo de dependencias entre ellas. Por tanto, el la biblioteca se decidió llamar \emph{TensorFlow} (\emph{flujo de tensores}).
+
+          \paragraph{}
+          \emph{TensorFlow} proporciona por tanto, estructuras de datos para representar el concepto de \emph{tensor} así como un conjunto de operaciones básicas que aplicar entre ellos para así obtener nuevos \emph{tensores} con los resultados. La biblioteca se puede dividir en dos bloques bien diferenciados: el primero de ellos de bajo nivel y que se corresponde con operaciones matemáticas sencillas (suma, multiplicacion, division, exponenciación, máximos, etc.) y otro segundo bloque construido a partir del primero al cual pertenece todo el conjunto de operaciones de alto nivel que permiten la implementación de algoritmos de aprendizaje automático fácilmente, tales como implemenentaciones del \emph{gradiente descendente} u otros conceptos semejantes. Independientemente de estos dos bloques, la biblioteca también proporciona otra serie de utilidades como capacidad para definir variables y constantes, guardar y recuperar modelos matemáticos y otras facilidades.
+
+          \paragraph{}
+          En esta implementación se han utilizado métodos relacionados con operaciones algebraicas, ya que se ha utilizado dicha libreria centrandose únicamente en su perspectiva matemática y obviando por completo el bloque de aprendizaje automático, ya que no se corresponde con el tema de este trabajo ni con las ideas descritas en anteriores capítulos.
+
+          \paragraph{}
+          \emph{TensorFlow} proporciona distintas ventajas a nivel de rendimiento respecto de otras alternativas de computación numérica intensiva puesto que está construida como una interfaz de alto nivel que abstrae al usuario del sistema donde está siendo ejecutado el cómputo. Con esto nos estamos refiriendo a que la implementación realizada es ejecutable tanto en una \emph{CPU} clásica de un ordenador como en acelerados de computación externos tales como \emph{GPU's} \emph{CUDA} o las \emph{Tensor Processor Units} \cite{jouppi2017datacenter} diseñadas expecificamente por \emph{Google} para ser utilizadas junto con esta librería.
+
+          \paragraph{}
+          Debido a estas ideas, el estilo de programación se divide en dos fases, una de definicion de tensores, operaciones y relaciones de dependencia entre ellas en la cual se construye el denominado flujo o grafo de operaciones, y una segunda fase correspondiente a la llamada para la ejecución de dichas operaciones. Esta idea cobra sentido debido tanto al elevado tamaño de los datos de entrada para las operaciones, así como el modelo de computación en aceleradores externos, que requiere de tareas de transferencia entre el sistema y dichas unidades. Al dividirse la definición de la ejecución, esto se puede optimizar de manera eficiente sobre lenguajes interpretados como \emph{Python}, que sino tendrían una alta penalización en temporal derivada del coste de transferencias.
 
         \subsubsection{pytest}
         \label{sec:tensorflow}
