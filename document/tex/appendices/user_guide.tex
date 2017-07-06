@@ -7,28 +7,47 @@
   \chapter{Guía de Usuario}
   \label{chap:user_guide}
 
-    \section{Requisitos de Uso}
-    \label{sec:user_guide_requirements}
+    \paragraph{}
+    En esta sección se describe el proceso de instalacción y uso de la implementación realizada. Para ello existen distintas alternativas, entre las que se encuentran la instalación utilizando el comando \texttt{python} u otras basadas en gestores de modulos como \texttt{easy\_install} o \texttt{pip}. En este caso se realiza una descripción para instalar el proyecto usando el gestor \texttt{pip}.
 
-      \paragraph{}
-      [TODO ]
+    \paragraph{}
+    Antes de nada es necesario tener instalado en el sistema el lenguaje de programación \texttt{Python}, en su versión \textbf{3.5} o superior, junto con su correspondiente versión de \texttt{pip}. Para el proceso de instalacción del modulo se puede recurrir al repositorio alojado en \emph{GitHub} o instalarse directamente a través de la copia local.
 
-    \section{Guía de Instalación}
-    \label{sec:user_guide_install}
+    \paragraph{}
+    El comando a ejecutar para instalar la implementación en el sistema a partir del repositorio de \emph{Github} (nótese que en este caso es necesario tener instalada la utilidad \texttt{git}) se muestra a continuación:
+    \begin{minted}{bash}
+    $ pip install git+https://github.com/garciparedes/tf_G.git
+    \end{minted}
 
-      \paragraph{}
-      [TODO ]
+    \paragraph{}
+    En el caso de preferir instalar la copia local del repositorio, tan solo es necesario ejecutar la siguiente orden:
 
-    \section{Documentación}
-    \label{sec:user_guide_documentation}
+    \begin{minted}{bash}
+    $ pip install .
+    \end{minted}
 
-      \paragraph{}
-      [TODO ]
+    \paragraph{}
+    Una vez completado el proceso de instalación con éxito, ya se está en condiciones suficientes como para utilizar la implementación realizada. Para ello, esta se puede importar en ficheros que contengan código fuente \texttt{python} que se ejecute sobre intérpretes cuya versión sea \textbf{3.5} o superior.
 
-    \section{Preguntas Frecuentes}
-    \label{sec:user_guide_faq}
+    \paragraph{}
+    También se puede utilizar la implementación sobre un intérprete ejecutandose sobre la línea de comandos del sistema mediante comandos como \texttt{python3} o la versión extendida \texttt{ipython3}. Una vez en el intérprete se puede importar el módulo simplemente con ejecutar:
 
-      \paragraph{}
-      [TODO ]
+    \begin{minted}{python}
+    >>> import tf_G
+    \end{minted}
+
+    \paragraph{}
+    Una vez ejecutada dicha sentencia se tiene acceso al ecosistema de clases descrito en la documentación. La cual se encuentra contenida en el propio código a través del estándar \texttt{docstring}. Dicha documentación también es accesible en forma de sitio web a través de la siguiente url: \url{http://tf-g.readthedocs.io/en/latest/}.
+
+    \paragraph{}
+    En el caso de poseer una copia local del repositorio, también es posible realizar una ejecución del conjunto de pruebas de test que confirman que la corrección del código. Para ello es necesario poseer la utilidad \texttt{pytest}. Únicamente con la ejecucción de dicha prueba sobre el fichero raiz del repositorio, se realizarán todas las pruebas unitarias contenidas en el repositorio. Para ello se debe ejecutar la siguiente sentencia:
+
+    \begin{minted}{bash}
+    $ pip install -e .
+    $ pytest
+    \end{minted}
+
+    \paragraph{}
+    Tal y como se puede apreciar mediante este manual de instalación y uso, gracias al sistema de gestión de módulos de \emph{Python}, las tareas de distribución de los mismos, así como la gestión de dependencias se simplifican drásticamente, límitandose únicamente al comando de instalacción, junto con la correspondiente importación necesaria para su uso.
 
 \end{document}
