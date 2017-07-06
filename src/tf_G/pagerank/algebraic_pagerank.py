@@ -97,9 +97,15 @@ class AlgebraicPageRank(PageRank):
 
     """
     if topics is not None:
-      #TODO
-      pass
-    a = tf.fill([1, self.G.n], (1 - self.beta) / self.G.n_tf)
+      p =tf.reshape(
+      tf.scatter_nd(tf.constant(topics, shape=[len(topics), 1]),
+                    len(topics) * [1 / len(topics)],
+                    [self.G.n]), [1, self.G.n])
+    else:
+      p = tf.fill([1, self.G.n],  1 / self.G.n_tf)
+
+    a = (1 - self.beta) * p
+    print(self.run_tf(a))
     b = tf.matrix_inverse(
       tf.eye(self.G.n, self.G.n) - self.beta * self.T())
     self.run_tf(self.v.assign(tf.matmul(a, b)))
@@ -161,6 +167,30 @@ class AlgebraicPageRank(PageRank):
     warnings.warn('PageRank not implements iterative PageRank! ' +
                   'Using exact algorithm.')
     return self._pr_exact_tf(topics)
+
+  def _generate_personalized_vector(self, topics: List[int] = None):
+    """ Generates the Tensor that will be used to represent personalization.
+
+    Args:
+      topics (:obj:`list` of :obj:`int`, optional): A list of integers that
+        represent the set of vertex where the random jumps arrives. If this
+        parameter is used, the uniform distribution over all vertices of the
+        random jumps will be modified to jump only to this vertex set. Default
+        to `None`.
+
+    Returns:
+      (:obj:`tf.Tensor`): A 2-D `tf.Tensor` of [n,n] shape, where `n` is the
+        cardinality of the graph vertex set. It contains the extended version of
+        normalized personalized vector.
+
+    """
+    if topics is not None:
+      return tf.ones([self.G.n, self.G.n]) * tf.reshape(
+        tf.scatter_nd(tf.constant(topics, shape=[len(topics), 1]),
+                      len(topics) * [1 / len(topics)],
+                      [self.G.n]), [1, self.G.n])
+    else:
+      return tf.fill([self.G.n, self.G.n], tf.pow(self.G.n_tf, -1))
 
   def update_edge(self, edge: np.array, change: float) -> None:
     """ The callback to receive notifications about edge changes in the graph.

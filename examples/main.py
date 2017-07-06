@@ -7,7 +7,7 @@ import tf_G
 
 def main():
   beta: float = 0.85
-  convergence: float = 0.001
+  convergence: float = 0.0001
 
   edges_np: np.array = tf_G.DataSets.followers()
 
@@ -35,12 +35,18 @@ def main():
 
     # a = pr_alge.ranks_np()
     start_time: float = timeit.default_timer()
+    a: np.array = pr_alge.ranks_np(convergence=convergence, topics=[5],
+                                   topics_decrement=True)
+    elapsed: float = timeit.default_timer() - start_time
+    print(elapsed)
+
+    start_time: float = timeit.default_timer()
     b: np.array = pr_iter.ranks_np(convergence=convergence, topics=[5],
                                    topics_decrement=True)
     elapsed: float = timeit.default_timer() - start_time
     print(elapsed)
 
-    # print(a)
+    print(a)
     print(b)
     # print(c)
     # print((pr_alge.error_vector_compare_np(pr_iter)))
