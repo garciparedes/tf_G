@@ -17,6 +17,7 @@ Welcome to tf_G's documentation!
    pagerank
    pagerank_transition
    utils
+   utils_callbacks
 
 
 Indices and tables

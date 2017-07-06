@@ -1,8 +1,8 @@
-import tensorflow as tf
 import numpy as np
+import tensorflow as tf
 
+from tf_G.utils.callbacks.update_edge_notifier import UpdateEdgeNotifier
 from tf_G.utils.tensorflow_object import TensorFlowObject, TF_type
-from tf_G.utils.update_edge_notifier import UpdateEdgeNotifier
 
 
 def __str__(self) -> str:
