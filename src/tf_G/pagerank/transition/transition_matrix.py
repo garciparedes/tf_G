@@ -1,3 +1,5 @@
+from typing import List
+
 import tensorflow as tf
 import numpy as np
 
@@ -46,7 +48,8 @@ class TransitionMatrix(Transition):
         implemented yet. Show the Todo.
 
     """
-    Transition.__init__(self, sess, name, graph, writer, is_sparse)
+    Transition.__init__(self, sess=sess, name=name, graph=graph, writer=writer,
+                        is_sparse=is_sparse)
 
     self.transition = tf.Variable(
       tf.where(self.G.is_not_sink_tf,

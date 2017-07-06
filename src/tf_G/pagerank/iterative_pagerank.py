@@ -79,7 +79,8 @@ class IterativePageRank(PageRank):
     T = TransitionResetMatrix(sess, name + "_iter", graph, beta)
     PageRank.__init__(self, sess, name + "_iter", graph, beta, T, writer,
                       is_sparse)
-    self.iter = lambda i, a, b=self.T(): tf.matmul(a, b)
+    self.iter = lambda i, a, b: tf.matmul(a, tf.where(self.G.is_not_sink_tf,
+                                                      self.T(), b))
 
   def _pr_convergence_tf(self, convergence: float, topics: List[int] = None,
                          c_criterion=ConvergenceCriterion.ONE) -> tf.Tensor:
@@ -101,7 +102,7 @@ class IterativePageRank(PageRank):
         represent the set of vertex where the random jumps arrives. If this
         parameter is used, the uniform distribution over all vertices of the
         random jumps will be modified to jump only to this vertex set. Default
-        to `None`. Not implemented yet.
+        to `None`.
       c_criterion (:obj:`function`, optional): The function used to calculate if
         the Convergence Criterion of the iterative implementations is reached.
         Default to `tf_G.ConvergenceCriterion.ONE`.
@@ -112,14 +113,12 @@ class IterativePageRank(PageRank):
         vertex `i` at position `i`.
 
     """
-    if topics is not None:
-      warnings.warn('Personalized PageRank not implemented yet!')
-
+    p = self._generate_personalized_vector(topics)
     self.run_tf(
       self.v.assign(
         tf.while_loop(c_criterion,
                       lambda i, v, v_last, c, n:
-                      (i + 1, self.iter(i, v), v, c, n),
+                      (i + 1, self.iter(i, v, p), v, c, n),
                       [0.0, self.v, tf.zeros([1, self.G.n]),
                        convergence,
                        self.G.n_tf], name=self.name + "_while_conv")[
@@ -142,7 +141,7 @@ class IterativePageRank(PageRank):
         represent the set of vertex where the random jumps arrives. If this
         parameter is used, the uniform distribution over all vertices of the
         random jumps will be modified to jump only to this vertex set. Default
-        to `None`. Not implemented yet.
+        to `None`.
 
     Returns:
       (:obj:`tf.Tensor`): A 1-D `tf.Tensor` of [n] shape, where `n` is the
@@ -150,13 +149,11 @@ class IterativePageRank(PageRank):
         vertex `i` at position `i`.
 
     """
-    if topics is not None:
-      warnings.warn('Personalized PageRank not implemented yet!')
-
+    p = self._generate_personalized_vector(topics)
     self.run_tf(
       self.v.assign(
         tf.while_loop(lambda i, v: i < steps,
-                      lambda i, v: (i + 1.0, self.iter(i, v)),
+                      lambda i, v: (i + 1.0, self.iter(i, v, p)),
                       [0.0, self.v], name=self.name + "_while_steps")[
           1]))
     return self.v
@@ -171,7 +168,7 @@ class IterativePageRank(PageRank):
         represent the set of vertex where the random jumps arrives. If this
         parameter is used, the uniform distribution over all vertices of the
         random jumps will be modified to jump only to this vertex set. Default
-        to `None`. Not implemented yet.
+        to `None`.
 
     Returns:
       (:obj:`tf.Tensor`): A 1-D `tf.Tensor` of [n] shape, where `n` is the
@@ -179,11 +176,32 @@ class IterativePageRank(PageRank):
         vertex `i` at position `i`.
 
     """
-    if topics is not None:
-      warnings.warn('Personalized PageRank not implemented yet!')
-
     raise NotImplementedError(
       str(self.__class__.__name__) + ' not implements exact PageRank')
+
+  def _generate_personalized_vector(self, topics: List[int] = None):
+    """ Generates the Tensor that will be used to represent personalization.
+
+    Args:
+      topics (:obj:`list` of :obj:`int`, optional): A list of integers that
+        represent the set of vertex where the random jumps arrives. If this
+        parameter is used, the uniform distribution over all vertices of the
+        random jumps will be modified to jump only to this vertex set. Default
+        to `None`.
+
+    Returns:
+      (:obj:`tf.Tensor`): A 2-D `tf.Tensor` of [n,n] shape, where `n` is the
+        cardinality of the graph vertex set. It contains the extended version of
+        normalized personalized vector.
+
+    """
+    if topics is not None:
+      return tf.ones([self.G.n, self.G.n]) * tf.reshape(
+        tf.scatter_nd(tf.constant(topics, shape=[len(topics), 1]),
+                      len(topics) * [1 / len(topics)],
+                      [self.G.n]), [1, self.G.n])
+    else:
+      return tf.fill([self.G.n, self.G.n], tf.pow(self.G.n_tf, -1))
 
   def update_edge(self, edge: np.array, change: float) -> None:
     """ The callback to receive notifications about edge changes in the graph.

@@ -1,3 +1,5 @@
+from typing import List
+
 import tensorflow as tf
 
 from tf_G.utils.tensorflow_object import TensorFlowObject

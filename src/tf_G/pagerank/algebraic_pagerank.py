@@ -131,8 +131,6 @@ class AlgebraicPageRank(PageRank):
         vertex `i` at position `i`.
 
     """
-    if topics is not None:
-      warnings.warn('Personalized PageRank not implemented yet!')
     warnings.warn('PageRank not implements iterative PageRank! ' +
                   'Using exact algorithm.')
     return self._pr_exact_tf(topics)
@@ -159,8 +157,6 @@ class AlgebraicPageRank(PageRank):
         vertex `i` at position `i`.
 
     """
-    if topics is not None:
-      warnings.warn('Personalized PageRank not implemented yet!')
     warnings.warn('PageRank not implements iterative PageRank! ' +
                   'Using exact algorithm.')
     return self._pr_exact_tf(topics)
