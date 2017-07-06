@@ -8,7 +8,7 @@ def test_graph_sparsifier_cardinality():
   p = 0.6
   n = 50
   m = 100
-  bound = 0.2
+  bound = 0.25
 
   with tf.Session() as sess:
     for i in range(5):
@@ -34,7 +34,7 @@ def test_graph_out_degrees():
       g_degrees = np.squeeze(graph.out_degrees_np) / graph.m
       sg_degrees = np.squeeze(s_graph.out_degrees_np) / s_graph.m
 
-      np.testing.assert_array_almost_equal(g_degrees, sg_degrees, decimal=2)
+      np.testing.assert_array_almost_equal(g_degrees, sg_degrees, decimal=1)
 
 
 def test_graph_in_degrees():
@@ -51,4 +51,4 @@ def test_graph_in_degrees():
       g_degrees = np.squeeze(graph.in_degrees_np) / graph.m
       sg_degrees = np.squeeze(s_graph.in_degrees_np) / s_graph.m
 
-      np.testing.assert_array_almost_equal(g_degrees, sg_degrees, decimal=2)
+      np.testing.assert_array_almost_equal(g_degrees, sg_degrees, decimal=1)
