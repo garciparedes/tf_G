@@ -147,6 +147,7 @@ class PageRank(TensorFlowObject):
 
   def pagerank_vector_tf(self, convergence: float = 1.0, steps: int = 0,
                          topics: List[int] = None,
+                         topics_decrement: bool = False,
                          c_criterion=ConvergenceCriterion.ONE) -> tf.Tensor:
     """ The Method that runs the PageRank algorithm
 
@@ -173,6 +174,9 @@ class PageRank(TensorFlowObject):
         parameter is used, the uniform distribution over all vertices of the
         random jumps will be modified to jump only to this vertex set. Default
         to `None`.
+      topics_decrement (bool, optional): If topics is not None and
+        topics_decrement is `True` the topics will be casted to 0-Index. Default `
+        to False`.
       c_criterion (:obj:`function`, optional): The function used to calculate if
         the Convergence Criterion of the iterative implementations is reached.
         Default to `tf_G.ConvergenceCriterion.ONE`.
@@ -183,6 +187,9 @@ class PageRank(TensorFlowObject):
         vertex `i` at position `i`.
 
     """
+    if topics_decrement is True and topics is not None:
+      topics = [item - 1 for item in topics]
+
     if 0.0 < convergence < 1.0:
       return self._pr_convergence_tf(convergence, topics=topics,
                                      c_criterion=c_criterion)
@@ -233,7 +240,8 @@ class PageRank(TensorFlowObject):
                               c_criterion))
 
   def ranks_np(self, convergence: float = 1.0, steps: int = 0,
-               topics: List[int] = None) -> np.array:
+               topics: List[int] = None,
+               topics_decrement: bool = False) -> np.array:
     """ Generates a ranked version of PageRank results.
 
     This method returns the PageRank ranking of the graph sorted by the position
@@ -257,13 +265,16 @@ class PageRank(TensorFlowObject):
         parameter is used, the uniform distribution over all vertices of the
         random jumps will be modified to jump only to this vertex set. Default
         to `None`.
+      topics_decrement (bool, optional): If topics is not None and
+        topics_decrement is `True` the topics will be casted to 0-Index. Default `
+        to False`.
 
     Returns:
       (:obj:`np.Array`): A 2-D `np.Array` than represents a sorted PageRank
         ranking of the graph.
 
     """
-    self.pagerank_vector_tf(convergence, steps, topics)
+    self.pagerank_vector_tf(convergence, steps, topics, topics_decrement)
     ranks = tf.map_fn(
       lambda x: [x, tf.gather(tf.reshape(self.v, [self.G.n]), x)],
       tf.transpose(

@@ -22,8 +22,7 @@ def main():
                                                     graph,
                                                     beta)
 
-    pr_iter: tf_G.PageRank = tf_G.IterativePageRank(
-      sess, "PR1", graph, beta)
+    pr_iter: tf_G.PageRank = tf_G.IterativePageRank(sess, "PR1", graph, beta)
     '''
     g_updateable: tf_G.Graph = tf_G.GraphConstructor.empty(sess,
                                                            "Gfollowers",
@@ -36,7 +35,8 @@ def main():
 
     # a = pr_alge.ranks_np()
     start_time: float = timeit.default_timer()
-    b: np.array = pr_iter.ranks_np(convergence=convergence, topics=[2,3])
+    b: np.array = pr_iter.ranks_np(convergence=convergence, topics=[5],
+                                   topics_decrement=True)
     elapsed: float = timeit.default_timer() - start_time
     print(elapsed)
 
