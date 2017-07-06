@@ -1,19 +1,19 @@
 import warnings
-
-import tensorflow as tf
-import numpy as np
-
 from typing import List
 
+import numpy as np
+import tensorflow as tf
+
 from tf_G import Graph
+from tf_G.pagerank.transition import Transition
+from tf_G.utils.callbacks.update_edge_listener import UpdateEdgeListener
+from tf_G.utils.convergence_criterion import ConvergenceCriterion
+from tf_G.utils.tensorflow_object import TensorFlowObject
 from tf_G.utils.utils import Utils
 from tf_G.utils.vector_norm import VectorNorm
-from tf_G.pagerank.transition import Transition
-from tf_G.utils.tensorflow_object import TensorFlowObject
-from tf_G.utils.convergence_criterion import ConvergenceCriterion
 
 
-class PageRank(TensorFlowObject):
+class PageRank(TensorFlowObject, UpdateEdgeListener):
   """ PageRank base class.
 
   This class model the PageRank algorithm as Abstract Class containing all
@@ -81,6 +81,8 @@ class PageRank(TensorFlowObject):
     """
     TensorFlowObject.__init__(self, sess, name, writer=writer,
                               is_sparse=is_sparse)
+    UpdateEdgeListener.__init__(self)
+
     self.G = graph
     self.beta = beta
     self.T = T

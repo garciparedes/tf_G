@@ -1,14 +1,11 @@
-from typing import List
-
 import tensorflow as tf
-
-from tf_G.utils.tensorflow_object import TensorFlowObject
-from tf_G.utils.update_edge_notifier import \
-  UpdateEdgeNotifier
+from tf_G.utils.callbacks.update_edge_listener import UpdateEdgeListener
 from tf_G.graph.graph import Graph
+from tf_G.utils.callbacks.update_edge_notifier import UpdateEdgeNotifier
+from tf_G.utils.tensorflow_object import TensorFlowObject
 
 
-class Transition(TensorFlowObject, UpdateEdgeNotifier):
+class Transition(TensorFlowObject, UpdateEdgeNotifier, UpdateEdgeListener):
   """ Transition Base Class
 
   This class acts as base class of transition behavior between vertices of the
