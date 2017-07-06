@@ -172,7 +172,7 @@ class PageRank(TensorFlowObject):
         represent the set of vertex where the random jumps arrives. If this
         parameter is used, the uniform distribution over all vertices of the
         random jumps will be modified to jump only to this vertex set. Default
-        to `None`. Not implemented yet.
+        to `None`.
       c_criterion (:obj:`function`, optional): The function used to calculate if
         the Convergence Criterion of the iterative implementations is reached.
         Default to `tf_G.ConvergenceCriterion.ONE`.
@@ -217,7 +217,7 @@ class PageRank(TensorFlowObject):
         represent the set of vertex where the random jumps arrives. If this
         parameter is used, the uniform distribution over all vertices of the
         random jumps will be modified to jump only to this vertex set. Default
-        to `None`. Not implemented yet.
+        to `None`.
       c_criterion (:obj:`function`, optional): The function used to calculate if
         the Convergence Criterion of the iterative implementations is reached.
         Default to `tf_G.ConvergenceCriterion.ONE`.
@@ -256,7 +256,7 @@ class PageRank(TensorFlowObject):
         represent the set of vertex where the random jumps arrives. If this
         parameter is used, the uniform distribution over all vertices of the
         random jumps will be modified to jump only to this vertex set. Default
-        to `None`. Not implemented yet.
+        to `None`.
 
     Returns:
       (:obj:`np.Array`): A 2-D `np.Array` than represents a sorted PageRank
@@ -290,7 +290,7 @@ class PageRank(TensorFlowObject):
         represent the set of vertex where the random jumps arrives. If this
         parameter is used, the uniform distribution over all vertices of the
         random jumps will be modified to jump only to this vertex set. Default
-        to `None`. Not implemented yet.
+        to `None`.
       c_criterion (:obj:`function`, optional): The function used to calculate if
         the Convergence Criterion of the iterative implementations is reached.
         Default to `tf_G.ConvergenceCriterion.ONE`.
@@ -319,7 +319,7 @@ class PageRank(TensorFlowObject):
         represent the set of vertex where the random jumps arrives. If this
         parameter is used, the uniform distribution over all vertices of the
         random jumps will be modified to jump only to this vertex set. Default
-        to `None`. Not implemented yet.
+        to `None`.
 
     Returns:
       (:obj:`tf.Tensor`): A 1-D `tf.Tensor` of [n] shape, where `n` is the
@@ -340,7 +340,7 @@ class PageRank(TensorFlowObject):
         represent the set of vertex where the random jumps arrives. If this
         parameter is used, the uniform distribution over all vertices of the
         random jumps will be modified to jump only to this vertex set. Default
-        to `None`. Not implemented yet.
+        to `None`.
 
     Returns:
       (:obj:`tf.Tensor`): A 1-D `tf.Tensor` of [n] shape, where `n` is the

@@ -1,3 +1,5 @@
+from typing import List
+
 import tensorflow as tf
 
 from tf_G.utils.tensorflow_object import TensorFlowObject
@@ -33,7 +35,7 @@ class Transition(TensorFlowObject, UpdateEdgeNotifier):
   """
 
   def __init__(self, sess: tf.Session, name: str, graph: Graph,
-               writer: tf.summary.FileWriter = None,
+               topics: List[int] = None, writer: tf.summary.FileWriter = None,
                is_sparse: bool = False) -> None:
     """ Constructor of the class.
 
@@ -45,6 +47,11 @@ class Transition(TensorFlowObject, UpdateEdgeNotifier):
       name (str): This attribute represents the name of the object in
         TensorFlow's op Graph.
       graph (:obj:`tf_G.Graph`):  The graph on which the transition is referred.
+      topics (:obj:`list` of :obj:`int`, optional): A list of integers that
+        represent the set of vertex where the random jumps arrives. If this
+        parameter is used, the uniform distribution over all vertices of the
+        random jumps will be modified to jump only to this vertex set. Default
+        to `None`.
       writer (:obj:`tf.summary.FileWriter`): This attribute represents a
         TensorFlow's Writer, that is used to obtain stats.
       is_sparse (bool): Use sparse Tensors if it's set to True. Not
@@ -56,6 +63,7 @@ class Transition(TensorFlowObject, UpdateEdgeNotifier):
 
     self.G = graph
     self.G.attach(self)
+    self._topics = topics
 
   def __call__(self, *args, **kwargs):
     """ The call method.
@@ -91,3 +99,14 @@ class Transition(TensorFlowObject, UpdateEdgeNotifier):
     """
     raise NotImplementedError(
       'subclasses must override get_tf()!')
+
+  @property
+  def topics(self):
+    """I'm the 'x' property."""
+    print("getter of x called")
+    return self._topics
+
+  @topics.setter
+  def topics(self, value):
+    print("setter of x called")
+    self._topics = value

@@ -40,7 +40,7 @@ def main():
 
     # a = pr_alge.ranks_np()
     start_time: float = timeit.default_timer()
-    b: np.array = pr_iter.ranks_np(convergence=convergence)
+    b: np.array = pr_iter.ranks_np(convergence=convergence, topics=[2,3])
     elapsed: float = timeit.default_timer() - start_time
     print(elapsed)
     '''

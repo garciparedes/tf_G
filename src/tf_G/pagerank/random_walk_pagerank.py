@@ -27,7 +27,7 @@ class RandomWalkPageRank(IterativePageRank):
   def _pr_convergence_tf(self, convergence: float, topics: List[int] = None,
                          c_criterion=ConvergenceCriterion.ONE) -> tf.Tensor:
     if topics is not None:
-      warnings.warn('Personalized PageRank not implemented yet!')
+      self.T.topics = topics
 
     a = tf.while_loop(
       c_criterion,
@@ -62,7 +62,7 @@ class RandomWalkPageRank(IterativePageRank):
 
   def _pr_steps_tf(self, steps: int, topics: List[int] = None) -> tf.Tensor:
     if topics is not None:
-      warnings.warn('Personalized PageRank not implemented yet!')
+      self.T.topics = topics
 
     a = tf.while_loop(
       lambda i, v, dist: i < steps,

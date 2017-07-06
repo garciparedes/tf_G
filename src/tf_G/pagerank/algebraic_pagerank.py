@@ -88,7 +88,7 @@ class AlgebraicPageRank(PageRank):
         represent the set of vertex where the random jumps arrives. If this
         parameter is used, the uniform distribution over all vertices of the
         random jumps will be modified to jump only to this vertex set. Default
-        to `None`. Not implemented yet.
+        to `None`.
 
     Returns:
       (:obj:`tf.Tensor`): A 1-D `tf.Tensor` of [n] shape, where `n` is the
@@ -97,7 +97,7 @@ class AlgebraicPageRank(PageRank):
 
     """
     if topics is not None:
-      warnings.warn('Personalized PageRank not implemented yet!')
+      self.T.topics = topics
     a = tf.fill([1, self.G.n], (1 - self.beta) / self.G.n_tf)
     b = tf.matrix_inverse(
       tf.eye(self.G.n, self.G.n) - self.beta * self.T())
@@ -120,7 +120,7 @@ class AlgebraicPageRank(PageRank):
         represent the set of vertex where the random jumps arrives. If this
         parameter is used, the uniform distribution over all vertices of the
         random jumps will be modified to jump only to this vertex set. Default
-        to `None`. Not implemented yet.
+        to `None`.
       c_criterion (:obj:`function`, optional): The function used to calculate if
         the Convergence Criterion of the iterative implementations is reached.
         Default to `tf_G.ConvergenceCriterion.ONE`.
@@ -132,7 +132,7 @@ class AlgebraicPageRank(PageRank):
 
     """
     if topics is not None:
-      warnings.warn('Personalized PageRank not implemented yet!')
+      self.T.topics = topics
     warnings.warn('PageRank not implements iterative PageRank! ' +
                   'Using exact algorithm.')
     return self._pr_exact_tf(topics)
@@ -151,7 +151,7 @@ class AlgebraicPageRank(PageRank):
         represent the set of vertex where the random jumps arrives. If this
         parameter is used, the uniform distribution over all vertices of the
         random jumps will be modified to jump only to this vertex set. Default
-        to `None`. Not implemented yet.
+        to `None`.
 
     Returns:
       (:obj:`tf.Tensor`): A 1-D `tf.Tensor` of [n] shape, where `n` is the
@@ -160,7 +160,7 @@ class AlgebraicPageRank(PageRank):
 
     """
     if topics is not None:
-      warnings.warn('Personalized PageRank not implemented yet!')
+      self.T.topics = topics
     warnings.warn('PageRank not implements iterative PageRank! ' +
                   'Using exact algorithm.')
     return self._pr_exact_tf(topics)

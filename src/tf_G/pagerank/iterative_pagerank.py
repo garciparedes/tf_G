@@ -101,7 +101,7 @@ class IterativePageRank(PageRank):
         represent the set of vertex where the random jumps arrives. If this
         parameter is used, the uniform distribution over all vertices of the
         random jumps will be modified to jump only to this vertex set. Default
-        to `None`. Not implemented yet.
+        to `None`.
       c_criterion (:obj:`function`, optional): The function used to calculate if
         the Convergence Criterion of the iterative implementations is reached.
         Default to `tf_G.ConvergenceCriterion.ONE`.
@@ -113,7 +113,7 @@ class IterativePageRank(PageRank):
 
     """
     if topics is not None:
-      warnings.warn('Personalized PageRank not implemented yet!')
+      self.T.topics = topics
 
     self.run_tf(
       self.v.assign(
@@ -142,7 +142,7 @@ class IterativePageRank(PageRank):
         represent the set of vertex where the random jumps arrives. If this
         parameter is used, the uniform distribution over all vertices of the
         random jumps will be modified to jump only to this vertex set. Default
-        to `None`. Not implemented yet.
+        to `None`.
 
     Returns:
       (:obj:`tf.Tensor`): A 1-D `tf.Tensor` of [n] shape, where `n` is the
@@ -151,7 +151,7 @@ class IterativePageRank(PageRank):
 
     """
     if topics is not None:
-      warnings.warn('Personalized PageRank not implemented yet!')
+      self.T.topics = topics
 
     self.run_tf(
       self.v.assign(
@@ -171,7 +171,7 @@ class IterativePageRank(PageRank):
         represent the set of vertex where the random jumps arrives. If this
         parameter is used, the uniform distribution over all vertices of the
         random jumps will be modified to jump only to this vertex set. Default
-        to `None`. Not implemented yet.
+        to `None`.
 
     Returns:
       (:obj:`tf.Tensor`): A 1-D `tf.Tensor` of [n] shape, where `n` is the
@@ -180,7 +180,7 @@ class IterativePageRank(PageRank):
 
     """
     if topics is not None:
-      warnings.warn('Personalized PageRank not implemented yet!')
+      self.T.topics = topics
 
     raise NotImplementedError(
       str(self.__class__.__name__) + ' not implements exact PageRank')
