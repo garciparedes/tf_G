@@ -19,8 +19,3 @@ TransitionResetMatrix
 ---------------------
 .. autoclass:: tf_G.pagerank.transition.transition_reset_matrix.TransitionResetMatrix
     :members:
-
-TransitionRandom
-----------------
-.. autoclass:: tf_G.pagerank.transition.transition_random.TransitionRandom
-    :members:

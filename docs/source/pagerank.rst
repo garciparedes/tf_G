@@ -19,8 +19,3 @@ IterativePageRank
 -----------------
 .. autoclass:: tf_G.pagerank.iterative_pagerank.IterativePageRank
     :members:
-
-RandomWalkPageRank
-------------------
-.. autoclass:: tf_G.pagerank.random_walk_pagerank.RandomWalkPageRank
-    :members:

@@ -7,7 +7,7 @@ import tf_G
 
 def main():
   beta: float = 0.85
-  convergence: float = 0.01
+  convergence: float = 0.0001
 
   edges_np: np.array = tf_G.DataSets.followers()
 
@@ -22,13 +22,8 @@ def main():
                                                     graph,
                                                     beta)
 
-    pr_iter: tf_G.PageRank = tf_G.IterativePageRank(
-      sess, "PR1", graph, beta)
+    pr_iter: tf_G.PageRank = tf_G.IterativePageRank(sess, "PR1", graph, beta)
     '''
-    pr_random: tf_G.PageRank = tf_G.RandomWalkPageRank(sess, "PR3",
-                                                    graph,
-                                                    beta)
-    
     g_updateable: tf_G.Graph = tf_G.GraphConstructor.empty(sess,
                                                            "Gfollowers",
                                                            7, writer)
@@ -40,21 +35,21 @@ def main():
 
     # a = pr_alge.ranks_np()
     start_time: float = timeit.default_timer()
-    b: np.array = pr_iter.ranks_np(convergence=convergence)
+    a: np.array = pr_alge.ranks_np(convergence=convergence, topics=[5],
+                                   topics_decrement=True)
     elapsed: float = timeit.default_timer() - start_time
     print(elapsed)
-    '''
-    start_time = timeit.default_timer()
-    c = (pr_random.ranks_np(convergence=convergence))
-    elapsed = timeit.default_timer() - start_time
+
+    start_time: float = timeit.default_timer()
+    b: np.array = pr_iter.ranks_np(convergence=convergence, topics=[5],
+                                   topics_decrement=True)
+    elapsed: float = timeit.default_timer() - start_time
     print(elapsed)
-    '''
-    # print(a)
+
+    print(a)
     print(b)
     # print(c)
     # print((pr_alge.error_vector_compare_np(pr_iter)))
-    # print((pr_alge.error_vector_compare_np(pr_random)))
-    # print(pr_iter.error_vector_compare_np(pr_random))
     # print(pr_iter.ranks_np(convergence=convergence))
     # print(pr_alge.error_ranks_compare_np(pr_iter))
     '''
@@ -85,8 +80,6 @@ def main():
 
     print(e)
     # tf_G.Utils.save_ranks("logs/csv/alge.csv",a)
-    # tf_G.Utils.save_ranks("logs/csv/iter.csv", b)
-    # Utils.save_ranks("logs/csv/random.csv",c)
     # tf_G.Utils.save_ranks("logs/csv/sparse.csv", d)
     tf_G.Utils.save_ranks("logs/csv/sparse_update.csv", e)
     '''
@@ -94,6 +87,8 @@ def main():
     print(GraphConstructor.unweighted_random(sess, "GRandom", 10 ** 2,
                                              10 ** 3, writer=writer))
     '''
+    tf_G.Utils.save_ranks("logs/csv/iter.csv", b)
+
     writer.add_graph(sess.graph)
 
 

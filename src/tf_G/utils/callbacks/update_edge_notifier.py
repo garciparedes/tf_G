@@ -1,5 +1,7 @@
 import numpy as np
 
+from tf_G.utils.callbacks.update_edge_listener import UpdateEdgeListener
+
 
 class UpdateEdgeNotifier:
   """ This class is used to notify another classes that a change in graph edges.
@@ -26,31 +28,27 @@ class UpdateEdgeNotifier:
     """
     self._listeners = set()
 
-  def attach(self, listener):
+  def attach(self, listener: UpdateEdgeListener):
     """ Method to attach objects from this class notifications.
 
     Args:
-
-      listener: An object that will start being notified when the graph
-        changes its edge set.
+      listener (:obj:`tf_G.UpdateEdgeListener`): An object that will start being
+        notified when the graph changes its edge set.
 
     Returns:
-
       This method returns nothing.
 
     """
     self._listeners.add(listener)
 
-  def detach(self, listener):
+  def detach(self, listener: UpdateEdgeListener):
     """ Method to detach objects from this clas notifications.
 
     Args:
-
-      listener: An object that will stop being notified when the graph
-        changes its edge set.
+      listener (:obj:`tf_G.UpdateEdgeListener`): An object that will stop being
+        notified when the graph changes its edge set.
 
     Returns:
-
       This method returns nothing.
 
     """
@@ -64,15 +62,11 @@ class UpdateEdgeNotifier:
     attached to this class.
 
     Args:
-
-      edge (:obj:`np.array`): The vector of shape [2] that represent and
-        edge being edge[0] the source vertex and edge[1] the destination
-        vertex.
-
+      edge (:obj:`np.array`): The vector of shape [2] that represent and edge
+        being edge[0] the source vertex and edge[1] the destination vertex.
       change (float): The variation in the edge weight.
 
     Returns:
-
       This method returns nothing.
 
     """
