@@ -97,7 +97,8 @@ class AlgebraicPageRank(PageRank):
 
     """
     if topics is not None:
-      self.T.topics = topics
+      #TODO
+      pass
     a = tf.fill([1, self.G.n], (1 - self.beta) / self.G.n_tf)
     b = tf.matrix_inverse(
       tf.eye(self.G.n, self.G.n) - self.beta * self.T())
@@ -131,8 +132,6 @@ class AlgebraicPageRank(PageRank):
         vertex `i` at position `i`.
 
     """
-    if topics is not None:
-      self.T.topics = topics
     warnings.warn('PageRank not implements iterative PageRank! ' +
                   'Using exact algorithm.')
     return self._pr_exact_tf(topics)
@@ -159,8 +158,6 @@ class AlgebraicPageRank(PageRank):
         vertex `i` at position `i`.
 
     """
-    if topics is not None:
-      self.T.topics = topics
     warnings.warn('PageRank not implements iterative PageRank! ' +
                   'Using exact algorithm.')
     return self._pr_exact_tf(topics)

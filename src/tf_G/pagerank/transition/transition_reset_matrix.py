@@ -33,7 +33,7 @@ class TransitionResetMatrix(Transition):
   """
 
   def __init__(self, sess: tf.Session, name: str, graph: Graph,
-               beta: float, topics: List[int] = None,
+               beta: float,
                writer: tf.summary.FileWriter = None,
                is_sparse: bool = False) -> None:
     """ Constructor of the class.
@@ -56,15 +56,12 @@ class TransitionResetMatrix(Transition):
 
     """
     Transition.__init__(self, sess=sess, name=name, graph=graph, writer=writer,
-                        topics=topics, is_sparse=is_sparse)
+                        is_sparse=is_sparse)
     self.beta = beta
-    self.transition = tf.Variable(
-      tf.where(self.G.is_not_sink_tf,
-               tf.add(
-                 tf.scalar_mul(beta, tf.div(self.G.A_tf,
-                                            self.G.out_degrees_tf)),
-                 (1 - beta) / self.G.n_tf),
-               tf.fill([self.G.n, self.G.n], tf.pow(self.G.n_tf, -1))),
+    self.transition = tf.Variable(tf.add(
+      tf.scalar_mul(beta, tf.div(self.G.A_tf,
+                                 self.G.out_degrees_tf)),
+      (1 - beta) / self.G.n_tf),
       name=self.name)
     self.run_tf(tf.variables_initializer([self.transition]))
 

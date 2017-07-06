@@ -30,7 +30,7 @@ class TransitionMatrix(Transition):
   """
 
   def __init__(self, sess: tf.Session, name: str, graph: Graph,
-               topics: List[int] = None, writer: tf.summary.FileWriter = None,
+               writer: tf.summary.FileWriter = None,
                is_sparse: bool = False) -> None:
     """ Constructor of the class.
 
@@ -49,7 +49,7 @@ class TransitionMatrix(Transition):
 
     """
     Transition.__init__(self, sess=sess, name=name, graph=graph, writer=writer,
-                        topics=topics, is_sparse=is_sparse)
+                        is_sparse=is_sparse)
 
     self.transition = tf.Variable(
       tf.where(self.G.is_not_sink_tf,

@@ -79,7 +79,10 @@ class IterativePageRank(PageRank):
     T = TransitionResetMatrix(sess, name + "_iter", graph, beta)
     PageRank.__init__(self, sess, name + "_iter", graph, beta, T, writer,
                       is_sparse)
-    self.iter = lambda i, a, b=self.T(): tf.matmul(a, b)
+    self.iter = lambda i, a, b=(tf.where(self.G.is_not_sink_tf, self.T(),
+                                         tf.fill([self.G.n, self.G.n],
+                                                 tf.pow(self.G.n_tf,
+                                                        -1)))): tf.matmul(a, b)
 
   def _pr_convergence_tf(self, convergence: float, topics: List[int] = None,
                          c_criterion=ConvergenceCriterion.ONE) -> tf.Tensor:
@@ -113,7 +116,13 @@ class IterativePageRank(PageRank):
 
     """
     if topics is not None:
-      self.T.topics = topics
+      """
+      print(len(topics) * [len(topics) / self.G.n])
+      print(self.run_tf(
+        tf.scatter_nd(tf.constant(topics, shape=[len(topics), 1]),
+                      len(topics) * [len(topics) / self.G.n],
+                      [self.G.n])))
+      """
 
     self.run_tf(
       self.v.assign(
@@ -151,7 +160,8 @@ class IterativePageRank(PageRank):
 
     """
     if topics is not None:
-      self.T.topics = topics
+      # TODO
+      pass
 
     self.run_tf(
       self.v.assign(
@@ -179,9 +189,6 @@ class IterativePageRank(PageRank):
         vertex `i` at position `i`.
 
     """
-    if topics is not None:
-      self.T.topics = topics
-
     raise NotImplementedError(
       str(self.__class__.__name__) + ' not implements exact PageRank')
 
