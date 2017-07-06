@@ -18,17 +18,36 @@ Trabajo de Fin de Grado: Algoritmos para Big Data: Grafos y PageRank
 
 |travisci| |codecov| |docs|
 
-Descripción
+Description
 --------------------------------------------------------------------------------
 TODO: Write description
 
 
-Contenido
----------
+Content
+-------
 * `Documento <https://github.com/garciparedes/tfg-big-data-algorithms/blob/master/document/document.pdf>`__
 * `Implementación <https://github.com/garciparedes/tfg-big-data-algorithms/blob/master/src/tf_G>`__
 * `Resumen <https://github.com/garciparedes/tfg-big-data-algorithms/blob/master/summary/summary.pdf>`__
 
+
+How to install
+--------------
+
+If you have git installed, you can try::
+
+    $ pip install git+https://github.com/garciparedes/tf_G.git
+
+If you get any installation or compilation errors, make sure you have the latest pip and setuptools::
+
+    $ pip install --upgrade pip setuptools
+
+How to run the tests
+--------------------
+
+Install in editable mode and call `pytest`::
+
+    $ pip install -e .
+    $ pytest
 License
 -------
 TODO: Write license
