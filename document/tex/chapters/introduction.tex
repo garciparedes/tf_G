@@ -47,13 +47,26 @@
       Algo a remarcar es la necesidad de clarificar el concepto de \emph{Big Data}, que al comienzo del trabajo se concevía únicamente como la obtención de métricas a partir de conjuntos de datos de tamaño elevado. Sin embargo, tras la realización del trabajo se ha ampliado el entendimiento de dicho concepto, para llegar a la conclusión de que \say{\emph{Big Data} consiste en todas aquellas soluciones diseñadas para tratar de resolver problemas para los cuales el cálculo de su solución no es asumible utilizando únicamente la memoria del sistema}. En la sección \ref{sec:introduction_big_data}, destinada a la descripción superficial acerca del \emph{Big Data} se indican las distintas alternativas propuestas para tratar de hacer frente a dicha problemática.
 
       \paragraph{}
-      [TODO grafos]
+      En cuanto a la modelización de \emph{Grafos}, entendida como la representación matemática de estructuras relacionales de tal manera que estas puedan ser vistas como una red de interconexiones entre puntos, desde el comienzo de este trabajo se poseía una cierta base en la materia. Dichos conocimientos fueron adquiridos a partir del conjunto de asignaturas impartidas en la titulación, destacando la de \emph{Matemática Discreta} \cite{matematicaDiscreta2016notes}, en la cual se estudia el formalismo matemático, además de un amplio conjunto de definiciones básicas relacionadas con propiedades de \emph{Grafos} o sus vértices. En dicha asignatura se describen algunos algoritmos como el de \emph{Prim} o \emph{Kruskal} para encontrar la solución al problema del árbol recubridor mínimo.
 
       \paragraph{}
-      [TODO pagerank]
+      Sin embargo, debido al carácter general e introductorio de esta asignatura, en ella se describen estos algoritmos sin tener en cuenta el coste computacional de los mismos, por tanto, no se tiene en cuenta la escalabilidad de dichas estrategias sobre grafos formados por trillones de aristas \cite{ching2015one}. Tal y como se ha comprendido a lo largo del desarrollo del trabajo, existen diferentes estrategias para hacer frente al elevado tamaño de los grafos, dependiendo del problema a tratar. La idea que se tenía previamente era el tratamiento de subgrafos seleccinados de manera acertada para resolver problemas que después fueran extrapolables al grafo general. Sin embargo, no se tenía conocimiento acerca de qué propiedades se pretendía mantener ni cómo se llevaban a cabo dichas técnicas.
+
+      \paragraph{}
+      En cuanto al algoritmo \emph{PageRank} estudiado en detalle en el trabajo, al igual que en los casos anteriores, se tenía una vaga intuicción acerca de su funcionamiento, así como la información que proporciona. Se sabía que inicialmente se diseñó para la obtención del grado de importancia de un determinado vértice de un grafo, al igual que sucede en el grafo formado por los sitios web y los enlaces que los relacionan (\emph{Web Graph}). Sin embargo, tan solo se conocía que este basaba su puntuación en la propagación de influencias entre vértices, de tal manera que relacionarse con un número reducido de vértices importantes genera más relevancia que relacionarse con un mayor número de vértices menos importantes. A pesar de tener esta visión del algoritmo, no se tenían ideas claras acerca de la forma en que este puede ser calculado, ni de las capacidades de personalización o su relación con el concepto de \emph{Cadenas de Markov}.
+
+      \paragraph{}
+      Tras tratar de realizar una breve explicación acerca de la base de conocimientos que se poseía al comienzo del trabajo, el siguiente paso que se realiza es exponer las motivaciones por las cuales se ha decidido realizar este trabajo en la siguiente sección.
 
     \section{Motivación}
     \label{sec:introduction_motivation}
+
+      \paragraph{}
+      [TODO]
+
+
+    \section{Objetivos}
+    \label{sec:introduction_goals}
 
       \paragraph{}
       [TODO]
@@ -101,12 +114,6 @@
 
     \section{Grafos}
     \label{sec:introduction_graphs}
-
-      \paragraph{}
-      [TODO]
-
-    \section{Objetivos}
-    \label{sec:introduction_goals}
 
       \paragraph{}
       [TODO]
