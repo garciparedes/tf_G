@@ -10,24 +10,24 @@ class Utils:
   """
 
   @staticmethod
-  def ranked(x: np.array) -> np.array:
+  def ranked(x: np.ndarray) -> np.ndarray:
     """ This method sorts the array indices given by its values.
 
     It can be used to generate a ranking based on the values of an array in
     which the value represents the score and the index the object identifier.
 
     Args:
-      x (:obj:`np.array`): A 2-D `np.array` to rank the results by rows.
+      x (:obj:`np.ndarray`): A 2-D `np.ndarray` to rank the results by rows.
 
     Returns:
-      (:obj:`np.array`): An array containing the indices of the input array
+      (:obj:`np.ndarray`): An array containing the indices of the input array
         sorted in decremental order.
 
     """
     return np.argsort(x, axis=1)
 
   @staticmethod
-  def save_ranks(filename: str, array: np.array,
+  def save_ranks(filename: str, array: np.ndarray,
                  index_increment: bool = True) -> None:
     """ This method will save the input array in the filesystem.
 
@@ -41,7 +41,7 @@ class Utils:
 
     Args:
       filename (str): The name of the file that will be created.
-      array (:obj:`np.array`): The array that contains the data that will be
+      array (:obj:`np.ndarray`): The array that contains the data that will be
         saved.
       index_increment (bool, optional): Increments the first column of the array
         input if True, do nothing otherwise.

@@ -42,7 +42,7 @@ class Graph(TensorFlowObject, UpdateEdgeNotifier):
 
   def __init__(self, sess: tf.Session, name: str,
                writer: tf.summary.FileWriter = None,
-               edges_np: np.array = None, n: int = None,
+               edges_np: np.ndarray = None, n: int = None,
                is_sparse: bool = False) -> None:
     """ Class Constructor of the Graph
 
@@ -61,7 +61,7 @@ class Graph(TensorFlowObject, UpdateEdgeNotifier):
       writer (:obj:`tf.summary.FileWriter`, optional): This attribute represents
         a TensorFlow's Writer, that is used to obtain stats. The default value
         is `None`.
-      edges_np (:obj:`np.array`, optional): The edge set of the graph codifies
+      edges_np (:obj:`np.ndarray`, optional): The edge set of the graph codifies
         as `edges_np[:,0]` represents the sources and `edges_np[:,1]` the
         destinations of the edges. The default value is `None`.
       n (int, optional): Represents the cardinality of the vertex set. The
@@ -155,14 +155,14 @@ class Graph(TensorFlowObject, UpdateEdgeNotifier):
       tf.reshape([self.out_degrees_tf_vertex(vertex)], [1]), 0)
 
   @property
-  def out_degrees_np(self) -> np.array:
+  def out_degrees_np(self) -> np.ndarray:
     """ This method returns the degree of all vertex as vector.
 
     The method generates a 1-D Array containing the out-degree of the vertex `i`
     at position `i`
 
     Returns:
-      (:obj:`np.array`): A 1-D Array with the same length as cardinality of the
+      (:obj:`np.ndarray`): A 1-D Array with the same length as cardinality of the
         vertex set.
 
     """
@@ -177,7 +177,7 @@ class Graph(TensorFlowObject, UpdateEdgeNotifier):
       vertex (int): The index of the vertex that wants the degree.
 
     Returns:
-      (:obj:`np.array`): A 1-D Array with the same length as cardinality of the
+      (:obj:`np.ndarray`): A 1-D Array with the same length as cardinality of the
         vertex set.
 
     """
@@ -199,7 +199,7 @@ class Graph(TensorFlowObject, UpdateEdgeNotifier):
     return tf.cast(tf.where(tf.not_equal(self.A_tf, 0)), tf.int64)
 
   @property
-  def edge_list_np(self) -> np.array:
+  def edge_list_np(self) -> np.ndarray:
     """ Method that returns the edge set of the graph as list.
 
     This method return all the edges of the graph codified as 2-D matrix in
@@ -207,7 +207,7 @@ class Graph(TensorFlowObject, UpdateEdgeNotifier):
     source and destination vertices of each edge.
 
     Returns:
-      (:obj:`np.array`): A 2-D Array with the he same length as cardinality of
+      (:obj:`np.ndarray`): A 2-D Array with the he same length as cardinality of
         the edge set in the first dimension and 2 in the second.
 
     """
@@ -247,14 +247,14 @@ class Graph(TensorFlowObject, UpdateEdgeNotifier):
     return tf.gather(self.A_tf, [vertex])
 
   @property
-  def in_degrees_np(self) -> np.array:
+  def in_degrees_np(self) -> np.ndarray:
     """ This method returns the in-degree of all vertex as vector.
 
     The method generates a 1-D Array containing the in-degree of the vertex `i`
     at position `i`
 
     Returns:
-      (:obj:`np.array`): A 1-D Array with the same length as cardinality of the
+      (:obj:`np.ndarray`): A 1-D Array with the same length as cardinality of the
         vertex set.
 
     """
@@ -311,7 +311,7 @@ class Graph(TensorFlowObject, UpdateEdgeNotifier):
                  tf.scatter_nd_add(self.L_tf, [[src, src], [src, dst]],
                                    [+1.0, -1.0])])
     self.m += 1
-    self._notify(np.array([src, dst]), 1)
+    self._notify(np.ndarray([src, dst]), 1)
 
   def remove(self, src: int, dst: int) -> None:
     """ Remove an edge to the graph.
@@ -336,4 +336,4 @@ class Graph(TensorFlowObject, UpdateEdgeNotifier):
                  tf.scatter_nd_add(self.L_tf, [[src, src], [src, dst]],
                                    [-1.0, +1.0])])
     self.m -= 1
-    self._notify(np.array([src, dst]), -1)
+    self._notify(np.ndarray([src, dst]), -1)

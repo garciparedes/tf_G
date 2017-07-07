@@ -54,7 +54,7 @@ class UpdateEdgeNotifier:
     """
     self._listeners.discard(listener)
 
-  def _notify(self, edge: np.array, change: float):
+  def _notify(self, edge: np.ndarray, change: float):
     """ The private method that is used internally to notify the changes to
         attached classes.
 
@@ -62,7 +62,7 @@ class UpdateEdgeNotifier:
     attached to this class.
 
     Args:
-      edge (:obj:`np.array`): The vector of shape [2] that represent and edge
+      edge (:obj:`np.ndarray`): The vector of shape [2] that represent and edge
         being edge[0] the source vertex and edge[1] the destination vertex.
       change (float): The variation in the edge weight.
 

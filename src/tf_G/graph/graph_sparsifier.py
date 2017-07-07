@@ -97,7 +97,7 @@ class GraphSparsifier(Graph):
         GraphSparsifier.
 
     Returns:
-      (:obj:`np.array`): An numpy 2-D array that will contain the edges of the
+      (:obj:`np.ndarray`): An numpy 2-D array that will contain the edges of the
         new sparsifier graph.
 
     """
