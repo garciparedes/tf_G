@@ -38,7 +38,19 @@
     \label{sec:introduction_initial_ideas}
 
       \paragraph{}
-      [TODO]
+      Se ha creido oportuno añadir un apartado en el documento, en el cual se explicara la visión y conocimientos previos que se tenían sobre la temática del trabajo antes de comenzar el proceso de investigación y estudio. Por tanto, en esta sección se pretende realizar una descripción acerca de lo que se conocía previamente por \emph{Big Data}, las intuiciones acerca de las técnicas utilizadas para hacer frente a la resolución de problemas sobre grafos de tamaño masivo y el algoritmo \emph{PageRank}. Habría sido más apropiado redactar esta sección al comienzo del proyecto, de tal manera que la apreciación del contraste entre los conocimientos iniciales y los adquiridos durante el proyecto sería mucho más visible y realista. Sin embargo, esta tarea se ha realizado al final del proyecto, por lo que se tratará de ser lo más riguroso posible con respecto de la visión previa.
+
+      \paragraph{}
+      Hasta el comiendo del estudio en profundidad y al seguimiento de cursos como el de \emph{Algorithms for Big Data} \cite{bigdata2015jelani} impartido por \emph{Jelani Nelson}, la visión que se tenía de estos era muy reducida. Se entendía que se trataban de técnicas para extraer más rápidamente información de conjuntos de datos contenidos en bases de datos, o incluso en tiempo real a través de \emph{streams} de datos. Se intuía que para el procesamiento de tal magnitud de información, las implementaciones se apoyaban en \emph{Algoritmos Probabilistas}, que agilizaran los cálculos a coste de una determinada tasa de error. Sin embargo, no se tenía ningún conocimiento sobre las estrategias en que se basaban las soluciones.
+
+      \paragraph{}
+      Algo a remarcar es la necesidad de clarificar el concepto de \emph{Big Data}, que al comienzo del trabajo se concevía únicamente como la obtención de métricas a partir de conjuntos de datos de tamaño elevado. Sin embargo, tras la realización del trabajo se ha ampliado el entendimiento de dicho concepto, para llegar a la conclusión de que \say{\emph{Big Data} consiste en todas aquellas soluciones diseñadas para tratar de resolver problemas para los cuales el cálculo de su solución no es asumible utilizando únicamente la memoria del sistema}. En la sección \ref{sec:introduction_big_data}, destinada a la descripción superficial acerca del \emph{Big Data} se indican las distintas alternativas propuestas para tratar de hacer frente a dicha problemática.
+
+      \paragraph{}
+      [TODO grafos]
+
+      \paragraph{}
+      [TODO pagerank]
 
     \section{Motivación}
     \label{sec:introduction_motivation}
@@ -57,10 +69,10 @@
         \paragraph{}
         Los \emph{Algoritmos para Streaming} se caracterizan por procesar las instancias del conjunto de datos secuencialmente e imponen como restricción que el orden de dicha operación sea irrelevante para el resultado final. La ventaja que presentan respecto de otras alternativas en tiempo real, como los \emph{Algoritmos Online}, es la utilización de propiedades estadísticas (se enmarcan por tanto, dentro de los \emph{Algoritmos Probabilísticos}) para reducir su coste, lo que por contra, añade una determinada tasa de error. El descubrimiento de métodos altamente eficientes para estimar los \emph{Momentos de Frecuencia} ha marcado un gran hito dentro de esta categoría algorítmica.
 
-      \subsection{Estructuras de Datos de Resumen}
+      \subsection{Estrategias de Sumarización}
 
         \paragraph{}
-        Para reducir el coste derivado de la obtención de resultados valiosos sobre conjuntos masivos de datos, es necesario apoyarse en diferentes estructuras que los sinteticen, de manera que el coste de procesamiento a partir de estas estructuras se convierta en una tarea mucho más asequible. Se utilizan sobre conjuntos de datos de distínta índole, como \emph{streamings en tiempo real}, \emph{bases de datos estáticas} o \emph{grafos}. Existen distintas técnicas como \emph{Sampling}, \emph{Histogram}, \emph{Wavelets} o \emph{Sketch}. A continuación se realiza una breve descripción acerca de esta última técnica.
+        Para reducir el coste derivado de la obtención de resultados valiosos sobre conjuntos masivos de datos, es necesario apoyarse en diferentes estrategias que los sinteticen, de manera que el coste de procesamiento a partir de estas estructuras se convierta en una tarea mucho más asequible. Se utilizan sobre conjuntos de datos de distínta índole, como \emph{streamings en tiempo real}, \emph{bases de datos estáticas} o \emph{grafos}. Existen distintas técnicas como \emph{Sampling}, \emph{Histogram}, \emph{Wavelets} o \emph{Sketch}. A continuación se realiza una breve descripción acerca de esta última técnica.
 
         \subsection{Sketch}
 
