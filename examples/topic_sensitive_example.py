@@ -1,6 +1,5 @@
 import tensorflow as tf
 import numpy as np
-import timeit
 
 import tf_G
 
