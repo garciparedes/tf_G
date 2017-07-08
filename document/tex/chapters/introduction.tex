@@ -7,34 +7,173 @@
   \chapter{Introducción}
   \label{chap:intro}
 
-    \section{Ideas Iniciales}
-    \label{sec:introduction_initial_ideas}
+    \section{Contexto}
+    \label{sec:introduction_context}
 
       \paragraph{}
-      [TODO]
+      El \emph{Trabajo de Fin de Grado} representa la última fase para la obtención de una titulación de \emph{Grado} en el modelo educativo Español. Para poder que el alumno pueda presentar su trabajo final ante un tribunal, es necesario que este haya completado el resto de créditos de la titulación. Por tanto, el \emph{Trabajo de Fin de Grado} representa la última barrera antes de convertirse en graduado. En este trabajo, se espera que el alumno demuestre las capacidades y conocimientos adquiridos a lo largo de su formación universitaria desde una perspectiva práctica y más cercana a lo que se espera que realice una vez comience su andadura por el mundo laboral.
+
+      \paragraph{}
+      Estas ideas son de carácter general y no dependen de la titulación que se esté realizando. Sin embargo, el trabajo de fin de grado depende fuertemente de la titulación a la cual se refiera. Es trivial entender que un alumno que haya cursado estudios de \emph{Filología Hispánica} no tenga nada que ver con el de un alumno que cuyos estudios estén referidos a otros ámbitos del conocimiento como la \emph{Física}, puesto que sus competencias son muy difierentes. Todos ellos tendrán una base común, realizando una introducción previa al tema que pretenden desarrollar, posiblemente describiendo el contexto histórico, seguidamente desarrollando el tema principal para finalmente llegar a unas conclusiones específicas.
+
+      \paragraph{}
+      En este caso, este \emph{Trabajo de Fin de Grado} se refiere a la titulación del \emph{Grado} en \emph{Ingeniería Informática} impartido en la \emph{Escuela Técnica Superior de Ingeniería Informática} de \emph{Valladolid}, dependiente de la \emph{Universidad de Valladolid}. Por esta razón, el trabajo será referido completamente al ámbito de la informática. Sin embargo, en este caso sucede una característica similar al descrito en el párrafo anterior. En esta titulación existen 3 menciones (o especialidades) que tratan de segregar las competencias que se enseñan, de tal manera que los alumnos puedan llegar a un mayor grado de conocimiento en la disciplina que más prefieran.
+
+      \paragraph{}
+      La razón de dicha separación durante el segundo ciclo de la titulación de grado se debe al amplísimo crecimiento que se está llevando a cabo en los últimos años, de tal manera que a pesar de haber una serie de conocimientos comunes que todo \emph{Ingeniero Informático} debe conocer, llega un punto en que la diversificación de áreas dificultan la tarea de adquicisión de todos aquellos conceptos en profundidad. Por tanto, parece apropiado dividir dichas disciplinas en ramas separadas. En el caso de la titulación para la cual se realiza este trabajo, existen 3 menciones: \emph{Tecnologías de Información}, \emph{Ingeniería de Software} y \emph{Computación}.
+
+      \paragraph{}
+      En este documento no se describirán cada una de ellas, ni se realizará una diferenciación de las mismas, puesto que esto ya puede ser consultado a través de la página web de la \emph{Escuela Técnica Superior de Ingeniería Informática} de \emph{Valladolid} a través de \url{https://www.inf.uva.es/}. Sin embargo, si que se indicará que este trabajo ha sido realizado tras haber seguido la mención en \emph{Computación}, la cual se refiere a los aspectos más teorícos, matemáticos y abstractos de la informática, tratando de dejar de lado el contexto del problema para centrarse en la búsqueda eficiente de la solución.
+
+      \paragraph{}
+      La razón por la cual se indica dicha explicación acerca de las distintas menciones sobre las que completar la titulación de \emph{Grado} en \emph{Ingeniería Informática}, así como el ejemplo inicial acerca de la diferenciación a nivel de contenido entre distintos trabajos de \emph{Fin de Grado} dependiendo de la titulación se debe a lo siguiente:
+
+      \paragraph{}
+      Este trabajo se ha pretendido focalizar en el estudio de \emph{Algoritmos para Big Data, Grafos y PageRank} desde una perspectiva mayoritariamente teórica, dejando de lado aspectos y cuestiones referidas a la implementación de los mismos. A pesar de que se ha realizado una implementación en el trabajo, esta ha sido de carácter ilustrativo, teniendo que requirir de trabajo adicional si pretender convertirse en una implementación adecuada para ser usada en entornos de producción.
+
+      \paragraph{}
+      Esto se contrapone con los temás que se desarrollan comúnmente para los estudios en cuestión, que generalmente basan un mayor esfuerzo en la parte de la  implementación para llegar en muchas ocasiones a un producto o servicio final. Esto se debe a las competencias desarrolladas, que se centran en ese tipo de actividades. Sin embargo, esto se contrapone con las competencias adquiridas durante el desarrollo de la mención en \emph{Computación}, la cual, tal y como se ha indicado anteriormente, se centra mayoritariamente en el apartado teórico y matemático de la resolución de problemas de manera eficiente.
+
+      \paragraph{}
+      Una vez realizada dicha distinción, ya se está en condiciones de comenzar a tratar el tema sobre el cual trata este \emph{Trabajo de Fin de Grado}. A continuación se hablará acerca de las motivaciones tanto personales como académicas que han propiciado la selección de dicho tema en la sección \ref{sec:introduction_motivation}. Para ello, se ha creido conveniente realizar una descripción acerca de las ideas iniales que se tenían antes de comenzar el trabajo, las cuales son drásticamente diferentes de las que se tiene una vez se ha finalizado el mismo. Esto se realiza en la sección \ref{sec:introduction_initial_ideas}. Posteriormente, en las secciones \ref{sec:introduction_big_data} y \ref{sec:introduction_graphs} se realiza una descripción superficial acerca del \emph{Big Data} y la modelización de \emph{Grafos} respectivamente, puesto que son los temas principales de dicho trabajo. Por último, en la sección \ref{sec:introduction_goals} se indican una serie de objetivos que se han pretendido conseguir mediante la realización de este trabajo.
+
 
     \section{Motivación}
     \label{sec:introduction_motivation}
 
       \paragraph{}
-      [TODO]
-
-    \section{Big Data}
-    \label{sec:introduction_big_data}
+      La razón original por la cual se decidió escoger la temática del \emph{Big Data} para la realización de este trabajo está motivada por la consulta con el profesor y doctor \emph{Manuel Barrio-Solórzano} (\texttt{mbarrio@infor.uva.es}), que creyó apropiado un proyecto cercano a la investigación de los algoritmos subyacentes que permiten resolver problemas de tamaño masivo como \emph{Trabajo de Fin de Grado}.
 
       \paragraph{}
-      [TODO]
-
-    \section{Grafos}
-    \label{sec:introduction_graphs}
+      Una vez indicada la explicación acerca del modo en que el trabajo fue propuesto, a continuación se indican distintas razones por las cuales se cree que dicho tema es interesante y ferviente en la actualidad: Durante los últimos años se han producido grandes avances a nivel tecnológico que han permitido la construcción de sistemas computacionales cuyo coste es mucho más reducido y su capacidad de cálculo mucho más elevada.
 
       \paragraph{}
-      [TODO]
+      Estos avances son claramente apreciables, tanto directamente por los usuarios a través de los dispositivos móviles, las televisiones inteligentes o los ordenadores personales, que ofrecen capacidades de cómputo inimaginables en décadas posteriores. Esto también se puede apreciar internamente en la industria de la informática, con la construcción de supercomputadores como el \emph{Sunway TaihuLight} que duplica las capacidades de su predecesor. La necesidad por agilizar los cálculos matemáticaticos intensivos ha llevado a empresas como \emph{Google} a diseñar sus propios chips específicamente para dicha función, que denominan \emph{Tensor Processor Units} \cite{jouppi2017datacenter}. Además, distintas técnicas basadas en virtualización de equipos y paralelización han permitido un mejor aprovechamiento de las capacidades computacionales existentes.
+
+      \paragraph{}
+      Todo ello ha propiciado una explosión a nivel de información, de tal manera que año a año la cantidad de datos generados por los usuarios está creciendo en un orden asombrante. Por tanto, esto ha generado nuevos retos, tanto a nivel de almacenamiento y recuperación, como de procesamiento y obtención de nuevas conclusiones a partir de su análisis. Sin embargo, debido a distintos factores, entre los que destacan el elevado tamaño del mismo, así como la componente dinámica que muchas veces se da, generando una ventana temporal subyacente a partir de la cual se restringe el periodo de validez de estos, en los últimos años se han realizado distintos trabajos centrados en la investigación de distintas técnicas que tratan de agilizar dicho procesamiento y análisis.
+
+      \paragraph{}
+      Muchos de los procesos que se llevan a cabo en la vida cotidiana se basan en la interrelación de objetos entre sí, lo cual genera una red de interrelaciones de manera subyacente lo cual puede ser modelizado matemáticamente a través del concepto de grafo. Este tipo de sucesos también están siendo estudiados y analizados por lo cual, también forman parte del mundo del \emph{Big Data}. No es difícil darse cuenta de que muchas de las empresas más populares del sector tecnológico basan su actividad en procesos de este tipo. Algunos ejemplos son la búsqueda de Sitios Web de \emph{Google} y las interconexiones que estos tienen a través de enlaces, las redes de amigos que se forman en \emph{Facebook}, las relaciones de similitud de contenido en servicios como \emph{Netflix} o \emph{Spotify}, los sistemas de planificación de rutas de empresas como \emph{Tesla} para sus sistemas de conducción autónoma, etc. Por tanto, se cree interesante estudiar las distintas técnicas y conceptos que permiten agilizar la obtención de dichos resultados.
+
+      \paragraph{}
+      En cuanto al algoritmo \emph{PageRank}, se ha creido adecuado como punto de combinación entre las técnicas de \emph{Big Data} y procesamiento masivo de información, con el modelo matemático de \emph{Grafos}. Además, se cree que los conceptos matemáticos en que se basa son de gran utilidad para entender tanto su comportamiento como servir de introducción en el área de modelos gráficos probabilísticos (\emph{Cadenas de Markov}). Otra de las razones por las cuales se ha creido conveniente el estudio de dicho algoritmo es la importante relevancia que ha tenido en el mundo de la informática, permitiendo mejorar drásticamente los resultados de búsquedas que se obtenían hasta el momento de su publicación y convirtiendo al motor de búsquedas \emph{Google} en la alternativa más utilizada respecto de la competencia.
+
+      \paragraph{}
+      Tras indicar los motivos por los cuales se ha creido interesante el estudio de \emph{Algoritmos para Big Data}, centrandose especialmente en el caso de los problemas de \emph{Grafos} y discutiendo en profundidad el \emph{Algoritmo PageRank}, se ha creido conveniente añadir una sección en la cual se indique la visión que se tenía sobre dichas estrategias al comienzo del trabajo. Esto se realizará en la siguiente sección.
+
+    \section{Ideas Iniciales}
+    \label{sec:introduction_initial_ideas}
+
+      \paragraph{}
+      Se ha creido oportuno añadir un apartado en el documento, en el cual se explicara la visión y conocimientos previos que se tenían sobre la temática del trabajo antes de comenzar el proceso de investigación y estudio. Por tanto, en esta sección se pretende realizar una descripción acerca de lo que se conocía previamente por \emph{Big Data}, las intuiciones acerca de las técnicas utilizadas para hacer frente a la resolución de problemas sobre grafos de tamaño masivo y el algoritmo \emph{PageRank}. Habría sido más apropiado redactar esta sección al comienzo del proyecto, de tal manera que la apreciación del contraste entre los conocimientos iniciales y los adquiridos durante el proyecto sería mucho más visible y realista. Sin embargo, esta tarea se ha realizado al final del proyecto, por lo que se tratará de ser lo más riguroso posible con respecto de la visión previa.
+
+      \paragraph{}
+      Hasta el comiendo del estudio en profundidad y al seguimiento de cursos como el de \emph{Algorithms for Big Data} \cite{bigdata2015jelani} impartido por \emph{Jelani Nelson}, la visión que se tenía de estos era muy reducida. Se entendía que se trataban de técnicas para extraer más rápidamente información de conjuntos de datos contenidos en bases de datos, o incluso en tiempo real a través de \emph{streams} de datos. Se intuía que para el procesamiento de tal magnitud de información, las implementaciones se apoyaban en \emph{Algoritmos Probabilistas}, que agilizaran los cálculos a coste de una determinada tasa de error. Sin embargo, no se tenía ningún conocimiento sobre las estrategias en que se basaban las soluciones.
+
+      \paragraph{}
+      Algo a remarcar es la necesidad de clarificar el concepto de \emph{Big Data}, que al comienzo del trabajo se concevía únicamente como la obtención de métricas a partir de conjuntos de datos de tamaño elevado. Sin embargo, tras la realización del trabajo se ha ampliado el entendimiento de dicho concepto, para llegar a la conclusión de que \say{\emph{Big Data} consiste en todas aquellas soluciones diseñadas para tratar de resolver problemas para los cuales el cálculo de su solución no es asumible utilizando únicamente la memoria del sistema}. En la sección \ref{sec:introduction_big_data}, destinada a la descripción superficial acerca del \emph{Big Data} se indican las distintas alternativas propuestas para tratar de hacer frente a dicha problemática.
+
+      \paragraph{}
+      En cuanto a la modelización de \emph{Grafos}, entendida como la representación matemática de estructuras relacionales de tal manera que estas puedan ser vistas como una red de interconexiones entre puntos, desde el comienzo de este trabajo se poseía una cierta base en la materia. Dichos conocimientos fueron adquiridos a partir del conjunto de asignaturas impartidas en la titulación, destacando la de \emph{Matemática Discreta} \cite{matematicaDiscreta2016notes}, en la cual se estudia el formalismo matemático, además de un amplio conjunto de definiciones básicas relacionadas con propiedades de \emph{Grafos} o sus vértices. En dicha asignatura se describen algunos algoritmos como el de \emph{Prim} o \emph{Kruskal} para encontrar la solución al problema del árbol recubridor mínimo.
+
+      \paragraph{}
+      Sin embargo, debido al carácter general e introductorio de esta asignatura, en ella se describen estos algoritmos sin tener en cuenta el coste computacional de los mismos, por tanto, no se tiene en cuenta la escalabilidad de dichas estrategias sobre grafos formados por trillones de aristas \cite{ching2015one}. Tal y como se ha comprendido a lo largo del desarrollo del trabajo, existen diferentes estrategias para hacer frente al elevado tamaño de los grafos, dependiendo del problema a tratar. La idea que se tenía previamente era el tratamiento de subgrafos seleccinados de manera acertada para resolver problemas que después fueran extrapolables al grafo general. Sin embargo, no se tenía conocimiento acerca de qué propiedades se pretendía mantener ni cómo se llevaban a cabo dichas técnicas.
+
+      \paragraph{}
+      En cuanto al algoritmo \emph{PageRank} estudiado en detalle en el trabajo, al igual que en los casos anteriores, se tenía una vaga intuicción acerca de su funcionamiento, así como la información que proporciona. Se sabía que inicialmente se diseñó para la obtención del grado de importancia de un determinado vértice de un grafo, al igual que sucede en el grafo formado por los sitios web y los enlaces que los relacionan (\emph{Web Graph}). Sin embargo, tan solo se conocía que este basaba su puntuación en la propagación de influencias entre vértices, de tal manera que relacionarse con un número reducido de vértices importantes genera más relevancia que relacionarse con un mayor número de vértices menos importantes. A pesar de tener esta visión del algoritmo, no se tenían ideas claras acerca de la forma en que este puede ser calculado, ni de las capacidades de personalización o su relación con el concepto de \emph{Cadenas de Markov}.
+
+      \paragraph{}
+      Tras tratar de realizar una breve explicación acerca de la base de conocimientos relacionados con el tema al comienzo del trabajo, el siguiente paso que se realiza es exponer los objetivos que se pretenden conseguir tras la realización de este trabajo en la siguiente sección.
 
     \section{Objetivos}
     \label{sec:introduction_goals}
 
       \paragraph{}
-      [TODO]
+      Para la realización de este trabajo, se han fijado una serie de objetivos, lo cual ha servido como guía para la realización del mismo. Sin embargo, dicha tarea no ha sido simple por la naturaleza exploratoria del proyecto. Esta razón, tal y como se ha tratado de exponer en el apéndice \ref{chap:methodology}, ha permitido que a pesar de que el trabajo tuviera una temática fijada \emph{a-priori}, la especificación del mismo en un ámbito concreto y estudiable haya sido guiada por el proceso de investigación. Por tanto, a continuación se indican los objetivos generales que se pretendía conseguir al comienzo del trabajo, además de la indicación acerca de los temas escogidos de manera concreta.
+
+      \begin{itemize}
+
+        \item Obtención de una visión panorámica acerca de las distintas técnicas y estrategias utilizadas para resolver problemas sobre conjuntos de datos de tamaño masivo (\emph{Big Data}).
+
+        \item Selección de un tema concreto para ser estudiado con mayor profundidad, cuya relación con las estrategias y algoritmos estudiados desde el punto de vista del \emph{Big Data} sea elevada. Para esta tarea se ha decidido escoger el ámbito de los \emph{Grafos} de tamaño masivo y las distintas técnicas de reducción de su tamaño manteniendo la estructura de relaciones semejante.
+
+        \item Implementación y estudio de un algoritmo concreto ampliamente relacionado con el resto del trabajo realizado, que permita poner en práctica el conjunto de conceptos estudiados a lo largo del proyecto. En este caso, el algoritmo escogido ha sido \emph{PageRank}, por su relación conceptual con el modelo de \emph{Grafos}, su base conceptual ampliamente relacionada con la \emph{Estadística} y la fuerte necesidad de ser implementado de manera eficiente para hacer frente al elevado tamaño de los problemas en que es aplicado \emph{Big Data}.
+
+      \end{itemize}
+
+      \paragraph{}
+      Dichos objetivos principales no son los únicos que se han pretendido conseguir durante la realización del trabajo, sino que existe una cantidad más amplia de subobjetivos necesarios para poder llegar al cumplimiento de estos. En este grupo se encuentra la realización de tareas de carácter investigatorio, requiriendo la necesidad de mantener un determinado índice de curiosidad que facilite la búsqueda de nuevas definiciones. Esto conlleva la lectura de distintos artículos de carácter científico, junto con la correspondiente dificultad propiciada por el tono extremadamente formal de los mismo. Además, esto requiere rigurosidad, tanto desde el punto de vista de la comprensión y citación, como del mantenimiento de unos objetivos claros que no conlleven un proceso de divagación entre un conjunto de temas muy dispersos entre sí.
+
+      \paragraph{}
+      También se pueden incluir dentro de estos subobjetivos la necesidad de mantener un nivel personal de disciplina apropiado para la realización del trabajo, puesto que tanto la envergadura como la cantidad de tiempo para llevarlo a cabo son de gran tamaño. Sin el apropiado orden esto puede generar problemas derivados de dejar el trabajo para última hora, por tanto, se ha creido conveniente incluir dicho orden como subobjetivo.
+
+      \paragraph{}
+      En cuanto a la implementación a realizar, también se ha creido conveniente el cumplimiento de una serie de objetivos a nivel de calidad del software. El primero de ellos es el apropiado funcionamiento de la implementación, que debido a su importancia debería incluso presuponerse. Además, se ha creido conveniente el diseño de la implementación como un módulo autocontenido que tan solo requiera un conjunto reducido de dependencias para facilitar su instalación y distribución. En cuanto al código, se ha creido conveniente prestar especial atención a la parte de claridad del código fuente, de tal manera que la legibilidad del mismo sea sencilla. También se ha fijado como objetivo la generación de un conjunto de pruebas que permitan validar el funcionamiento del mismo, así como la inclusión de un sistema de auto-documentación que permita a otros usuarios utilizar la implementación siguiendo las indicaciones, sin necesidad de tener que comprender el código fuente subyacente.
+
+      \paragraph{}
+      En las secciones posteriores se realiza una visión superficial acerca de las diferentes disciplinas que abarca el ámbito del conocimiento del \emph{Big Data} así como los grafos de tamaño masivo.
+
+    \section{Big Data}
+    \label{sec:introduction_big_data}
+
+      \paragraph{}
+      El procesamiento de cantidades masivas de información presenta un gran reto a nivel computacional, debido a un elevado coste originado por el gran tamaño en la entrada. Para solventar dicha problemática, se prefieren algoritmos que posean un orden de complejidad sublineal ($o(N)$) sobre todo en espacio. Dichas técnicas se llevan a cabo sobre paradigmas de computación paralela, lo que permite aprovechar en mayor medida las restriciciones a nivel de hardware.
+
+      \subsection{Algoritmos para Streaming}
+
+        \paragraph{}
+        Los \emph{Algoritmos para Streaming} se caracterizan por procesar las instancias del conjunto de datos secuencialmente e imponen como restricción que el orden de dicha operación sea irrelevante para el resultado final. La ventaja que presentan respecto de otras alternativas en tiempo real, como los \emph{Algoritmos Online}, es la utilización de propiedades estadísticas (se enmarcan por tanto, dentro de los \emph{Algoritmos Probabilísticos}) para reducir su coste, lo que por contra, añade una determinada tasa de error. El descubrimiento de métodos altamente eficientes para estimar los \emph{Momentos de Frecuencia} ha marcado un gran hito dentro de esta categoría algorítmica.
+
+      \subsection{Estrategias de Sumarización}
+
+        \paragraph{}
+        Para reducir el coste derivado de la obtención de resultados valiosos sobre conjuntos masivos de datos, es necesario apoyarse en diferentes estrategias que los sinteticen, de manera que el coste de procesamiento a partir de estas estructuras se convierta en una tarea mucho más asequible. Se utilizan sobre conjuntos de datos de distínta índole, como \emph{streamings en tiempo real}, \emph{bases de datos estáticas} o \emph{grafos}. Existen distintas técnicas como \emph{Sampling}, \emph{Histogram}, \emph{Wavelets} o \emph{Sketch}. A continuación se realiza una breve descripción acerca de esta última técnica.
+
+        \subsection{Sketch}
+
+          \paragraph{}
+          Son estructuras de datos que se basan en la idea de realizar sobre cada una de las instancias del conjunto de datos la misma operación (lo que permite su uso en entornos tanto estáticos como dinámicos) para recolectar distintas caracteríscas. Destacan los \emph{Sketches lineales}, que permiten su procesamiento de manera distribuida. Para mantener estas estructuras se utilizan \emph{Algoritmos para Streaming}, puesto que se encajan perfectamente en el contexto descrito. Los \emph{Sketches} permiten realizar distintas preguntas sobre propiedades estadísticas referentes al conjunto de datos. Los ejemplos más destacados son: \emph{Count-Sketch}, \emph{CountMin-Sketch}, \emph{AMS Sketch}, \emph{HyperLogLog}, etc.
+
+      \subsection{Redución de la Dimensionalidad}
+
+        \paragraph{}
+        Los algoritmos que utilizan técnicas de reducción de dimensionalidad se basan en la intuicción originada a partir del lema de \emph{Johnson–Lindenstrauss}, que demuestra la existencia de funciones para la redución de la dimensión espacial con un ratio de distorsión acotado. Estas técnicas son utilizadas en algoritmos para la \emph{busqueda de los vecinos más cercanos}, la \emph{multiplicación aproximada de matrices} o el aprendizaje mediante \emph{Manifold Leaning}.
+
+      \subsection{Paralelización a gran Escala}
+
+        \paragraph{}
+        El paradigma de alto nivel sobre el que se lleva a cabo el procesamiento de conjuntos de datos de gran escala se apoya fuertemente en técnicas de paralelización. La razón se debe al elevado tamaño de la entrada, que no permite su almacenamiento en la memoria de un único sistema.
+
+        \subsection{Modelo MapReduce}
+
+          \paragraph{}
+          El modelo \emph{MapReduce} ha sufrido un crecimiento exponencial en los últimos años debido a su alto grado de abstracción, que oculta casi por completo cuestiones relacionadas con la implementación de bajo nivel al desarrollador, y su capacidad para ajustarse a un gran número de problemas de manera eficiente.
+
+      \subsection{Técnicas de Minería de Datos}
+
+        \paragraph{}
+        Una de las razones por las cuales es necesaria la investigación de nuevos algoritmos de carácter sublineal es la necesidad de obtención de información valiosa a partir de conjuntos masivos de datos. A este fenómeno se le denomina \emph{Minería de Datos}. Existen dos grandes categorías denominadas: \emph{Clasificación} (determinar una clase de pertenencia) y \emph{Regresión} (determinar un valor continuo). Para ello, se utilizan distintas técnicas como: \emph{Árboles de Decisión}, \emph{Métodos Bayesianos}, \emph{Redes Neuronales}, \emph{Máquinas de Vector Soporte}, \emph{Manifold Leaning}, etc.
+
+    \section{Grafos}
+    \label{sec:introduction_graphs}
+
+      \paragraph{}
+      Los grafos representan un método de representación para la resolución de problemas desde una perspectiva matemática mediante la modelización de una red de objetos que se relacionan a través de interconexiones. Esta abstracción, que deja de lado el contexto de aplicación para basarse únicamente en las relaciones y la estructura de las mismas, permite diseñar algoritmos de manera más simple al tener en cuenta únicamente la información necesaria para resolver el problema.
+
+      \paragraph{}
+      Los problemas referidos a grafos han sido ampliamente en la literatura desde hace mucho tiempo. Sin embargo, en los últimos años se ha producido un elevado crecimiento de distintas técnicas que permiten resolver estos, de tal manera que el coste sea más reducido. Esto genera una reducción de tiempo y espacio en su resolución a costa de la inclusión de una determinada tasa de error.
+
+      \paragraph{}
+      Una propuesta interesante es la generación de un subgrafo de menor tamaño que mantenga las propiedades a nivel de estructura lo más semejantes posibles respecto del grafo sobre el cual se pretende resolver el problema en cuestión. Existen distintas técnicas para esta labor, conocidas como \emph{Spanners} y \emph{Sparsifiers}. Los últimos trabajos de investigación relacionados con el tema pretenden diseñar algoritmos que apliquen dichas técnicas siguiendo las mismas ideas que los \emph{Sketchs} para el caso de valores numéricos.
+
+      \paragraph{}
+      Un algoritmo basado en conceptos de estadística y aplicado a grafos de tamaño masivo es el algoritmo \emph{PageRank}, el cual genera un ranking de importancia entre los puntos de la red, basandose unicamente en la estructura de interconexiones de la misma. Este ranking está intimamente relacionado con conceptos de probabilidad como las \emph{Cadenas de Markov}.
+
+    \paragraph{}
+    Debido a la ingente cantidad de tiempo necesaria para realizar un trabajo de investigación que contuviera descripciones acerca de todos los conceptos relacionados con el \emph{Big Data} que se han resumido en las secciones posteriores, se han seleccionado un subconjunto de ellas. Por tanto, a continuación se indica cómo se organiza el resto del documento: en el capítulo \ref{chap:streaming} se realiza una descripción acerca de los \emph{Algoritmos para Streaming}. Seguidamente, en el capítulo \ref{chap:summaries} se indican distintas \emph{Estrategias de Sumarización}. A continuación, se cambia de perspectiva para hablar de \emph{Grafos} en el capítulo \ref{chap:graphs}. Después, se describe el algoritmo \emph{PageRank} en detalle en el capítulo \ref{chap:pagerank}. Por último, se describen distintos detalles de implementación, así como de los resultados obtenidos y se realiza una conclusión acerca del trabajo realizado en el capítulo \ref{chap:implementation}.
+
+    \paragraph{}
+    De manera adicional, también se han incluido distintos anexos: En el anexo \ref{chap:methodology} se indica la metodología de trabajo seguida durante el desarrollo del proyecto. En el anexo \ref{chap:how_it_was_build} se indica cómo ha sido contruido este documento mediante la herramienta \LaTeX. Por último, se ha includio una guía de usuario de la implementación en el anexo \ref{chap:user_guide}.
 
 \end{document}
