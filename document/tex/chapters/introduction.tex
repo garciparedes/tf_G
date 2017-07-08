@@ -109,7 +109,10 @@
       También se pueden incluir dentro de estos subobjetivos la necesidad de mantener un nivel personal de disciplina apropiado para la realización del trabajo, puesto que tanto la envergadura como la cantidad de tiempo para llevarlo a cabo son de gran tamaño. Sin el apropiado orden esto puede generar problemas derivados de dejar el trabajo para última hora, por tanto, se ha creido conveniente incluir dicho orden como subobjetivo.
 
       \paragraph{}
-      En cuanto a la implementación a realizar, también se ha creido conveniente el cumplimiento de una serie de objetivos a nivel de calidad del software. El primero de ellos es el apropiado funcionamiento de la implementación, que debido a su importancia debería incluso presuponerse. Además, se ha creido conveniente el diseño de la implementación como un módulo autocontenido que tan solo requiera un conjunto reducido de dependencias para facilitar su instalación y distribución. En cuanto al código, se ha creido conveniente prestar especial atención a la parte de claridad del código fuente, de tal manera que la legibilidad del mismo sea sencilla. También se ha fijado como objetivo la generación de un conjunto de pruebas que permitan validar el funcionamiento del mismo, así como la inclusión de un sistema de auto-documentación que permita a otros usuarios utilizar la implementación siguiendo las indicaciones y sin necesidad de tener que comprender el código fuente que lo hace funcionar.
+      En cuanto a la implementación a realizar, también se ha creido conveniente el cumplimiento de una serie de objetivos a nivel de calidad del software. El primero de ellos es el apropiado funcionamiento de la implementación, que debido a su importancia debería incluso presuponerse. Además, se ha creido conveniente el diseño de la implementación como un módulo autocontenido que tan solo requiera un conjunto reducido de dependencias para facilitar su instalación y distribución. En cuanto al código, se ha creido conveniente prestar especial atención a la parte de claridad del código fuente, de tal manera que la legibilidad del mismo sea sencilla. También se ha fijado como objetivo la generación de un conjunto de pruebas que permitan validar el funcionamiento del mismo, así como la inclusión de un sistema de auto-documentación que permita a otros usuarios utilizar la implementación siguiendo las indicaciones, sin necesidad de tener que comprender el código fuente subyacente.
+
+      \paragraph{}
+      En las secciones posteriores se realiza una visión superficial acerca de las diferentes disciplinas que abarca el ámbito del conocimiento del \emph{Big Data} así como los grafos de tamaño masivo.
 
     \section{Big Data}
     \label{sec:introduction_big_data}
@@ -156,6 +159,21 @@
     \label{sec:introduction_graphs}
 
       \paragraph{}
-      [TODO]
+      Los grafos representan un método de representación para la resolución de problemas desde una perspectiva matemática mediante la modelización de una red de objetos que se relacionan a través de interconexiones. Esta abstracción, que deja de lado el contexto de aplicación para basarse únicamente en las relaciones y la estructura de las mismas, permite diseñar algoritmos de manera más simple al tener en cuenta únicamente la información necesaria para resolver el problema.
+
+      \paragraph{}
+      Los problemas referidos a grafos han sido ampliamente en la literatura desde hace mucho tiempo. Sin embargo, en los últimos años se ha producido un elevado crecimiento de distintas técnicas que permiten resolver estos, de tal manera que el coste sea más reducido. Esto genera una reducción de tiempo y espacio en su resolución a costa de la inclusión de una determinada tasa de error.
+
+      \paragraph{}
+      Una propuesta interesante es la generación de un subgrafo de menor tamaño que mantenga las propiedades a nivel de estructura lo más semejantes posibles respecto del grafo sobre el cual se pretende resolver el problema en cuestión. Existen distintas técnicas para esta labor, conocidas como \emph{Spanners} y \emph{Sparsifiers}. Los últimos trabajos de investigación relacionados con el tema pretenden diseñar algoritmos que apliquen dichas técnicas siguiendo las mismas ideas que los \emph{Sketchs} para el caso de valores numéricos.
+
+      \paragraph{}
+      Un algoritmo basado en conceptos de estadística y aplicado a grafos de tamaño masivo es el algoritmo \emph{PageRank}, el cual genera un ranking de importancia entre los puntos de la red, basandose unicamente en la estructura de interconexiones de la misma. Este ranking está intimamente relacionado con conceptos de probabilidad como las \emph{Cadenas de Markov}.
+
+    \paragraph{}
+    Debido a la ingente cantidad de tiempo necesaria para realizar un trabajo de investigación que contuviera descripciones acerca de todos los conceptos relacionados con el \emph{Big Data} que se han resumido en las secciones posteriores, se han seleccionado un subconjunto de ellas. Por tanto, a continuación se indica cómo se organiza el resto del documento: en el capítulo \ref{chap:streaming} se realiza una descripción acerca de los \emph{Algoritmos para Streaming}. Seguidamente, en el capítulo \ref{chap:summaries} se indican distintas \emph{Estrategias de Sumarización}. A continuación, se cambia de perspectiva para hablar de \emph{Grafos} en el capítulo \ref{chap:graphs}. Después, se describe el algoritmo \emph{PageRank} en detalle en el capítulo \ref{chap:pagerank}. Por último, se describen distintos detalles de implementación, así como de los resultados obtenidos y se realiza una conclusión acerca del trabajo realizado en el capítulo \ref{chap:implementation}.
+
+    \paragraph{}
+    De manera adicional, también se han incluido distintos anexos: En el anexo \ref{chap:methodology} se indica la metodología de trabajo seguida durante el desarrollo del proyecto. En el anexo \ref{chap:how_it_was_build} se indica cómo ha sido contruido este documento mediante la herramienta \LaTeX. Por último, se ha includio una guía de usuario de la implementación en el anexo \ref{chap:user_guide}.
 
 \end{document}
