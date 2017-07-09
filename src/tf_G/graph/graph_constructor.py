@@ -16,7 +16,7 @@ class GraphConstructor:
   """
 
   @staticmethod
-  def from_edges(sess: tf.Session, name: str, edges_np: np.array,
+  def from_edges(sess: tf.Session, name: str, edges_np: np.ndarray,
                  writer: tf.summary.FileWriter = None,
                  is_sparse: bool = False) -> Graph:
     """ Generates a graph from a set of edges.
@@ -29,7 +29,7 @@ class GraphConstructor:
         the TensorFlow operations.
       name (str): This attribute represents the name of the object in
         TensorFlow's op Graph.
-      edges_np (:obj:`np.array`): The edge set of the graph codifies as
+      edges_np (:obj:`np.ndarray`): The edge set of the graph codifies as
         `edges_np[:,0]` represents the sources and `edges_np[:,1]` the
         destinations of the edges.
       writer (:obj:`tf.summary.FileWriter`, optional): This attribute represents

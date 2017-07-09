@@ -13,7 +13,7 @@ class UpdateEdgeListener:
 
   """
 
-  def update_edge(self, edge: np.array, change: float):
+  def update_edge(self, edge: np.ndarray, change: float):
     """ The callback to receive notifications about edge changes in the graph.
 
     This method is called from the Graph when an addition or deletion is
@@ -22,7 +22,7 @@ class UpdateEdgeListener:
 
 
     Args:
-      edge (:obj:`np.Array`): A 1-D `np.Array` that represents the edge that
+      edge (:obj:`np.ndarray`): A 1-D `np.ndarray` that represents the edge that
         changes in the graph, where `edge[0]` is the source vertex, and
         `edge[1]` the destination vertex.
       change (float): The variation of the edge weight. If the final value is

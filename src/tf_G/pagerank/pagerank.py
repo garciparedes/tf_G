@@ -124,7 +124,7 @@ class PageRank(TensorFlowObject, UpdateEdgeListener):
       VectorNorm.ONE(tf.subtract(self.v, other_pr.v)), [])
 
   def error_vector_compare_np(self, other_pr: 'PageRank',
-                              k: int = -1) -> np.array:
+                              k: int = -1) -> np.ndarray:
     """ The comparison method between two PageRank algorithm results.
 
     This method compares the `self` PageRank with another one passed as
@@ -141,7 +141,7 @@ class PageRank(TensorFlowObject, UpdateEdgeListener):
         comparison only on the `k` better vertices. Not implemented yet.
 
     Returns:
-      (:obj:`np.Array`): A `np.Array` with 0-D shape, that represents the
+      (:obj:`np.ndarray`): A `np.ndarray` with 0-D shape, that represents the
         difference between the two rankings using the Norm One.
 
     """
@@ -202,7 +202,7 @@ class PageRank(TensorFlowObject, UpdateEdgeListener):
 
   def pagerank_vector_np(self, convergence: float = 1.0, steps: int = 0,
                          topics: List[int] = None,
-                         c_criterion=ConvergenceCriterion.ONE) -> np.array:
+                         c_criterion=ConvergenceCriterion.ONE) -> np.ndarray:
     """ The Method that runs the PageRank algorithm
 
     This method returns a Numpy Array that contains the result of running the
@@ -232,7 +232,7 @@ class PageRank(TensorFlowObject, UpdateEdgeListener):
         Default to `tf_G.ConvergenceCriterion.ONE`.
 
     Returns:
-      (:obj:`np.Array`): A 1-D `np.Array` of [n] shape, where `n` is the
+      (:obj:`np.ndarray`): A 1-D `np.ndarray` of [n] shape, where `n` is the
         cardinality of the graph vertex set. It contains the normalized rank of
         vertex `i` at position `i`.
 
@@ -243,7 +243,7 @@ class PageRank(TensorFlowObject, UpdateEdgeListener):
 
   def ranks_np(self, convergence: float = 1.0, steps: int = 0,
                topics: List[int] = None,
-               topics_decrement: bool = False) -> np.array:
+               topics_decrement: bool = False) -> np.ndarray:
     """ Generates a ranked version of PageRank results.
 
     This method returns the PageRank ranking of the graph sorted by the position
@@ -272,7 +272,7 @@ class PageRank(TensorFlowObject, UpdateEdgeListener):
         to False`.
 
     Returns:
-      (:obj:`np.Array`): A 2-D `np.Array` than represents a sorted PageRank
+      (:obj:`np.ndarray`): A 2-D `np.ndarray` than represents a sorted PageRank
         ranking of the graph.
 
     """
@@ -364,7 +364,7 @@ class PageRank(TensorFlowObject, UpdateEdgeListener):
     raise NotImplementedError(
       'subclasses must override page_rank_exact()!')
 
-  def update_edge(self, edge: np.array, change: float) -> None:
+  def update_edge(self, edge: np.ndarray, change: float) -> None:
     """ The callback to receive notifications about edge changes in the graph.
 
     This method is called from the Graph when an addition or deletion is
@@ -373,7 +373,7 @@ class PageRank(TensorFlowObject, UpdateEdgeListener):
 
 
     Args:
-      edge (:obj:`np.Array`): A 1-D `np.Array` that represents the edge that
+      edge (:obj:`np.ndarray`): A 1-D `np.ndarray` that represents the edge that
         changes in the graph, where `edge[0]` is the source vertex, and
         `edge[1]` the destination vertex.
       change (float): The variation of the edge weight. If the final value is
