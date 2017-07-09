@@ -5,7 +5,7 @@ python:
 
 install:
   - pip install coverage pytest pytest-cov codecov numpy scipy matplotlib pandas
-  - pip install https://storage.googleapis.com/tensorflow/linux/cpu/tensorflow-1.2.1-cp34-cp34m-linux_x86_64.whl
+  - pip install https://storage.googleapis.com/tensorflow/linux/cpu/tensorflow-1.2.1-cp36-cp36m-linux_x86_64.whl
   - pip install --no-deps .  # Test installation correctness
 
 script:
