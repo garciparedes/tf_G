@@ -48,7 +48,6 @@ class DataSets:
     return np.random.permutation(edges_np)
 
   @staticmethod
-  def _compose_from_path(path: str, index_decrement: bool) -> np.ndarray:
   def compose_from_path(path: str, index_decrement: bool) -> np.ndarray:
     """ This method generates a data set from a given path.
 
