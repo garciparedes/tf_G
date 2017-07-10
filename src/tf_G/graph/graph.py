@@ -118,7 +118,7 @@ class Graph(TensorFlowObject, UpdateEdgeNotifier):
     return str(self.run_tf(self.L_tf))
 
   @property
-  def L_tf(self):
+  def L_tf(self) -> tf.Tensor:
     """ This method returns the Laplacian of the graph.
 
         The method generates a 2-D Array containing the laplacian matrix of the
