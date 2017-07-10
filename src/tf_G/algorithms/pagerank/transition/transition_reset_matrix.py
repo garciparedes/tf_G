@@ -98,7 +98,6 @@ class TransitionResetMatrix(Transition):
        This method returns nothing.
 
      """
-
     if change > 0.0:
       self.run_tf(tf.scatter_nd_update(
         self.transition, [[edge[0]]],

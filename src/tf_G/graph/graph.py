@@ -315,11 +315,9 @@ class Graph(TensorFlowObject, UpdateEdgeNotifier):
         "tf_G and dst must not be None ")
     self.run_tf([tf.scatter_nd_add(self.A_tf, [[src, dst]], [1.0]),
                  tf.scatter_nd_add(self.out_degrees_tf, [[src, 0]], [1.0]),
-                 tf.scatter_nd_add(self.in_degrees_tf, [[0, dst]], [1.0]),
-                 tf.scatter_nd_add(self.L_tf, [[src, src], [src, dst]],
-                                   [+1.0, -1.0])])
+                 tf.scatter_nd_add(self.in_degrees_tf, [[0, dst]], [1.0])])
     self.m += 1
-    self._notify(np.ndarray([src, dst]), 1)
+    self._notify(np.array([src, dst]), 1)
 
   def remove(self, src: int, dst: int) -> None:
     """ Remove an edge to the graph.
@@ -340,8 +338,6 @@ class Graph(TensorFlowObject, UpdateEdgeNotifier):
         "tf_G and dst must not be None ")
     self.run_tf([tf.scatter_nd_add(self.A_tf, [[src, dst]], [-1.0]),
                  tf.scatter_nd_add(self.out_degrees_tf, [[src, 0]], [-1.0]),
-                 tf.scatter_nd_add(self.in_degrees_tf, [[0, dst]], [-1.0]),
-                 tf.scatter_nd_add(self.L_tf, [[src, src], [src, dst]],
-                                   [-1.0, +1.0])])
+                 tf.scatter_nd_add(self.in_degrees_tf, [[0, dst]], [-1.0])])
     self.m -= 1
-    self._notify(np.ndarray([src, dst]), -1)
+    self._notify(np.array([src, dst]), -1)
