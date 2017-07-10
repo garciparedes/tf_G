@@ -28,8 +28,6 @@ class IterativePageRank(PageRank):
       the TensorFlow operations.
     name (str): This attribute represents the name of the object in TensorFlow's
       op Graph.
-    G (:obj:`tf_G.Graph`): The graph on witch it will be calculated the
-      algorithm. It will be treated as Directed Weighted Graph.
     beta (float): The reset probability of the random walks, i.e. the
       probability that a user that surfs the graph an decides to jump to another
       vertex not connected to the current.
@@ -78,7 +76,7 @@ class IterativePageRank(PageRank):
     T = TransitionResetMatrix(sess, name + "_iter", graph, beta)
     PageRank.__init__(self, sess, name + "_iter", graph, beta, T, writer,
                       is_sparse)
-    self.iter = lambda i, a, b: tf.matmul(a, tf.where(self.G.is_not_sink_tf,
+    self.iter = lambda i, a, b: tf.matmul(a, tf.where(self.T.G.is_not_sink_tf,
                                                       self.T(), b))
 
   def _pr_convergence_tf(self, convergence: float, topics: List[int] = None,
@@ -118,9 +116,9 @@ class IterativePageRank(PageRank):
         tf.while_loop(c_criterion,
                       lambda i, v, v_last, c, n:
                       (i + 1, self.iter(i, v, p), v, c, n),
-                      [0.0, self.v, tf.zeros([1, self.G.n]),
+                      [0.0, self.v, tf.zeros([1, self.T.G.n]),
                        convergence,
-                       self.G.n_tf], name=self.name + "_while_conv")[
+                       self.T.G.n_tf], name=self.name + "_while_conv")[
           1]))
     return self.v
 
@@ -195,12 +193,12 @@ class IterativePageRank(PageRank):
 
     """
     if topics is not None:
-      return tf.ones([self.G.n, self.G.n]) * tf.reshape(
+      return tf.ones([self.T.G.n, self.T.G.n]) * tf.reshape(
         tf.scatter_nd(tf.constant(topics, shape=[len(topics), 1]),
                       len(topics) * [1 / len(topics)],
-                      [self.G.n]), [1, self.G.n])
+                      [self.T.G.n]), [1, self.T.G.n])
     else:
-      return tf.fill([self.G.n, self.G.n], tf.pow(self.G.n_tf, -1))
+      return tf.fill([self.T.G.n, self.T.G.n], tf.pow(self.T.G.n_tf, -1))
 
   def update_edge(self, edge: np.ndarray, change: float) -> None:
     """ The callback to receive notifications about edge changes in the graph.

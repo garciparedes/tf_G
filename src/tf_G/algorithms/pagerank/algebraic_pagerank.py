@@ -28,8 +28,6 @@ class AlgebraicPageRank(PageRank):
       the TensorFlow operations.
     name (str): This attribute represents the name of the object in TensorFlow's
       op Graph.
-    G (:obj:`tf_G.Graph`): The graph on witch it will be calculated the
-      algorithm. It will be treated as Directed Weighted Graph.
     beta (float): The reset probability of the random walks, i.e. the
       probability that a user that surfs the graph an decides to jump to another
       vertex not connected to the current.
@@ -98,9 +96,9 @@ class AlgebraicPageRank(PageRank):
     """
     if topics is not None:
       warnings.warn('Personalized PageRank not implemented yet!')
-    a = tf.fill([1, self.G.n], (1 - self.beta) / self.G.n_tf)
+    a = tf.fill([1, self.T.G.n], (1 - self.beta) / self.T.G.n_tf)
     b = tf.matrix_inverse(
-      tf.eye(self.G.n, self.G.n) - self.beta * self.T())
+      tf.eye(self.T.G.n, self.T.G.n) - self.beta * self.T())
     self.run_tf(self.v.assign(tf.matmul(a, b)))
     return self.v
 

@@ -11,7 +11,7 @@ class DataSets:
   """
 
   @staticmethod
-  def _get_path() -> str:
+  def _path() -> str:
     """ Private method to get the path of provided data sets.
 
     Returns:
@@ -32,11 +32,11 @@ class DataSets:
         set.
 
     """
-    return DataSets._get_path() + '/' + name + '/' + name + ".csv"
+    return DataSets._path() + '/' + name + '/' + name + ".csv"
 
   @staticmethod
-  def _permute_edges(edges_np: np.ndarray) -> np.ndarray:
-    """ Private method that permutes the rows order of given the input set.
+  def permute_edges(edges_np: np.ndarray) -> np.ndarray:
+    """ Method that permutes the rows order of given the input set.
 
     Args:
       edges_np (:obj:`np.ndarray`): The input data set.
@@ -70,7 +70,7 @@ class DataSets:
     data = pd.read_csv(path)
     if index_decrement:
       data -= 1
-    return DataSets._permute_edges(data.as_matrix())
+    return DataSets.permute_edges(data.as_matrix())
 
   @staticmethod
   def _compose_from_name(name: str, index_decrement: bool) -> np.ndarray:
@@ -171,7 +171,7 @@ class DataSets:
       (:obj:`np.ndarray`): The data set that represents the Graph.
 
     """
-    return DataSets._permute_edges(np.array([
+    return DataSets.permute_edges(np.array([
       [0, 1], [0, 2], [0, 3], [1, 2], [1, 3], [2, 0], [3, 0], [3, 2]]))
 
   @staticmethod
@@ -189,6 +189,6 @@ class DataSets:
       (:obj:`np.ndarray`): The data set that represents the Graph.
 
     """
-    return DataSets._permute_edges(np.array([
+    return DataSets.permute_edges(np.array([
       [1, 2], [1, 6], [2, 3], [2, 4], [3, 4], [3, 5], [3, 6], [4, 1],
       [6, 1]]) - 1)
