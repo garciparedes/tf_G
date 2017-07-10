@@ -4,8 +4,8 @@ from typing import List
 import numpy as np
 import tensorflow as tf
 
-from tf_G import Graph
-from tf_G.pagerank.transition import Transition
+from tf_G.graph import Graph
+from tf_G.algorithms.pagerank import Transition
 from tf_G.utils.callbacks.update_edge_listener import UpdateEdgeListener
 from tf_G.utils.convergence_criterion import ConvergenceCriterion
 from tf_G.utils.tensorflow_object import TensorFlowObject

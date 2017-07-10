@@ -14,8 +14,9 @@ Welcome to tf_G's documentation!
 
    tf_G
    graph
-   pagerank
-   pagerank_transition
+   algorithms
+   algorithms_pagerank
+   algorithms_pagerank_transition
    utils
    utils_callbacks
 

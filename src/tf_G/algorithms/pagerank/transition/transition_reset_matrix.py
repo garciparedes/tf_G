@@ -1,9 +1,7 @@
-from typing import List
-
-import tensorflow as tf
 import numpy as np
+import tensorflow as tf
 
-from tf_G.pagerank.transition.transition import Transition
+from tf_G.algorithms.pagerank.transition.transition import Transition
 from tf_G.graph.graph import Graph
 
 
