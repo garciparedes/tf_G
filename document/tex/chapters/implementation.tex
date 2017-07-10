@@ -145,6 +145,12 @@
         \paragraph{WakaTime}
         Es una utilidad destinada al seguimiento de horas de trabajo, que indica tanto la proporción de tiempo destinada a cada lenguaje como a cada proyecto. Esta se basa en la recolección de información sobre los editores de código. Por tanto, recoge el tiempo de trabajo destinado a dicha tarea. Esto es una métrica interesante, pero no tiene en cuenta la cantidad de tiempo destinado a tareas de aprendizaje e investigación leyendo artículos o leyendo documentación de bibliotecas utilizadas durante el desarrollo.
 
+        \subsubsection{Astah}
+        \label{sec:astah}
+
+          \paragraph{}
+          \emph{Astah} es un software para la generación de distintos diagrams relacionados con el diseño de software. A traves de una interfaz de usuario permite el modelado de sistemas siguiendo el estándar \emph{UML}. Este software ha sido utilizado para la realización de diagramas de clases y componentes. Lo cual permite entender las relaciones entre las distintas clases implementadas de una manera rápida y simple.
+
         \paragraph{}
         Todos estos servicios se han utilizados de manera relacionada entre si, en algunos casos de manera directa, mientras que en otros de manera indirecta. El punto de conexión entre todos ellos es el sistema de control de versiones \emph{git}, que estos utilizan para relacionar la tarea que realizan con un determinado proyecto. El sistema de documentación de \emph{Read the Docs} realiza una nueva ejecución tras cada cambio en el repositorio \emph{git} de \emph{GitHub}. De la misma manera \emph{Travis CI} y \emph{Codecov} realizan sus tareas correspondientes. Por último, \emph{WakaTime} realiza un seguimiento constante sobre el tiempo dedicado al repositorio. De esta manera se obtiene un entorno de trabajo que permite un desarrollo ágil permitiendo al desarrollador centrarse únicamente en las tareas de investigación y desarrollo, para posteriormente validar los resultados de ejecución de estos servicios, lo cual reduce tiempo y costes.
 
@@ -157,20 +163,6 @@
         \paragraph{}
         [TODO hablar de python package]
 
-        \subsubsection{Diagrama de Clases}
-        \label{sec:class_diagram}
-
-          \paragraph{}
-          [TODO ]
-
-          \begin{figure}
-            \centering
-            \includegraphics[width=\textwidth,height=\textheight,keepaspectratio]{class-diagram}
-            \caption{[TODO ]}
-            \label{img:class_diagram}
-          \end{figure}
-
-
         \subsubsection{Diagrama de Componentes}
         \label{sec:components_diagram}
 
@@ -179,25 +171,75 @@
 
           \begin{figure}
             \centering
-            \includegraphics[width=\textwidth,height=\textheight,keepaspectratio]{components-diagram}
+            \includegraphics[width=\textwidth,height=\textheight,keepaspectratio]{diagrams/component-diagram}
+            \caption{[TODO ]}
+            \label{img:class_diagram}
+          \end{figure}
+
+
+        \subsubsection{Diagrama de Clases}
+        \label{sec:class_diagram}
+
+          \paragraph{}
+          [TODO ]
+
+          \begin{figure}
+            \centering
+            \includegraphics[width=\textwidth,height=\textheight,keepaspectratio]{diagrams/complete-class-diagram}
             \caption{[TODO ]}
             \label{img:components_diagram}
           \end{figure}
 
-        \begin{figure}
-          \centering
-          \includegraphics[width=\textwidth,height=\textheight,keepaspectratio]{tensorflow-graph-algebraic-pagerank}
-          \caption{[TODO ]}
-          \label{img:pagerank_algebraic_diagram}
-        \end{figure}
+          \begin{figure}
+            \centering
+            \includegraphics[width=\textwidth,height=\textheight,keepaspectratio]{diagrams/tensorflowobject-class-diagram}
+            \caption{[TODO ]}
+            \label{img:components_diagram}
+          \end{figure}
 
-        \begin{figure}
-          \centering
-          \includegraphics[width=\textwidth,height=\textheight,keepaspectratio]{tensorflow-graph-iterative-pagerank}
-          \caption{[TODO ]}
-          \label{img:pagerank_iterative_diagram}
-        \end{figure}
-        
+          \begin{figure}
+            \centering
+            \includegraphics[width=\textwidth,height=\textheight,keepaspectratio]{diagrams/updateedge-class-diagram}
+            \caption{[TODO ]}
+            \label{img:components_diagram}
+          \end{figure}
+
+          \begin{figure}
+            \centering
+            \includegraphics[width=\textwidth,height=\textheight,keepaspectratio]{diagrams/graph-class-diagram}
+            \caption{[TODO ]}
+            \label{img:components_diagram}
+          \end{figure}
+
+          \begin{figure}
+            \centering
+            \includegraphics[width=\textwidth,height=\textheight,keepaspectratio]{diagrams/pageRank-class-diagram}
+            \caption{[TODO ]}
+            \label{img:components_diagram}
+          \end{figure}
+
+
+
+        \subsubsection{Diagrama de Operaciones}
+        \label{sec:operations_diagram}
+
+          \paragraph{}
+          [TODO ]
+
+          \begin{figure}
+            \centering
+            \includegraphics[width=\textwidth,height=\textheight,keepaspectratio]{diagrams/tensorflow-graph-algebraic-pagerank}
+            \caption{[TODO ]}
+            \label{img:pagerank_algebraic_diagram}
+          \end{figure}
+
+          \begin{figure}
+            \centering
+            \includegraphics[width=\textwidth,height=\textheight,keepaspectratio]{diagrams/tensorflow-graph-iterative-pagerank}
+            \caption{[TODO ]}
+            \label{img:pagerank_iterative_diagram}
+          \end{figure}
+
       \paragraph{}
       [TODO]
 
