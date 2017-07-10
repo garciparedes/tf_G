@@ -1,6 +1,7 @@
 If you use this dataset in your research work, please cite
 
 ```
+
 @MISC {sparksets:followers,
     author       = "Apache Spark Developers",
     title        = "{Apache Spark Datasets}: followers",
@@ -8,6 +9,7 @@ If you use this dataset in your research work, please cite
     month        = jun,
     year         = 2017
 }
+
 ```
 
 See followers.bib for a raw bibtex entry.
