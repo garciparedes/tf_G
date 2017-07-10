@@ -195,7 +195,16 @@
         \label{sec:class_diagram}
 
           \paragraph{}
-          [TODO ]
+          Una vez descrito el diagrama de componentes de la implementación, lo siguiente es hablar del \emph{Diagrama de Clases} de la misma. Para ello, en primer lugar hay que tener en cuenta diversos factores, entre los que se encuentran las peculiaridades del lenguaje \emph{Python} respecto de las ideas de \emph{Orientación a Objetos}. En \emph{Python} no existen \emph{Clases Abstractas} ni \emph{Interfaces}. Sin embargo, este lenguaje permite emular su comportamiento mediante el concepto de \emph{Herencia Múltiple}, que permite que una clase tenga más de una clase padre.
+
+          \paragraph{}
+          A partir de dicho concepto se pueden describir los mismos conceptos que en otros lenguajes como \emph{Java} se harían utilizando las \emph{Clases Abstractas} e \emph{Interfaces}. Para ello, además de la \emph{Herencia Múltiple}, se ha utilizado la excepción \texttt{NotImplementedError} para notificar que no las clases descendientes no han implementado la funcionalidad requerida. Alternativamente, se podría haber utilizado la alternativa propuesta por el paquete \texttt{abc}, pero se ha preferido la otra opción.
+
+          \paragraph{}
+          Una vez descritas dichas caracterizaciones, se discutirá la implementación realizada. En este caso, tan solo se realizarán indicaciones desde el punto de vista de la estructura de clases, ya que si se desea conocer el comportamiento de cada método concreto se puede hacer uso de la documentación interna de cada clase visualizando el código fuente, o de manera online a través de \url{http://tf-g.readthedocs.io/en/latest/}.
+
+          \paragraph{}
+          El diagrama de clases completo se muestra en la figura \ref{img:class_diagram}. Tal y como se puede apreciar, a través de dicho dicho diagrama es complicado comprender el funcionamiento de la implementación, debido a las relaciones que se solapan unas a otras derivado de la herencia múltiple. Por tanto, se ha creido una solución más acertada dividir el diagrama en partes, para realizar la descripción desde distintos puntos de vista.
 
           \begin{figure}[h]
             \centering
@@ -205,7 +214,7 @@
           \end{figure}
 
           \paragraph{}
-          [TODO ]
+          Sin embargo, en la figura \ref{img:class_diagram} se muestra una clase aislada. Esta clase se denomina \emph{DataSets} y no se relaciona de manera directa con el resto, sino que se suministra para facilitar las tareas de obtención de conjuntos de datos que representan las aristas de un grafo. Para ello proporciona funciones que permiten la generación de estructuras de datos que almacenan dichos aristas. Además, el módulo contiene distintos conjuntos de datos para poder realizar pruebas sobre la implementación. Por tanto, esta clase suministra los métodos para poder acceder a ellos.
 
           \begin{figure}[h]
             \centering
@@ -214,12 +223,27 @@
             \label{img:tensorflowobject_class_diagram}
           \end{figure}
 
+          \paragraph{}
+          En la figura \ref{img:tensorflowobject_class_diagram} se muestra una subconjunto de clases relacionadas entre sí a través de la herencia de la clase \texttt{TensorFlowObject}. Las relacionees entre ellas se discutirán posteriormente. Sin embargo, a continuación se expone la razón por la cual se ha implementado dicha clase abstracta. Puesto que la implementación se ha apoyado fuertemente en el uso de la biblioteca \emph{TensorFlow}, muchas de estas clases necesitaban atributos y operaciones comunes, como la necesidad de obtener el resultado de una determinada operación en \emph{TensorFlow} a través del método \texttt{run\_tf} o la de identificar a una variable por su nombre. Por tanto, a partir de \texttt{TensorFlowObject} se suministra dicha funcionalidad.
+
           \begin{figure}[h]
             \centering
             \includegraphics[width=\textwidth,height=\textheight,keepaspectratio]{diagrams/updateedge-class-diagram}
             \caption{Diagrama de clases referido a las relaciones con las clases abstractas \texttt{UpdateEdgeListener} y \texttt{UpdateEdgeNotifier} del módulo \texttt{tf\_G}}
             \label{img:update_edge_diagram}
           \end{figure}
+
+          \paragraph{}
+          El siguiente diagrama de clases incluido se muestra en la figura \ref{img:update_edge_diagram}. Dicho diagrama se corresponde con el conjunto de clases relacionadas con \texttt{UpdateEdgeListener} y \texttt{UpdateEdgeNotifier}. Estas clases son las contenidas en el paquete \texttt{utils.callbacks} y la funcionalidad que proporcionan es la de notificar y ser notificadas por otras clases, de algún cambio en el conjunto de aristas del grafo con el cual interaccionan.
+
+          \paragraph{}
+          Dicho comportamiento es muy similar al del patrón \emph{Observador}, sin embargo, no se puede denominar de dicha manera puesto que en el caso de las clases que descienden de \texttt{UpdateEdgeListener}, estas si que conocen al objeto observado. Por lo cual, en lugar de utilizar la denominación \emph{observer-observed} se ha preferido \emph{listener-notifier}. Paralas clases descendientes se proporcionan los clásicos métodos \texttt{attach}, \texttt{detach} y \texttt{notify} en el caso de \texttt{UpdateEdgeNotifier} y \texttt{update\_edge} para \texttt{UpdateEdgeListener}.
+
+          \paragraph{}
+          Los conjuntos de clases que descienden de \texttt{UpdateEdgeListener} y \texttt{UpdateEdgeNotifier} tienen por tanto la capacidad de implementar sus algoritmos de manera dinámica. En este caso, puesto que tan solo se ha implementado el algoritmo \emph{PageRank}, esta es el único algoritmo que posee capacidad de dinamismo. A pesar de ello, el usuario del módulo puede implementar clases que desciendan de \texttt{UpdateEdgeListener} para así ser notificadas de cambios en el grafo al cual se refieran.
+
+          \paragraph{}
+          El resto de diagramas de clases que se han incluido se corresponden con implementaciones concretas que proporcionan funcionalidad directa al usuario. Estas se refieren a la representación de grafos sobre \emph{TensorFlow} (lo cual realiza por el paquete \texttt{graph}) y el cálculo del \emph{PageRank} (lo cual se lleva a cabo en el paquete \texttt{algorithms/pagerank}).
 
           \begin{figure}[h]
             \centering
@@ -228,12 +252,24 @@
             \label{img:graph_class_diagram}
           \end{figure}
 
+          \paragraph{}
+          La figura \ref{img:graph_class_diagram} muestra el conjunto de clases referidas a la representación de un grafo utilizando como base la biblioteca \emph{TensorFlow}. Dicha implementación se constituye únicamente por 3 clases: \texttt{Graph} (que representa un grafo), \texttt{GraphSparsifier} (que representa un pseudo-\emph{Sparsifier} de un grafo dado) y \texttt{GraphConstructor} (que proporciona distintas utilidades que permiten contruir un grafo de manera simple).
+
+          \paragraph{}
+          Tal y como se indicó anteriormente, para entender la funcionalidad que provee cada método, es más apropiado seguir la documentación interna de la clases o su versión publicada online. Debido a las restricciones de tiempo en la realización de la implementación, tan solo se han implementado aquellas funcionalidades necesarias para el desarrollo del algoritmo \emph{PageRank}.
+
+          \paragraph{}
+          [TODO ]
+
+
           \begin{figure}[h]
             \centering
             \includegraphics[width=\textwidth,height=\textheight,keepaspectratio]{diagrams/pagerank-class-diagram}
             \caption{Diagrama de clases referido a las relaciones con la clase \texttt{PageRank} del módulo \texttt{tf\_G}}
             \label{img:pagerank_diagram}
           \end{figure}
+          [TODO ]
+
 
         \subsubsection{Diagrama de Operaciones}
         \label{sec:operations_diagram}
