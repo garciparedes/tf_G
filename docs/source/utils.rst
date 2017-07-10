@@ -19,13 +19,3 @@ Utils
 -----
 .. autoclass:: tf_G.utils.utils.Utils
     :members:
-
-ConvergenceCriterion
---------------------
-.. autoclass:: tf_G.utils.convergence_criterion.ConvergenceCriterion
-    :members:
-
-VectorNorm
-----------
-.. autoclass:: tf_G.utils.vector_norm.VectorNorm
-    :members:

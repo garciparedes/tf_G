@@ -7,7 +7,7 @@ import tensorflow as tf
 from tf_G.algorithms.pagerank import PageRank
 from tf_G.algorithms.pagerank import TransitionMatrix
 from tf_G.graph.graph import Graph
-from tf_G.utils.convergence_criterion import ConvergenceCriterion
+from tf_G.utils.math.convergence_criterion import ConvergenceCriterion
 
 
 class AlgebraicPageRank(PageRank):

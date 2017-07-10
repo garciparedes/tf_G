@@ -158,16 +158,25 @@
       \label{sec:implementation_design}
 
         \paragraph{}
-        [TODO ]
+        Una vez descritas las distintas dependencias externas utilizadas para la implementación realizada, ya se puede comenzar a describir la misma. Para ello, se han realizado distintos diagramas, entre los que se encuentran un \emph{Diagrama de Componentes}, \emph{Diagramas de Clases} que tratan de facilitar el entendimiento del código desde distintos puntos de vista y, por último, se han añadidos \emph{Diagramas de Operaciones} generados por \emph{TensorFlow}, que permiten entender en mayor medida el comportamiento de los algoritmos de una manera visual.
 
         \paragraph{}
-        [TODO hablar de python package]
+        Sin embargo, antes de comenzar con la descripción a nivel de diseño de la implementación realiza, es interesante realizar una breve indicación acerca del sistema de distribución de paquetes utilizado por el lenguaje \emph{Python}, ya que se ha utilizado dicha estrategia para encapsular la implementación y facilitar su utilización en otros sistemas.
+
+        \paragraph{}
+        \emph{Python} proporciona un estándar sencillo de distribución de paquetes basados en módulos. Para utilizar dicha funcionalidad, es necesario incluir un fichero \texttt{/setup.py} en el directorio de nivel superior respecto del referido al módulo que se pretende empaquetar. En dicho fichero se anotan distintos valores acerca del módulo, entre las que se encuentran su localización, las dependencias sobre otros módulos externos, la versión mínima de \emph{Python} para su utilización, u otros metadatos como el nombre del autor, el nombre del módulo, la versión o la licencia sobre la que se distribuye.
+
+        \paragraph{}
+        La implementación realizada se ha decido encapsular en un módulo al que se ha denominado \texttt{tf\_G}. Dicho módulo se ha nombrado de esta manera por la tecnología utilizada para su implementación, junto con su funcionalidad relacionada con \emph{Grafos}. Por tanto, se ha utilizado el acrónimo \texttt{tf}, utilizado como estándar al importar la biblioteca \emph{tensorflow} (\texttt{import tensorflow as tf}), al cual se le ha añadido la \texttt{G} para finalmente formar el nombre \texttt{tf\_G}.
+
+        \paragraph{}
+        En cuanto a la implementación, esta se ha incluido en el directorio \texttt{/src/}, que a su vez contiene otro directorio con el nombre del módulo (\texttt{tf\_G}). Además de la implementación en si, que se describirá a continuación, también se han incluido en el directorio \texttt{/tests/} distintos casos de prueba (a nivel muy básico y casi a modo demostrativo) para la comprobación acerca del correcto funcionamiento de la implementación. En el directorio \texttt{/examples/} se han incluido distintos scripts que permiten apreciar el funcionamiento de la implementación realizada de una manera práctica.
 
         \subsubsection{Diagrama de Componentes}
         \label{sec:component_diagram}
 
           \paragraph{}
-          [TODO ]
+          En la figura \ref{img:component_diagram} se muestra el diagrama de componentes seguido por el módulo \texttt{tf\_G}. Tal y como se puede apreciar, se ha decidido dividir la implementación en 3 paquetes denominados: \texttt{graph} (para la implementación de los grafos), \texttt{algorithms} (donde se encontrarán las implementaciones de los algoritmos para grafos) y \texttt{utils} (donde se contienen diferentes clases de carácter general necesarias para que el resto de paquetes funcionen de manera apropiada).
 
           \begin{figure}[h]
             \centering
@@ -176,6 +185,11 @@
             \label{img:component_diagram}
           \end{figure}
 
+          \paragraph{}
+          En cuanto al paquete \texttt{utils}, este contiene dos subpaquetes, el referido a clases que ofrecen la funcionalidad de \texttt{callbacks} (esto se describirá a continuación junto con su respectivo diagrama de clases). Así como \texttt{math}, que contiene clases referidas a utilidades matemáticas (en este caso normas vectoriales y criterios de convergencia).
+
+          \paragraph{}
+          [TODO hablar del paquete algorithm]
 
         \subsubsection{Diagrama de Clases}
         \label{sec:class_diagram}
