@@ -19,6 +19,7 @@ Welcome to tf_G's documentation!
    algorithms_pagerank_transition
    utils
    utils_callbacks
+   utils_math
 
 
 Indices and tables
