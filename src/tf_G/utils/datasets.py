@@ -49,7 +49,8 @@ class DataSets:
 
   @staticmethod
   def _compose_from_path(path: str, index_decrement: bool) -> np.ndarray:
-    """ Private method that composes a data set from a given path.
+  def compose_from_path(path: str, index_decrement: bool) -> np.ndarray:
+    """ This method generates a data set from a given path.
 
     The method obtains the data from the given path, then decrements its values
     if is necessary and permutes the resulting data set.
@@ -88,8 +89,8 @@ class DataSets:
       (:obj:`np.ndarray`): The data set that represents the Graph.
 
     """
-    return DataSets._compose_from_path(DataSets._name_to_default_path(name),
-                                       index_decrement)
+    return DataSets.compose_from_path(DataSets._name_to_default_path(name),
+                                      index_decrement)
 
   @staticmethod
   def followers(index_decrement: bool = True) -> np.ndarray:
@@ -153,30 +154,6 @@ class DataSets:
 
     """
     return DataSets._compose_from_name('p2p-gnutella08', index_decrement)
-
-  @staticmethod
-  def generate_from_path(path: str, index_increment=True) -> np.ndarray:
-    """ This method generates a data set from a given path.
-
-    The method obtains the data from the given path, then decrements its values
-    if is necessary and permutes the resulting data set.
-
-    The decrement option is offered because of in some cases the data set treats
-    the initial node as 1 but many data structures in python are 0-indexed, so
-    decrementing the values improves space performance.
-
-    It acts as interface to use the `_compose_from_path` method.
-
-    Args:
-      path (str): The path of the file of data set csv.
-      index_decrement (bool): Decrements all valus by one if True, do nothing
-        otherwise
-
-    Returns:
-      (:obj:`np.ndarray`): The data set that represents the Graph.
-
-    """
-    return DataSets._compose_from_path(path, index_increment)
 
   @staticmethod
   def naive_4() -> np.ndarray:
