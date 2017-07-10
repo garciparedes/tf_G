@@ -35,8 +35,6 @@ class Graph(TensorFlowObject, UpdateEdgeNotifier):
       vertices of the graph as 2-D Tensor with shape [n, 1]
     in_degrees_tf (:obj:`tf.Tensor`): Represents the in-degrees of the vertices
       of the graph as 2-D Tensor with shape [1, n]
-    L_tf (:obj:`tf.Tensor`): Represents the Laplacian matrix of the graph as 2-D
-      Tensor with shape [n,n]
 
   """
 
@@ -103,13 +101,9 @@ class Graph(TensorFlowObject, UpdateEdgeNotifier):
     self.in_degrees_tf = tf.Variable(
       tf.reduce_sum(self.A_tf, 0, keep_dims=True),
       name=self.name + "_d_in")
-    self.L_tf = tf.Variable(
-      tf.diag(self.out_degrees_tf_vector) - self.A_tf,
-      name=self.name + "_L")
     self.run_tf(tf.variables_initializer([self.A_tf, self.n_tf]))
     self.run_tf(tf.variables_initializer([
       self.out_degrees_tf, self.in_degrees_tf]))
-    self.run_tf(tf.variables_initializer([self.L_tf]))
 
   def __str__(self) -> str:
     """ Transforms the graph to a string.
@@ -122,6 +116,20 @@ class Graph(TensorFlowObject, UpdateEdgeNotifier):
 
     """
     return str(self.run_tf(self.L_tf))
+
+  @property
+  def L_tf(self):
+    """ This method returns the Laplacian of the graph.
+
+        The method generates a 2-D Array containing the laplacian matrix of the
+        graph
+
+        Returns:
+          (:obj:`tf.Tensor`): A 2-D Tensor with [n,n] shape where n is the
+            cardinality of the vertex set
+
+        """
+    return tf.diag(self.out_degrees_tf_vector) - self.A_tf
 
   @property
   def is_not_sink_tf(self) -> tf.Tensor:
