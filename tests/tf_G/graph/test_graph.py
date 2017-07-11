@@ -25,3 +25,18 @@ def test_graph_in_degrees():
   np.testing.assert_array_equal(
     graph.in_degrees_np,
     np.array([[2.0, 1.0, 1.0, 2.0, 1.0, 2.0]]))
+
+
+def test_graph_updateable():
+  with tf.Session() as sess:
+    g: tf_G.Graph = tf_G.GraphConstructor.from_edges(
+      sess, "G1", edges_np=tf_G.DataSets.naive_6())
+
+    g_updateable: tf_G.Graph = tf_G.GraphConstructor.empty(sess, "G2", g.n)
+
+    for e in tf_G.DataSets.naive_6():
+      g_updateable.append(e[0], e[1])
+
+    np.testing.assert_array_equal(
+      sess.run(g.A_tf),
+      sess.run(g_updateable.A_tf))
