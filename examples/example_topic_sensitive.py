@@ -19,12 +19,12 @@ def main():
     pr_iter: tf_G.PageRank = tf_G.IterativePageRank(sess, "PR1", graph, beta)
 
     v_4: np.ndarray = pr_iter.pagerank_vector_np(convergence=convergence,
-                                               topics=[4])
+                                                 topics=[4])
     v_5: np.ndarray = pr_iter.pagerank_vector_np(convergence=convergence,
-                                               topics=[5])
+                                                 topics=[5])
 
     v_45: np.ndarray = pr_iter.pagerank_vector_np(convergence=convergence,
-                                                topics=[4, 5])
+                                                  topics=[4, 5])
     v_45_pseudo: np.ndarray = (v_4 + v_5) / 2.0
 
     print(v_4)

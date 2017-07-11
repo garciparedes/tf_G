@@ -6,33 +6,8 @@ class DataSets:
   """
   DataSets class represents some data sets included in the package.
 
-  Many of this sets are imported from SNAP project of Stanford University.
-  The class also provides `generate_from_path` method to import personal sets.
+  The class provides `compose_from_path` method to import personal sets.
   """
-
-  @staticmethod
-  def _path() -> str:
-    """ Private method to get the path of provided data sets.
-
-    Returns:
-      str: The relative path that points to data sets directory.
-
-    """
-    return "./../datasets"
-
-  @staticmethod
-  def _name_to_default_path(name: str) -> str:
-    """ Private method that returns the path of a set from it's name.
-
-    Args:
-      name (str): The name of data set.
-
-    Returns:
-      str: The relative path that points to the csv file that contains the data
-        set.
-
-    """
-    return DataSets._path() + '/' + name + '/' + name + ".csv"
 
   @staticmethod
   def permute_edges(edges_np: np.ndarray) -> np.ndarray:
@@ -71,88 +46,6 @@ class DataSets:
     if index_decrement:
       data -= 1
     return DataSets.permute_edges(data.as_matrix())
-
-  @staticmethod
-  def _compose_from_name(name: str, index_decrement: bool) -> np.ndarray:
-    """ Private method that composes a data set from its name.
-
-    This method uses `_name_to_default_path` to obtain the path and generates
-    the data set using `_compose_from_path`.
-
-    Args:
-      name (str): The name of the data set.
-      index_decrement (bool): Decrements all valus by one if True, do nothing
-        otherwise.
-
-    Returns:
-      (:obj:`np.ndarray`): The data set that represents the Graph.
-
-    """
-    return DataSets.compose_from_path(DataSets._name_to_default_path(name),
-                                      index_decrement)
-
-  @staticmethod
-  def followers(index_decrement: bool = True) -> np.ndarray:
-    """ This method returns the followers data set.
-
-    The data set is obtained from a example of GraphX, a graph library developed
-    on the top of Apache Spark.
-
-    This graph contains 7 vertex and 8 edges.
-
-    Args:
-      index_decrement (bool): Decrements all valus by one if True, do nothing
-        otherwise.
-
-    Returns:
-      (:obj:`np.ndarray`): The data set that represents the followers Graph.
-
-    """
-    return DataSets._compose_from_name('followers', index_decrement)
-
-  @staticmethod
-  def wiki_vote(index_decrement: bool = True) -> np.ndarray:
-    """ This method returns the wiki-Vote data set.
-
-    The data set is obtained from the Stanford's University SNAP project, that
-    is based on the study of massive graphs.
-
-    This graph contains 7115 vertices and 103689 edges.
-
-    Url:
-      https://snap.stanford.edu/data/wiki-Vote.html
-
-    Args:
-      index_decrement (bool): Decrements all valus by one if True, do nothing
-        otherwise.
-
-    Returns:
-      (:obj:`np.ndarray`): The data set that represents the wiki_vote Graph.
-
-    """
-    return DataSets._compose_from_name('wiki-Vote', index_decrement)
-
-  @staticmethod
-  def p2p_gnutella08(index_decrement: bool = False) -> np.ndarray:
-    """ This method returns the p2p-gnutella08 data set.
-
-    The data set is obtained from the Stanford's University SNAP project, that
-    is based on the study of massive graphs.
-
-    This graph contains 6301 vertices and 20777 edges.
-
-    Url:
-      https://snap.stanford.edu/data/p2p-Gnutella08.html
-
-    Args:
-      index_decrement (bool): Decrements all valus by one if True, do nothing
-        otherwise.
-
-    Returns:
-      (:obj:`np.ndarray`): The data set that represents the p2p_gnutella08 Graph.
-
-    """
-    return DataSets._compose_from_name('p2p-gnutella08', index_decrement)
 
   @staticmethod
   def naive_4() -> np.ndarray:
