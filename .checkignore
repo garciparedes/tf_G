@@ -1,5 +1,0 @@
-# Ignore tests
-**/tests/**/*
-**/test_*.py
-**/examples/**/*
-**/example_*.py
