@@ -11,7 +11,7 @@ class DataSets:
   """
 
   @staticmethod
-  def _get_path() -> str:
+  def _path() -> str:
     """ Private method to get the path of provided data sets.
 
     Returns:
@@ -32,11 +32,11 @@ class DataSets:
         set.
 
     """
-    return DataSets._get_path() + '/' + name + '/' + name + ".csv"
+    return DataSets._path() + '/' + name + '/' + name + ".csv"
 
   @staticmethod
-  def _permute_edges(edges_np: np.ndarray) -> np.ndarray:
-    """ Private method that permutes the rows order of given the input set.
+  def permute_edges(edges_np: np.ndarray) -> np.ndarray:
+    """ Method that permutes the rows order of given the input set.
 
     Args:
       edges_np (:obj:`np.ndarray`): The input data set.
@@ -48,8 +48,8 @@ class DataSets:
     return np.random.permutation(edges_np)
 
   @staticmethod
-  def _compose_from_path(path: str, index_decrement: bool) -> np.ndarray:
-    """ Private method that composes a data set from a given path.
+  def compose_from_path(path: str, index_decrement: bool) -> np.ndarray:
+    """ This method generates a data set from a given path.
 
     The method obtains the data from the given path, then decrements its values
     if is necessary and permutes the resulting data set.
@@ -70,7 +70,7 @@ class DataSets:
     data = pd.read_csv(path)
     if index_decrement:
       data -= 1
-    return DataSets._permute_edges(data.as_matrix())
+    return DataSets.permute_edges(data.as_matrix())
 
   @staticmethod
   def _compose_from_name(name: str, index_decrement: bool) -> np.ndarray:
@@ -88,8 +88,8 @@ class DataSets:
       (:obj:`np.ndarray`): The data set that represents the Graph.
 
     """
-    return DataSets._compose_from_path(DataSets._name_to_default_path(name),
-                                       index_decrement)
+    return DataSets.compose_from_path(DataSets._name_to_default_path(name),
+                                      index_decrement)
 
   @staticmethod
   def followers(index_decrement: bool = True) -> np.ndarray:
@@ -155,30 +155,6 @@ class DataSets:
     return DataSets._compose_from_name('p2p-gnutella08', index_decrement)
 
   @staticmethod
-  def generate_from_path(path: str, index_increment=True) -> np.ndarray:
-    """ This method generates a data set from a given path.
-
-    The method obtains the data from the given path, then decrements its values
-    if is necessary and permutes the resulting data set.
-
-    The decrement option is offered because of in some cases the data set treats
-    the initial node as 1 but many data structures in python are 0-indexed, so
-    decrementing the values improves space performance.
-
-    It acts as interface to use the `_compose_from_path` method.
-
-    Args:
-      path (str): The path of the file of data set csv.
-      index_decrement (bool): Decrements all valus by one if True, do nothing
-        otherwise
-
-    Returns:
-      (:obj:`np.ndarray`): The data set that represents the Graph.
-
-    """
-    return DataSets._compose_from_path(path, index_increment)
-
-  @staticmethod
   def naive_4() -> np.ndarray:
     """ This method returns the naive_4 data set.
 
@@ -195,7 +171,7 @@ class DataSets:
       (:obj:`np.ndarray`): The data set that represents the Graph.
 
     """
-    return DataSets._permute_edges(np.array([
+    return DataSets.permute_edges(np.array([
       [0, 1], [0, 2], [0, 3], [1, 2], [1, 3], [2, 0], [3, 0], [3, 2]]))
 
   @staticmethod
@@ -213,6 +189,6 @@ class DataSets:
       (:obj:`np.ndarray`): The data set that represents the Graph.
 
     """
-    return DataSets._permute_edges(np.array([
+    return DataSets.permute_edges(np.array([
       [1, 2], [1, 6], [2, 3], [2, 4], [3, 4], [3, 5], [3, 6], [4, 1],
       [6, 1]]) - 1)

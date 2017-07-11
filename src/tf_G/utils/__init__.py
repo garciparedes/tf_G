@@ -1,11 +1,13 @@
 """
 tf_G.utils Module
-[TODO]
+
+It contains a set of utilities that is used for another classes of `tf_G`
+module.
+
 """
 
+from .math import *
 from .callbacks import *
-from .convergence_criterion import ConvergenceCriterion
 from .datasets import DataSets
 from .tensorflow_object import TensorFlowObject, TF_type
 from .utils import Utils
-from .vector_norm import VectorNorm

@@ -70,5 +70,5 @@ class UpdateEdgeNotifier:
       This method returns nothing.
 
     """
-    for observer in self._listeners:
-      observer.update_edge(edge, change)
+    for listener in self._listeners:
+      listener.update_edge(edge, change)
