@@ -1,3 +1,4 @@
 python:
   version: 3.5
+  pip_install: true
   setup_py_install: true
