@@ -1,6 +1,8 @@
 """
 tf_G.utils.callbacks Module
-[TODO]
+
+It contains a set of classes that helps on notifications of graph changes.
+
 """
 
 from .update_edge_listener import UpdateEdgeListener

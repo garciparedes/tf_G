@@ -30,8 +30,6 @@ class GraphSparsifier(Graph):
       vertices of the graph as 2-D Tensor with shape [n, 1].
     in_degrees_tf (:obj:`tf.Tensor`): Represents the in-degrees of the vertices
       of the graph as 2-D Tensor with shape [1, n].
-    L_tf (:obj:`tf.Tensor`): Represents the Laplacian matrix of the graph as
-      2-D Tensor with shape [n,n].
 
   """
 

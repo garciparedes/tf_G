@@ -3,14 +3,14 @@ from typing import List
 
 import numpy as np
 import tensorflow as tf
+from tf_G.utils.math.vector_norm import VectorNorm
 
-from tf_G import Graph
-from tf_G.pagerank.transition import Transition
+from tf_G.algorithms.pagerank import Transition
+from tf_G.graph import Graph
 from tf_G.utils.callbacks.update_edge_listener import UpdateEdgeListener
-from tf_G.utils.convergence_criterion import ConvergenceCriterion
+from tf_G.utils.math.convergence_criterion import ConvergenceCriterion
 from tf_G.utils.tensorflow_object import TensorFlowObject
 from tf_G.utils.utils import Utils
-from tf_G.utils.vector_norm import VectorNorm
 
 
 class PageRank(TensorFlowObject, UpdateEdgeListener):
@@ -62,8 +62,6 @@ class PageRank(TensorFlowObject, UpdateEdgeListener):
         the TensorFlow operations.
       name (str): This attribute represents the name of the object in
         TensorFlow's op Graph.
-      G (:obj:`tf_G.Graph`): The graph on witch it will be calculated the
-        algorithm. It will be treated as Directed Weighted Graph.
       beta (float): The reset probability of the random walks, i.e. the
         probability that a user that surfs the graph an decides to jump to
         another vertex not connected to the current.
@@ -83,12 +81,11 @@ class PageRank(TensorFlowObject, UpdateEdgeListener):
                               is_sparse=is_sparse)
     UpdateEdgeListener.__init__(self)
 
-    self.G = graph
     self.beta = beta
     self.T = T
     self.T.attach(self)
-    self.v = tf.Variable(tf.fill([1, self.G.n], tf.pow(self.G.n_tf, -1)),
-                         name=self.G.name + "_" + self.name + "_v")
+    self.v = tf.Variable(tf.fill([1, self.T.G.n], tf.pow(self.T.G.n_tf, -1)),
+                         name=self.T.G.name + "_" + self.name + "_v")
     self.run_tf(tf.variables_initializer([self.v]))
 
   def error_vector_compare_tf(self, other_pr: 'PageRank',
@@ -116,8 +113,8 @@ class PageRank(TensorFlowObject, UpdateEdgeListener):
       * Implement ranking based only on the `k` better ranked vertices.
 
     """
-    if 0 < k < self.G.n - 1:
-      if 0 < k < self.G.n - 1:
+    if 0 < k < self.T.G.n - 1:
+      if 0 < k < self.T.G.n - 1:
         warnings.warn('k-best error comparison not implemented yet')
 
     return tf.reshape(
@@ -278,7 +275,7 @@ class PageRank(TensorFlowObject, UpdateEdgeListener):
     """
     self.pagerank_vector_tf(convergence, steps, topics, topics_decrement)
     ranks = tf.map_fn(
-      lambda x: [x, tf.gather(tf.reshape(self.v, [self.G.n]), x)],
+      lambda x: [x, tf.gather(tf.reshape(self.v, [self.T.G.n]), x)],
       tf.transpose(
         tf.py_func(Utils.ranked, [tf.scalar_mul(-1, self.v)], tf.int64)),
       dtype=[tf.int64, tf.float32])
