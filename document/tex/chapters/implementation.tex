@@ -178,9 +178,9 @@
           \paragraph{}
           En la figura \ref{img:component_diagram} se muestra el diagrama de componentes seguido por el módulo \texttt{tf\_G}. Tal y como se puede apreciar, se ha decidido dividir la implementación en 3 paquetes denominados: \texttt{graph} (para la implementación de los grafos), \texttt{algorithms} (donde se encontrarán las implementaciones de los algoritmos para grafos) y \texttt{utils} (donde se contienen diferentes clases de carácter general necesarias para que el resto de paquetes funcionen de manera apropiada).
 
-          \begin{figure}[h]
+          \begin{figure}[h!]
             \centering
-            \includegraphics[width=\textwidth,height=\textheight,keepaspectratio]{diagrams/component-diagram}
+            \includegraphics[width=\textwidth,height=0.9\textheight,keepaspectratio]{diagrams/component-diagram}
             \caption{Diagrama de componentes referido al módulo \texttt{tf\_G}.}
             \label{img:component_diagram}
           \end{figure}
@@ -206,30 +206,30 @@
           \paragraph{}
           El diagrama de clases completo se muestra en la figura \ref{img:class_diagram}. Tal y como se puede apreciar, a través de dicho dicho diagrama es complicado comprender el funcionamiento de la implementación, debido a las relaciones que se solapan unas a otras derivado de la herencia múltiple. Por tanto, se ha creido una solución más acertada dividir el diagrama en partes, para realizar la descripción desde distintos puntos de vista.
 
-          \begin{figure}[h]
+          \begin{figure}[h!]
             \centering
-            \includegraphics[width=\textwidth,height=\textheight,keepaspectratio]{diagrams/complete-class-diagram}
-            \caption{Diagrama de clases completo referido al módulo \texttt{tf\_G}}
+            \includegraphics[width=\textwidth,height=0.9\textheight,keepaspectratio]{diagrams/complete-class-diagram}
+            \caption{Diagrama de clases completo referido al módulo \texttt{tf\_G}.}
             \label{img:class_diagram}
           \end{figure}
 
           \paragraph{}
           Sin embargo, en la figura \ref{img:class_diagram} se muestra una clase aislada. Esta clase se denomina \emph{DataSets} y no se relaciona de manera directa con el resto, sino que se suministra para facilitar las tareas de obtención de conjuntos de datos que representan las aristas de un grafo. Para ello proporciona funciones que permiten la generación de estructuras de datos que almacenan dichos aristas. Además, el módulo contiene distintos conjuntos de datos para poder realizar pruebas sobre la implementación. Por tanto, esta clase suministra los métodos para poder acceder a ellos.
 
-          \begin{figure}[h]
+          \begin{figure}[h!]
             \centering
-            \includegraphics[width=\textwidth,height=\textheight,keepaspectratio]{diagrams/tensorflowobject-class-diagram}
-            \caption{Diagrama de clases referido a las relaciones con la clase abstracta \texttt{TensorFlowObject} del módulo \texttt{tf\_G}}
+            \includegraphics[width=\textwidth,height=0.9\textheight,keepaspectratio]{diagrams/tensorflowobject-class-diagram}
+            \caption{Diagrama de clases referido a las relaciones con la clase abstracta \texttt{TensorFlowObject} del módulo \texttt{tf\_G}.}
             \label{img:tensorflowobject_class_diagram}
           \end{figure}
 
           \paragraph{}
           En la figura \ref{img:tensorflowobject_class_diagram} se muestra una subconjunto de clases relacionadas entre sí a través de la herencia de la clase \texttt{TensorFlowObject}. Las relacionees entre ellas se discutirán posteriormente. Sin embargo, a continuación se expone la razón por la cual se ha implementado dicha clase abstracta. Puesto que la implementación se ha apoyado fuertemente en el uso de la biblioteca \emph{TensorFlow}, muchas de estas clases necesitaban atributos y operaciones comunes, como la necesidad de obtener el resultado de una determinada operación en \emph{TensorFlow} a través del método \texttt{run\_tf} o la de identificar a una variable por su nombre. Por tanto, a partir de \texttt{TensorFlowObject} se suministra dicha funcionalidad.
 
-          \begin{figure}[h]
+          \begin{figure}[h!]
             \centering
-            \includegraphics[width=\textwidth,height=\textheight,keepaspectratio]{diagrams/updateedge-class-diagram}
-            \caption{Diagrama de clases referido a las relaciones con las clases abstractas \texttt{UpdateEdgeListener} y \texttt{UpdateEdgeNotifier} del módulo \texttt{tf\_G}}
+            \includegraphics[width=\textwidth,height=0.9\textheight,keepaspectratio]{diagrams/updateedge-class-diagram}
+            \caption{Diagrama de clases referido a las relaciones con las clases abstractas \texttt{UpdateEdgeListener} y \texttt{UpdateEdgeNotifier} del módulo \texttt{tf\_G}.}
             \label{img:update_edge_diagram}
           \end{figure}
 
@@ -245,31 +245,50 @@
           \paragraph{}
           El resto de diagramas de clases que se han incluido se corresponden con implementaciones concretas que proporcionan funcionalidad directa al usuario. Estas se refieren a la representación de grafos sobre \emph{TensorFlow} (lo cual realiza por el paquete \texttt{graph}) y el cálculo del \emph{PageRank} (lo cual se lleva a cabo en el paquete \texttt{algorithms/pagerank}).
 
-          \begin{figure}[h]
+          \begin{figure}[h!]
             \centering
-            \includegraphics[width=\textwidth,height=\textheight,keepaspectratio]{diagrams/graph-class-diagram}
-            \caption{Diagrama de clases referido a las relaciones con la clase \texttt{Graph} del módulo \texttt{tf\_G}}
+            \includegraphics[width=\textwidth,height=0.9\textheight,keepaspectratio]{diagrams/graph-class-diagram}
+            \caption{Diagrama de clases referido a las relaciones con la clase \texttt{Graph} del módulo \texttt{tf\_G}.}
             \label{img:graph_class_diagram}
           \end{figure}
 
           \paragraph{}
-          La figura \ref{img:graph_class_diagram} muestra el conjunto de clases referidas a la representación de un grafo utilizando como base la biblioteca \emph{TensorFlow}. Dicha implementación se constituye únicamente por 3 clases: \texttt{Graph} (que representa un grafo), \texttt{GraphSparsifier} (que representa un pseudo-\emph{Sparsifier} de un grafo dado) y \texttt{GraphConstructor} (que proporciona distintas utilidades que permiten contruir un grafo de manera simple).
+          La figura \ref{img:graph_class_diagram} muestra el conjunto de clases referidas a la representación de un grafo utilizando como base la biblioteca \emph{TensorFlow}. Dicha implementación se constituye únicamente por 3 clases: \texttt{Graph} (que representa un grafo), \texttt{GraphSparsifier} (que representa un \emph{pseudo-Sparsifier} de un grafo dado) y \texttt{GraphConstructor} (que proporciona distintas utilidades que permiten contruir un grafo de manera simple).
 
           \paragraph{}
-          Tal y como se indicó anteriormente, para entender la funcionalidad que provee cada método, es más apropiado seguir la documentación interna de la clases o su versión publicada online. Debido a las restricciones de tiempo en la realización de la implementación, tan solo se han implementado aquellas funcionalidades necesarias para el desarrollo del algoritmo \emph{PageRank}.
+          Tal y como se indicó anteriormente, para entender la funcionalidad que provee cada método de la clase \texttt{Graph}, es más apropiado seguir la documentación interna de la clases o su versión publicada online. Debido a las restricciones de tiempo en la realización de la implementación, tan solo se han implementado aquellas funcionalidades necesarias para el desarrollo del algoritmo \emph{PageRank}.
 
           \paragraph{}
-          [TODO ]
+          En cuanto a la clase \texttt{GraphSparsifier}, esta se ha indicado anteriormente como \emph{pseudo-Sparsifier} puesto que no se ha realizado ninguna demostración acerca de la precisión de dicha implementación ni algoritmo. Por motivos derivados de las restricciones temporales no ha sido posible realizar una implementación apropiada de entre las discutidas en la sección \ref{sec:sparsifiers}. Sin embargo, se han seguido dichas ideas para la implementación del mismo, aunque tal y como se indica, \emph{este no ofrece ninguna garantía desde el punto de vista analítico}.
 
 
-          \begin{figure}[h]
+          \paragraph{}
+          Por último, la clase \texttt{GraphConstructor} provee una serie de métodos que permiten la construcción de un grafo en sobre la implementación de la biblioteca de manera sencilla a través de una interfaz intuitiva. En el directorio \texttt{/examples/} se pueden visualizar distintos ejemplos que hacen uso de dicha clase.
+
+          \begin{figure}[h!]
             \centering
-            \includegraphics[width=\textwidth,height=\textheight,keepaspectratio]{diagrams/pagerank-class-diagram}
-            \caption{Diagrama de clases referido a las relaciones con la clase \texttt{PageRank} del módulo \texttt{tf\_G}}
+            \includegraphics[width=\textwidth,height=0.9\textheight,keepaspectratio]{diagrams/pagerank-class-diagram}
+            \caption{Diagrama de clases referido a las relaciones con la clase \texttt{PageRank} del módulo \texttt{tf\_G}.}
             \label{img:pagerank_diagram}
           \end{figure}
-          [TODO ]
 
+          \paragraph{}
+          El último diagrama de clases que se incluye en esta implementación es el referido al algoritmo \emph{PageRank}. Dicho diagrama se corresponde con la figura \ref{img:pagerank_diagram}. Nótese que en dicho diagrama se ha obviado la relación entre la clase \texttt{Transition} y la clase \texttt{Graph}. La razón ha sido tratar de reducir la complejidad y mejorar el entendimiento del diagrama.
+
+          \paragraph{}
+          En cuanto a las herencias, en este caso tanto \texttt{PageRank} como \texttt{Transition} son descencientes de \texttt{TensorFlowObject}, que tal y como se indicó anteriormente ofrece la funcionalidad de ejecucción de la estructura de datos \texttt{tf.Tensor} porporcionada por la biblioteca \emph{TensorFlow}. En cuanto a la notificación de modificaciones en las aristas del grafo, \texttt{PageRank} tiene la capacidad de ser notificada por dichos cambios, para recalcular el ranking PageRank conforme este se modifica tras los cambios en el conjunto de aristas del grafo.
+
+          \paragraph{}
+          Es necesario remarcar que \texttt{Transition} implementa tanto la funcionalidad de notificar como de ser notificado. Esto se debe a que cuando una arista es modificada, la matriz de transición debe ser notificada, y una vez hecho esto, se debe notificar al algoritmo PageRank para que recalcule el ranking a partir de ella. De ahí la necesidad de implementar las dos funcionalidades.
+
+          \paragraph{}
+          En cuanto a las clases descendientes de \texttt{PageRank} y \texttt{Transition}, estas implementan la funcionalidad del cálculo del ranking \emph{PageRank} de manera algebraica (\texttt{AlgebraicPageRank} junto con \texttt{TransitionMatrix}) y de manera iterativa (\texttt{IterativePageRank} junto con \texttt{TransitionResetMatrix}) respectivamente.
+
+          \paragraph{}
+          En cuanto a la clase \texttt{VectorNorm}, esta provee de distintas normas vectoriales utilizadas para realizar comparaciones entre diferentes rankings. Además, es utilizada para el cálculo del punto de convergencia en la clase \texttt{ConvergenceCriterion}, que utiliza la implementación iterativa del algoritmo \emph{PageRank}. Por último, la clase \texttt{Utils} proporciona la funcionalidad de generación del ranking de vértices a partir del valor del \emph{PageRank} obtenido, es decir, realiza una ordenación de los vértices.
+
+          \paragraph{}
+          Una vez descrita la implementación a partir de la estructura de sus clases y módulos, se ha decidido añadir diagramas referidos al conjunto de operaciones que se realizan para el cálculo del resultado en la siguiente seccion.
 
         \subsubsection{Diagrama de Operaciones}
         \label{sec:operations_diagram}
@@ -277,17 +296,17 @@
           \paragraph{}
           [TODO ]
 
-          \begin{figure}[h]
+          \begin{figure}[h!]
             \centering
-            \includegraphics[width=\textwidth,height=\textheight,keepaspectratio]{diagrams/tensorflow-graph-algebraic-pagerank}
-            \caption{Diagrama de operaciones referido a la implementación algebraica del algoritmo \emph{PageRank} utilizando \emph{TensorFlow} del módulo \texttt{tf\_G}}
+            \includegraphics[width=\textwidth,height=0.9\textheight,keepaspectratio]{diagrams/tensorflow-graph-algebraic-pagerank}
+            \caption{Diagrama de operaciones referido a la implementación algebraica del algoritmo \emph{PageRank} utilizando \emph{TensorFlow} del módulo \texttt{tf\_G}.}
             \label{img:pagerank_algebraic_diagram}
           \end{figure}
 
-          \begin{figure}[h]
+          \begin{figure}[h!]
             \centering
-            \includegraphics[width=\textwidth,height=\textheight,keepaspectratio]{diagrams/tensorflow-graph-iterative-pagerank}
-            \caption{Diagrama de operaciones referido a la implementación iterativa del algoritmo \emph{PageRank} utilizando \emph{TensorFlow} del módulo \texttt{tf\_G}}
+            \includegraphics[width=\textwidth,height=0.9\textheight,keepaspectratio]{diagrams/tensorflow-graph-iterative-pagerank}
+            \caption{Diagrama de operaciones referido a la implementación iterativa del algoritmo \emph{PageRank} utilizando \emph{TensorFlow} del módulo \texttt{tf\_G}.}
             \label{img:pagerank_iterative_diagram}
           \end{figure}
 
