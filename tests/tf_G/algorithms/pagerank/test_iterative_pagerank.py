@@ -85,20 +85,20 @@ def test_iterative_personalized_pagerank_steps():
     )
 
 
-def test_iterative_pagerank_updateable():
+def test_iterative_pagerank_upgradeable():
   beta = 0.85
   convergence=0.01
   with tf.Session() as sess:
 
-    g_updateable: tf_G.Graph = tf_G.GraphConstructor.empty(sess, "G", 6)
-    pr_updateable: tf_G.PageRank = tf_G.IterativePageRank(
-      sess, "PR", g_updateable, beta)
+    g_upgradeable: tf_G.Graph = tf_G.GraphConstructor.empty(sess, "G", 6)
+    pr_upgradeable: tf_G.PageRank = tf_G.IterativePageRank(
+      sess, "PR", g_upgradeable, beta)
 
     for e in tf_G.DataSets.naive_6():
-      g_updateable.append(e[0], e[1])
+      g_upgradeable.append(e[0], e[1])
 
     np.testing.assert_array_almost_equal(
-      pr_updateable.ranks_np(convergence=convergence),
+      pr_upgradeable.ranks_np(convergence=convergence),
       np.array([[0.0, 0.321017],
                 [5.0, 0.20074403],
                 [1.0, 0.17054307],
