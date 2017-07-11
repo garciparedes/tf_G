@@ -10,7 +10,7 @@ import tf_G
 def main():
   beta: float = 0.85
 
-  edges_np: np.ndarray = tf_G.DataSets.followers()
+  edges_np: np.ndarray = tf_G.DataSets.naive_6()
 
   with tf.Session() as sess:
     writer: tf.summary.FileWriter = tf.summary.FileWriter('logs/tensorflow/')
