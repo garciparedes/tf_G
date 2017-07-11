@@ -23,11 +23,11 @@ def main():
     pr_iter: tf_G.PageRank = tf_G.IterativePageRank(
       sess, "PR1", graph, beta)
 
-    g_updateable: tf_G.Graph = tf_G.GraphConstructor.empty(
+    g_upgradeable: tf_G.Graph = tf_G.GraphConstructor.empty(
       sess, "G2", graph.n, writer)
 
-    pr_updateable: tf_G.PageRank = tf_G.IterativePageRank(
-      sess, "PR2", g_updateable, beta)
+    pr_upgradeable: tf_G.PageRank = tf_G.IterativePageRank(
+      sess, "PR2", g_upgradeable, beta)
 
     b: np.ndarray = pr_iter.ranks_np(convergence=convergence)
 
@@ -35,10 +35,10 @@ def main():
     print(b)
 
     for e in edges_np:
-      g_updateable.append(e[0], e[1])
+      g_upgradeable.append(e[0], e[1])
       print("[" + str(e[0]) + ", " + str(e[1]) + "]")
 
-    e = pr_updateable.ranks_np(convergence=convergence)
+    e = pr_upgradeable.ranks_np(convergence=convergence)
     print(e)
 
     writer.add_graph(sess.graph)
