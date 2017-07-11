@@ -294,7 +294,10 @@
         \label{sec:operations_diagram}
 
           \paragraph{}
-          [TODO ]
+          La implementación realizada se basa en el desarrollo del algoritmo \emph{PageRank} sobre la biblioteca de cálculo matemático intensivo \emph{TensorFlow}. Sin embargo, los detalles de la implementación del algoritmo no son apreciables a través de los distintos diagramas ilustrados en anteriores secciones. Por dicha razón, se ha decidido incluir este apartado, en el cual se presentan los grafos de operaciones referidos a las implementaciones algebraica e iterativa del algoritmo.
+
+          \paragraph{}
+          Dichos árboles de operaciones requieren de la necesidad de estar familiarizado con la biblioteca utilizada para su apropiado entendimiento. Sin embargo, mediante su visualización rápida se puede apreciar una perspectiva de alto nivel acerca de las operaciones necesarias para el cálculo del ranking.
 
           \begin{figure}[h!]
             \centering
@@ -303,6 +306,9 @@
             \label{img:pagerank_algebraic_diagram}
           \end{figure}
 
+          \paragraph{}
+          En la figura \ref{img:pagerank_algebraic_diagram}, se muestra el árbol de operaciones necesario para calcular el ranking \emph{PageRank} de manera algebraica. Dichas operaciones se corresponden con las previamente descritas en la sección \ref{sec:pagerank_algorithm_algebraic}, la cual se destinó integramente al estudio de dicho algoritmo.
+
           \begin{figure}[h!]
             \centering
             \includegraphics[width=\textwidth,height=0.9\textheight,keepaspectratio]{diagrams/tensorflow-graph-iterative-pagerank}
@@ -310,8 +316,14 @@
             \label{img:pagerank_iterative_diagram}
           \end{figure}
 
+          \paragraph{}
+          En la figura \ref{img:pagerank_iterative_diagram} se muestra la versión iterativa implementada para el cálculo del \emph{PageRank}. En este caso, al igual que en el caso anterior, también se ha seguido el mismo algoritmo que el descrito en la sección \ref{sec:pagerank_algorithm_iterative}. Nótese por tanto, que en este caso es necesario el uso de un bucle que realiza las iteraciones, controlado por un determinado criterio de convergencia escogido de entre los implementados en la clase \texttt{ConvergenceCriterion}.
+
+          \paragraph{}
+          Nótese que estos diagramas representan una visión completamente distinta de la descrita en los diagramas de componentes o de clases, ya que estos ignoran por completo dicha organización, centrandose únicamente en el conjunto de operaciones necesarias para el cálculo del algoritmo.
+
       \paragraph{}
-      [TODO]
+      En esta sección se han presentado una serie de detalles de implementación, comenzando por la descripción del conjunto de herramientas utilizadas para el desarrollo de la aplicación. Posteriormente se indicaron las dependencias con servicios externos que se han utilizado. El resto de la sección se ha basado en la descripción de la implementación a partir de diagramas de componentes, clases y operaciones. En este caso se ha prescindido del uso de diagramas de secuencia que indicasen el orden de llamadas entre métodos puesto que se ha creido que para una implementación de carácter algorítmico como la realizada, la inclusión del diagrama de operaciones generado por la biblioteca \emph{TensorFlow} podría aportar una información similar, que además muestra el conjunto de dependencias entre las variables utilizadas durante el cálculo.
 
     \section{Resultados de Implementación}
     \label{sec:implementation_results}
