@@ -1,6 +1,8 @@
 """
 tf_G.utils.math Module
-[TODO]
+
+It contains some math utilities needed to another classes of the tf_G module.
+
 """
 
 from .convergence_criterion import ConvergenceCriterion

@@ -88,8 +88,6 @@ class IterativePageRank(PageRank):
     number of times bounded by the `convergence` rate and the 'c_criterion'
     criterion.
 
-    [TODO describe the algorithm]
-
     Args:
       convergence (float): A float between 0 and 1 that represents
         the convergence rate that allowed to finish the iterative
@@ -127,8 +125,6 @@ class IterativePageRank(PageRank):
 
     This method runs the PageRank algorithm in iterative fashion a fixed number
     of times bounded by the `steps` parameter.
-
-    [TODO describe the algorithm]
 
     Args:
       steps (int): A positive integer that sets the number of iterations the

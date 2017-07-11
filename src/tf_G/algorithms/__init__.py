@@ -1,6 +1,9 @@
 """
 tf_G.algorithms Module
-[TODO]
+
+This module contains a set of submodules that represents the implementation of
+a set graph algorithms.
+
 """
 
 from .pagerank import *

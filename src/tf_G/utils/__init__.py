@@ -1,6 +1,9 @@
 """
 tf_G.utils Module
-[TODO]
+
+It contains a set of utilities that is used for another classes of `tf_G`
+module.
+
 """
 
 from .math import *

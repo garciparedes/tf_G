@@ -1,6 +1,8 @@
 """
 tf_G.graph Module
-[TODO]
+
+It contains the graph implementations on `tf_G` module.
+
 """
 
 from .graph import Graph

@@ -1,6 +1,9 @@
 """
 tf_G.algorithms.pagerank Module
-[TODO]
+
+This module contains a set of PageRank's algorithm implementations on the `tf_G`
+module.
+
 """
 
 from .transition import *

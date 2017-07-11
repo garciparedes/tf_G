@@ -79,8 +79,6 @@ class AlgebraicPageRank(PageRank):
 
     This method calculates the PageRank of the graph in exact mode.
 
-    [TODO describe the algorithm]
-
     Args:
       topics (:obj:`list` of :obj:`int`, optional): A list of integers that
         represent the set of vertex where the random jumps arrives. If this
