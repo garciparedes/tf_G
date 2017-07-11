@@ -19,7 +19,7 @@ def main():
     graph: tf_G.Graph = tf_G.GraphConstructor.from_edges(
       sess, "G", edges_np, is_sparse=False)
 
-    pr_itr: tf_G.PageRank = tf_G.IterativePageRank(sess, "PR_itr", graph, beta)
+    pr_itr: tf_G.PageRank = tf_G.IterativePageRank(sess, "PR", graph, beta)
 
     start_time: float = timeit.default_timer()
     b: np.ndarray = pr_itr.ranks_np(convergence=convergence)

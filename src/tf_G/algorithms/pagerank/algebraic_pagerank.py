@@ -71,7 +71,8 @@ class AlgebraicPageRank(PageRank):
         implemented yet.
 
     """
-    T = TransitionMatrix(sess, name + "_alge", graph)
+    name = name + "_alg"
+    T = TransitionMatrix(sess, name, graph)
     PageRank.__init__(self, sess, name, graph, beta, T, writer, is_sparse)
 
   def _pr_exact_tf(self, topics: List[int] = None) -> tf.Tensor:

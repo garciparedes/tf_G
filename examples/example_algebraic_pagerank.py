@@ -18,7 +18,7 @@ def main():
     graph: tf_G.Graph = tf_G.GraphConstructor.from_edges(
       sess, "G", edges_np, is_sparse=False)
 
-    pr_alg: tf_G.PageRank = tf_G.AlgebraicPageRank(sess, "PR_alg", graph, beta)
+    pr_alg: tf_G.PageRank = tf_G.AlgebraicPageRank(sess, "PR", graph, beta)
 
     start_time: float = timeit.default_timer()
     a: np.ndarray = pr_alg.ranks_np()
