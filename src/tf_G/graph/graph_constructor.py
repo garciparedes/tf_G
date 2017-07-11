@@ -95,6 +95,8 @@ class GraphConstructor:
       name (str): This attribute represents the name of the object in
         TensorFlow's op Graph.
       n (int): The cardinality of vertex set of the empty graph.
+      p (float): The picking probability value. It must be in the [0,1]
+        interval.
       writer (:obj:`tf.summary.FileWriter`, optional): This attribute represents
         a TensorFlow's Writer, that is used to obtain stats. The default value
         is `None`.
