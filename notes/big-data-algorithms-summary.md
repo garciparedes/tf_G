@@ -19,7 +19,7 @@ Existe un gran número de alternativas según la información que se desee mante
   - MinHash
   - etc.
 
-En cuanto a búsquedas dentro del conjunto de datos, se utilizan métodos relacionados con encontrar el subconjunto de vecinos más cercanos a un determinado dato. Para ello, se utilizan funciones de reducción de dimensionalidad, donde tiene especial importancia la transformada de Johnson-Lindenstrauss.
+En cuanto a búsquedas dentro del conjunto de datos, se utilizan métodos relacionados con encontrar el sub-conjunto de vecinos más cercanos a un determinado dato. Para ello, se utilizan funciones de reducción de dimensionalidad, donde tiene especial importancia la transformada de Johnson-Lindenstrauss.
 
 Otro de los temas importantes son los métodos aproximados para el cálculo de operaciones algebráicas de matrices de gran tamaño, utilizados en campos donde se puede admitir un determinado margen de error.
 

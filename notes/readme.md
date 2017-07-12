@@ -4,7 +4,7 @@
   Consiste en realizar una compresión de los datos originales que ocupen un menor espacio y a partir de los cuales se pueda realizar cálculos aproximados con un menor coste computacional que con el conjunto completo.
 
   Existen distintas técnicas para ello, entre las que se encuentran:
-  - **Sampling**: Seleccionar un subconjunto aleatorio a partir del global que será utilizado como muestra
+  - **Sampling**: Seleccionar un sub-conjunto aleatorio a partir del global que será utilizado como muestra
   - **Histogram**:
   - **Waveless**:
   - **Sketches**:

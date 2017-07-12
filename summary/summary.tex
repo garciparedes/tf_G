@@ -26,7 +26,7 @@
   \section{Introducción}
 
     \paragraph{}
-    El procesamiento de cantidades masivas de información presenta un gran reto a nivel computacional, debido a un elevado coste originado por el gran tamaño en la entrada. Para solventar dicha problemática, se prefieren algoritmos que posean un orden de complejidad sublineal ($o(N)$) sobre todo en espacio. Dichas técnicas se llevan a cabo sobre paradigmas de computación paralela, lo que permite aprovechar en mayor medida las restriciciones a nivel de hardware.
+    El procesamiento de cantidades masivas de información presenta un gran reto a nivel computacional, debido a un elevado coste originado por el gran tamaño en la entrada. Para solventar dicha problemática, se prefieren algoritmos que posean un orden de complejidad sub-lineal ($o(N)$) sobre todo en espacio. Dichas técnicas se llevan a cabo sobre paradigmas de computación paralela, lo que permite aprovechar en mayor medida las restricciones a nivel de hardware.
 
   \section{Algoritmos para Streaming}
 
@@ -36,17 +36,17 @@
   \section{Estructuras de Datos de Resumen}
 
     \paragraph{}
-    Para reducir el coste derivado de la obtención de resultados valiosos sobre conjuntos masivos de datos, es necesario apoyarse en diferentes estructuras que los sinteticen, de manera que el coste de procesamiento a partir de estas estructuras se convierta en una tarea mucho más asequible. Se utilizan sobre conjuntos de datos de distínta índole, como \emph{streamings en tiempo real}, \emph{bases de datos estáticas} o \emph{grafos}. Existen distintas técnicas como \emph{Sampling}, \emph{Histogram}, \emph{Wavelets} o \emph{Sketch}. A continuación se realiza una breve descripción acerca de esta última técnica.
+    Para reducir el coste derivado de la obtención de resultados valiosos sobre conjuntos masivos de datos, es necesario apoyarse en diferentes estructuras que los sinteticen, de manera que el coste de procesamiento a partir de estas estructuras se convierta en una tarea mucho más asequible. Se utilizan sobre conjuntos de datos de distinta índole, como \emph{streamings en tiempo real}, \emph{bases de datos estáticas} o \emph{grafos}. Existen distintas técnicas como \emph{Sampling}, \emph{Histogram}, \emph{Wavelets} o \emph{Sketch}. A continuación se realiza una breve descripción acerca de esta última técnica.
 
     \subsection{Sketch}
 
       \paragraph{}
-      Son estructuras de datos que se basan en la idea de realizar sobre cada una de las instancias del conjunto de datos la misma operación (lo que permite su uso en entornos tanto estáticos como dinámicos) para recolectar distintas caracteríscas. Destacan los \emph{Sketches lineales}, que permiten su procesamiento de manera distribuida. Para mantener estas estructuras se utilizan \emph{Algoritmos para Streaming}, puesto que se encajan perfectamente en el contexto descrito. Los \emph{Sketches} permiten realizar distintas preguntas sobre propiedades estadísticas referentes al conjunto de datos. Los ejemplos más destacados son: \emph{Count-Sketch}, \emph{CountMin-Sketch}, \emph{AMS Sketch}, \emph{HyperLogLog}, etc.
+      Son estructuras de datos que se basan en la idea de realizar sobre cada una de las instancias del conjunto de datos la misma operación (lo que permite su uso en entornos tanto estáticos como dinámicos) para recolectar distintas características. Destacan los \emph{Sketches lineales}, que permiten su procesamiento de manera distribuida. Para mantener estas estructuras se utilizan \emph{Algoritmos para Streaming}, puesto que se encajan perfectamente en el contexto descrito. Los \emph{Sketches} permiten realizar distintas preguntas sobre propiedades estadísticas referentes al conjunto de datos. Los ejemplos más destacados son: \emph{Count-Sketch}, \emph{CountMin-Sketch}, \emph{AMS Sketch}, \emph{HyperLogLog}, etc.
 
   \section{Redución de la Dimensionalidad}
 
     \paragraph{}
-    Los algoritmos que utilizan técnicas de reducción de dimensionalidad se basan en la intuicción originada a partir del lema de \emph{Johnson–Lindenstrauss}, que demuestra la existencia de funciones para la redución de la dimensión espacial con un ratio de distorsión acotado. Estas técnicas son utilizadas en algoritmos para la \emph{busqueda de los vecinos más cercanos}, la \emph{multiplicación aproximada de matrices} o el aprendizaje mediante \emph{Manifold Leaning}.
+    Los algoritmos que utilizan técnicas de reducción de dimensionalidad se basan en la intuición originada a partir del lema de \emph{Johnson–Lindenstrauss}, que demuestra la existencia de funciones para la redución de la dimensión espacial con un ratio de distorsión acotado. Estas técnicas son utilizadas en algoritmos para la \emph{búsqueda de los vecinos más cercanos}, la \emph{multiplicación aproximada de matrices} o el aprendizaje mediante \emph{Manifold Leaning}.
 
   \section{Paralelización a gran Escala}
 
@@ -61,6 +61,6 @@
   \section{Técnicas de Minería de Datos}
 
     \paragraph{}
-    Una de las razones por las cuales es necesaria la investigación de nuevos algoritmos de carácter sublineal es la necesidad de obtención de información valiosa a partir de conjuntos masivos de datos. A este fenómeno se le denomina \emph{Minería de Datos}. Existen dos grandes categorías denominadas: \emph{Clasificación} (determinar una clase de pertenencia) y \emph{Regresión} (determinar un valor continuo). Para ello, se utilizan distintas técnicas como: \emph{Árboles de Decisión}, \emph{Métodos Bayesianos}, \emph{Redes Neuronales}, \emph{Máquinas de Vector Soporte}, \emph{Manifold Leaning}, etc.
+    Una de las razones por las cuales es necesaria la investigación de nuevos algoritmos de carácter sub-lineal es la necesidad de obtención de información valiosa a partir de conjuntos masivos de datos. A este fenómeno se le denomina \emph{Minería de Datos}. Existen dos grandes categorías denominadas: \emph{Clasificación} (determinar una clase de pertenencia) y \emph{Regresión} (determinar un valor continuo). Para ello, se utilizan distintas técnicas como: \emph{Árboles de Decisión}, \emph{Métodos Bayesianos}, \emph{Redes Neuronales}, \emph{Máquinas de Vector Soporte}, \emph{Manifold Leaning}, etc.
 
 \end{document}
