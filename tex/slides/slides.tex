@@ -1,0 +1,58 @@
+\documentclass[10pt]{beamer}
+
+\usetheme[progressbar=frametitle]{metropolis}
+\usepackage{appendixnumberbeamer}
+
+\usepackage{booktabs}
+\usepackage[scale=2]{ccicons}
+
+\usepackage{pgfplots}
+\usepgfplotslibrary{dateplot}
+
+\usepackage{xspace}
+\newcommand{\themename}{\textbf{\textsc{metropolis}}\xspace}
+
+\title{Metropolis}
+\subtitle{A modern beamer theme}
+% \date{\today}
+\date{}
+\author{Matthias Vogelgesang}
+\institute{Center for modern beamer themes}
+% \titlegraphic{\hfill\includegraphics[height=1.5cm]{logo.pdf}}
+
+\begin{document}
+
+  \maketitle
+
+  \begin{frame}{Table of contents}
+    \setbeamertemplate{section in toc}[sections numbered]
+    \tableofcontents[hideallsubsections]
+  \end{frame}
+
+  \section{Introduction}
+
+    \begin{frame}[fragile]{Metropolis}
+
+      The \themename theme is a Beamer theme with minimal visual noise
+      inspired by the \href{https://github.com/hsrmbeamertheme/hsrmbeamertheme}{\textsc{hsrm} Beamer
+      Theme} by Benjamin Weiss.
+
+      Enable the theme by loading
+
+      \begin{verbatim}
+        \documentclass{beamer}
+        \usetheme{metropolis}
+      \end{verbatim}
+
+      Note, that you have to have Mozilla's \emph{Fira Sans} font and XeTeX
+      installed to enjoy this wonderful typography.
+    \end{frame}
+
+    \begin{frame}[allowframebreaks]{References}
+
+      \bibliography{bib}
+      \bibliographystyle{alpha}
+
+    \end{frame}
+
+\end{document}
