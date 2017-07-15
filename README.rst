@@ -29,6 +29,7 @@ Content
 * `Code Examples <https://github.com/garciparedes/tf_G/blob/master/examples>`__
 * `Tests <https://github.com/garciparedes/tf_G/blob/master/tests>`__
 * `Final Degree Project: Memory <https://github.com/garciparedes/tf_G/blob/master/tex/document/document.pdf>`__
+* `Final Degree Project: Slides <https://github.com/garciparedes/tf_G/blob/master/tex/slides/slides.pdf>`__
 * `Final Degree Project: Summary <https://github.com/garciparedes/tf_G/blob/master/tex/summary/summary.pdf>`__
 
 
