@@ -24,9 +24,12 @@ This work consists of a study of a set of techniques and strategies related with
 
 Content
 -------
-* `Documento <https://github.com/garciparedes/tf_G/blob/master/document/document.pdf>`__
-* `Implementación <https://github.com/garciparedes/tf_G/blob/master/src/tf_G>`__
-* `Resumen <https://github.com/garciparedes/tf_G/blob/master/summary/summary.pdf>`__
+* `Source Code <https://github.com/garciparedes/tf_G/blob/master/src/tf_G>`__
+* `API Documentation <http://tf-g.readthedocs.io/>`__
+* `Code Examples <https://github.com/garciparedes/tf_G/blob/master/examples>`__
+* `Tests <https://github.com/garciparedes/tf_G/blob/master/tests>`__
+* `Final Degree Project: Memory <https://github.com/garciparedes/tf_G/blob/master/tex/document/document.pdf>`__
+* `Final Degree Project: Summary <https://github.com/garciparedes/tf_G/blob/master/tex/summary/summary.pdf>`__
 
 
 How to install
