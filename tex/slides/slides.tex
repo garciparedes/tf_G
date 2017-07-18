@@ -35,7 +35,7 @@
       \begin{itemize}
         \item Algoritmos para Streaming
         \item Técnicas de Reducción de la Dimensionalidad
-        \item Estrategias de Paralelización
+        \item Paralelización a Gran Escala
         \item ...
       \end{itemize}
 
@@ -133,12 +133,20 @@
     \begin{frame}[fragile]{Spanners y Sparsifiers}
 
       \begin{itemize}
-        \item Spanner:
-        \item Sparsifier:
+        \item $\alpha$-Spanner:
+          {\small
+          \begin{equation}
+            \forall v_{i_1}, v_{i_2} \in V, \ d_G(v_{i_1},v_{i_2}) \leq d_H(v_{i_1},v_{i_2}) \leq \alpha \cdot d_G(v_{i_1},v_{i_2})
+          \end{equation}}
+        \item $(1+\epsilon)$-Sparsifier:
+          {\small
+          \begin{equation}
+            \forall A \in V \  (1-\epsilon)\lambda_A(G)\leq\lambda_A(H)\leq(1+\epsilon)\lambda_A(G)
+          \end{equation}}
       \end{itemize}
 
       \begin{figure}
-        \includegraphics[width=\textwidth,height=0.9\textheight,keepaspectratio]{graph-sparsifier}
+        \includegraphics[width=\textwidth,height=0.4\textheight,keepaspectratio]{graph-sparsifier}
         \caption{}
         \label{}
       \end{figure}
@@ -190,22 +198,34 @@
 
     \end{frame}
 
-    \begin{frame}[fragile]{Problemas sobre grafos reales}
+    \begin{frame}[fragile]{PageRank sobre grafos reales}
 
       \textbf{Vértices Sumidero} no cumplen la propiedad de Cadena de Markov.
 
       Saltos Aleatorios como solución al problema de los vértices sumidero, siguiendo una distribución uniforme.
 
+      \begin{equation}
+        T'_{ij} =
+        \begin{cases}
+          \beta * \frac{A_{ij}}{d^-(i)} + (1- \beta) * p_{i} & \mbox{if} \ d^-(i) \neq 0 \\
+          p_{i}&\mbox{otherwise}
+        \end{cases} \ \forall i,j \in [1, n]
+      \end{equation}
     \end{frame}
 
     \begin{frame}[fragile]{¿Cómo calcularlo?}
 
       \begin{itemize}
-        \item Algebraica [TODO]
-        \item Iterativa [TODO] \emph{teorema de Perron–Frobenius}
+        \item Algebraica:
+          \begin{equation}
+            \pi = \bigg(\boldsymbol{I} - \beta * \frac{A}{d^-}\bigg)^{-1} * (1-\beta)*p
+          \end{equation}
+        \item Iterativa:
+          \begin{equation}
+            \pi(t) = \pi(t-1) * T'
+          \end{equation}
         \item Paseos Aleatorios
       \end{itemize}
-
     \end{frame}
 
     \begin{frame}[fragile]{Algoritmos Similares}
