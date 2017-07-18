@@ -69,9 +69,9 @@
       \end{equation}
 
       \begin{itemize}
-        \item Algoritmo de Morris: $F_1$
-        \item Algoritmo de Flajolet-Martin: $F_0$
-        \item Estimación de Momentos de Frecuencia: $F_k, \ k \in N^*$
+        \item Algoritmo de Morris \cite{morris1978counting}: $F_1$
+        \item Algoritmo de Flajolet-Martin \cite{flajolet1985probabilistic}: $F_0$
+        \item Estimación de Momentos de Frecuencia \cite{alon1996space}: $F_k, \ k \in N^*$
       \end{itemize}
 
     \end{frame}
@@ -99,11 +99,12 @@
     \begin{frame}[fragile]{Sketches}
 
       \begin{itemize}
-        \item Count-Min Sketch
-        \item Count Sketch
-        \item AMS Sketch
-        \item Hyper-LogLog
-        \item $L_p$-Samplers
+        \item Bloom Filter \cite{bloom1970space}
+        \item Count-Min Sketch \cite{cormode2005improved}
+        \item Count Sketch \cite{charikar2002finding}
+        \item AMS Sketch \cite{alon1996space}
+        \item Hyper-LogLog \cite{flajolet2007hyperloglog}
+        \item $L_p$-Samplers \cite{jowhari2011tight}
       \end{itemize}
 
     \end{frame}
@@ -147,11 +148,11 @@
     \begin{frame}[fragile]{Problemas sobre Grafos}
 
       \begin{itemize}
-        \item Verificación de Grafo Bipartito
-        \item Conteo de Triángulos
-        \item Árbol Recubridor Mínimo
-        \item Componentes Conectados
-        \item Paseos Aleatorios
+        \item Verificación de Grafo Bipartito \cite{feigenbaum2005graph}
+        \item Conteo de Triángulos \cite{bar2002reductions}
+        \item Árbol Recubridor Mínimo \cite{ahn2012analyzing}
+        \item Componentes Conectados \cite{ahn2012analyzing}
+        \item Paseos Aleatorios \cite{sarma2011estimating}
         \item ...
       \end{itemize}
 
@@ -201,24 +202,18 @@
 
       \begin{itemize}
         \item Algebraica [TODO]
-        \item Iterativa [TODO]
+        \item Iterativa [TODO] \emph{teorema de Perron–Frobenius}
         \item Paseos Aleatorios
       \end{itemize}
-
-    \end{frame}
-
-    \begin{frame}[fragile]{PageRank Personalizado}
-
-      [TODO ]
 
     \end{frame}
 
     \begin{frame}[fragile]{Algoritmos Similares}
 
       \begin{itemize}
-        \item HITS
-        \item SALSA
-        \item SimRank
+        \item HITS \cite{kleinberg1999authoritative}
+        \item SALSA \cite{lempel2001salsa}
+        \item SimRank \cite{jeh2002simrank}
       \end{itemize}
 
     \end{frame}
@@ -228,7 +223,7 @@
 
     \begin{frame}[fragile]{Implementación}
 
-      La implementación realizada consiste en una biblioteca de grafos (\textbf{tf\_G}) utilizando como base la plataforma de cálculo matemático intesivo \textbf{TensorFlow}.
+      La implementación realizada consiste en una biblioteca de grafos (\textbf{tf\_G}) utilizando como base la plataforma de cálculo matemático intesivo \textbf{TensorFlow} \cite{abadi2016tensorflow}.
 
       \textbf{tf\_G} se encuentra en una fase muy temprana, formando únicamente el conjunto de métodos para el cálculo del \textbf{PageRank}.
 
