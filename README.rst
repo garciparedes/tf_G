@@ -1,5 +1,5 @@
-Trabajo de Fin de Grado: Algoritmos para Big Data: Grafos y PageRank
-====================================================================
+tf_G
+====
 
 :Name: tf_G
 :Description: Python's Tensorflow Graph Library
