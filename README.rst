@@ -1,6 +1,10 @@
 tf_G
 ====
 
+.. image:: https://badges.gitter.im/tf_G/Lobby.svg
+   :alt: Join the chat at https://gitter.im/tf_G/Lobby
+   :target: https://gitter.im/tf_G/Lobby?utm_source=badge&utm_medium=badge&utm_campaign=pr-badge&utm_content=badge
+
 :Name: tf_G
 :Description: Python's Tensorflow Graph Library
 :Website: https://github.com/garciparedes/tf_G
