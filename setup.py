@@ -8,7 +8,7 @@ from setuptools import setup, find_packages
 # http://blog.ionelmc.ro/2014/05/25/python-packaging/
 setup(
   name="tf_G",
-  version="0.1",
+  version="0.2",
   description="Python's Tensorflow Graph Library",
   author="garciparedes",
   author_email="sergio@garciparedes.me",
