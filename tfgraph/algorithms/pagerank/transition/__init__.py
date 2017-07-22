@@ -1,5 +1,5 @@
 """
-tf_G.algorithms.pagerank.transition Module
+tfgraph.algorithms.pagerank.transition Module
 
 This module contains a set of classes that represents the transition matrix of
 a graph, that is used in PageRank algorithms.

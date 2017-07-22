@@ -4,22 +4,22 @@ import tensorflow as tf
 import numpy as np
 import timeit
 
-import tf_G
+import tfgraph
 
 
 def main():
   beta: float = 0.85
   convergence: float = 0.0001
 
-  edges_np: np.ndarray = tf_G.DataSets.naive_6()
+  edges_np: np.ndarray = tfgraph.DataSets.naive_6()
 
   with tf.Session() as sess:
     writer: tf.summary.FileWriter = tf.summary.FileWriter('logs/tensorflow/')
 
-    graph: tf_G.Graph = tf_G.GraphConstructor.from_edges(
+    graph: tfgraph.Graph = tfgraph.GraphConstructor.from_edges(
       sess, "G", edges_np, is_sparse=False)
 
-    pr_itr: tf_G.PageRank = tf_G.IterativePageRank(sess, "PR", graph, beta)
+    pr_itr: tfgraph.PageRank = tfgraph.IterativePageRank(sess, "PR", graph, beta)
 
     start_time: float = timeit.default_timer()
     b: np.ndarray = pr_itr.ranks_np(convergence=convergence)

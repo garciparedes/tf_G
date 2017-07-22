@@ -1,8 +1,8 @@
 import numpy as np
 import tensorflow as tf
 
-from tf_G.utils.callbacks.update_edge_notifier import UpdateEdgeNotifier
-from tf_G.utils.tensorflow_object import TensorFlowObject, TF_type
+from tfgraph.utils.callbacks.update_edge_notifier import UpdateEdgeNotifier
+from tfgraph.utils.tensorflow_object import TensorFlowObject, TF_type
 
 
 def __str__(self) -> str:
@@ -312,7 +312,7 @@ class Graph(TensorFlowObject, UpdateEdgeNotifier):
     """
     if src and dst is None:
       raise ValueError(
-        "tf_G and dst must not be None ")
+        "tfgraph and dst must not be None ")
     self.run_tf([tf.scatter_nd_add(self.A_tf, [[src, dst]], [1.0]),
                  tf.scatter_nd_add(self.out_degrees_tf, [[src, 0]], [1.0]),
                  tf.scatter_nd_add(self.in_degrees_tf, [[0, dst]], [1.0])])
@@ -335,7 +335,7 @@ class Graph(TensorFlowObject, UpdateEdgeNotifier):
     """
     if src and dst is None:
       raise ValueError(
-        "tf_G and dst must not be None ")
+        "tfgraph and dst must not be None ")
     self.run_tf([tf.scatter_nd_add(self.A_tf, [[src, dst]], [-1.0]),
                  tf.scatter_nd_add(self.out_degrees_tf, [[src, 0]], [-1.0]),
                  tf.scatter_nd_add(self.in_degrees_tf, [[0, dst]], [-1.0])])

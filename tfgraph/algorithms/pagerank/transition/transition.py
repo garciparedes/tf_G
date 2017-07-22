@@ -1,8 +1,8 @@
 import tensorflow as tf
-from tf_G.utils.callbacks.update_edge_listener import UpdateEdgeListener
-from tf_G.graph.graph import Graph
-from tf_G.utils.callbacks.update_edge_notifier import UpdateEdgeNotifier
-from tf_G.utils.tensorflow_object import TensorFlowObject
+from tfgraph.utils.callbacks.update_edge_listener import UpdateEdgeListener
+from tfgraph.graph.graph import Graph
+from tfgraph.utils.callbacks.update_edge_notifier import UpdateEdgeNotifier
+from tfgraph.utils.tensorflow_object import TensorFlowObject
 
 
 class Transition(TensorFlowObject, UpdateEdgeNotifier, UpdateEdgeListener):
@@ -27,7 +27,7 @@ class Transition(TensorFlowObject, UpdateEdgeNotifier, UpdateEdgeListener):
       implemented yet. Show the Todo.
     _listeners (:obj:`set`): The set of objects that will be notified when an
       edge modifies it weight.
-    G (:obj:`tf_G.Graph`):  The graph on which the transition is referred.
+    G (:obj:`tfgraph.Graph`):  The graph on which the transition is referred.
 
   """
 
@@ -43,7 +43,7 @@ class Transition(TensorFlowObject, UpdateEdgeNotifier, UpdateEdgeListener):
         the TensorFlow operations.
       name (str): This attribute represents the name of the object in
         TensorFlow's op Graph.
-      graph (:obj:`tf_G.Graph`):  The graph on which the transition is referred.
+      graph (:obj:`tfgraph.Graph`):  The graph on which the transition is referred.
       writer (:obj:`tf.summary.FileWriter`): This attribute represents a
         TensorFlow's Writer, that is used to obtain stats.
       is_sparse (bool): Use sparse Tensors if it's set to True. Not

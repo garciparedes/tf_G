@@ -1,5 +1,5 @@
 """
-tf_G.utils.callbacks Module
+tfgraph.utils.callbacks Module
 
 It contains a set of classes that helps on notifications of graph changes.
 

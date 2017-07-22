@@ -1,21 +1,21 @@
 
-`tf_G.algorithms.pagerank`
+`tfgraph.algorithms.pagerank`
 ==========================
 
-.. automodule:: tf_G.algorithms.pagerank
+.. automodule:: tfgraph.algorithms.pagerank
     :members:
 
 PageRank
 --------
-.. autoclass:: tf_G.algorithms.pagerank.pagerank.PageRank
+.. autoclass:: tfgraph.algorithms.pagerank.pagerank.PageRank
     :members:
 
 AlgebraicPageRank
 -----------------
-.. autoclass:: tf_G.algorithms.pagerank.algebraic_pagerank.AlgebraicPageRank
+.. autoclass:: tfgraph.algorithms.pagerank.algebraic_pagerank.AlgebraicPageRank
     :members:
 
 IterativePageRank
 -----------------
-.. autoclass:: tf_G.algorithms.pagerank.iterative_pagerank.IterativePageRank
+.. autoclass:: tfgraph.algorithms.pagerank.iterative_pagerank.IterativePageRank
     :members:

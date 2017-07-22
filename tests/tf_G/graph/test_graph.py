@@ -1,18 +1,18 @@
 import tensorflow as tf
 import numpy as np
 
-import tf_G
+import tfgraph
 
 
 def test_graph_cardinality():
-  graph = tf_G.Graph(tf.Session(), "G_proof", edges_np=tf_G.DataSets.naive_6())
+  graph = tfgraph.Graph(tf.Session(), "G_proof", edges_np=tfgraph.DataSets.naive_6())
 
   assert graph.n == 6
   assert graph.m == 9
 
 
 def test_graph_out_degrees():
-  graph = tf_G.Graph(tf.Session(), "G_proof", edges_np=tf_G.DataSets.naive_6())
+  graph = tfgraph.Graph(tf.Session(), "G_proof", edges_np=tfgraph.DataSets.naive_6())
 
   np.testing.assert_array_equal(
     graph.out_degrees_np,
@@ -20,7 +20,7 @@ def test_graph_out_degrees():
 
 
 def test_graph_in_degrees():
-  graph = tf_G.Graph(tf.Session(), "G_proof", edges_np=tf_G.DataSets.naive_6())
+  graph = tfgraph.Graph(tf.Session(), "G_proof", edges_np=tfgraph.DataSets.naive_6())
 
   np.testing.assert_array_equal(
     graph.in_degrees_np,
@@ -29,12 +29,12 @@ def test_graph_in_degrees():
 
 def test_graph_upgradeable():
   with tf.Session() as sess:
-    g: tf_G.Graph = tf_G.GraphConstructor.from_edges(
-      sess, "G1", edges_np=tf_G.DataSets.naive_6())
+    g: tfgraph.Graph = tfgraph.GraphConstructor.from_edges(
+      sess, "G1", edges_np=tfgraph.DataSets.naive_6())
 
-    g_upgradeable: tf_G.Graph = tf_G.GraphConstructor.empty(sess, "G2", g.n)
+    g_upgradeable: tfgraph.Graph = tfgraph.GraphConstructor.empty(sess, "G2", g.n)
 
-    for e in tf_G.DataSets.naive_6():
+    for e in tfgraph.DataSets.naive_6():
       g_upgradeable.append(e[0], e[1])
 
     np.testing.assert_array_equal(

@@ -3,20 +3,20 @@
 import tensorflow as tf
 import numpy as np
 
-import tf_G
+import tfgraph
 
 
 def main():
   beta: float = 0.85
   convergence: float = 0.0001
 
-  edges_np: np.ndarray = tf_G.DataSets.naive_6()
+  edges_np: np.ndarray = tfgraph.DataSets.naive_6()
 
   with tf.Session() as sess:
-    graph: tf_G.Graph = tf_G.GraphConstructor.from_edges(
+    graph: tfgraph.Graph = tfgraph.GraphConstructor.from_edges(
       sess, "G", edges_np, is_sparse=False)
 
-    pr_iter: tf_G.PageRank = tf_G.IterativePageRank(sess, "PR1", graph, beta)
+    pr_iter: tfgraph.PageRank = tfgraph.IterativePageRank(sess, "PR1", graph, beta)
 
     v_4: np.ndarray = pr_iter.pagerank_vector_np(convergence=convergence,
                                                  topics=[4])

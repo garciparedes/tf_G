@@ -9,7 +9,7 @@ if "%SPHINXBUILD%" == "" (
 )
 set SOURCEDIR=source
 set BUILDDIR=build
-set SPHINXPROJ=tf_G
+set SPHINXPROJ=tfgraph
 
 if "%1" == "" goto help
 

@@ -1,16 +1,16 @@
 
-`tf_G.utils.math`
+`tfgraph.utils.math`
 =================
 
-.. automodule:: tf_G.utils.math
+.. automodule:: tfgraph.utils.math
     :members:
 
 ConvergenceCriterion
 --------------------
-.. autoclass:: tf_G.utils.math.convergence_criterion.ConvergenceCriterion
+.. autoclass:: tfgraph.utils.math.convergence_criterion.ConvergenceCriterion
     :members:
 
 VectorNorm
 ----------
-.. autoclass:: tf_G.utils.math.vector_norm.VectorNorm
+.. autoclass:: tfgraph.utils.math.vector_norm.VectorNorm
     :members:

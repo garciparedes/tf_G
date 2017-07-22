@@ -7,13 +7,13 @@ from setuptools import setup, find_packages
 
 # http://blog.ionelmc.ro/2014/05/25/python-packaging/
 setup(
-  name="tf_G",
+  name="tfgraph",
   version="0.2",
   description="Python's Tensorflow Graph Library",
   author="garciparedes",
   author_email="sergio@garciparedes.me",
-  url="http://tf_G.readthedocs.io/en/latest/",
-  download_url="https://github.com/garciparedes/tf_G",
+  url="http://tfgraph.readthedocs.io/en/latest/",
+  download_url="https://github.com/garciparedes/tfgraph",
   keywords=[
     "tfg", "bigdata", "tensorflow",
     "graph theory", "pagerank", "university of valladolid",
@@ -27,8 +27,7 @@ setup(
   tests_require=[
     "pytest"
   ],
-  packages=find_packages('src'),
-  package_dir={'': 'src'},
+  packages=find_packages(),
   classifiers=[
     "Development Status :: 2 - Pre-Alpha",
     "Intended Audience :: Education",

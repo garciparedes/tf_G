@@ -1,6 +1,6 @@
 
-`tf_G`
+`tfgraph`
 ======
 
-.. automodule:: tf_G
+.. automodule:: tfgraph
     :members:

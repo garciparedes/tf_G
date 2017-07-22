@@ -1,16 +1,16 @@
 
-`tf_G.utils.callbacks`
+`tfgraph.utils.callbacks`
 ======================
 
-.. automodule:: tf_G.utils.callbacks
+.. automodule:: tfgraph.utils.callbacks
     :members:
 
 UpdateEdgeListener
 ------------------
-.. autoclass:: tf_G.utils.callbacks.update_edge_listener.UpdateEdgeListener
+.. autoclass:: tfgraph.utils.callbacks.update_edge_listener.UpdateEdgeListener
     :members:
 
 UpdateEdgeNotifier
 ------------------
-.. autoclass:: tf_G.utils.callbacks.update_edge_notifier.UpdateEdgeNotifier
+.. autoclass:: tfgraph.utils.callbacks.update_edge_notifier.UpdateEdgeNotifier
     :members:
