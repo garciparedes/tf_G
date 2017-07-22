@@ -7,3 +7,4 @@ a set graph algorithms.
 """
 
 from .pagerank import *
+from .minimum_spanning_tree import *
