@@ -2,7 +2,7 @@ import numpy as np
 
 
 class Utils:
-  """ Utils class of the tf_G package.
+  """ Utils class of the tfgraph package.
 
   This class contains static methods that will be used by another classes
   around the package.

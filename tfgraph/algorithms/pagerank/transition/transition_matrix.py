@@ -1,8 +1,8 @@
 import numpy as np
 import tensorflow as tf
 
-from tf_G.algorithms.pagerank.transition.transition import Transition
-from tf_G.graph.graph import Graph
+from tfgraph.algorithms.pagerank.transition.transition import Transition
+from tfgraph.graph.graph import Graph
 
 
 class TransitionMatrix(Transition):
@@ -20,7 +20,7 @@ class TransitionMatrix(Transition):
       TensorFlow's Writer, that is used to obtain stats.
     is_sparse (bool): Use sparse Tensors if it's set to True. Not implemented
       yet. Show the Todo.
-    G (:obj:`tf_G.Graph`):  The graph on which the transition is referred.
+    G (:obj:`tfgraph.Graph`):  The graph on which the transition is referred.
     transition (:obj:`tf.Variable`): The 2-D `tf.Tensor` with the same shape as
       adjacency matrix of the graph, that represents the probabilities to
       move from one vertex to another.
@@ -39,7 +39,7 @@ class TransitionMatrix(Transition):
         the TensorFlow operations.
       name (str): This attribute represents the name of the object in
         TensorFlow's op Graph.
-      graph (:obj:`tf_G.Graph`):  The graph on which the transition is referred.
+      graph (:obj:`tfgraph.Graph`):  The graph on which the transition is referred.
       writer (:obj:`tf.summary.FileWriter`): This attribute represents a
         TensorFlow's Writer, that is used to obtain stats.
       is_sparse (bool): Use sparse Tensors if it's set to True. Not

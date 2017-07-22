@@ -1,21 +1,21 @@
 
-`tf_G.graph`
+`tfgraph.graph`
 ============
 
-.. automodule:: tf_G.graph
+.. automodule:: tfgraph.graph
     :members:
 
 Graph
 -----
-.. autoclass:: tf_G.graph.graph.Graph
+.. autoclass:: tfgraph.graph.graph.Graph
     :members:
 
 GraphConstructor
 ----------------
-.. autoclass:: tf_G.graph.graph_constructor.GraphConstructor
+.. autoclass:: tfgraph.graph.graph_constructor.GraphConstructor
     :members:
 
 GraphSparsifier
 ---------------
-.. autoclass:: tf_G.graph.graph_sparsifier.GraphSparsifier
+.. autoclass:: tfgraph.graph.graph_sparsifier.GraphSparsifier
     :members:

@@ -1,7 +1,7 @@
 """
-tf_G.algorithms.pagerank Module
+tfgraph.algorithms.pagerank Module
 
-This module contains a set of PageRank's algorithm implementations on the `tf_G`
+This module contains a set of PageRank's algorithm implementations on the `tfgraph`
 module.
 
 """

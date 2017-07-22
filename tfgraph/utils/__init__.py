@@ -1,7 +1,7 @@
 """
-tf_G.utils Module
+tfgraph.utils Module
 
-It contains a set of utilities that is used for another classes of `tf_G`
+It contains a set of utilities that is used for another classes of `tfgraph`
 module.
 
 """

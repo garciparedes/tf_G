@@ -1,6 +1,6 @@
 import tensorflow as tf
 
-from tf_G.graph.graph import Graph
+from tfgraph.graph.graph import Graph
 
 
 class GraphSparsifier(Graph):
@@ -51,7 +51,7 @@ class GraphSparsifier(Graph):
         the TensorFlow operations.
       p (float): The default probability to pick an edge and add it to the
         GraphSparsifier.
-      graph (:obj:`tf_G.Graph`, optional): The input graph to pick the edges.
+      graph (:obj:`tfgraph.Graph`, optional): The input graph to pick the edges.
         The default value is `None`.
       writer (:obj:`tf.summary.FileWriter`, optional): This attribute represents
         a TensorFlow's Writer, that is used to obtain stats. The default value
@@ -90,7 +90,7 @@ class GraphSparsifier(Graph):
     Args:
       sess (:obj:`tf.Session`): This attribute represents the session that runs
         the TensorFlow operations.
-      graph (:obj:`tf_G.Graph`): The input graph to pick the edges
+      graph (:obj:`tfgraph.Graph`): The input graph to pick the edges
       p (float): The default probability to pick an edge and add it to the
         GraphSparsifier.
 

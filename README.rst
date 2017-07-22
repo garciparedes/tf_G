@@ -1,25 +1,25 @@
-tf_G
-====
+TFGraph
+=======
 
 
-:Name: tf_G
+:Name: tfgraph
 :Description: Python's Tensorflow Graph Library
-:Website: https://github.com/garciparedes/tf_G
+:Website: https://github.com/garciparedes/tfgraph
 :Author: `@garciparedes <http://garciparedes.me>`__
 :Version: 0.2
 
 .. |travisci| image:: https://img.shields.io/travis/AeroPython/PyFME/master.svg?style=flat-square
-   :target: https://travis-ci.org/garciparedes/tf_G
+   :target: https://travis-ci.org/garciparedes/tfgraph
 
-.. |codecov| image:: https://img.shields.io/codecov/c/github/garciparedes/tf_G.svg?style=flat-square
-   :target: https://codecov.io/gh/garciparedes/tf_G?branch=master
+.. |codecov| image:: https://img.shields.io/codecov/c/github/garciparedes/tfgraph.svg?style=flat-square
+   :target: https://codecov.io/gh/garciparedes/tfgraph?branch=master
 
 .. |docs| image:: https://img.shields.io/badge/docs-latest-brightgreen.svg?style=flat-square
-   :target: http://tf_G.readthedocs.io/en/latest/?badge=latest
+   :target: http://tfgraph.readthedocs.io/en/latest/?badge=latest
 
-.. |gitter| image:: https://badges.gitter.im/tf_G/Lobby.svg
-   :alt: Join the chat at https://gitter.im/tf_G/Lobby
-   :target: https://gitter.im/tf_G/Lobby?utm_source=badge&utm_medium=badge&utm_campaign=pr-badge&utm_content=badge
+.. |gitter| image:: https://badges.gitter.im/tfgraph/Lobby.svg
+   :alt: Join the chat at https://gitter.im/tfgraph/Lobby
+   :target: https://gitter.im/tfgraph/Lobby?utm_source=badge&utm_medium=badge&utm_campaign=pr-badge&utm_content=badge
 
 |travisci| |codecov| |docs| |gitter|
 
@@ -29,13 +29,13 @@ This work consists of a study of a set of techniques and strategies related with
 
 Content
 -------
-* `Source Code <https://github.com/garciparedes/tf_G/blob/master/src/tf_G>`__
+* `Source Code <https://github.com/garciparedes/tfgraph/blob/master/src/tfgraph>`__
 * `API Documentation <http://tf-g.readthedocs.io/>`__
-* `Code Examples <https://github.com/garciparedes/tf_G/blob/master/examples>`__
-* `Tests <https://github.com/garciparedes/tf_G/blob/master/tests>`__
-* `Final Degree Project: Memory <https://github.com/garciparedes/tf_G/blob/master/tex/document/document.pdf>`__
-* `Final Degree Project: Slides <https://github.com/garciparedes/tf_G/blob/master/tex/slides/slides.pdf>`__
-* `Final Degree Project: Summary <https://github.com/garciparedes/tf_G/blob/master/tex/summary/summary.pdf>`__
+* `Code Examples <https://github.com/garciparedes/tfgraph/blob/master/examples>`__
+* `Tests <https://github.com/garciparedes/tfgraph/blob/master/tests>`__
+* `Final Degree Project: Memory <https://github.com/garciparedes/tfgraph/blob/master/tex/document/document.pdf>`__
+* `Final Degree Project: Slides <https://github.com/garciparedes/tfgraph/blob/master/tex/slides/slides.pdf>`__
+* `Final Degree Project: Summary <https://github.com/garciparedes/tfgraph/blob/master/tex/summary/summary.pdf>`__
 
 
 How to install
@@ -43,7 +43,7 @@ How to install
 
 If you have git installed, you can try::
 
-    $ pip install git+https://github.com/garciparedes/tf_G.git
+    $ pip install git+https://github.com/garciparedes/tfgraph.git
 
 If you get any installation or compilation errors, make sure you have the latest pip and setuptools::
 

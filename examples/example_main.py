@@ -4,32 +4,32 @@ import tensorflow as tf
 import numpy as np
 import timeit
 
-import tf_G
+import tfgraph
 
 
 def main():
   beta: float = 0.85
   convergence: float = 0.0001
 
-  edges_np: np.ndarray = tf_G.DataSets.naive_6()
+  edges_np: np.ndarray = tfgraph.DataSets.naive_6()
 
   with tf.Session() as sess:
     writer: tf.summary.FileWriter = tf.summary.FileWriter(
       'logs/tensorflow/.')
 
-    graph: tf_G.Graph = tf_G.GraphConstructor.from_edges(
+    graph: tfgraph.Graph = tfgraph.GraphConstructor.from_edges(
       sess, "G", edges_np, writer, is_sparse=False)
 
-    pr_alge: tf_G.PageRank = tf_G.AlgebraicPageRank(sess, "PR1",
+    pr_alge: tfgraph.PageRank = tfgraph.AlgebraicPageRank(sess, "PR1",
                                                     graph,
                                                     beta)
 
-    pr_iter: tf_G.PageRank = tf_G.IterativePageRank(sess, "PR1", graph, beta)
+    pr_iter: tfgraph.PageRank = tfgraph.IterativePageRank(sess, "PR1", graph, beta)
     '''
-    g_upgradeable: tf_G.Graph = tf_G.GraphConstructor.empty(sess,
+    g_upgradeable: tfgraph.Graph = tfgraph.GraphConstructor.empty(sess,
                                                            "Gfollowers",
                                                            7, writer)
-    pr_upgradeable: tf_G.PageRank = tf_G.IterativePageRank(sess,
+    pr_upgradeable: tfgraph.PageRank = tfgraph.IterativePageRank(sess,
                                                           "PRfollowers",
                                                           g_upgradeable,
                                                           beta)
@@ -55,9 +55,9 @@ def main():
     # print(pr_iter.ranks_np(convergence=convergence))
     # print(pr_alge.error_ranks_compare_np(pr_iter))
     '''
-    g_sparse = tf_G.GraphConstructor.as_sparsifier(sess, graph, 0.75)
+    g_sparse = tfgraph.GraphConstructor.as_sparsifier(sess, graph, 0.75)
 
-    pr_sparse = tf_G.IterativePageRank(sess, "PR_sparse", g_sparse, beta)
+    pr_sparse = tfgraph.IterativePageRank(sess, "PR_sparse", g_sparse, beta)
 
     start_time: float = timeit.default_timer()
     d: np.ndarray = pr_sparse.ranks_np(convergence=convergence)
@@ -69,27 +69,27 @@ def main():
     print(g_sparse.m)
     '''
     '''
-    g_sparse_upgradeable = tf_G.GraphConstructor.empty_sparsifier(
+    g_sparse_upgradeable = tfgraph.GraphConstructor.empty_sparsifier(
         sess=sess, name="G_su", n=6301, p=0.5)
-    pr_iter: tf_G.PageRank = tf_G.IterativePageRank(
+    pr_iter: tfgraph.PageRank = tfgraph.IterativePageRank(
         sess, "PR_su", g_sparse_upgradeable, beta)
 
     e = pr_iter.ranks_np(convergence=convergence)
     for r in edges_np:
         g_sparse_upgradeable.append(r[0], r[1])
         e = pr_iter.ranks_np(convergence=convergence)
-        tf_G.Utils.save_ranks("logs/csv/sparse_update.csv", e)
+        tfgraph.Utils.save_ranks("logs/csv/sparse_update.csv", e)
 
     print(e)
-    # tf_G.Utils.save_ranks("logs/csv/alge.csv",a)
-    # tf_G.Utils.save_ranks("logs/csv/sparse.csv", d)
-    tf_G.Utils.save_ranks("logs/csv/sparse_update.csv", e)
+    # tfgraph.Utils.save_ranks("logs/csv/alge.csv",a)
+    # tfgraph.Utils.save_ranks("logs/csv/sparse.csv", d)
+    tfgraph.Utils.save_ranks("logs/csv/sparse_update.csv", e)
     '''
     '''
     print(GraphConstructor.unweighted_random(sess, "GRandom", 10 ** 2,
                                              10 ** 3, writer=writer))
     '''
-    tf_G.Utils.save_ranks("logs/csv/iter.csv", b)
+    tfgraph.Utils.save_ranks("logs/csv/iter.csv", b)
 
     writer.add_graph(sess.graph)
 

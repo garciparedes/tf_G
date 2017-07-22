@@ -17,7 +17,7 @@ script:
 
 after_success:
   # Uninstall to test coverage against sources
-  - pip uninstall tf_G -y
+  - pip uninstall tfgraph -y
   - pip install --no-deps -e .
   - py.test --cov
   - codecov
