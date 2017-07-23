@@ -1,8 +1,8 @@
 import numpy as np
 import tensorflow as tf
 
-from tfgraph.algorithms.pagerank.transition.transition import Transition
-from tfgraph.graph.graph import Graph
+from tf_G.algorithms.pagerank.transition.transition import Transition
+from tf_G.graph.graph import Graph
 
 
 class TransitionResetMatrix(Transition):
@@ -20,7 +20,7 @@ class TransitionResetMatrix(Transition):
       TensorFlow's Writer, that is used to obtain stats.
     is_sparse (bool): Use sparse Tensors if it's set to True. Not
       implemented yet. Show the Todo.
-    G (:obj:`tfgraph.Graph`):  The graph on which the transition is referred.
+    G (:obj:`tf_G.Graph`):  The graph on which the transition is referred.
     transition (:obj:`tf.Variable`): The 2-D `tf.Tensor` with the same shape as
       adjacency matrix of the graph, that represents the probabilities to
       move from one vertex to another.
@@ -43,7 +43,7 @@ class TransitionResetMatrix(Transition):
         the TensorFlow operations.
       name (str): This attribute represents the name of the object in
         TensorFlow's op Graph.
-      graph (:obj:`tfgraph.Graph`):  The graph on which the transition is referred.
+      graph (:obj:`tf_G.Graph`):  The graph on which the transition is referred.
       beta (float): The reset probability of the random walks, i.e. the
         probability that a user that surfs the graph an decides to jump to
         another vertex not connected to the current.

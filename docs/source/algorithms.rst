@@ -1,6 +1,6 @@
 
-`tfgraph.algorithms`
+`tf_G.algorithms`
 =================
 
-.. automodule:: tfgraph.algorithms
+.. automodule:: tf_G.algorithms
     :members:

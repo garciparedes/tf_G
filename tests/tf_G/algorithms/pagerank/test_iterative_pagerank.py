@@ -1,16 +1,16 @@
 import tensorflow as tf
 import numpy as np
 
-import tfgraph
+import tf_G
 
 
 def test_iterative_pagerank_convergence():
   with tf.Session() as sess:
     beta = 0.85
     convergence = 0.01
-    graph = tfgraph.GraphConstructor.from_edges(sess, "G_proof",
-                                             edges_np=tfgraph.DataSets.naive_6())
-    pageRank = tfgraph.IterativePageRank(sess, "Pr_Proof", graph, beta)
+    graph = tf_G.GraphConstructor.from_edges(sess, "G_proof",
+                                             edges_np=tf_G.DataSets.naive_6())
+    pageRank = tf_G.IterativePageRank(sess, "Pr_Proof", graph, beta)
 
     np.testing.assert_array_almost_equal(
       pageRank.ranks_np(convergence=convergence),
@@ -28,9 +28,9 @@ def test_iterative_pagerank_steps():
   with tf.Session() as sess:
     beta = 0.85
     steps = 100
-    graph = tfgraph.GraphConstructor.from_edges(sess, "G_proof",
-                                             edges_np=tfgraph.DataSets.naive_6())
-    pageRank = tfgraph.IterativePageRank(sess, "Pr_Proof", graph, beta)
+    graph = tf_G.GraphConstructor.from_edges(sess, "G_proof",
+                                             edges_np=tf_G.DataSets.naive_6())
+    pageRank = tf_G.IterativePageRank(sess, "Pr_Proof", graph, beta)
 
     np.testing.assert_array_almost_equal(
       pageRank.ranks_np(steps=steps),
@@ -48,9 +48,9 @@ def test_iterative_personalized_pagerank_convergence():
   with tf.Session() as sess:
     beta = 0.85
     convergence = 0.001
-    graph = tfgraph.GraphConstructor.from_edges(sess, "G_proof",
-                                             edges_np=tfgraph.DataSets.naive_6())
-    pageRank = tfgraph.IterativePageRank(sess, "Pr_Proof", graph, beta)
+    graph = tf_G.GraphConstructor.from_edges(sess, "G_proof",
+                                             edges_np=tf_G.DataSets.naive_6())
+    pageRank = tf_G.IterativePageRank(sess, "Pr_Proof", graph, beta)
 
     print(pageRank.ranks_np(convergence=convergence, topics=[4]))
     np.testing.assert_array_almost_equal(
@@ -69,9 +69,9 @@ def test_iterative_personalized_pagerank_steps():
   with tf.Session() as sess:
     beta = 0.85
     steps = 100
-    graph = tfgraph.GraphConstructor.from_edges(sess, "G_proof",
-                                             edges_np=tfgraph.DataSets.naive_6())
-    pageRank = tfgraph.IterativePageRank(sess, "Pr_Proof", graph, beta)
+    graph = tf_G.GraphConstructor.from_edges(sess, "G_proof",
+                                             edges_np=tf_G.DataSets.naive_6())
+    pageRank = tf_G.IterativePageRank(sess, "Pr_Proof", graph, beta)
 
     np.testing.assert_array_almost_equal(
       pageRank.ranks_np(steps=steps, topics=[4]),
@@ -90,11 +90,11 @@ def test_iterative_pagerank_upgradeable():
   convergence=0.01
   with tf.Session() as sess:
 
-    g_upgradeable: tfgraph.Graph = tfgraph.GraphConstructor.empty(sess, "G", 6)
-    pr_upgradeable: tfgraph.PageRank = tfgraph.IterativePageRank(
+    g_upgradeable: tf_G.Graph = tf_G.GraphConstructor.empty(sess, "G", 6)
+    pr_upgradeable: tf_G.PageRank = tf_G.IterativePageRank(
       sess, "PR", g_upgradeable, beta)
 
-    for e in tfgraph.DataSets.naive_6():
+    for e in tf_G.DataSets.naive_6():
       g_upgradeable.append(e[0], e[1])
 
     np.testing.assert_array_almost_equal(

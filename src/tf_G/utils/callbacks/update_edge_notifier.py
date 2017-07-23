@@ -1,6 +1,6 @@
 import numpy as np
 
-from tfgraph.utils.callbacks.update_edge_listener import UpdateEdgeListener
+from tf_G.utils.callbacks.update_edge_listener import UpdateEdgeListener
 
 
 class UpdateEdgeNotifier:
@@ -32,7 +32,7 @@ class UpdateEdgeNotifier:
     """ Method to attach objects from this class notifications.
 
     Args:
-      listener (:obj:`tfgraph.UpdateEdgeListener`): An object that will start being
+      listener (:obj:`tf_G.UpdateEdgeListener`): An object that will start being
         notified when the graph changes its edge set.
 
     Returns:
@@ -45,7 +45,7 @@ class UpdateEdgeNotifier:
     """ Method to detach objects from this clas notifications.
 
     Args:
-      listener (:obj:`tfgraph.UpdateEdgeListener`): An object that will stop being
+      listener (:obj:`tf_G.UpdateEdgeListener`): An object that will stop being
         notified when the graph changes its edge set.
 
     Returns:

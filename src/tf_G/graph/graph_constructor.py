@@ -1,8 +1,8 @@
 import tensorflow as tf
 import numpy as np
 
-from tfgraph.graph.graph import Graph
-from tfgraph.graph.graph_sparsifier import GraphSparsifier
+from tf_G.graph.graph import Graph
+from tf_G.graph.graph_sparsifier import GraphSparsifier
 
 
 class GraphConstructor:
@@ -39,7 +39,7 @@ class GraphConstructor:
         implemented yet. Show the Todo. The default value is `False`.
 
     Returns:
-      (:obj:`tfgraph.Graph`): A graph containing all the edges passed as input in
+      (:obj:`tf_G.Graph`): A graph containing all the edges passed as input in
         `edges_np`.
 
     """
@@ -69,7 +69,7 @@ class GraphConstructor:
         implemented yet. Show the Todo. The default value is `False`.
 
     Returns:
-      (:obj:`tfgraph.Graph`): A empty graph that allows additions and deletions of
+      (:obj:`tf_G.Graph`): A empty graph that allows additions and deletions of
         edges from vertex in the interval [0,n].
 
     """
@@ -104,7 +104,7 @@ class GraphConstructor:
         implemented yet. Show the Todo. The default value is `False`.
 
     Returns:
-      (:obj:`tfgraph.GraphSparsifier`): A empty graph that allows additions and
+      (:obj:`tf_G.GraphSparsifier`): A empty graph that allows additions and
         deletions of edges from vertex in the interval [0,n].
 
     """
@@ -134,7 +134,7 @@ class GraphConstructor:
         implemented yet. Show the Todo. The default value is `False`.
 
     Returns:
-      (:obj:`tfgraph.GraphSparsifier`): A empty graph that allows additions and
+      (:obj:`tf_G.GraphSparsifier`): A empty graph that allows additions and
         deletions of edges from vertex in the interval [0,n].
 
     """
@@ -171,13 +171,13 @@ class GraphConstructor:
     Args:
       sess (:obj:`tf.Session`): This attribute represents the session that runs
         the TensorFlow operations.
-      graph (:obj:`tfgraph.Graph`): The input graph to pick the edges
+      graph (:obj:`tf_G.Graph`): The input graph to pick the edges
       p (float): The picking probability value. It must be in the [0,1]
         interval.
       is_sparse (bool): Use sparse Tensors if it's set to True. Not implemented
         yet.
     Returns:
-      (:obj:`tfgraph.Graph`): The resulting graph with less edges than the original
+      (:obj:`tf_G.Graph`): The resulting graph with less edges than the original
         graph.
 
     """
@@ -199,13 +199,13 @@ class GraphConstructor:
     Args:
       sess (:obj:`tf.Session`): This attribute represents the session that runs
         the TensorFlow operations.
-      graph (:obj:`tfgraph.Graph`): The input graph to pick the edges.
+      graph (:obj:`tf_G.Graph`): The input graph to pick the edges.
       p (float): The picking probability value. It must be in the [0,1] interval.
       is_sparse (bool): Use sparse Tensors if it's set to True. Not implemented
         yet.
 
     Returns:
-      (:obj:`tfgraph.Graph`): The resulting graph sparsifier with less edges than
+      (:obj:`tf_G.Graph`): The resulting graph sparsifier with less edges than
         the original graph.
 
     """

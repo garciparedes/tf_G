@@ -3,14 +3,14 @@ from typing import List
 
 import numpy as np
 import tensorflow as tf
-from tfgraph.utils.math.vector_norm import VectorNorm
+from tf_G.utils.math.vector_norm import VectorNorm
 
-from tfgraph.algorithms.pagerank import Transition
-from tfgraph.graph import Graph
-from tfgraph.utils.callbacks.update_edge_listener import UpdateEdgeListener
-from tfgraph.utils.math.convergence_criterion import ConvergenceCriterion
-from tfgraph.utils.tensorflow_object import TensorFlowObject
-from tfgraph.utils.utils import Utils
+from tf_G.algorithms.pagerank import Transition
+from tf_G.graph import Graph
+from tf_G.utils.callbacks.update_edge_listener import UpdateEdgeListener
+from tf_G.utils.math.convergence_criterion import ConvergenceCriterion
+from tf_G.utils.tensorflow_object import TensorFlowObject
+from tf_G.utils.utils import Utils
 
 
 class PageRank(TensorFlowObject, UpdateEdgeListener):
@@ -32,12 +32,12 @@ class PageRank(TensorFlowObject, UpdateEdgeListener):
       the TensorFlow operations.
     name (str): This attribute represents the name of the object in TensorFlow's
       op Graph.
-    G (:obj:`tfgraph.Graph`): The graph on witch it will be calculated the
+    G (:obj:`tf_G.Graph`): The graph on witch it will be calculated the
       algorithm. It will be treated as Directed Weighted Graph.
     beta (float): The reset probability of the random walks, i.e. the
       probability that a user that surfs the graph an decides to jump to another
       vertex not connected to the current.
-    T (:obj:`tfgraph.Transition`): The transition matrix that provides the
+    T (:obj:`tf_G.Transition`): The transition matrix that provides the
       probability distribution relative to the walk to another node of the graph.
     v (:obj:`tf.Variable`): The stationary distribution vector. It contains the
       normalized probability to stay in each vertex of the graph. So represents
@@ -65,7 +65,7 @@ class PageRank(TensorFlowObject, UpdateEdgeListener):
       beta (float): The reset probability of the random walks, i.e. the
         probability that a user that surfs the graph an decides to jump to
         another vertex not connected to the current.
-      T (:obj:`tfgraph.Transition`): The transition matrix that provides the
+      T (:obj:`tf_G.Transition`): The transition matrix that provides the
         probability distribution relative to the walk to another node of the
         graph.
       v (:obj:`tf.Variable`): The stationary distribution vector. It contains
@@ -100,7 +100,7 @@ class PageRank(TensorFlowObject, UpdateEdgeListener):
     only the `k` better ranked vertices.
 
     Args:
-      other_pr (:obj:`tfgraph.PageRank`): Another PageRank object to compare the
+      other_pr (:obj:`tf_G.PageRank`): Another PageRank object to compare the
         resulting ranking.
       k (int, optional): An additional parameter that allows to base the
         comparison only on the `k` better vertices. Not implemented yet.
@@ -132,7 +132,7 @@ class PageRank(TensorFlowObject, UpdateEdgeListener):
     only the `k` better ranked vertices.
 
     Args:
-      other_pr (:obj:`tfgraph.PageRank`): Another PageRank object to compare the
+      other_pr (:obj:`tf_G.PageRank`): Another PageRank object to compare the
         resulting ranking.
       k (int, optional): An additional parameter that allows to base the
         comparison only on the `k` better vertices. Not implemented yet.
@@ -178,7 +178,7 @@ class PageRank(TensorFlowObject, UpdateEdgeListener):
         to False`.
       c_criterion (:obj:`function`, optional): The function used to calculate if
         the Convergence Criterion of the iterative implementations is reached.
-        Default to `tfgraph.ConvergenceCriterion.ONE`.
+        Default to `tf_G.ConvergenceCriterion.ONE`.
 
     Returns:
       (:obj:`tf.Tensor`): A 1-D `tf.Tensor` of [n] shape, where `n` is the
@@ -226,7 +226,7 @@ class PageRank(TensorFlowObject, UpdateEdgeListener):
         to `None`.
       c_criterion (:obj:`function`, optional): The function used to calculate if
         the Convergence Criterion of the iterative implementations is reached.
-        Default to `tfgraph.ConvergenceCriterion.ONE`.
+        Default to `tf_G.ConvergenceCriterion.ONE`.
 
     Returns:
       (:obj:`np.ndarray`): A 1-D `np.ndarray` of [n] shape, where `n` is the
@@ -303,7 +303,7 @@ class PageRank(TensorFlowObject, UpdateEdgeListener):
         to `None`.
       c_criterion (:obj:`function`, optional): The function used to calculate if
         the Convergence Criterion of the iterative implementations is reached.
-        Default to `tfgraph.ConvergenceCriterion.ONE`.
+        Default to `tf_G.ConvergenceCriterion.ONE`.
 
     Returns:
       (:obj:`tf.Tensor`): A 1-D `tf.Tensor` of [n] shape, where `n` is the

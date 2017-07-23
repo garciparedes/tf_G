@@ -1,7 +1,7 @@
 """
-tfgraph.graph Module
+tf_G.graph Module
 
-It contains the graph implementations on `tfgraph` module.
+It contains the graph implementations on `tf_G` module.
 
 """
 

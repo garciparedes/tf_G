@@ -1,21 +1,21 @@
 
-`tfgraph.utils`
+`tf_G.utils`
 ============
 
-.. automodule:: tfgraph.utils
+.. automodule:: tf_G.utils
     :members:
 
 DataSets
 --------
-.. autoclass:: tfgraph.utils.datasets.DataSets
+.. autoclass:: tf_G.utils.datasets.DataSets
     :members:
 
 TensorFlowObject
 ----------------
-.. autoclass:: tfgraph.utils.tensorflow_object.TensorFlowObject
+.. autoclass:: tf_G.utils.tensorflow_object.TensorFlowObject
     :members:
 
 Utils
 -----
-.. autoclass:: tfgraph.utils.utils.Utils
+.. autoclass:: tf_G.utils.utils.Utils
     :members:

@@ -1,9 +1,9 @@
-.. tfgraph documentation master file, created by
+.. tf_G documentation master file, created by
    sphinx-quickstart on Wed Jun 28 15:09:59 2017.
    You can adapt this file completely to your liking, but it should at least
    contain the root `toctree` directive.
 
-Welcome to tfgraph's documentation!
+Welcome to tf_G's documentation!
 ================================
 
 .. toctree::
@@ -12,7 +12,7 @@ Welcome to tfgraph's documentation!
 
    readme
 
-   tfgraph
+   tf_G
    graph
    algorithms
    algorithms_pagerank

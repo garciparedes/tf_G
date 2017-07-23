@@ -2,7 +2,7 @@ from enum import Enum
 
 import tensorflow as tf
 
-from tfgraph.utils.math.vector_norm import VectorNorm
+from tf_G.utils.math.vector_norm import VectorNorm
 
 
 class ConvergenceCriterion(Enum):

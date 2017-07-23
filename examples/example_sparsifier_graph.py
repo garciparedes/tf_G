@@ -1,13 +1,13 @@
 #!/usr/bin/python3
 
 import tensorflow as tf
-import tfgraph
+import tf_G
 
 
 def main():
   with tf.Session() as sess:
-    g: tfgraph.Graph = tfgraph.GraphConstructor.unweighted_random(sess, "G", 10, 85)
-    g_sparse: tfgraph.Graph = tfgraph.GraphConstructor.as_sparsifier(sess, g, 0.75)
+    g: tf_G.Graph = tf_G.GraphConstructor.unweighted_random(sess, "G", 10, 85)
+    g_sparse: tf_G.Graph = tf_G.GraphConstructor.as_sparsifier(sess, g, 0.75)
 
     print(g)
     print(g.m)
